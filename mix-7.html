@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mixed Mock #7 — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1E; --card: rgba(14,20,48,0.72); --text: #C9D2F0; --text-bright: #F2F5FF;
+    --blue: #60A5FA; --violet: #A78BFA; --pink: #F472B6;
+    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
+    --glass-line: rgba(255,255,255,0.14);
+    --ok: #34D399; --ok-bg: rgba(52,211,153,0.14);
+    --danger: #F87171; --danger-bg: rgba(248,113,113,0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
+  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,30,0.78) 0%, rgba(10,14,30,0.88) 100%); }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+  a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
+  a.back:hover { opacity: 1; color: var(--violet); }
+  h2 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; font-size: 20px; margin: 16px 0 20px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; opacity: 0.85; }
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
+  }
+  .timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0.55; } }
+  .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
+  .question { font-size: 17px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+  .question-img { max-width: 100%; border: 1px solid var(--glass-line); border-radius: 10px; margin-bottom: 16px; display: block; background: #fff; padding: 6px; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .opt {
+    text-align: left; border: 1px solid var(--glass-line); border-radius: 10px; padding: 13px 16px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.12); transform: translateX(3px); }
+  .opt.selected {
+    border: 2px solid var(--blue); background: rgba(96,165,250,0.16);
+    color: var(--text-bright); font-weight: 500;
+  }
+  .nav-row { display: flex; justify-content: space-between; }
+  button.nav-btn {
+    border: 1.5px solid var(--glass-line); color: var(--text-bright); background: var(--card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  button.nav-btn:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-1px); }
+  button.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.submit-btn {
+    border: none; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s, transform .15s;
+    box-shadow: 0 8px 24px -10px rgba(244,114,182,0.5);
+  }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); transform: translateY(-1px); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 500;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .review-item {
+    border: 1px solid var(--glass-line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .mark { font-weight: 700; margin-left: 12px; flex-shrink: 0; }
+  .mark.ok { color: var(--ok); }
+  .mark.no { color: var(--danger); }
+  .restart-btn {
+    margin-top: 20px; width: 100%; padding: 13px; border-radius: 999px; border: none;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s;
+  }
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); }
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 16px; }
+    h2 { font-size: 17px; }
+    .question { font-size: 16px; }
+    .stat-grid { gap: 8px; }
+    .stat-card { padding: 10px; }
+    .stat-num { font-size: 19px; }
+    .stat-label { font-size: 11px; }
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .review-item { flex-wrap: wrap; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-photo"></div>
+<div class="wrap">
+  <a href="index.html" class="back">&larr; На главную</a>
+  <h2>Mixed Mock #7 — Математика NUFYPET (30 вопросов)</h2>
+  <div id="app"></div>
+</div>
+
+<script>
+const questions = [{"text": "Какое неравенство эквивалентно p + s > p − s?", "options": ["p > s", "p > 0", "s > p", "s > 0", "s < 0"], "correct": 3, "src": "M14", "id": 1}, {"text": "Продавец продал 30% товара на 40% дешевле оптовой цены, остальное — на 40% дороже. Какова прибыль от всего товара?", "options": ["15%", "16%", "18%", "32%"], "correct": 1, "src": "M14", "id": 2}, {"text": "Рост Мэри увеличился на 20% с 5 до 10 лет, на 15% с 10 до 15 лет, на 10% с 15 до 20 лет. На сколько вырос рост с 5 до 20 лет?", "options": ["38.2%", "45%", "50%", "51.8%", "Ничего из перечисленного"], "correct": 3, "src": "M14", "id": 3}, {"text": "(2 − x)(16 + x⁴)(4 + x²)(2 + x) равно:", "options": ["x⁸ + 8x⁶ − 4x⁴ + 2x² − 256", "x⁸ − 256", "256 − x⁸", "x⁸ − 8x⁶ + 4x⁴ − 2x² + 256", "x⁸ + 256"], "correct": 2, "src": "M10", "id": 4}, {"text": "Пропущенный член x в последовательности −3, 3, x, 27, 45, 67:", "options": ["15", "19", "22", "13", "21"], "correct": 3, "src": "M10", "id": 5}, {"text": "Вычислите (x^0.25 + y^(−1))/x^0.25 при x = 16 и y = 8.", "options": ["19/16", "5/16", "1", "17/16", "9/16"], "correct": 3, "src": "M11", "id": 6}, {"text": "w, x, y, z — целые: w < x², x > y², y² < z², x > z. Какое неравенство обязательно верно?", "options": ["w < x", "w > y", "w < z", "x > y", "y < z"], "correct": 3, "src": "M14", "id": 7}, {"text": "Каков объём куба, площадь поверхности которого равна 150?", "options": ["25", "100", "125", "1000", "15625"], "correct": 2, "src": "M11", "id": 8}, {"text": "a = 2^x, b = 3^x, c = 5^x. Выразите 90^x через a, b, c.", "options": ["(abc)²", "a²bc²", "ab²c", "a²b⁴c²"], "correct": 2, "src": "M14", "id": 9}, {"text": "a = число чётных простых; b = число простых, делящихся на 7; c = число простых, делящихся на 9; d = число простых между 20 и 30. Чему равно a+b+c+d?", "options": ["7", "4", "8", "3", "5"], "correct": 1, "src": "M10", "id": 10}, {"text": "Решите уравнение t − 3 = √(9 − t). Множество решений:", "options": ["{0}", "{0, −5}", "{0, 5}", "{5}", "{2, 5}"], "correct": 3, "src": "M8", "id": 11}, {"text": "Круглый логотип увеличили: новый диаметр на 50% больше исходного. На сколько процентов выросла площадь?", "options": ["225", "50", "125", "250", "80"], "correct": 2, "src": "M8", "id": 12}, {"text": "Двигаясь на 2/3 своей обычной скорости, Челси опаздывает в школу на 20 минут. Время (в минутах) пути с обычной скоростью:", "options": ["48", "50", "40", "32", "45"], "correct": 2, "src": "M8", "id": 13}, {"text": "Труба заполняет бассейн на 4 часа быстрее другой. Медленная работала 7 часов, потом открыли вторую — вместе закончили за 2 часа. За сколько часов каждая заполнит бассейн в одиночку?", "options": ["14 и 18 часов", "8 и 12 часов", "11 и 15 часов", "9 и 13 часов", "10 и 14 часов"], "correct": 1, "src": "M12", "id": 14}, {"text": "График квадратичной функции f(x) имеет минимум в (-1,1). Если f(a) = f(1), какое значение может принимать a?", "options": ["-1", "2", "0", "-3", "-2"], "correct": 3, "src": "M8", "id": 15}, {"text": "Площадь треугольника 2 см². Основание на 3 см длиннее высоты. Найдите основание и высоту.", "options": ["5 и 2", "4 и 1", "6 и 3", "7 и 4", "8 и 5"], "correct": 1, "src": "M12", "id": 16}, {"text": "Найдите уравнение с корнями 2 + √3 и 2 − √3.", "options": ["x² − 4x − 1 = 0", "x² + 4x + 1 = 0", "x² − 4x + 1 = 0", "x² + x − 4 = 0", "x² − x + 4 = 0"], "correct": 2, "src": "M14", "id": 17}, {"text": "Если y∝x = y^(2x) для положительных целых, то (3∝4)∝2 =", "options": ["3²⁴", "3³²", "3⁸", "3¹²", "3¹⁶"], "correct": 1, "src": "M8", "id": 18}, {"text": "a = 3/(5+X), b = (3+X)/5, c = (3+X)/(5+X), X — целое > 0. Что верно?", "options": ["a < b < c всегда", "a < c < b всегда", "b < a < c всегда", "b < c < a всегда", "c < a < b всегда", "c < b < a всегда", "Порядок зависит от X"], "correct": 1, "src": "M14", "id": 19}, {"text": "Выразите x из формулы: 2/x + 1 = (y − 3)... точнее √(2/x + 1) = y − 3", "options": ["x = 2/((y−4)(y−2))", "x = (y−4)/2", "x = (y−3)²/2", "x = 2/((y+4)(y+2))"], "correct": 0, "src": "M14", "id": 20}, {"text": "«Если x = y, то x² = y²». Что НЕЛЬЗЯ вывести из этого утверждения?", "options": ["Для x² = y² достаточно, чтобы x = y", "Необходимое условие x = y — равенство x² = y²", "x = y влечёт x² = y²", "Если x² ≠ y², то x ≠ y", "Если x² = y², то x = y"], "correct": 4, "src": "M14", "id": 21}, {"text": "Митчелл тратит 30% дня на сон, 35% на работу, 5% на спортзал, ещё 5 часов дома, остальное — в машине. Сколько минут в день он в машине?", "options": ["2.2", "60", "120", "132", "432"], "correct": 3, "src": "M12", "id": 22}, {"text": "f(x,y) = 2x² − y², g(x) = 2^x. Чему равно f(g(x), g(x))?", "options": ["2^(x−1)", "2^(−x)", "2^(x−2)", "2^(3x)", "2^(2x)"], "correct": 4, "src": "M8", "id": 23}, {"text": "В классе мальчиков на 6 больше, чем девочек. Отношение мальчиков к девочкам 5/3. Сколько всего учеников?", "options": ["18", "24", "30", "32", "36"], "correct": 1, "src": "M14", "id": 24}, {"text": "Чему равна половина от 2²⁰?", "options": ["2¹⁰", "2²¹", "2¹⁹", "2⁻¹⁰"], "correct": 2, "src": "M14", "id": 25}, {"text": "Один корень уравнения ax² + bx + c = 0 вдвое больше другого. Связь между a, b и c:", "options": ["4b² = 4c", "2b² = 9ac", "2b² = 9a", "b² = 8ac", "9b² = 2ac"], "correct": 1, "src": "M14", "id": 26}, {"text": "Линия g параллельна 2x + 5y − 1 = 0 и проходит через (2,3). Уравнение линии g:", "options": ["2x − 5y = 19", "−2x + 5y = 19", "2x + 5y = −4", "2x + 5y = −2", "2x + 5y = 19"], "correct": 4, "src": "M11", "id": 27}, {"text": "Из каждого угла квадратного листа вырезали квадрат со стороной 3 см и загнули края, получив открытую коробку объёмом 48 см³. Какова сторона исходного листа?", "options": ["10", "2", "9", "8", "14"], "correct": 0, "src": "M14", "id": 28}, {"text": "f(−x) = f(x) для всех x. Точка (3,8) на графике f. Какая точка обязательно тоже на графике?", "options": ["(−8, −3)", "(−3, −8)", "(−3, 8)", "(3, −8)", "(8, 3)"], "correct": 2, "src": "M14", "id": 29}, {"text": "Вычислите: 1/(√2 + 2) + 1/(√2 − 2)", "options": ["2√2", "−2", "−√2", "4"], "correct": 2, "src": "M14", "id": 30}];
+
+let state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.finished) { renderResults(app); return; }
+
+  const q = questions[state.idx];
+  const answeredCount = Object.keys(state.answers).length;
+
+  app.innerHTML = `
+    <div class="topbar">
+      <span>Вопрос ${state.idx+1} из ${questions.length}</span>
+      <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
+    </div>
+    <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
+    ${q.image ? `<img src="${q.image}" class="question-img" alt="Рисунок к вопросу">` : ''}
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Назад</button>
+      ${state.idx === questions.length-1
+        ? '<button class="submit-btn" id="submit">Завершить тест</button>'
+        : '<button class="nav-btn" id="next">Далее &rarr;</button>'}
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => { state.answers[q.id] = parseInt(btn.dataset.i); render(); };
+  });
+  const prev = document.getElementById('prev');
+  if (prev) prev.onclick = () => { state.idx = Math.max(0, state.idx-1); render(); };
+  const next = document.getElementById('next');
+  if (next) next.onclick = () => { state.idx = Math.min(questions.length-1, state.idx+1); render(); };
+  const submit = document.getElementById('submit');
+  if (submit) submit.onclick = finish;
+}
+
+function finish() {
+  clearInterval(state.timerId);
+  state.finished = true;
+  saveAttempt();
+  render();
+  appendHistory();
+}
+
+/* === Prepline: история результатов (localStorage) === */
+function mockKey() {
+  return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
+}
+function saveAttempt() {
+  try {
+    let score = 0;
+    questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    hist.push({ t: Date.now(), s: score, n: questions.length });
+    localStorage.setItem(mockKey(), JSON.stringify(hist.slice(-50)));
+  } catch (e) {}
+}
+function appendHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    if (hist.length < 2) return; // первая попытка — истории ещё нет
+    const best = Math.max.apply(null, hist.map(a => a.s));
+    const rows = hist.slice(-10).reverse().map(a => {
+      const d = new Date(a.t);
+      const ds = d.toLocaleDateString('ru-RU') + ' ' +
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const pct = Math.round(a.s / a.n * 100);
+      return '<div class="review-item"><span>' + ds + '</span>' +
+        '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
+    }).join('');
+    const div = document.createElement('div');
+    div.innerHTML = '<h2 style="margin-top:28px">История попыток &middot; лучший результат ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    const app = document.getElementById('app');
+    const rb = app.querySelector('.restart-btn');
+    if (rb) app.insertBefore(div, rb); else app.appendChild(div);
+  } catch (e) {}
+}
+
+function renderResults(app) {
+  let correctCount = 0;
+  questions.forEach(q => { if (state.answers[q.id] === q.correct) correctCount++; });
+  const pct = Math.round((correctCount/questions.length)*100);
+
+  app.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Итог</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Процент</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Не отвечено</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+    </div>
+    ${questions.map(q => {
+      const ok = state.answers[q.id] === q.correct;
+      const userAns = q.id in state.answers ? q.options[state.answers[q.id]] : '—';
+      const correctAns = q.options[q.correct];
+      return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span>${q.id}. ${q.text}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
+        </div>
+        ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Твой ответ: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--sage); font-weight:600;">Правильный: ${correctAns}</span></div>`}
+      </div>`;
+    }).join('')}
+    <button class="restart-btn" id="restart">Пройти ещё раз</button>
+  `;
+  document.getElementById('restart').onclick = () => {
+    state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+    startTimer();
+    render();
+  };
+}
+
+function startTimer() {
+  state.timerId = setInterval(() => {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) { finish(); return; }
+    render();
+  }, 1000);
+}
+
+startTimer();
+render();
+</script>
+
+<!-- ===== Prepline × Supabase: авторизация + облачное сохранение ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
+
+  if (typeof saveAttempt === 'function') {
+    /* mix-1..7: перехватываем saveAttempt — localStorage остаётся, добавляем облако */
+    const orig = saveAttempt;
+    saveAttempt = function () {
+      orig();
+      try {
+        let score = 0;
+        questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+        window.preplineSaveResult(mockId(), score, questions.length);
+      } catch (e) { console.error('[Prepline]', e); }
+    };
+  } else if (typeof finish === 'function') {
+    /* mix-8: saveAttempt нет, оборачиваем finish */
+    const origFinish = finish;
+    finish = function (reason) {
+      const was = state.finished;
+      origFinish(reason);
+      try {
+        if (!was && state.finished) {
+          const qs = (typeof QUESTIONS !== 'undefined') ? QUESTIONS : questions;
+          let score = 0;
+          qs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+          window.preplineSaveResult(mockId(), score, qs.length);
+        }
+      } catch (e) { console.error('[Prepline]', e); }
+    };
+  }
+})();
+</script>
+</body>
+</html>

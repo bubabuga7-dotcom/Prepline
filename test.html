@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Диагностика — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1E; --card: rgba(14,20,48,0.72); --text: #C9D2F0; --text-bright: #F2F5FF;
+    --blue: #60A5FA; --violet: #A78BFA; --pink: #F472B6;
+    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
+    --glass-line: rgba(255,255,255,0.14);
+    --ok: #34D399; --ok-bg: rgba(52,211,153,0.14);
+    --danger: #F87171; --danger-bg: rgba(248,113,113,0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
+  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,30,0.78) 0%, rgba(10,14,30,0.88) 100%); }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+  a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
+  a.back:hover { opacity: 1; color: var(--violet); }
+  h2 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; font-size: 20px; margin: 16px 0 20px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; opacity: 0.85; }
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
+  }
+  .timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0.55; } }
+  .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
+  .question { font-size: 17px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+  .question-img { max-width: 100%; border: 1px solid var(--glass-line); border-radius: 10px; margin-bottom: 16px; display: block; background: #fff; padding: 6px; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .opt {
+    text-align: left; border: 1px solid var(--glass-line); border-radius: 10px; padding: 13px 16px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.12); transform: translateX(3px); }
+  .opt.selected {
+    border: 2px solid var(--blue); background: rgba(96,165,250,0.16);
+    color: var(--text-bright); font-weight: 500;
+  }
+  .nav-row { display: flex; justify-content: space-between; }
+  button.nav-btn {
+    border: 1.5px solid var(--glass-line); color: var(--text-bright); background: var(--card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  button.nav-btn:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-1px); }
+  button.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.submit-btn {
+    border: none; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s, transform .15s;
+    box-shadow: 0 8px 24px -10px rgba(244,114,182,0.5);
+  }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); transform: translateY(-1px); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 500;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .review-item {
+    border: 1px solid var(--glass-line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .mark { font-weight: 700; margin-left: 12px; flex-shrink: 0; }
+  .mark.ok { color: var(--ok); }
+  .mark.no { color: var(--danger); }
+  .restart-btn {
+    margin-top: 20px; width: 100%; padding: 13px; border-radius: 999px; border: none;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s;
+  }
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); }
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 16px; }
+    h2 { font-size: 17px; }
+    .question { font-size: 16px; }
+    .stat-grid { gap: 8px; }
+    .stat-card { padding: 10px; }
+    .stat-num { font-size: 19px; }
+    .stat-label { font-size: 11px; }
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .review-item { flex-wrap: wrap; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-photo"></div>
+<div class="wrap">
+  <a href="index.html" class="back">&larr; На главную</a>
+  <h2>Mock Exam #1 — Математика NUFYPET</h2>
+  <div id="app"></div>
+</div>
+
+<script>
+const questions = [
+  {id:1, section:'math', text:'Aygerim, Almaz, Yerkezhan, Kaisar and Madina едут на джипе с 5 местами (1 водительское + 4 пассажирских). Водить может только Almaz. Сколько существует различных вариантов рассадки?', options:['12','18','24','120','15'], correct:2},
+  {id:2, section:'math', text:'Если 40% от x равно 160% от y, то (3x − 12y)/5 = ?', options:['3','1','2','4','0'], correct:4},
+  {id:3, section:'math', text:'Если ab = 8/3, bc = 12, ac = 2, чему равен кубический корень из abc?', options:['2','1','3','5','4'], correct:0},
+  {id:4, section:'math', text:'Если 4^(x+2) = 64, чему равен 8x?', options:['8','4','16','1','32'], correct:0},
+  {id:5, section:'math', text:'Операция ∆ определена как a∆b = a/b − b/a. Найдите k, если 3∆k = k∆2.', options:['±2.0','±2.4','±3.0','±5.5','±6.0'], correct:1},
+  {id:6, section:'math', text:'f(x) = kx (k≠0), g(x) = x + k. Какое из утверждений всегда верно: I. f(2x)=2f(x)  II. f(x+2)=f(x)+2  III. f(g(x))=g(f(x))?', options:['Только I','Только II','I и II','I и III','I, II и III'], correct:0},
+  {id:7, section:'math', text:'√(10×(6⁴−16)/32) = ?', options:['√5','15','20','24','√10'], correct:2},
+  {id:8, section:'math', text:'Куб вписан в сферу радиуса 3. Чему равен объём куба?', options:['12√3','24√3','3√3','48√3','72√3'], correct:1},
+  {id:9, section:'math', text:'В какой точке x парабола y = (x−1)² − 4 пересекает ось x?', options:['-2','3','-2','-3','1'], correct:1},
+  {id:10, section:'math', text:'Объём и площадь поверхности куба равны. Чему равна длина ребра?', options:['1','9','6','2','4'], correct:2},
+  {id:11, section:'math', text:'В свой 18-й день рождения в 2012, Aigerim была ростом 159 см, выросши на 6% с 2011 года. Каким был её рост в 2011?', options:['155 см','140 см','145 см','150 см','160 см'], correct:3},
+  {id:12, section:'math', text:'Икосагон — многоугольник с 20 сторонами. Чему равна сумма всех внутренних углов правильного икосагона?', options:['3340°','3240°','3640°','3440°','3540°'], correct:1},
+  {id:13, section:'math', text:'Конус вписан в полусферу радиуса r так, что основание конуса совпадает с основанием полусферы. Чему равно отношение объёма конуса к объёму полусферы?', options:['1/2','1/4','2r/3','r/2','r/3'], correct:0},
+  {id:14, section:'math', text:'ASB — четверть окружности. PQRS — прямоугольник со сторонами PQ=8 и PS=6. Чему равна длина дуги AQB?', options:['5π','25','28','10π','14'], correct:0},
+  {id:15, section:'math', text:'Периметр треугольника равен 13. Два более коротких стороны имеют целые длины x и x+1. Какова может быть длина третьей стороны?', options:['8','10','6','2','4'], correct:2},
+  {id:16, section:'math', text:'Чему равна длина отрезка с концами (−2,−2) и (2,3)?', options:['√31','9','√41','3','7'], correct:2},
+  {id:17, section:'math', text:'Прямоугольник 3×4 вписан в окружность. Чему равна длина окружности?', options:['4π','5π','2.5π','10π','3π'], correct:1},
+  {id:18, section:'math', text:'Сколько градусов проходит часовая стрелка между полуднем и 14:30 того же дня?', options:['180','65','75','60','720'], correct:2},
+  {id:19, section:'math', text:'m и n — корни уравнения x² + 5x + 8 = 0. Чему равен √(m² + n²)?', options:['9','5','4','3','6'], correct:3},
+  {id:20, section:'math', text:'Если g(x−1) = x² + 2, чему равен g(x+1)?', options:['x²+3','x²+4x+6','x²+2x+4','x²+5','x²+4x+2'], correct:1},
+  {id:21, section:'math', text:'При каком ненулевом k многочлен p(x) = x² + 3x + k делится на x + k?', options:['-1','3','2','-4','-2'], correct:2},
+  {id:22, section:'math', text:'Если x = −8, чему равно x^(2/3) + 2x⁰?', options:['-2','4','-4','6','-6'], correct:3},
+  {id:23, section:'math', text:'При каких условиях выражение xy/(x−y) отрицательно?', options:['0<y<x','x<y<0','x<0<y','y<x<0','Ни при каких'], correct:1},
+  {id:24, section:'math', text:'Чему равна сумма корней уравнения 2x³ − 4x² + 9x = 0?', options:['4','3','1/2','3/4','2'], correct:4},
+  {id:25, section:'math', text:'Среднее корней квадратного уравнения равно 3, а разница корней равна 2. Какое из уравнений подходит?', options:['x²−5x+6=0','x²+5x+6=0','x²−6x+8=0','x²−6x−8=0','x²−6x+6=0'], correct:2},
+  {id:26, section:'math', text:'Если 24 из 40 студентов в клубе — девушки, каково соотношение юношей к девушкам?', options:['2:5','3:5','2:3','3:2','5:2'], correct:2}
+];
+
+let state = { idx: 0, answers: {}, timeLeft: 1560, timerId: null, finished: false };
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.finished) { renderResults(app); return; }
+
+  const q = questions[state.idx];
+  const answeredCount = Object.keys(state.answers).length;
+  const label = q.section === 'math' ? 'Математика' : 'Критическое мышление';
+
+  app.innerHTML = `
+    <div class="topbar">
+      <span>Вопрос ${state.idx+1} из ${questions.length} · ${label}</span>
+      <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
+    </div>
+    <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Назад</button>
+      ${state.idx === questions.length-1
+        ? '<button class="submit-btn" id="submit">Завершить тест</button>'
+        : '<button class="nav-btn" id="next">Далее &rarr;</button>'}
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => { state.answers[q.id] = parseInt(btn.dataset.i); render(); };
+  });
+  const prev = document.getElementById('prev');
+  if (prev) prev.onclick = () => { state.idx = Math.max(0, state.idx-1); render(); };
+  const next = document.getElementById('next');
+  if (next) next.onclick = () => { state.idx = Math.min(questions.length-1, state.idx+1); render(); };
+  const submit = document.getElementById('submit');
+  if (submit) submit.onclick = finish;
+}
+
+function finish() {
+  clearInterval(state.timerId);
+  state.finished = true;
+  saveAttempt();
+  render();
+  appendHistory();
+}
+
+/* === Prepline: история результатов (localStorage) === */
+function mockKey() {
+  return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
+}
+function saveAttempt() {
+  try {
+    let score = 0;
+    questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    hist.push({ t: Date.now(), s: score, n: questions.length });
+    localStorage.setItem(mockKey(), JSON.stringify(hist.slice(-50)));
+  } catch (e) {}
+}
+function appendHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    if (hist.length < 2) return; // первая попытка — истории ещё нет
+    const best = Math.max.apply(null, hist.map(a => a.s));
+    const rows = hist.slice(-10).reverse().map(a => {
+      const d = new Date(a.t);
+      const ds = d.toLocaleDateString('ru-RU') + ' ' +
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const pct = Math.round(a.s / a.n * 100);
+      return '<div class="review-item"><span>' + ds + '</span>' +
+        '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
+    }).join('');
+    const div = document.createElement('div');
+    div.innerHTML = '<h2 style="margin-top:28px">История попыток &middot; лучший результат ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    const app = document.getElementById('app');
+    const rb = app.querySelector('.restart-btn');
+    if (rb) app.insertBefore(div, rb); else app.appendChild(div);
+  } catch (e) {}
+}
+
+function renderResults(app) {
+  let correctCount = 0;
+  questions.forEach(q => { if (state.answers[q.id] === q.correct) correctCount++; });
+  const pct = Math.round((correctCount/questions.length)*100);
+
+  app.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Итог</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Процент</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Не отвечено</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+    </div>
+    ${questions.map(q => {
+      const ok = state.answers[q.id] === q.correct;
+      return `<div class="review-item"><span>${q.id}. ${q.text}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '✓' : '✕'}</span></div>`;
+    }).join('')}
+    <button class="restart-btn" id="restart">Пройти ещё раз</button>
+  `;
+  document.getElementById('restart').onclick = () => {
+    state = { idx: 0, answers: {}, timeLeft: 1560, timerId: null, finished: false };
+    startTimer();
+    render();
+  };
+}
+
+function startTimer() {
+  state.timerId = setInterval(() => {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) { finish(); return; }
+    render();
+  }, 1000);
+}
+
+startTimer();
+render();
+</script>
+</body>
+</html>
