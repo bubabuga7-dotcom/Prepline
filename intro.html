@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Что такое NUET — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1E;
+    --text: #C9D2F0;
+    --text-bright: #F2F5FF;
+    --blue: #60A5FA;
+    --violet: #A78BFA;
+    --pink: #F472B6;
+    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
+    --grad-135: linear-gradient(135deg, #60A5FA 0%, #A78BFA 55%, #F472B6 100%);
+    --glass: rgba(255,255,255,0.05);
+    --glass-line: rgba(255,255,255,0.12);
+    --shadow-glow: 0 12px 40px -10px rgba(167,139,250,0.45);
+    --dock-w: 84px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg);
+    line-height: 1.6; overflow-x: hidden;
+  }
+  h1, h3 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; }
+  main { margin-left: var(--dock-w); position: relative; z-index: 1; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
+
+  /* фон — млечный путь на всю страницу */
+  .page-photo {
+    position: fixed; inset: 0; z-index: 0;
+    background: url('bg-milkyway.jpg') center / cover no-repeat;
+  }
+  .page-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,14,30,0.72) 0%, rgba(10,14,30,0.82) 100%);
+  }
+
+  /* ---------- левый taskbar (dock) ---------- */
+  .dock {
+    position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 18px 0; gap: 8px;
+    background: rgba(12,16,36,0.72);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-line);
+  }
+  .dock-logo {
+    width: 46px; height: 46px; border-radius: 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
+    background: var(--grad-135);
+    box-shadow: var(--shadow-glow);
+    text-decoration: none;
+    animation: floaty 5s ease-in-out infinite;
+  }
+  .dock-item {
+    position: relative; width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text); text-decoration: none; border: 1px solid transparent;
+    transition: background .25s, color .25s, border-color .25s, transform .2s;
+  }
+  .dock-item svg { width: 22px; height: 22px; }
+  .dock-item:hover {
+    background: var(--glass); border-color: var(--glass-line); color: var(--text-bright);
+    transform: translateX(3px);
+  }
+  .dock-item.active {
+    color: #fff; background: var(--grad-135);
+    box-shadow: 0 8px 24px -8px rgba(244,114,182,0.5);
+  }
+  .dock-tip {
+    position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%) translateX(-6px);
+    background: rgba(14,20,48,0.95); border: 1px solid var(--glass-line);
+    color: var(--text-bright); font-size: 12px; font-weight: 600; white-space: nowrap;
+    padding: 6px 12px; border-radius: 8px;
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+  }
+  .dock-item:hover .dock-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
+  .dock-spacer { flex: 1; }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  h1 { font-size: 32px; margin: 4px 0 8px; font-weight: 800; text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+  h1 .grad-text {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .subtitle { margin-bottom: 34px; opacity: 0.85; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+
+  .mock-list { display: flex; flex-direction: column; gap: 16px; }
+  .mock-card {
+    background: rgba(14,20,48,0.55);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-line); border-radius: 16px; padding: 24px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s, background .3s;
+    will-change: transform;
+  }
+  .mock-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(167,139,250,0.5);
+    background: rgba(167,139,250,0.1);
+  }
+  .mock-card h3 { font-size: 19px; margin-bottom: 6px; }
+  .mock-meta { font-size: 13px; opacity: 0.8; }
+  .mock-meta strong { font-family: 'IBM Plex Mono', monospace; color: var(--text-bright); }
+  .mock-btn {
+    flex-shrink: 0; text-decoration: none; font-weight: 600; font-size: 14px; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 11px 22px; border-radius: 999px; white-space: nowrap;
+    transition: background-position .45s ease, box-shadow .3s ease, scale .2s ease;
+    animation: floaty 4.5s ease-in-out infinite;
+  }
+  .mock-list .mock-card:nth-child(2n) .mock-btn { animation-delay: 0.7s; }
+  .mock-list .mock-card:nth-child(3n) .mock-btn { animation-delay: 1.4s; }
+  .mock-btn:hover { background-position: 100% 50%; box-shadow: var(--shadow-glow); scale: 1.06; }
+
+  .mock-progress {
+    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(52,211,153,0.14); color: #A7F3D0;
+    border: 1px solid rgba(52,211,153,0.4);
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .empty-note {
+    margin-top: 30px; font-size: 14px; opacity: 0.85;
+    border-top: 1px solid var(--glass-line); padding-top: 20px;
+  }
+  .empty-note a { color: var(--blue); font-weight: 500; text-decoration: none; }
+  .empty-note a:hover { color: var(--pink); text-decoration: underline; }
+
+  /* ---------- mobile: dock становится нижней панелью ---------- */
+  @media (max-width: 780px) {
+    :root { --dock-w: 0px; }
+    main { margin-left: 0; }
+    body { padding-bottom: 78px; }
+    .dock {
+      top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 68px;
+      flex-direction: row; justify-content: space-around; padding: 0 10px; gap: 0;
+      border-right: none; border-top: 1px solid var(--glass-line);
+    }
+    .dock-logo { width: 40px; height: 40px; margin-bottom: 0; font-size: 17px; animation: none; }
+    .dock-spacer { display: none; }
+    .dock-tip { display: none; }
+    .dock-item:hover { transform: none; }
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 28px 16px; }
+    h1 { font-size: 26px; }
+    .mock-card { flex-direction: column; align-items: stretch; text-align: left; gap: 14px; }
+    .mock-btn { text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-photo"></div>
+
+<!-- ЛЕВЫЙ TASKBAR -->
+<aside class="dock">
+  <a href="index.html" class="dock-logo" aria-label="Prepline — на главную">P</a>
+  <a href="index.html" class="dock-item" aria-label="Главная">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+    <span class="dock-tip">Главная</span>
+  </a>
+  <a href="index.html#tracks" class="dock-item" aria-label="Направления">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+    <span class="dock-tip">Направления</span>
+  </a>
+  <a href="index.html#how" class="dock-item" aria-label="Как это работает">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
+    <span class="dock-tip">Как это работает</span>
+  </a>
+  <div class="dock-spacer"></div>
+  <a href="intro.html" class="dock-item active" aria-label="Что такое NUET">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <span class="dock-tip">Что такое NUET</span>
+  </a>
+
+  <a href="math.html" class="dock-item" aria-label="Математика">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
+    <span class="dock-tip">Математика</span>
+  </a>
+  <a href="crit.html" class="dock-item" aria-label="Critical Thinking">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
+    <span class="dock-tip">Critical Thinking</span>
+  </a>
+</aside>
+
+<main>
+<div class="wrap">
+  <h1>Что такое <span class="grad-text">NUET</span></h1>
+  <p class="subtitle">Коротко о том, что за экзамен, из чего состоит и зачем он нужен.</p>
+
+  <div class="mock-list">
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
+      <h3 style="font-size:20px;">Кто проводит экзамен</h3>
+      <p style="opacity:0.9;">NUET (Nazarbayev University Entrance Test) — вступительный тест Nazarbayev University. Раньше он назывался NUFYPET. Тест разработан вместе с Cambridge Assessment International Education (Кембриджский университет), а принимает его Center for Preparatory Studies (CPS) университета. Экзамен платный — взнос <strong>5 000 тенге</strong>, оплачивается при подаче заявки на admissions.nu.edu.kz; ближе к концу периода подачи заявок стоимость может вырасти, поэтому не стоит тянуть с регистрацией. Апелляции результатов не предусмотрено.</p>
+    </div>
+
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
+      <h3 style="font-size:20px;">Структура: две секции</h3>
+      <p style="opacity:0.9;">NUET состоит из двух отдельных секций, идущих подряд:</p>
+      <div class="track-meta" style="display:flex; gap:24px; flex-wrap:wrap; margin-top:4px;">
+        <span>📐 <strong>Математика</strong> — 30 вопросов, 60 минут</span>
+        <span>🧠 <strong>Critical Thinking &amp; Problem Solving</strong> — 30 вопросов, 60 минут</span>
+      </div>
+      <p style="opacity:0.75; font-size:14px; margin-top:6px;">Итого: 60 вопросов, 120 минут, только тесты с выбором ответа (multiple-choice).</p>
+    </div>
+
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
+      <h3 style="font-size:20px;">Как считаются баллы</h3>
+      <p style="opacity:0.9;">Каждая секция оценивается по шкале <strong>0–120</strong>, итоговый максимум — <strong>240</strong> баллов за обе секции вместе. Проходной балл зависит от категории поступления и года — ориентируйся на официальные документы NU перед подачей, но на практике для гранта нужно заметно выше формального минимума. Мы в Prepline ориентируемся на цель <strong>210+/240</strong> — это уже конкурентный результат.</p>
+    </div>
+
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
+      <h3 style="font-size:20px;">Зачем он нужен</h3>
+      <p style="opacity:0.9;">NUET — обязательный экзамен для поступления в Nazarbayev University по категории «NUET applicants»: и на программу Foundation Year (NUFYP), и напрямую на бакалавриат. Хороший результат по IELTS (6.0+) может давать дополнительную скидку на обучение — но сам NUET сдаётся отдельно и не заменяет языковой сертификат.</p>
+    </div>
+
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:14px;">
+      <h3 style="font-size:20px;">Полная спецификация — Математика (M1–M5)</h3>
+      <p style="opacity:0.75; font-size:14px;">Официальный список тем от Cambridge Assessment. Каждый M-код — это конкретный навык, который может встретиться на экзамене.</p>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M1. Единицы измерения</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа со стандартными единицами (масса, длина, время, деньги) и составными величинами (скорость, плотность, давление, цена за единицу).</p>
+        <p style="opacity:0.85; font-size:14px;">Перевод между связанными единицами измерения, включая площадь и объём, в числовых и алгебраических задачах.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M2. Числа</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Сравнение и упорядочивание целых, отрицательных чисел, десятичных дробей; четыре арифметических действия с дробями и десятичными.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Простые числа, делители, кратные, НОД и НОК с разложением на множители; обратные операции и порядок действий; систематический перебор вариантов.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Квадратные и кубические корни; законы степеней, включая дробные и отрицательные показатели; стандартный вид числа (a×10ⁿ).</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Переводы между дробями, десятичными и процентами, включая периодические дроби.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Точные вычисления с корнями и π, упрощение выражений с корнями и рационализация знаменателя.</p>
+        <p style="opacity:0.85; font-size:14px;">Границы точности (округление) и оценка результата вычислений.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M3. Отношения и пропорции</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Масштабные коэффициенты и масштабные схемы; выражение величины как доли другой; деление величины в заданном отношении.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Отношения в реальных задачах: смеси, конвертация, сравнение величин.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Прямая и обратная пропорциональность, включая графики и уравнения.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Проценты — вычисление, сравнение, изменение, включая сложные проценты.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Сравнение длин, площадей и объёмов через отношения и подобие.</p>
+        <p style="opacity:0.85; font-size:14px;">Задачи на рост и убывание, в том числе сложный процент.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M4. Алгебра</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Алгебраическая нотация и подстановка значений в формулы.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Раскрытие скобок, вынесение общего множителя, разложение квадратных выражений на множители, включая разность квадратов.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Упрощение выражений и рациональных дробей; преобразование формул; различие между уравнением и тождеством.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа с координатами и построение графиков линейных и квадратичных функций; нахождение уравнения прямой.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Корни, точки пересечения и вершины парабол; графики кубических, обратных, показательных и тригонометрических функций.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Вычисление наклона графика и площади под графиком.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Решение линейных и квадратных уравнений (включая метод выделения полного квадрата и формулу корней), а также систем уравнений.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Решение линейных неравенств.</p>
+        <p style="opacity:0.85; font-size:14px;">Арифметические и квадратичные последовательности, нахождение формулы n-го члена.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M5. Геометрия</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Термины и обозначения: точки, прямые, углы, многоугольники.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Свойства углов при параллельных прямых, в треугольниках и четырёхугольниках; сумма углов многоугольника.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Признаки равенства треугольников (SSS, SAS, ASA, RHS) и подобия.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Преобразования фигур — поворот, отражение, перенос, масштабирование — и векторы.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Теорема Пифагора в 2D и 3D.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Окружности: термины, теоремы об углах, хордах и касательных, циклические четырёхугольники.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Координатная геометрия; масштабные схемы и азимуты (bearings).</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Площади треугольников, параллелограммов, трапеций; объём призм.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Длина окружности, площадь круга, объём цилиндра; площадь сектора и длина дуги.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Тригонометрические соотношения (sin, cos, tan) для прямоугольных и произвольных треугольников, точные значения для стандартных углов.</p>
+        <p style="opacity:0.85; font-size:14px;">Действия с векторами.</p>
+      </div>
+    </div>
+
+    <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:14px;">
+      <h3 style="font-size:20px;">Полная спецификация — Critical Thinking &amp; Problem Solving</h3>
+      <p style="opacity:0.75; font-size:14px;">Формат основан на TSA (Thinking Skills Assessment) от Cambridge. Вопросы вперемешку — Critical Thinking (текстовые аргументы) и Problem Solving (числа, таблицы, графики).</p>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Critical Thinking — типы заданий</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Main Conclusion</strong> — найти главный вывод аргумента среди пяти вариантов.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Conclusion</strong> — определить, какой вывод логически следует из текста.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Assumption</strong> — найти недостающее допущение, без которого аргумент не работает.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Flaw</strong> — определить логическую ошибку в рассуждении.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Strengthen / Weaken</strong> — выбрать утверждение, которое усиливает или ослабляет аргумент.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Principle</strong> — применить общий принцип к конкретной ситуации или найти принцип, который иллюстрирует пример.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Parallel reasoning</strong> — найти аргумент с такой же логической структурой, но на другую тему.</p>
+        <p style="opacity:0.85; font-size:14px;"><strong>Evaluate</strong> — оценить, насколько дополнительная информация повлияла бы на аргумент.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Problem Solving — типы заданий</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Отбор нужных данных из текста, таблицы или графика.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Поиск закономерности или процедуры решения.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа с расписаниями, графиками и диаграммами.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Пространственное мышление: развёртки фигур, вращение, симметрия.</p>
+        <p style="opacity:0.85; font-size:14px;">Логические головоломки на комбинаторику и перебор вариантов.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:36px; text-align:center;">
+    <a href="index.html#tracks" class="btn-primary" style="text-decoration:none;">Выбрать раздел и начать готовиться &rarr;</a>
+  </div>
+</div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.dock', { x: -90, opacity: 0, duration: 0.7, ease: 'power3.out' });
+
+    gsap.from('.wrap > h1, .wrap > .subtitle', {
+      y: 22, opacity: 0, duration: 0.7, stagger: 0.08, delay: 0.2, ease: 'power3.out'
+    });
+
+    gsap.utils.toArray('.mock-card').forEach((card, i) => {
+      gsap.from(card, {
+        y: 34, opacity: 0, duration: 0.65, delay: Math.min(i * 0.06, 0.3), ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none reverse' }
+      });
+    });
+
+    gsap.from('.empty-note', {
+      opacity: 0, y: 20, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: '.empty-note', start: 'top 92%', toggleActions: 'play none none reverse' }
+    });
+  })();
+</script>
+
+<script>
+/* Prepline: показать лучший результат на карточках моков */
+(function () {
+  try {
+    document.querySelectorAll('.mock-card').forEach(card => {
+      const link = card.querySelector('a.mock-btn');
+      if (!link) return;
+      const id = link.getAttribute('href').replace('.html','');
+      const hist = JSON.parse(localStorage.getItem('prepline:' + id) || '[]');
+      if (!hist.length) return;
+      const best = Math.max.apply(null, hist.map(a => a.s));
+      const n = hist[hist.length-1].n;
+      const span = document.createElement('span');
+      span.className = 'mock-progress';
+      span.textContent = 'Лучший: ' + best + '/' + n + ' · попыток: ' + hist.length;
+      card.querySelector('div').appendChild(span);
+      link.textContent = 'Ещё раз';
+    });
+  } catch (e) {}
+})();
+</script>
+
+<!-- ===== Prepline × Supabase: авторизация + облачные результаты на карточках ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  const supa = window.preplineSupa;
+  if (!supa) return;
+
+  async function showCloudBest() {
+    const { data: { user } } = await supa.auth.getUser();
+    document.querySelectorAll('.mock-progress.cloud').forEach(el => el.remove());
+    if (!user) return;
+
+    const { data, error } = await supa.from('results').select('mock_id,score,total');
+    if (error || !data || !data.length) return;
+
+    const agg = {};
+    data.forEach(r => {
+      const a = agg[r.mock_id] || (agg[r.mock_id] = { best: 0, total: r.total, count: 0 });
+      a.count++;
+      if (r.score >= a.best) { a.best = r.score; a.total = r.total; }
+    });
+
+    document.querySelectorAll('.mock-card').forEach(card => {
+      const link = card.querySelector('a.mock-btn');
+      if (!link) return;
+      const id = link.getAttribute('href').replace('.html','');
+      const a = agg[id];
+      if (!a) return;
+      const span = document.createElement('span');
+      span.className = 'mock-progress cloud';
+      span.style.marginLeft = '8px';
+      span.style.background = 'rgba(96,165,250,0.14)';
+      span.style.color = '#BFDBFE';
+      span.style.borderColor = 'rgba(96,165,250,0.4)';
+      span.textContent = '\u2601 Лучший: ' + a.best + '/' + a.total + ' \u00B7 попыток: ' + a.count;
+      card.querySelector('div').appendChild(span);
+    });
+  }
+
+  supa.auth.onAuthStateChange(() => { showCloudBest(); });
+  showCloudBest();
+})();
+</script>
+</body>
+</html>

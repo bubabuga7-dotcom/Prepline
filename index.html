@@ -343,14 +343,22 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
     <span class="dock-tip">Направления</span>
   </a>
+  <a href="intro.html" class="dock-item" aria-label="Что такое NUET">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <span class="dock-tip">Что такое NUET</span>
+  </a>
   <a href="#how" class="dock-item" aria-label="Как это работает">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
     <span class="dock-tip">Как это работает</span>
   </a>
   <div class="dock-spacer"></div>
-  <a href="nuet.html" class="dock-item accent" aria-label="Тест NUET">
+  <a href="math.html" class="dock-item accent" aria-label="Математика">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Тест NUET</span>
+    <span class="dock-tip">Математика</span>
+  </a>
+  <a href="crit.html" class="dock-item accent" aria-label="Critical Thinking">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
+    <span class="dock-tip">Critical Thinking</span>
   </a>
 </aside>
 
@@ -364,8 +372,7 @@
       <h1>Готовься к NUET там, где видно <em>реальный прогресс</em></h1>
       <p class="lead">Практика с моментальной обратной связью, разбивкой по секциям и таймером — как на настоящем экзамене. Без воды, только вопросы, которые считают за тебя.</p>
       <div class="hero-actions">
-        <a href="nuet.html" class="btn-primary">Пройти диагностику</a>
-        <a href="#tracks" class="btn-ghost">Смотреть направления</a>
+        <a href="#tracks" class="btn-primary">Выбрать раздел и начать</a>
       </div>
     </div>
     <div class="quiz-card">
@@ -387,16 +394,16 @@
   <div class="stats-photo"></div>
   <div class="wrap">
     <div>
-      <div class="stat-num" data-target="240" data-decimals="0" data-suffix="">240</div>
+      <div class="stat-num" data-target="1048" data-decimals="0" data-suffix="">1048</div>
       <div class="stat-label">проверенных вопросов в базе</div>
     </div>
     <div>
-      <div class="stat-num" data-target="8" data-decimals="0" data-suffix="">8</div>
-      <div class="stat-label">микс-моков с таймером</div>
+      <div class="stat-num" data-target="38" data-decimals="0" data-suffix="">38</div>
+      <div class="stat-label">теста с таймером</div>
     </div>
     <div>
       <div class="stat-num" data-target="30" data-decimals="0" data-suffix="">30</div>
-      <div class="stat-label">минут на один мок</div>
+      <div class="stat-label">минут на один тест</div>
     </div>
   </div>
 </section>
@@ -410,22 +417,28 @@
     <div class="track-card" data-reveal-card>
       <span class="track-tag">NUET · Mathematics</span>
       <h3>Математика</h3>
-      <p>8 микс-моков по 30 вопросов из реальных мок-экзаменов NUFYPET — с таймером, навигацией и разбором каждого ответа.</p>
+      <p>22 теста по 27-30 вопросов из реальных мок-экзаменов NUET и NUFYPET — с таймером, навигацией и разбором каждого ответа.</p>
       <div class="track-meta">
         <span>Цель: <strong>210+/240</strong></span>
-        <span>База: <strong>240 вопросов</strong></span>
+        <span>База: <strong>606 вопросов</strong></span>
       </div>
-      <a href="nuet.html" class="track-btn">Начать мок</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="diagnostic-math.html" class="track-btn">Диагностика (10 вопросов)</a>
+        <a href="math.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">Все тесты</a>
+      </div>
     </div>
     <div class="track-card" data-reveal-card>
       <span class="track-tag">NUET · Critical Thinking</span>
       <h3>Критическое мышление и решение задач</h3>
-      <p>Вторая секция NUET по спецификации NU: анализ аргументов, логика, problem solving. Вопросы в обработке.</p>
+      <p>Вторая секция NUET по спецификации NU: анализ аргументов, логика, problem solving. 16 тестов по 30 вопросов.</p>
       <div class="track-meta">
         <span>Формат: <strong>MCQ</strong></span>
-        <span>Статус: <strong>в работе</strong></span>
+        <span>База: <strong>442 вопроса</strong></span>
       </div>
-      <span class="track-btn soon">Скоро</span>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="diagnostic-crit.html" class="track-btn">Диагностика (10 вопросов)</a>
+        <a href="crit.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">Все тесты</a>
+      </div>
     </div>
   </div>
 </section>
@@ -464,7 +477,7 @@
   <div class="wrap" data-reveal>
     <h2>Узнай свой уровень <span class="grad-text">прямо сейчас</span></h2>
     <p>Бесплатная диагностика — 10 вопросов, 10 минут, честный результат.</p>
-    <a href="nuet.html" class="btn-primary">Начать бесплатно</a>
+    <a href="#tracks" class="btn-primary">Начать бесплатно</a>
   </div>
 </section>
 
