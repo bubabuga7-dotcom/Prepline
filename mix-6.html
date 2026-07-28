@@ -135,7 +135,7 @@ function render() {
       <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
     </div>
     <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
-    ${q.image ? `<img src="${q.image}" class="question-img" alt="Рисунок к вопросу">` : ''}
+    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Рисунок к вопросу">` : ''}
     <div class="question">${q.text}</div>
     <div class="options">
       ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
