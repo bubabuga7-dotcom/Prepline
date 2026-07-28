@@ -22,6 +22,28 @@
     } catch (e) { console.error('[Prepline]', e); }
   };
 
+
+  /* ---------- подробное сохранение: каждый вопрос отдельно ---------- */
+  window.preplineSaveAnswers = async function (mockId, qs, answers) {
+    try {
+      const { data: { user } } = await supa.auth.getUser();
+      if (!user || !qs || !qs.length) return;
+      const rows = qs.map(function (q) {
+        const given = answers ? answers[q.id] : undefined;
+        return {
+          user_id: user.id,
+          mock_id: mockId,
+          q_id: q.id,
+          topic: q.topic || null,
+          correct: given === q.correct,
+          answered: given !== undefined && given !== null && given !== ''
+        };
+      });
+      const { error } = await supa.from('answer_log').insert(rows);
+      if (error) console.error('[Prepline] answer_log:', error.message);
+    } catch (e) { console.error('[Prepline]', e); }
+  };
+
   /* ---------- стили виджета ---------- */
   const css = document.createElement('style');
   css.textContent = `

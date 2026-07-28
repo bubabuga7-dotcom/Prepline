@@ -266,6 +266,7 @@ render();
         let score = 0;
         verifiedQs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
         window.preplineSaveResult(mockId(), score, verifiedQs.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), verifiedQs, state.answers);
       } catch (e) { console.error('[Prepline]', e); }
     };
   } else if (typeof finish === 'function') {
@@ -280,6 +281,7 @@ render();
           let score = 0;
           qs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
           window.preplineSaveResult(mockId(), score, qs.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
         }
       } catch (e) { console.error('[Prepline]', e); }
     };
