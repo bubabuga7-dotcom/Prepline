@@ -1,66 +1,1385 @@
 {
  "mix-1.html": {
-  "1": {"text": "Find the y-intercept of f(x) = 2x² − 11x.", "options": ["0", "11/2", "2/11", "1/2", "5"]},
-  "2": {"text": "p is directly proportional to √q. When q = 25, p = 10. What is p when q = 36?", "options": ["12", "4", "8", "4", "16"]},
-  "3": {"text": "Given 19 > x ≥ 1 and y = 6/(x − 7), what is the range of values of y?", "options": ["−1 ≤ y ≤ 1/2", "y ≤ −1 or y > 1/2", "y < −1 or y < 1/2", "−1 < y < 1/2", "y  1/2"]},
-  "4": {"text": "Find x.", "options": ["6√2", "4√2", "3√3", "√2", "8"]},
-  "5": {"text": "At which value of x does the quadratic function −x² − 12x − 28 reach its maximum?", "options": ["4", "6", "−6", "1/2", "3"]},
-  "6": {"text": "A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?", "options": ["4π", "5π", "2.5π", "10π", "3π"]},
-  "7": {"text": "If r builders build s houses in t days, how many builders are needed to build x houses in y days?", "options": ["xy/(str)", "rt/(sxy)", "rtx/(sy)", "rsx/(ty)", "sty/(rx)"]},
-  "8": {"text": "Two tins hold equal volumes of paint. The first is used to paint an equilateral triangle of side 25 cm. The second is used to paint 25 smaller equilateral triangles. What is the side of one smaller triangle?", "options": ["1", "5", "2", "10", "None of these"]},
-  "9": {"text": "N people board a bus at the terminus. At the first stop half of them get off and one person gets on. At the second stop a third of them get off and one person gets on. There are now 15 passengers. What is N?", "options": ["40", "62", "60", "58", "48"]},
-  "10": {"text": "Given x² − 3x + 1 = 0, what is the value of x³ + 1/x³?", "options": ["15", "36", "18", "9", "24"]},
-  "11": {"text": "Simplify: (8x³ − 27)/(3 − 2x)", "options": ["6x − (2x+3)²", "−4x² + 6x − 9", "−6x + (2x+3)²", "6x + (2x+3)²", "2x + 3"]},
-  "12": {"text": "The door of a doll's house is 5 times as long as it is wide. The area of the door is 125 cm². What is its width?", "options": ["30 cm", "25 cm", "15 cm", "10 cm", "5 cm"]},
-  "13": {"text": "The volume and the surface area of a cube are numerically equal. What is the length of one edge?", "options": ["1", "9", "6", "2", "4"]},
-  "14": {"text": "Evaluate: (√5 − √2)² · (√5 + √2)²", "options": ["9", "−19 − 8√10", "49", "61 + 20√10"]},
-  "15": {"text": "In the diagram, the arcs AD and BC are semicircles and AB = BC = CD. What is the ratio of the shaded region to the whole area?", "options": ["4/9", "5/9", "2/3", "7/9", "8/9"]},
-  "16": {"text": "For which values of n is the product (1 + 1/3)(1 + 1/4)(1 + 1/5)...(1 + 1/n) an integer?", "options": ["when n + 1 is odd", "when n + 1 is a multiple of 3", "when n + 1 is even", "always", "never"]},
-  "17": {"text": "The perimeter of a square of area 4x² is", "options": ["2x", "√2 x", "8x", "2√2 x", "4x"]},
-  "18": {"text": "Solve the inequality: x(2x + 6) ≤ 8", "options": ["x = 1; x = −4", "x ≤ 1; x ≤ −4", "4 ≤ x ≤ −1", "−4 ≤ x ≤ 1"]},
-  "19": {"text": "The volume of a cuboid is 1000 m³. If its length, width and height are each increased by 50%, what is the new volume, in m³?", "options": ["3375", "3500", "1500", "5000", "50000"]},
-  "20": {"text": "Find the equation whose roots are each 1 greater than the roots of x² − 3x − 4 = 0.", "options": ["x² − 5x = 0", "x² + 5x = 0", "x² + 2x + 6 = 0", "x² + 4x = 0", "x² − 4x + 2 = 0"]},
-  "21": {"text": "If 40% of x is equal to 160% of y, what is the value of (3x − 12y)/5?", "options": ["3", "1", "2", "4", "0"]},
-  "22": {"text": "x, y and z are positive numbers such that xy = 24, xz = 48 and yz = 72. What is x + y + z?", "options": ["96", "22", "62", "50", "36"]},
-  "23": {"text": "If x = −8, what is the value of x^(2/3) + 2x⁰?", "options": ["−2", "4", "−4", "6", "−6"]},
-  "24": {"text": "A cube is inscribed in a sphere of radius 3. What is the volume of the cube?", "options": ["12√3", "24√3", "3√3", "48√3", "72√3"]},
-  "25": {"text": "Find m such that (f∘g)(x) = (g∘f)(x), where f(x) = 3x + 1 and g(x) = 2x − m.", "options": ["−1/2", "1/2", "2", "6", "Cannot be determined"]},
-  "26": {"text": "5 apples, 3 pears and 2 bananas cost £3.18. 4 apples, 8 pears and 3 bananas cost £4.49. How much more does an apple cost than a pear?", "options": ["5p", "6p", "7p", "8p", "More information is needed"]},
-  "27": {"text": "Lori inherited 40% of her father's estate. After paying tax of 30% on the inheritance, what percentage of her father's estate does she keep?", "options": ["10%", "12%", "25%", "28%", "30%"]},
-  "28": {"text": "At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?", "options": ["−2", "3", "−2", "−3", "1"]},
-  "29": {"text": "If x = 1 + √2, what is the value of x² − 2x + 1?", "options": ["1 + √2", "√2 − 1", "2", "√2", "2 + √2"]},
-  "30": {"text": "A father is three times as old as his son and the sum of their ages is 76 years. How old is the son?", "options": ["19", "21", "25", "31"]}
+  "1": {
+   "text": "Find the y-intercept of f(x) = 2x² − 11x.",
+   "options": [
+    "0",
+    "11/2",
+    "2/11",
+    "1/2",
+    "5"
+   ]
+  },
+  "2": {
+   "text": "p is directly proportional to √q. When q = 25, p = 10. What is p when q = 36?",
+   "options": [
+    "12",
+    "4",
+    "8",
+    "4",
+    "16"
+   ]
+  },
+  "3": {
+   "text": "Given 19 > x ≥ 1 and y = 6/(x − 7), what is the range of values of y?",
+   "options": [
+    "−1 ≤ y ≤ 1/2",
+    "y ≤ −1 or y > 1/2",
+    "y < −1 or y < 1/2",
+    "−1 < y < 1/2",
+    "y  1/2"
+   ]
+  },
+  "4": {
+   "text": "Find x.",
+   "options": [
+    "6√2",
+    "4√2",
+    "3√3",
+    "√2",
+    "8"
+   ]
+  },
+  "5": {
+   "text": "At which value of x does the quadratic function −x² − 12x − 28 reach its maximum?",
+   "options": [
+    "4",
+    "6",
+    "−6",
+    "1/2",
+    "3"
+   ]
+  },
+  "6": {
+   "text": "A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?",
+   "options": [
+    "4π",
+    "5π",
+    "2.5π",
+    "10π",
+    "3π"
+   ]
+  },
+  "7": {
+   "text": "If r builders build s houses in t days, how many builders are needed to build x houses in y days?",
+   "options": [
+    "xy/(str)",
+    "rt/(sxy)",
+    "rtx/(sy)",
+    "rsx/(ty)",
+    "sty/(rx)"
+   ]
+  },
+  "8": {
+   "text": "Two tins hold equal volumes of paint. The first is used to paint an equilateral triangle of side 25 cm. The second is used to paint 25 smaller equilateral triangles. What is the side of one smaller triangle?",
+   "options": [
+    "1",
+    "5",
+    "2",
+    "10",
+    "None of these"
+   ]
+  },
+  "9": {
+   "text": "N people board a bus at the terminus. At the first stop half of them get off and one person gets on. At the second stop a third of them get off and one person gets on. There are now 15 passengers. What is N?",
+   "options": [
+    "40",
+    "62",
+    "60",
+    "58",
+    "48"
+   ]
+  },
+  "10": {
+   "text": "Given x² − 3x + 1 = 0, what is the value of x³ + 1/x³?",
+   "options": [
+    "15",
+    "36",
+    "18",
+    "9",
+    "24"
+   ]
+  },
+  "11": {
+   "text": "Simplify: (8x³ − 27)/(3 − 2x)",
+   "options": [
+    "6x − (2x+3)²",
+    "−4x² + 6x − 9",
+    "−6x + (2x+3)²",
+    "6x + (2x+3)²",
+    "2x + 3"
+   ]
+  },
+  "12": {
+   "text": "The door of a doll's house is 5 times as long as it is wide. The area of the door is 125 cm². What is its width?",
+   "options": [
+    "30 cm",
+    "25 cm",
+    "15 cm",
+    "10 cm",
+    "5 cm"
+   ]
+  },
+  "13": {
+   "text": "The volume and the surface area of a cube are numerically equal. What is the length of one edge?",
+   "options": [
+    "1",
+    "9",
+    "6",
+    "2",
+    "4"
+   ]
+  },
+  "14": {
+   "text": "Evaluate: (√5 − √2)² · (√5 + √2)²",
+   "options": [
+    "9",
+    "−19 − 8√10",
+    "49",
+    "61 + 20√10"
+   ]
+  },
+  "15": {
+   "text": "In the diagram, the arcs AD and BC are semicircles and AB = BC = CD. What is the ratio of the shaded region to the whole area?",
+   "options": [
+    "4/9",
+    "5/9",
+    "2/3",
+    "7/9",
+    "8/9"
+   ]
+  },
+  "16": {
+   "text": "For which values of n is the product (1 + 1/3)(1 + 1/4)(1 + 1/5)...(1 + 1/n) an integer?",
+   "options": [
+    "when n + 1 is odd",
+    "when n + 1 is a multiple of 3",
+    "when n + 1 is even",
+    "always",
+    "never"
+   ]
+  },
+  "17": {
+   "text": "The perimeter of a square of area 4x² is",
+   "options": [
+    "2x",
+    "√2 x",
+    "8x",
+    "2√2 x",
+    "4x"
+   ]
+  },
+  "18": {
+   "text": "Solve the inequality: x(2x + 6) ≤ 8",
+   "options": [
+    "x = 1; x = −4",
+    "x ≤ 1; x ≤ −4",
+    "4 ≤ x ≤ −1",
+    "−4 ≤ x ≤ 1"
+   ]
+  },
+  "19": {
+   "text": "The volume of a cuboid is 1000 m³. If its length, width and height are each increased by 50%, what is the new volume, in m³?",
+   "options": [
+    "3375",
+    "3500",
+    "1500",
+    "5000",
+    "50000"
+   ]
+  },
+  "20": {
+   "text": "Find the equation whose roots are each 1 greater than the roots of x² − 3x − 4 = 0.",
+   "options": [
+    "x² − 5x = 0",
+    "x² + 5x = 0",
+    "x² + 2x + 6 = 0",
+    "x² + 4x = 0",
+    "x² − 4x + 2 = 0"
+   ]
+  },
+  "21": {
+   "text": "If 40% of x is equal to 160% of y, what is the value of (3x − 12y)/5?",
+   "options": [
+    "3",
+    "1",
+    "2",
+    "4",
+    "0"
+   ]
+  },
+  "22": {
+   "text": "x, y and z are positive numbers such that xy = 24, xz = 48 and yz = 72. What is x + y + z?",
+   "options": [
+    "96",
+    "22",
+    "62",
+    "50",
+    "36"
+   ]
+  },
+  "23": {
+   "text": "If x = −8, what is the value of x^(2/3) + 2x⁰?",
+   "options": [
+    "−2",
+    "4",
+    "−4",
+    "6",
+    "−6"
+   ]
+  },
+  "24": {
+   "text": "A cube is inscribed in a sphere of radius 3. What is the volume of the cube?",
+   "options": [
+    "12√3",
+    "24√3",
+    "3√3",
+    "48√3",
+    "72√3"
+   ]
+  },
+  "25": {
+   "text": "Find m such that (f∘g)(x) = (g∘f)(x), where f(x) = 3x + 1 and g(x) = 2x − m.",
+   "options": [
+    "−1/2",
+    "1/2",
+    "2",
+    "6",
+    "Cannot be determined"
+   ]
+  },
+  "26": {
+   "text": "5 apples, 3 pears and 2 bananas cost £3.18. 4 apples, 8 pears and 3 bananas cost £4.49. How much more does an apple cost than a pear?",
+   "options": [
+    "5p",
+    "6p",
+    "7p",
+    "8p",
+    "More information is needed"
+   ]
+  },
+  "27": {
+   "text": "Lori inherited 40% of her father's estate. After paying tax of 30% on the inheritance, what percentage of her father's estate does she keep?",
+   "options": [
+    "10%",
+    "12%",
+    "25%",
+    "28%",
+    "30%"
+   ]
+  },
+  "28": {
+   "text": "At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?",
+   "options": [
+    "−2",
+    "3",
+    "−2",
+    "−3",
+    "1"
+   ]
+  },
+  "29": {
+   "text": "If x = 1 + √2, what is the value of x² − 2x + 1?",
+   "options": [
+    "1 + √2",
+    "√2 − 1",
+    "2",
+    "√2",
+    "2 + √2"
+   ]
+  },
+  "30": {
+   "text": "A father is three times as old as his son and the sum of their ages is 76 years. How old is the son?",
+   "options": [
+    "19",
+    "21",
+    "25",
+    "31"
+   ]
+  }
  },
  "mix-2.html": {
-  "1": {"text": "The surface area of a sphere is numerically equal to its volume. What is the radius?", "options": ["6", "2", "4", "6", "3"]},
-  "2": {"text": "The sum of the numerator and the denominator of a fraction is 47. If 2 is subtracted from the denominator and 5 is added to the numerator, the value of the fraction becomes 2/3. Find the fraction.", "options": ["15/32", "15/64", "30/64", "15/28", "None of these"]},
-  "3": {"text": "Find the sum of the roots of 2x² + 6x + 5 = 0.", "options": ["−6", "3", "5", "5/2", "−3"]},
-  "4": {"text": "The figure is made up of seven identical squares. What is tan(∠EDB)?", "options": ["3/4", "4/3", "5/4", "3/5", "5/3"]},
-  "5": {"text": "HJKL is a parallelogram whose diagonals are perpendicular. Which statement must be true?", "options": ["HJKL is a square", "HJKL is a rectangle", "HJKL is a rhombus", "HJKL is an isosceles trapezium", "All of these are true"]},
-  "6": {"text": "Goofy is 3 years older than Donald and the product of their ages is 130. Which equation has Donald's age as one of its solutions?", "options": ["x² − 3x − 130 = 0", "x² + 3x − 130 = 0", "x² + 3x + 130 = 0", "x² − 3x + 130 = 0", "None of these"]},
-  "7": {"text": "Under which condition is the expression xy/(x − y) negative?", "options": ["0 < y < x", "x < y < 0", "x < 0 < y", "y < x < 0", "None of these"]},
-  "8": {"text": "x₁ and x₂ are the non-negative roots of 3x² + 2mx + 1 = 0, where x₁ = 3x₂. Find m.", "options": ["−2", "2", "4", "1", "−4"]},
-  "9": {"text": "If f(x) = √(9 − x²), how many integers lie in the domain of f?", "options": ["6", "0", "7", "5", "Infinitely many"]},
-  "10": {"text": "Evaluate: (725² − 275²)/((97² − 49)(1 − 1/26))", "options": ["0", "50", "45", "100/97", "450/97"]},
-  "11": {"text": "How many four-digit numbers can be formed from the digits 0, 2, 4 and 8 without repeating a digit?", "options": ["18", "36", "27", "24", "64"]},
-  "12": {"text": "For all x and y, x♣y = x² − 2xy + y². What is the value of (2♣4)♣8?", "options": ["12", "16", "1", "20", "4"]},
-  "13": {"text": "In right-angled triangle ABC, sin A = 3/5. What is cot B?", "options": ["5/4", "4/5", "5/3", "3/4", "4/3"]},
-  "14": {"text": "The mean of the roots of a quadratic equation is 3 and the difference between the roots is 2. Which equation fits?", "options": ["x² − 5x + 6 = 0", "x² + 5x + 6 = 0", "x² − 6x + 8 = 0", "x² − 6x − 8 = 0", "x² − 6x + 6 = 0"]},
-  "15": {"text": "√(10 × (6⁴ − 16)/32) = ?", "options": ["√5", "15", "20", "24", "√10"]},
-  "16": {"text": "An integer m leaves a remainder of 5 when divided by 6. What is the remainder when 4m is divided by 6?", "options": ["0", "1", "2", "4", "5"]},
-  "17": {"text": "Which is the equation of the line through the points (−1, −4) and (3, 8)?", "options": ["y = x/3 + 7", "y = −x/3 + 9", "y = 3x − 1", "y = −3x − 7"]},
-  "18": {"text": "The operation ∇x = 3x − 3 is defined for x > 0. What is ∇7/∇3, expressed in the form ∇(?)", "options": ["∇3", "∇8", "∇2", "∇9", "∇6"]},
-  "19": {"text": "It is now 1:15. What will the time be when the hour hand has turned through 10°?", "options": ["1:25", "1:35", "2:15", "3:15", "11:15"]},
-  "20": {"text": "The operation ∆ is defined by a∆b = √b/(a² + b²), and the operation ∇ by a∇b = (a∆b)/((b∆a)²). What is 2∇4?", "options": ["20", "40", "1/20", "1/40", "10"]},
-  "21": {"text": "If ab = 8/3, bc = 12 and ac = 2, what is the cube root of abc?", "options": ["2", "1", "3", "5", "4"]},
-  "22": {"text": "A quadratic equation has solutions a and b, where a + b = −5 and ab = 3. Which is the equation?", "options": ["x² + 5x + 3 = 0", "x² − 5x − 3 = 0", "x² − 5x + 3 = 0", "x² + 3x + 5 = 0", "x² + 5x − 3 = 0", "x² + 3x − 5 = 0"]},
-  "23": {"text": "Nicky and Christina run a race. Christina gives Nicky a head start of 36 metres. Christina runs at 5 m/s and Nicky at 3 m/s. After how many seconds does Christina catch Nicky?", "options": ["15 s", "18 s", "25 s", "30 s", "45 s"]},
-  "24": {"text": "The range of the function f(x) = x² − 14x + 43 is", "options": ["(−∞, +∞)", "x ≤ 7", "y ≥ −6", "y ≤ −6", "x ≥ 0"]},
-  "25": {"text": "Which value of x satisfies the equation √(2x − 5 + x) = 4?", "options": ["5", "21", "36", "56", "7"]},
-  "26": {"text": "What is the sum of the roots of 2x³ − 4x² + 9x = 0?", "options": ["4", "3", "1/2", "3/4", "2"]},
-  "27": {"text": "The curved surface of a skateboard ramp is a quarter of a cylinder of radius r feet and height h feet, together with a flat rectangular section. Which formula gives the area of the top surface of the ramp?", "options": ["2rh + 2πr²", "2rh + 2πrh", "2rh + (1/4)πr²", "2rh + (1/2)πrh", "None of these formulae"]},
-  "28": {"text": "For which value of b does the system {2x + 5y = 3; −5x + by = 14} have no solution?", "options": ["5", "5/2", "−25/2", "5/3", "5/14"]},
-  "29": {"text": "Find the smallest integer value of m for which mx² + (2m + 1)x + (m − 1) = 0 has two real roots.", "options": ["−1", "1", "8", "−8", "0"]},
-  "30": {"text": "Find the gradient of the line through the points (−4, −4) and (−3, −3).", "options": ["1", "1/2", "1/7", "7", "Not enough information"]}
+  "1": {
+   "text": "The surface area of a sphere is numerically equal to its volume. What is the radius?",
+   "options": [
+    "6",
+    "2",
+    "4",
+    "6",
+    "3"
+   ]
+  },
+  "2": {
+   "text": "The sum of the numerator and the denominator of a fraction is 47. If 2 is subtracted from the denominator and 5 is added to the numerator, the value of the fraction becomes 2/3. Find the fraction.",
+   "options": [
+    "15/32",
+    "15/64",
+    "30/64",
+    "15/28",
+    "None of these"
+   ]
+  },
+  "3": {
+   "text": "Find the sum of the roots of 2x² + 6x + 5 = 0.",
+   "options": [
+    "−6",
+    "3",
+    "5",
+    "5/2",
+    "−3"
+   ]
+  },
+  "4": {
+   "text": "The figure is made up of seven identical squares. What is tan(∠EDB)?",
+   "options": [
+    "3/4",
+    "4/3",
+    "5/4",
+    "3/5",
+    "5/3"
+   ]
+  },
+  "5": {
+   "text": "HJKL is a parallelogram whose diagonals are perpendicular. Which statement must be true?",
+   "options": [
+    "HJKL is a square",
+    "HJKL is a rectangle",
+    "HJKL is a rhombus",
+    "HJKL is an isosceles trapezium",
+    "All of these are true"
+   ]
+  },
+  "6": {
+   "text": "Goofy is 3 years older than Donald and the product of their ages is 130. Which equation has Donald's age as one of its solutions?",
+   "options": [
+    "x² − 3x − 130 = 0",
+    "x² + 3x − 130 = 0",
+    "x² + 3x + 130 = 0",
+    "x² − 3x + 130 = 0",
+    "None of these"
+   ]
+  },
+  "7": {
+   "text": "Under which condition is the expression xy/(x − y) negative?",
+   "options": [
+    "0 < y < x",
+    "x < y < 0",
+    "x < 0 < y",
+    "y < x < 0",
+    "None of these"
+   ]
+  },
+  "8": {
+   "text": "x₁ and x₂ are the non-negative roots of 3x² + 2mx + 1 = 0, where x₁ = 3x₂. Find m.",
+   "options": [
+    "−2",
+    "2",
+    "4",
+    "1",
+    "−4"
+   ]
+  },
+  "9": {
+   "text": "If f(x) = √(9 − x²), how many integers lie in the domain of f?",
+   "options": [
+    "6",
+    "0",
+    "7",
+    "5",
+    "Infinitely many"
+   ]
+  },
+  "10": {
+   "text": "Evaluate: (725² − 275²)/((97² − 49)(1 − 1/26))",
+   "options": [
+    "0",
+    "50",
+    "45",
+    "100/97",
+    "450/97"
+   ]
+  },
+  "11": {
+   "text": "How many four-digit numbers can be formed from the digits 0, 2, 4 and 8 without repeating a digit?",
+   "options": [
+    "18",
+    "36",
+    "27",
+    "24",
+    "64"
+   ]
+  },
+  "12": {
+   "text": "For all x and y, x♣y = x² − 2xy + y². What is the value of (2♣4)♣8?",
+   "options": [
+    "12",
+    "16",
+    "1",
+    "20",
+    "4"
+   ]
+  },
+  "13": {
+   "text": "In right-angled triangle ABC, sin A = 3/5. What is cot B?",
+   "options": [
+    "5/4",
+    "4/5",
+    "5/3",
+    "3/4",
+    "4/3"
+   ]
+  },
+  "14": {
+   "text": "The mean of the roots of a quadratic equation is 3 and the difference between the roots is 2. Which equation fits?",
+   "options": [
+    "x² − 5x + 6 = 0",
+    "x² + 5x + 6 = 0",
+    "x² − 6x + 8 = 0",
+    "x² − 6x − 8 = 0",
+    "x² − 6x + 6 = 0"
+   ]
+  },
+  "15": {
+   "text": "√(10 × (6⁴ − 16)/32) = ?",
+   "options": [
+    "√5",
+    "15",
+    "20",
+    "24",
+    "√10"
+   ]
+  },
+  "16": {
+   "text": "An integer m leaves a remainder of 5 when divided by 6. What is the remainder when 4m is divided by 6?",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "4",
+    "5"
+   ]
+  },
+  "17": {
+   "text": "Which is the equation of the line through the points (−1, −4) and (3, 8)?",
+   "options": [
+    "y = x/3 + 7",
+    "y = −x/3 + 9",
+    "y = 3x − 1",
+    "y = −3x − 7"
+   ]
+  },
+  "18": {
+   "text": "The operation ∇x = 3x − 3 is defined for x > 0. What is ∇7/∇3, expressed in the form ∇(?)",
+   "options": [
+    "∇3",
+    "∇8",
+    "∇2",
+    "∇9",
+    "∇6"
+   ]
+  },
+  "19": {
+   "text": "It is now 1:15. What will the time be when the hour hand has turned through 10°?",
+   "options": [
+    "1:25",
+    "1:35",
+    "2:15",
+    "3:15",
+    "11:15"
+   ]
+  },
+  "20": {
+   "text": "The operation ∆ is defined by a∆b = √b/(a² + b²), and the operation ∇ by a∇b = (a∆b)/((b∆a)²). What is 2∇4?",
+   "options": [
+    "20",
+    "40",
+    "1/20",
+    "1/40",
+    "10"
+   ]
+  },
+  "21": {
+   "text": "If ab = 8/3, bc = 12 and ac = 2, what is the cube root of abc?",
+   "options": [
+    "2",
+    "1",
+    "3",
+    "5",
+    "4"
+   ]
+  },
+  "22": {
+   "text": "A quadratic equation has solutions a and b, where a + b = −5 and ab = 3. Which is the equation?",
+   "options": [
+    "x² + 5x + 3 = 0",
+    "x² − 5x − 3 = 0",
+    "x² − 5x + 3 = 0",
+    "x² + 3x + 5 = 0",
+    "x² + 5x − 3 = 0",
+    "x² + 3x − 5 = 0"
+   ]
+  },
+  "23": {
+   "text": "Nicky and Christina run a race. Christina gives Nicky a head start of 36 metres. Christina runs at 5 m/s and Nicky at 3 m/s. After how many seconds does Christina catch Nicky?",
+   "options": [
+    "15 s",
+    "18 s",
+    "25 s",
+    "30 s",
+    "45 s"
+   ]
+  },
+  "24": {
+   "text": "The range of the function f(x) = x² − 14x + 43 is",
+   "options": [
+    "(−∞, +∞)",
+    "x ≤ 7",
+    "y ≥ −6",
+    "y ≤ −6",
+    "x ≥ 0"
+   ]
+  },
+  "25": {
+   "text": "Which value of x satisfies the equation √(2x − 5 + x) = 4?",
+   "options": [
+    "5",
+    "21",
+    "36",
+    "56",
+    "7"
+   ]
+  },
+  "26": {
+   "text": "What is the sum of the roots of 2x³ − 4x² + 9x = 0?",
+   "options": [
+    "4",
+    "3",
+    "1/2",
+    "3/4",
+    "2"
+   ]
+  },
+  "27": {
+   "text": "The curved surface of a skateboard ramp is a quarter of a cylinder of radius r feet and height h feet, together with a flat rectangular section. Which formula gives the area of the top surface of the ramp?",
+   "options": [
+    "2rh + 2πr²",
+    "2rh + 2πrh",
+    "2rh + (1/4)πr²",
+    "2rh + (1/2)πrh",
+    "None of these formulae"
+   ]
+  },
+  "28": {
+   "text": "For which value of b does the system {2x + 5y = 3; −5x + by = 14} have no solution?",
+   "options": [
+    "5",
+    "5/2",
+    "−25/2",
+    "5/3",
+    "5/14"
+   ]
+  },
+  "29": {
+   "text": "Find the smallest integer value of m for which mx² + (2m + 1)x + (m − 1) = 0 has two real roots.",
+   "options": [
+    "−1",
+    "1",
+    "8",
+    "−8",
+    "0"
+   ]
+  },
+  "30": {
+   "text": "Find the gradient of the line through the points (−4, −4) and (−3, −3).",
+   "options": [
+    "1",
+    "1/2",
+    "1/7",
+    "7",
+    "Not enough information"
+   ]
+  }
+ },
+ "mix-3.html": {
+  "1": {
+   "text": "A woman has 5 pairs of shoes, 5 skirts and 5 shirts. One pair of shoes is black and one shirt is brown. She will not wear the black shoes with the brown shirt. How many different outfits can she make?"
+  },
+  "2": {
+   "text": "m and n are the roots of x² + 5x + 8 = 0. What is √(m² + n²)?"
+  },
+  "3": {
+   "text": "For which value of K is the identity a³ + b³ + c³ = (a + b + c)³ − 3(a + b + c)(ab + ac + bc) + Kabc true for all a, b and c?"
+  },
+  "4": {
+   "text": "On her 18th birthday in 2012 Aigerim was 159 cm tall, having grown 6% since 2011. How tall was she in 2011?",
+   "options": [
+    "155 cm",
+    "140 cm",
+    "145 cm",
+    "150 cm",
+    "160 cm"
+   ]
+  },
+  "5": {
+   "text": "On a journey a certain weight of luggage is carried free of charge, and every extra kilogram costs $10. Laa-Laa's luggage weighs 50 kg and she was charged $150. Po's luggage weighs 30 kg. How much will Po pay?"
+  },
+  "6": {
+   "text": "What is the length of the line segment with endpoints (−2, −2) and (2, 3)?"
+  },
+  "7": {
+   "text": "If i² = −1, what is i¹⁴ + i¹⁵ + i¹⁶ + i¹⁷?"
+  },
+  "8": {
+   "text": "f(x) = kx (k ≠ 0) and g(x) = x + k. Which of these statements is always true? I. f(2x) = 2f(x)  II. f(x + 2) = f(x) + 2  III. f(g(x)) = g(f(x))",
+   "options": [
+    "I only",
+    "II only",
+    "I and II",
+    "I and III",
+    "I, II and III"
+   ]
+  },
+  "9": {
+   "text": "Find the largest integer value of x satisfying x² − 7x − 8 < 0."
+  },
+  "10": {
+   "text": "y is a solution of the system x² + y² = 65 and xy = 28. What is y, given that x ≥ 0?"
+  },
+  "11": {
+   "text": "Which formula could be the general term of the sequence 3, 5, 7, 9?"
+  },
+  "12": {
+   "text": "A cone is inscribed in a hemisphere of radius r so that the base of the cone coincides with the base of the hemisphere. What is the ratio of the volume of the cone to the volume of the hemisphere?"
+  },
+  "13": {
+   "text": "In the diagram, N lies on MO. What is y in terms of x?"
+  },
+  "14": {
+   "text": "Simplify: 3x · (3x^(−1/3))³"
+  },
+  "15": {
+   "text": "A square and an equilateral triangle each have side 4. The ratio of the area of the square to the area of the triangle is"
+  },
+  "16": {
+   "text": "Given a² + b² = 4ab and a > b > 0, what is (a − b)/(a + b)?"
+  },
+  "17": {
+   "text": "If a + b = s and a − b = t, what is ab?"
+  },
+  "18": {
+   "text": "If g(x − 1) = x² + 2, what is g(x + 1)?"
+  },
+  "19": {
+   "text": "Evaluate: ((−1/8)^(−1/3))⁵"
+  },
+  "20": {
+   "text": "h(n) is defined as the product of all the even numbers from 2 to n inclusive. What is h(50)?"
+  },
+  "21": {
+   "text": "A = (x + y)²zQ/P. x and y are each increased by 50%, z is decreased by 20%, P is doubled and Q is unchanged. What is the overall change in A?",
+   "options": [
+    "Decrease of 10%",
+    "Increase of 10%",
+    "Increase of 2.5%",
+    "Decrease of 2.5%",
+    "Decrease of 20%",
+    "Increase of 20%"
+   ]
+  },
+  "22": {
+   "text": "For which non-zero value of k is the polynomial p(x) = x² + 3x + k divisible by x + k?"
+  },
+  "23": {
+   "text": "Aygerim, Almaz, Yerkezhan, Kaisar and Madina are going for a drive in a jeep that has five seats, including one driver's seat and four passenger seats. If only Almaz can drive, the number of possible different seating arrangements is"
+  },
+  "24": {
+   "text": "12 identical machines complete an order in 8 days. How many extra machines are needed to reduce the time by 2 days?"
+  },
+  "25": {
+   "text": "The inequalities y ≥ x² + 3 and x ≥ 1/y define a region. Which point lies in this region?"
+  },
+  "26": {
+   "text": "If 3x + 2y = 5 and 5x + 4y = 9, what is 4x + 3y?"
+  },
+  "27": {
+   "text": "What is the smallest integer k for which x² + 5x + k = 0 has no solutions?"
+  },
+  "28": {
+   "text": "A regular hexagon is divided into 6 equal triangles. The perimeter of the hexagon is 48 cm. What is the height of each triangle?"
+  },
+  "29": {
+   "text": "a is inversely proportional to b². When a = 9, b = 4. What is the positive value of b when a = 4?"
+  },
+  "30": {
+   "text": "A boy walks at 4 km/h and runs at 6 km/h. By running to school he saves 3 minutes 45 seconds. How far, in km, does he live from school?"
+  }
+ },
+ "mix-4.html": {
+  "1": {
+   "text": "ASB is a quarter circle. PQRS is a rectangle with PQ = 8 and PS = 6. What is the length of the arc AQB?"
+  },
+  "2": {
+   "text": "Given y = 0.2x/(x + 1) and x ≥ 1, what is the range of values of y?"
+  },
+  "3": {
+   "text": "For x > 0 the operation ∇x = 3x − 3 is defined. Which expression is equal to ∇16/∇6?"
+  },
+  "4": {
+   "text": "Evaluate: (2⁻² + 4⁻¹)/(2⁻² − 3⁻¹)"
+  },
+  "5": {
+   "text": "The price of potatoes changed over four years by +25%, +20%, −20% and +50%. What is the overall increase over the period, to the nearest 1%?"
+  },
+  "6": {
+   "text": "Through how many degrees does the hour hand turn between noon and 14:30 on the same day?"
+  },
+  "7": {
+   "text": "The product of the two values of y satisfying x² − y = 2 and x + y = 4 is",
+   "options": [
+    "14",
+    "-6",
+    "-21",
+    "4",
+    "None of these"
+   ]
+  },
+  "8": {
+   "text": "If x⊗y = x/y, what is (48⊗3)⊗2?"
+  },
+  "9": {
+   "text": "If 4^(x+2) = 64, what is 8x?"
+  },
+  "10": {
+   "text": "An icosagon is a polygon with 20 sides. What is the sum of all the interior angles of a regular icosagon?"
+  },
+  "11": {
+   "text": "The perimeter of a triangle is 13. The two shorter sides have integer lengths x and x + 1. What could the length of the third side be?"
+  },
+  "12": {
+   "text": "The hypotenuse of a right-angled triangle is 6 + √5 and one of the shorter sides is 3 + 2√5. What is the length of the third side?"
+  },
+  "13": {
+   "text": "The operation ∆ is defined by a∆b = a/b − b/a. Find k such that 3∆k = k∆2."
+  },
+  "14": {
+   "text": "What is 30/∛0.000027?",
+   "options": [
+    "10",
+    "100",
+    "1000",
+    "10 000",
+    "None of these"
+   ]
+  },
+  "15": {
+   "text": "If x + 3y + 5z = 200 and x + 4y + 7z = 225, what is x + y + z?",
+   "options": [
+    "90",
+    "125",
+    "150",
+    "175",
+    "None of these"
+   ]
+  },
+  "16": {
+   "text": "John is 20 years older than Brian. Twelve years ago John was twice as old as Brian. How old is Brian now?"
+  },
+  "17": {
+   "text": "If a is 20% less than b, and b is 20% more than 400, what is b − a?"
+  },
+  "18": {
+   "text": "In a quadratic equation the sum of the roots is 0 and the product of the roots is −16. Which is the equation?"
+  },
+  "19": {
+   "text": "If f(x) = x² − 11, for which values of x is f(x) < 25?"
+  },
+  "20": {
+   "text": "A boxing tournament prize fund of KZT 1 200 000 was shared between first, second and third place in the ratio 12 : 5 : 3. How much did third place receive?"
+  },
+  "21": {
+   "text": "If 16^x = 4 and 5^(x+y) = 625, what is y?"
+  },
+  "22": {
+   "text": "If 24 of the 40 students in a club are girls, what is the ratio of boys to girls?"
+  },
+  "23": {
+   "text": "A solid sphere of radius r fits inside a hollow cylinder whose internal diameter and length are both equal to the diameter of the sphere. What fraction of the volume of the cylinder does the sphere occupy?"
+  },
+  "24": {
+   "text": "If x = −2 + √3, what is x² + 4x + 7?"
+  },
+  "25": {
+   "text": "p is directly proportional to √q. When q = 25, p = 10. What is q when p = √2?",
+   "options": [
+    "0.25",
+    "4",
+    "2.25",
+    "0.50",
+    "None of these"
+   ]
+  },
+  "26": {
+   "text": "What is (72² − 64²)/(44² − 24²)?",
+   "options": [
+    "0.16",
+    "0.4",
+    "0.8",
+    "0.64",
+    "None of these"
+   ]
+  },
+  "27": {
+   "text": "Find the sum of the values of x for the system y = 2x² and y + 2x = 4."
+  },
+  "28": {
+   "text": "Simplify: (x² − 4x)/(x² − 16)"
+  },
+  "29": {
+   "text": "Azamat buys a jumper for $60.00 before tax. The shop charges 6% tax on all purchases. If he gives the cashier $70.00, how much change does he receive?"
+  },
+  "30": {
+   "text": "A jewellery shop offers a discount of 40%, and then a further 20% off the reduced price. How much will you pay for a ring priced at $200?"
+  }
+ },
+ "mix-5.html": {
+  "1": {
+   "text": "A brother and sister share 5000 stamps in the ratio 5 : 3. The brother then shares his stamps with two friends in the ratio 3 : 1 : 1, keeping the largest share himself. How many stamps does each friend receive?"
+  },
+  "2": {
+   "text": "Simplify: (x² − 16)/√(x − 4)"
+  },
+  "3": {
+   "text": "The lowest common multiple of {36, 48, 60} is"
+  },
+  "4": {
+   "text": "What is the inverse function of y = −3x + 12?"
+  },
+  "5": {
+   "text": "Solve the inequalities: x + 2 ≤ 5 + 3x ≤ 2x + 7"
+  },
+  "6": {
+   "text": "The diagonal of a cube is a cm. What is the volume of the cube, in cm³?"
+  },
+  "7": {
+   "text": "Given A ∝ 1/B², B is increased by 40%. What is the percentage change in A?",
+   "options": [
+    "Decrease of 29%",
+    "Decrease of 44%",
+    "Decrease of 49%",
+    "Decrease of 51%",
+    "Decrease of 80%",
+    "Decrease of 96%"
+   ]
+  },
+  "8": {
+   "text": "If x − 1 and x − 2 are factors of the polynomial x³ − 3x² + 2x − 4b, what is b?"
+  },
+  "9": {
+   "text": "A dodecagon is a polygon with 12 sides. The sum of all the interior angles of a regular dodecagon is"
+  },
+  "10": {
+   "text": "Simplify: 60/∛0.064"
+  },
+  "11": {
+   "text": "The solution of the inequality x² + 5x − 14 ≤ 0 is"
+  },
+  "12": {
+   "text": "y = 1 + √((x + 3)/x). Make x the subject."
+  },
+  "13": {
+   "text": "The sum of six consecutive odd numbers is 60. What is the smallest of them?"
+  },
+  "14": {
+   "text": "Five bells start ringing together, at intervals of 3, 6, 9, 12 and 15 seconds. How many times in 60 minutes do they ring together?",
+   "options": [
+    "10 times",
+    "20 times",
+    "30 times",
+    "40 times",
+    "50 times"
+   ]
+  },
+  "15": {
+   "text": "A prize fund of KZT 1 200 000 was shared between first, second and third place in the ratio 12 : 5 : 3. How much did second place receive?"
+  },
+  "16": {
+   "text": "The area of isosceles triangle ABC is 48 cm² and the base BC is 12 cm. Find sin B."
+  },
+  "17": {
+   "text": "Through how many degrees does the hour hand turn between noon and 16:30 on the same day?"
+  },
+  "18": {
+   "text": "f(x) = x² − 4 and g(x) = (x + 1)². Describe the transformation of the graph of f(x) that produces the graph of g(x).",
+   "options": [
+    "Translate 1 right, then 4 down",
+    "Translate 1 left, then 4 up",
+    "Translate 4 right, then 1 up",
+    "Translate 1 left, then 4 down",
+    "Translate 1 right, then 4 up"
+   ]
+  },
+  "19": {
+   "text": "Increasing the speed by 4 km/h on a journey of 32 km reduces the time by 4 hours. What was the original speed?",
+   "options": [
+    "2 km/h",
+    "4 km/h",
+    "6 km/h",
+    "8 km/h",
+    "10 km/h"
+   ]
+  },
+  "20": {
+   "text": "x and y are integers with x + y < 11 and x > 6. What is the smallest possible value of x − y?"
+  },
+  "21": {
+   "text": "If xy² = 4, what is (x³y⁴ − x²y²)/(x²y²)?"
+  },
+  "22": {
+   "text": "T = kx/y. Find the percentage change in T if k, x and y are all increased by 20%."
+  },
+  "23": {
+   "text": "The surface area of a sphere is numerically equal to three times its volume. What is the diameter of the sphere?"
+  },
+  "24": {
+   "text": "m and n are positive integers with m/n = 2/3. Which pair could NOT be the values of m and n?",
+   "options": [
+    "12 and 18",
+    "102 and 153",
+    "7 and 21",
+    "60 and 90",
+    "34 and 51"
+   ]
+  },
+  "25": {
+   "text": "For which values of k does the equation kx² − 4x + k = 0 have real roots?"
+  },
+  "26": {
+   "text": "The volume of water increases by 9% when it freezes. How much water is needed to make a piece of ice of volume 40 cm³?",
+   "options": [
+    "36.7 cm³",
+    "40.0 cm³",
+    "38.2 cm³",
+    "38.0 cm³",
+    "37.0 cm³"
+   ]
+  },
+  "27": {
+   "text": "Ima divided a number by 40 instead of by 8. What should she do to obtain the correct answer?",
+   "options": [
+    "Divide by 40",
+    "Divide by 8",
+    "Multiply by 5",
+    "Multiply by 320",
+    "Divide by 5"
+   ]
+  },
+  "28": {
+   "text": "The cube root of the square root of a number is 3. The number is"
+  },
+  "29": {
+   "text": "The two shorter sides of a right-angled triangle are in the ratio 1 : 2 and the area is 25. What is the hypotenuse?"
+  },
+  "30": {
+   "text": "A solid cube of side 3 cm is cut in half. What is the surface area of each half?",
+   "options": [
+    "9 cm²",
+    "18 cm²",
+    "27 cm²",
+    "36 cm²",
+    "54 cm²"
+   ]
+  }
+ },
+ "mix-6.html": {
+  "1": {
+   "text": "Which pair of numbers from {378, 392, 420, 450} has highest common factor 28?",
+   "options": [
+    "378 and 392",
+    "392 and 420",
+    "420 and 450",
+    "378 and 450",
+    "378 and 420"
+   ]
+  },
+  "2": {
+   "text": "The surface area of a cube is equal to the square root of six times its volume, S = √(6V). What is the length of an edge of the cube?"
+  },
+  "3": {
+   "text": "Luggage up to a certain weight is carried free of charge, and beyond that the charge is $5 per kg. Laa-Laa's luggage weighs 70 kg and she paid $200. Po's luggage weighs 45 kg. How much will Po pay?"
+  },
+  "4": {
+   "text": "What angle do the hands of a clock make at 9:20?"
+  },
+  "5": {
+   "text": "A right-angled triangle has hypotenuse 7x − 3 and shorter sides x + 3 and 6x. Find x."
+  },
+  "6": {
+   "text": "Evaluate: (1/4)^(−(1/4)^(1/2))"
+  },
+  "7": {
+   "text": "A solid sphere of diameter 10 sits inside a cylinder of length 10 and diameter 10. What is the ratio of the volume of the cylinder to the volume of the sphere?"
+  },
+  "8": {
+   "text": "Alan was x years old y years ago. In z years' time he will be"
+  },
+  "9": {
+   "text": "Equilateral triangle ABC has side x. Its area is"
+  },
+  "10": {
+   "text": "One device beeps every 40 seconds and another beeps every 42 seconds. They beep together at 10:00. When do they next beep together?"
+  },
+  "11": {
+   "text": "The price of a bicycle is reduced by 25%, and the new price is then reduced by a further 20%. The two reductions together are equal to a single reduction of"
+  },
+  "12": {
+   "text": "Which of these numbers is odd?"
+  },
+  "13": {
+   "text": "Which equation has roots 1 − √3 and 1 + √3?"
+  },
+  "14": {
+   "text": "The largest integer x satisfying x² − 13x + 36 < 0 is"
+  },
+  "15": {
+   "text": "A quarter of a third of two fifths of a number is 21. What is 30% of that number?"
+  },
+  "16": {
+   "text": "A line passes through A(2, 1) and B(0, 3). Its equation is"
+  },
+  "17": {
+   "text": "Factorise: 3x³ − 10x² − 8x"
+  },
+  "18": {
+   "text": "A number is decreased by 50% and then increased by 50%. The result is what percentage of the original number?"
+  },
+  "19": {
+   "text": "The positive solution of the system 4x² + y² + 10y = 47 and 2x − y = 5 is"
+  },
+  "20": {
+   "text": "Which expression is equivalent to 3√2/(√3 − √2)?"
+  },
+  "21": {
+   "text": "A 1 by √35 rectangle is inscribed in a circle. What is the volume of the sphere obtained by rotating this circle about a diameter?"
+  },
+  "22": {
+   "text": "x − y = 12 and xy = 108. Find x + y."
+  },
+  "23": {
+   "text": "A clock shows 5:40. What is the angle between the hour hand and the minute hand?"
+  },
+  "24": {
+   "text": "Write (4√3 + 5√60)/(2√3) in the form a + b√b. What are a and b?"
+  },
+  "25": {
+   "text": "436 921 is rounded to the nearest thousand and written in standard form. The result is"
+  },
+  "26": {
+   "text": "Three numbers are in the ratio 2 : 3 : 5. The smallest is 16. What is their sum?"
+  },
+  "27": {
+   "text": "£400 is shared between Ann, Brian and Carol. Ann receives twice as much as Brian, and Brian receives three times as much as Carol. How much does Brian receive?"
+  },
+  "28": {
+   "text": "The symbol ♦ is defined by a♦b = √(ab). Evaluate (8♦2)♦(4♦9)."
+  },
+  "29": {
+   "text": "There are 300 sandwiches at a picnic. Half of them are tuna, and in 3/5 of those the tuna is out of date. What percentage of all the sandwiches is still edible?"
+  },
+  "30": {
+   "text": "A circle with centre (3, 4) touches the x-axis. What is its circumference?"
+  }
+ },
+ "mix-7.html": {
+  "1": {
+   "text": "Which inequality is equivalent to p + s > p − s?"
+  },
+  "2": {
+   "text": "A trader sold 30% of his goods at 40% below the wholesale price and the rest at 40% above it. What is the profit on all the goods?"
+  },
+  "3": {
+   "text": "Mary's height increased by 20% from age 5 to age 10, by 15% from 10 to 15, and by 10% from 15 to 20. By how much did her height increase from age 5 to age 20?",
+   "options": [
+    "38.2%",
+    "45%",
+    "50%",
+    "51.8%",
+    "None of these"
+   ]
+  },
+  "4": {
+   "text": "(2 − x)(16 + x⁴)(4 + x²)(2 + x) is equal to"
+  },
+  "5": {
+   "text": "The missing term x in the sequence −3, 3, x, 27, 45, 67 is"
+  },
+  "6": {
+   "text": "Evaluate (x^0.25 + y^(−1))/x^0.25 when x = 16 and y = 8."
+  },
+  "7": {
+   "text": "w, x, y and z are integers with w < x², x > y², y² < z² and x > z. Which inequality must be true?"
+  },
+  "8": {
+   "text": "What is the volume of a cube whose surface area is 150?"
+  },
+  "9": {
+   "text": "a = 2^x, b = 3^x and c = 5^x. Express 90^x in terms of a, b and c."
+  },
+  "10": {
+   "text": "a is the number of even prime numbers; b is the number of primes divisible by 7; c is the number of primes divisible by 9; d is the number of primes between 20 and 30. What is a + b + c + d?"
+  },
+  "11": {
+   "text": "Solve the equation t − 3 = √(9 − t). The solution set is"
+  },
+  "12": {
+   "text": "A circular logo is enlarged so that the new diameter is 50% greater than the original. By what percentage does the area increase?"
+  },
+  "13": {
+   "text": "Travelling at 2/3 of her usual speed, Chelsea arrives at school 20 minutes late. How many minutes does the journey take at her usual speed?"
+  },
+  "14": {
+   "text": "One pipe fills a pool 4 hours faster than another. The slower pipe ran for 7 hours, then the second pipe was opened and together they finished in 2 hours. How long does each pipe take to fill the pool on its own?",
+   "options": [
+    "14 and 18 hours",
+    "8 and 12 hours",
+    "11 and 15 hours",
+    "9 and 13 hours",
+    "10 and 14 hours"
+   ]
+  },
+  "15": {
+   "text": "The graph of a quadratic function f(x) has its minimum at (−1, 1). If f(a) = f(1), which value could a take?"
+  },
+  "16": {
+   "text": "The area of a triangle is 2 cm². The base is 3 cm longer than the height. Find the base and the height.",
+   "options": [
+    "5 and 2",
+    "4 and 1",
+    "6 and 3",
+    "7 and 4",
+    "8 and 5"
+   ]
+  },
+  "17": {
+   "text": "Find the equation with roots 2 + √3 and 2 − √3."
+  },
+  "18": {
+   "text": "If y∝x = y^(2x) for positive integers, then (3∝4)∝2 ="
+  },
+  "19": {
+   "text": "a = 3/(5 + X), b = (3 + X)/5 and c = (3 + X)/(5 + X), where X is an integer greater than 0. Which is true?",
+   "options": [
+    "a < b < c for all X",
+    "a < c < b for all X",
+    "b < a < c for all X",
+    "b < c < a for all X",
+    "c < a < b for all X",
+    "c < b < a for all X",
+    "The order depends on X"
+   ]
+  },
+  "20": {
+   "text": "Make x the subject of √(2/x + 1) = y − 3."
+  },
+  "21": {
+   "text": "Consider the statement: “If x = y, then x² = y².” Which of these can NOT be deduced from it?",
+   "options": [
+    "x = y is sufficient for x² = y²",
+    "x² = y² is a necessary condition for x = y",
+    "x = y implies x² = y²",
+    "If x² ≠ y², then x ≠ y",
+    "If x² = y², then x = y"
+   ]
+  },
+  "22": {
+   "text": "Mitchell spends 30% of his day sleeping, 35% working, 5% at the gym, a further 5 hours at home, and the rest in his car. How many minutes a day does he spend in his car?"
+  },
+  "23": {
+   "text": "f(x, y) = 2x² − y² and g(x) = 2^x. What is f(g(x), g(x))?"
+  },
+  "24": {
+   "text": "A class has 6 more boys than girls, and the ratio of boys to girls is 5/3. How many students are there in total?"
+  },
+  "25": {
+   "text": "What is half of 2²⁰?"
+  },
+  "26": {
+   "text": "One root of ax² + bx + c = 0 is twice the other. What is the relationship between a, b and c?"
+  },
+  "27": {
+   "text": "Line g is parallel to 2x + 5y − 1 = 0 and passes through (2, 3). The equation of line g is"
+  },
+  "28": {
+   "text": "A square of side 3 cm is cut from each corner of a square sheet, and the edges are folded up to make an open box of volume 48 cm³. What was the side of the original sheet?"
+  },
+  "29": {
+   "text": "f(−x) = f(x) for all x, and the point (3, 8) lies on the graph of f. Which point must also lie on the graph?"
+  },
+  "30": {
+   "text": "Evaluate: 1/(√2 + 2) + 1/(√2 − 2)"
+  }
+ },
+ "mix-8.html": {
+  "1": {
+   "text": "A right-angled triangle has a horizontal side of (4 + √2) cm and a vertical side of (2 − √2) cm. Calculate the area of the triangle.",
+   "options": [
+    "(3 − 3√2) cm²",
+    "(3 + 3√2) cm²",
+    "(3 − √2) cm²",
+    "(5 − √2) cm²",
+    "(5 − 3√2) cm²",
+    "(5 + 3√2) cm²"
+   ]
+  },
+  "2": {
+   "text": "Simplify: ( 2x3/2y³ / √z )²"
+  },
+  "3": {
+   "text": "Spearman's rank correlation coefficient is given by r = 1 − 6Σd² / (n(n² − 1)). Make Σd² the subject."
+  },
+  "4": {
+   "text": "These graphs are drawn: 1) y = 3x − 2;  2) y = x²;  3) y = 1 − x²;  4) y = x + 6. Which pair of graphs does not intersect?",
+   "options": [
+    "1 and 2",
+    "1 and 3",
+    "2 and 3",
+    "2 and 4",
+    "3 and 4"
+   ]
+  },
+  "5": {
+   "text": "A solid sphere of radius r fits inside a hollow cylinder whose internal diameter and length are both equal to the diameter of the sphere. What fraction of the volume of the cylinder does the sphere occupy?"
+  },
+  "6": {
+   "text": "PQR is an isosceles triangle with PQ = PR = 6 cm and QR = 8 cm. What is the tangent of angle PQR?"
+  },
+  "7": {
+   "text": "a = 3/(5 + X), b = (3 + X)/5 and c = (3 + X)/(5 + X), where X is an integer greater than zero. Which is true?",
+   "options": [
+    "a &lt; b &lt; c for all X",
+    "a &lt; c &lt; b for all X",
+    "b &lt; a &lt; c for all X",
+    "b &lt; c &lt; a for all X",
+    "c &lt; a &lt; b for all X",
+    "c &lt; b &lt; a for all X",
+    "The order depends on X"
+   ]
+  },
+  "8": {
+   "text": "A town football club raised money for charity. The total was shared between funds A, B and C in the ratio 1 : 2/3 : 4/5. Fund C received £3 000. How much was raised in total during the year?"
+  },
+  "9": {
+   "text": "Simplify: (2x+3)/(2x−3) + (2x−3)/(2x+3) − 2"
+  },
+  "10": {
+   "text": "Given 4p × 8q = 2n, express n in terms of p and q."
+  },
+  "11": {
+   "text": "The diagram shows part of a glass structure. PQRS is a horizontal square of side 1 m, and the point X is 4 m vertically above P. What is the cosine of the angle between XR and the horizontal?"
+  },
+  "12": {
+   "text": "Given x = 4.6 × 10⁷ and y = 2 × 10⁶, what is (x + 7y)/(x − 2y)?"
+  },
+  "13": {
+   "text": "Square ABCD, with vertices (1,1), (−1,1), (−1,−1) and (1,−1), is rotated 90° clockwise about the origin and then reflected in the line y = x. Which transformation returns the square to its original orientation?",
+   "options": [
+    "Reflection in the x-axis",
+    "Reflection in the y-axis",
+    "Reflection in the line y = −x",
+    "Rotation of 90° clockwise about the origin",
+    "Rotation of 90° anticlockwise about the origin"
+   ]
+  },
+  "14": {
+   "text": "The variables x, y and z are related as follows: x is directly proportional to the square of z, and y is inversely proportional to the cube of z. Which correctly describes the relationship between x and y?",
+   "options": [
+    "The square of x is directly proportional to the cube of y",
+    "The square of x is inversely proportional to the cube of y",
+    "The cube of x is directly proportional to the square of y",
+    "The cube of x is inversely proportional to the square of y",
+    "x is directly proportional to y⁶"
+   ]
+  },
+  "15": {
+   "text": "A shape is made from three cubes, the largest at the bottom and the smallest on top. At each join, the corners of the smaller cube lie at the midpoints of the sides of a face of the larger cube. The side of the smallest cube is 1 cm. What is the total surface area of the shape?",
+   "options": [
+    "30 cm²",
+    "32 cm²",
+    "33 cm²",
+    "36 cm²",
+    "39 cm²",
+    "42 cm²"
+   ]
+  },
+  "16": {
+   "text": "A pattern is formed by four circles that touch at the top point (diagram not to scale). The diameters are d, 2d, 3d and 4d. Find the area of the shaded part of the pattern."
+  },
+  "17": {
+   "text": "Evaluate: ∛( 2×10⁵ / (5×10⁻³)² ) − √( 4×10³ − 4×10² )"
+  },
+  "18": {
+   "text": "In triangle ABC (not to scale), tan A = 1/6 and tan B = 2/3. M is the midpoint of AB. What is tan θ?"
+  },
+  "19": {
+   "text": "A new sign for a local business is made of two parts, wood and metal. The metal costs 3 times as much as the wood per unit. The cost of the metal is proportional to the diameter of the sign, and the cost of the wood is proportional to the square of the diameter. If the diameter is doubled, the total cost of the materials triples. What percentage of the cost of the sign, to the nearest 1%, is metal?"
+  },
+  "20": {
+   "text": "w, x, y and z are integers with w &lt; x², x &gt; y², y² &lt; z² and x &gt; z. Which inequality must be true?",
+   "options": [
+    "w &lt; x",
+    "w &gt; y",
+    "w &lt; z",
+    "x &gt; y",
+    "y &lt; z"
+   ]
+  },
+  "21": {
+   "text": "There are two containers of different capacity. The larger is full of water and the smaller is empty. Water is poured from the larger into the smaller until the volumes of water in them are equal. The water in the larger container is now a fraction p of its capacity, and the water in the smaller is a fraction q of its capacity. Which must be true?",
+   "options": [
+    "p + q = 1 (but p and q are not necessarily 0.5 each)",
+    "p = 0.5 and q = 0.5",
+    "p = 0.5 and q &gt; 0.5",
+    "p &gt; 0.5 and q = 0.5",
+    "p &gt; 0.5 and q &gt; 0.5"
+   ]
+  },
+  "22": {
+   "text": "The total surface area of a cylinder is numerically equal to its volume. The radius is r cm and the height is h cm. Express h in terms of r."
+  },
+  "23": {
+   "text": "A pattern is built by joining points one third of the way along the sides of a square, forming a second square. The process is then repeated. Find the area of the fourth square as a fraction of the area of the original square."
+  },
+  "24": {
+   "text": "The binary operation © is defined by x © y = √(x/y). What is (24 © 6) © 2?"
+  },
+  "25": {
+   "text": "Solve the inequality: x² + 5x − 14 ≤ 0"
+  },
+  "26": {
+   "text": "The equation 2x(ax − 4) − x² + 6 = 0 has no real roots. What is the smallest possible integer value of a?"
+  },
+  "27": {
+   "text": "Given x − y = 4 and x² − y² = 24, find xy.",
+   "options": [
+    "96",
+    "48",
+    "32",
+    "5",
+    "Cannot be determined"
+   ]
+  },
+  "28": {
+   "text": "The line ax − by = −9 passes through A(−1, 3) and B(−3, 0). Find a + b."
+  },
+  "29": {
+   "text": "The point A(a, b) lies in the fourth quadrant of the coordinate plane. In which quadrant does the point B(−a, −b) lie?"
+  },
+  "30": {
+   "text": "47 is split into three numbers. The second is 8 more than the first and 10 less than the third. Find the first number."
+  }
+ },
+ "mix-20.html": {
+  "6": {
+   "text": "A new sign for a local business is made of two parts, wood and metal. The metal costs 3 times as much as the wood per unit. The cost of the metal is proportional to the diameter of the sign, and the cost of the wood is proportional to the square of the diameter. If the diameter is doubled, the total cost of the materials triples. What percentage of the cost of the sign, to the nearest whole number, is metal?"
+  }
  }
 }
