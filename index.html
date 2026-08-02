@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prepline — подготовка к NUET</title>
+<title>Prepline — NUET preparation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -40,7 +40,7 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
-  /* ---------- левый taskbar (dock) ---------- */
+  /* ---------- left taskbar (dock) ---------- */
   .dock {
     position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
     display: flex; flex-direction: column; align-items: center;
@@ -96,7 +96,7 @@
     50% { background-position: 100% 50%; }
   }
 
-  /* ---------- hero: фон — звёзды с красными облаками ---------- */
+  /* ---------- hero: background of stars with red clouds ---------- */
   .hero {
     padding: 110px 0 130px; position: relative; overflow: hidden;
   }
@@ -147,7 +147,7 @@
   }
   .btn-ghost:hover { border-color: var(--violet); scale: 1.05; box-shadow: 0 10px 24px -14px rgba(167,139,250,0.5); }
 
-  /* ---------- живой мини-тест ---------- */
+  /* ---------- live mini quiz ---------- */
   .quiz-card {
     background: rgba(14,20,48,0.68);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
@@ -190,7 +190,7 @@
   .quiz-feedback.ok { color: #A7F3D0; }
   .quiz-feedback.no { color: #FECACA; }
 
-  /* ---------- stats: фон — планета ---------- */
+  /* ---------- stats: planet background ---------- */
   .stats {
     position: relative; padding: 84px 0; overflow: hidden;
   }
@@ -268,7 +268,7 @@
   .how-step h3 { font-size: 17px; margin-bottom: 8px; }
   .how-step p { font-size: 14px; opacity: 0.8; }
 
-  /* ---------- CTA: фон — млечный путь ---------- */
+  /* ---------- CTA: milky way background ---------- */
   .cta-band {
     padding: 110px 0; text-align: center; position: relative; overflow: hidden;
   }
@@ -290,7 +290,7 @@
   }
   footer .wrap { display: flex; justify-content: space-between; }
 
-  /* ---------- mobile: dock становится нижней панелью ---------- */
+  /* ---------- mobile: dock becomes a bottom bar ---------- */
   @media (max-width: 780px) {
     :root { --dock-w: 0px; }
     main { margin-left: 0; }
@@ -332,29 +332,29 @@
 </head>
 <body>
 
-<!-- ЛЕВЫЙ TASKBAR -->
+<!-- LEFT TASKBAR -->
 <aside class="dock">
   <a href="#" class="dock-logo" aria-label="Prepline">P</a>
-  <a href="#" class="dock-item" aria-label="Главная">
+  <a href="#" class="dock-item" aria-label="Home">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span class="dock-tip">Главная</span>
+    <span class="dock-tip">Home</span>
   </a>
-  <a href="#tracks" class="dock-item" aria-label="Направления">
+  <a href="#tracks" class="dock-item" aria-label="Sections">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-    <span class="dock-tip">Направления</span>
+    <span class="dock-tip">Sections</span>
   </a>
-  <a href="intro.html" class="dock-item" aria-label="Что такое NUET">
+  <a href="intro.html" class="dock-item" aria-label="What is NUET">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <span class="dock-tip">Что такое NUET</span>
+    <span class="dock-tip">What is NUET</span>
   </a>
-  <a href="#how" class="dock-item" aria-label="Как это работает">
+  <a href="#how" class="dock-item" aria-label="How it works">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
-    <span class="dock-tip">Как это работает</span>
+    <span class="dock-tip">How it works</span>
   </a>
   <div class="dock-spacer"></div>
-  <a href="math.html" class="dock-item accent" aria-label="Математика">
+  <a href="math.html" class="dock-item accent" aria-label="Mathematics">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Математика</span>
+    <span class="dock-tip">Mathematics</span>
   </a>
   <a href="crit.html" class="dock-item accent" aria-label="Critical Thinking">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
@@ -372,19 +372,19 @@
   <div class="hero-photo"></div>
   <div class="wrap">
     <div class="hero-left">
-      <span class="eyebrow">Диагностика за 10 минут</span>
-      <h1>Готовься к NUET там, где видно <em>реальный прогресс</em></h1>
-      <p class="lead">Практика с моментальной обратной связью, разбивкой по секциям и таймером — как на настоящем экзамене. Без воды, только вопросы, которые считают за тебя.</p>
+      <span class="eyebrow">10-minute diagnostic</span>
+      <h1>Prepare for NUET where you can see <em>real progress</em></h1>
+      <p class="lead">Practice with instant feedback, a breakdown by section and a timer, just like the real exam. No filler — only questions that count.</p>
       <div class="hero-actions">
-        <a href="#tracks" class="btn-primary">Выбрать раздел и начать</a>
+        <a href="#tracks" class="btn-primary">Choose a section and start</a>
       </div>
     </div>
     <div class="quiz-card">
       <div class="quiz-top">
-        <span class="quiz-badge">Попробуй сам</span>
-        <span class="quiz-hint">1 вопрос из NUET</span>
+        <span class="quiz-badge">Try it yourself</span>
+        <span class="quiz-hint">One NUET question</span>
       </div>
-      <div class="quiz-q">Если 40% от x равно 160% от y, чему равно (3x − 12y)/5?</div>
+      <div class="quiz-q">If 40% of x equals 160% of y, what is (3x − 12y)/5?</div>
       <button class="quiz-opt" data-correct="false">3</button>
       <button class="quiz-opt" data-correct="false">2</button>
       <button class="quiz-opt" data-correct="true">0</button>
@@ -399,49 +399,49 @@
   <div class="wrap">
     <div>
       <div class="stat-num" data-target="1048" data-decimals="0" data-suffix="">1048</div>
-      <div class="stat-label">проверенных вопросов в базе</div>
+      <div class="stat-label">verified questions in the bank</div>
     </div>
     <div>
       <div class="stat-num" data-target="38" data-decimals="0" data-suffix="">38</div>
-      <div class="stat-label">теста с таймером</div>
+      <div class="stat-label">timed tests</div>
     </div>
     <div>
       <div class="stat-num" data-target="30" data-decimals="0" data-suffix="">30</div>
-      <div class="stat-label">минут на один тест</div>
+      <div class="stat-label">minutes per test</div>
     </div>
   </div>
 </section>
 
 <section class="section" id="tracks">
   <div class="section-head" data-reveal>
-    <h2>Две секции NUET, <span class="grad-text">один принцип</span></h2>
-    <p>Реальный формат экзамена, а не абстрактные упражнения.</p>
+    <h2>Two NUET sections, <span class="grad-text">one principle</span></h2>
+    <p>The real exam format, not abstract exercises.</p>
   </div>
   <div class="wrap tracks">
     <div class="track-card" data-reveal-card>
       <span class="track-tag">NUET · Mathematics</span>
-      <h3>Математика</h3>
-      <p>22 теста по 27-30 вопросов из реальных мок-экзаменов NUET и NUFYPET — с таймером, навигацией и разбором каждого ответа.</p>
+      <h3>Mathematics</h3>
+      <p>22 tests of 27–30 questions from real NUET and NUFYPET mock exams, with a timer, navigation and a breakdown of every answer.</p>
       <div class="track-meta">
-        <span>Цель: <strong>210+/240</strong></span>
-        <span>База: <strong>606 вопросов</strong></span>
+        <span>Target: <strong>210+/240</strong></span>
+        <span>Base: <strong>606 questions</strong></span>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="diagnostic-math.html" class="track-btn">Диагностика (10 вопросов)</a>
-        <a href="math.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">Все тесты</a>
+        <a href="diagnostic-math.html" class="track-btn">Diagnostic (10 questions)</a>
+        <a href="math.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">All tests</a>
       </div>
     </div>
     <div class="track-card" data-reveal-card>
       <span class="track-tag">NUET · Critical Thinking</span>
-      <h3>Критическое мышление и решение задач</h3>
-      <p>Вторая секция NUET по спецификации NU: анализ аргументов, логика, problem solving. 16 тестов по 30 вопросов.</p>
+      <h3>Critical Thinking and Problem Solving</h3>
+      <p>The second NUET section as specified by NU: analysing arguments, logic and problem solving. 16 tests of 30 questions.</p>
       <div class="track-meta">
-        <span>Формат: <strong>MCQ</strong></span>
-        <span>База: <strong>442 вопроса</strong></span>
+        <span>Format: <strong>MCQ</strong></span>
+        <span>Base: <strong>442 questions</strong></span>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="diagnostic-crit.html" class="track-btn">Диагностика (10 вопросов)</a>
-        <a href="crit.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">Все тесты</a>
+        <a href="diagnostic-crit.html" class="track-btn">Diagnostic (10 questions)</a>
+        <a href="crit.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">All tests</a>
       </div>
     </div>
   </div>
@@ -449,29 +449,29 @@
 
 <section class="section" id="how">
   <div class="section-head" data-reveal>
-    <h2>Как это <span class="grad-text">работает</span></h2>
-    <p>Три шага от первого теста до результата на экзамене.</p>
+    <h2>How it <span class="grad-text">works</span></h2>
+    <p>Three steps from your first test to your exam result.</p>
   </div>
   <div class="wrap how">
     <div class="how-step" data-reveal-card>
       <span class="how-num">01</span>
-      <h3>Диагностика</h3>
-      <p>10-минутный тест определяет твой текущий уровень по секциям.</p>
+      <h3>Diagnostic</h3>
+      <p>A 10-minute test establishes your current level in each section.</p>
     </div>
     <div class="how-step" data-reveal-card>
       <span class="how-num">02</span>
-      <h3>План</h3>
-      <p>Слабые темы получают больше практики — без лишних повторений того, что уже знаешь.</p>
+      <h3>Plan</h3>
+      <p>Weak topics get more practice, without repeating what you already know.</p>
     </div>
     <div class="how-step" data-reveal-card>
       <span class="how-num">03</span>
-      <h3>Практика</h3>
-      <p>Ежедневные сессии с таймером и мгновенным разбором каждого ответа.</p>
+      <h3>Practice</h3>
+      <p>Daily timed sessions with an instant breakdown of every answer.</p>
     </div>
     <div class="how-step" data-reveal-card>
       <span class="how-num">04</span>
-      <h3>Экзамен</h3>
-      <p>Ты выходишь на реальный тест, уже привыкнув к формату и темпу.</p>
+      <h3>Exam</h3>
+      <p>You sit the real test already used to the format and the pace.</p>
     </div>
   </div>
 </section>
@@ -479,16 +479,16 @@
 <section class="cta-band" id="cta">
   <div class="cta-photo"></div>
   <div class="wrap" data-reveal>
-    <h2>Узнай свой уровень <span class="grad-text">прямо сейчас</span></h2>
-    <p>Бесплатная диагностика — 10 вопросов, 10 минут, честный результат.</p>
-    <a href="#tracks" class="btn-primary">Начать бесплатно</a>
+    <h2>Find out your level <span class="grad-text">right now</span></h2>
+    <p>A free diagnostic: 10 questions, 10 minutes, an honest result.</p>
+    <a href="#tracks" class="btn-primary">Start for free</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <span>Prepline © 2026</span>
-    <span>Астана, Казахстан</span>
+    <span>Astana, Kazakhstan</span>
   </div>
 </footer>
 
@@ -498,16 +498,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <script>
-  /* ===== мини-тест: случайный вопрос при каждой загрузке ===== */
+  /* ===== mini quiz: a random question on every load ===== */
   const QUIZ_POOL = [
-    { q: 'Если 40% от x равно 160% от y, чему равно (3x − 12y)/5?', opts: ['3', '2', '0', '4'], correct: '0' },
-    { q: 'Если x + y = 10 и x − y = 4, чему равно xy?', opts: ['18', '21', '24', '12'], correct: '21' },
-    { q: '25% от 80 плюс 30% от 50 равно:', opts: ['30', '35', '40', '45'], correct: '35' },
-    { q: 'Продолжи последовательность: 2, 6, 18, 54, …', opts: ['108', '162', '148', '216'], correct: '162' },
-    { q: 'Если 3^x = 81, чему равно x² − x?', opts: ['6', '12', '16', '20'], correct: '12' },
-    { q: 'Среднее пяти чисел равно 12. После добавления шестого числа среднее стало 14. Какое число добавили?', opts: ['22', '24', '26', '14'], correct: '24' },
-    { q: 'Реши уравнение: 2(x − 3) = x + 5', opts: ['8', '11', '2', '−1'], correct: '11' },
-    { q: 'Бросают игральный кубик. Какова вероятность выпадения чётного числа больше 2?', opts: ['1/2', '1/3', '2/3', '1/6'], correct: '1/3' }
+    { q: 'If 40% of x equals 160% of y, what is (3x - 12y)/5?', opts: ['3', '2', '0', '4'], correct: '0' },
+    { q: 'If x + y = 10 and x - y = 4, what is xy?', opts: ['18', '21', '24', '12'], correct: '21' },
+    { q: '25% of 80 plus 30% of 50 equals:', opts: ['30', '35', '40', '45'], correct: '35' },
+    { q: 'Continue the sequence: 2, 6, 18, 54, ...', opts: ['108', '162', '148', '216'], correct: '162' },
+    { q: 'If 3^x = 81, what is x² − x?', opts: ['6', '12', '16', '20'], correct: '12' },
+    { q: 'The mean of five numbers is 12. After a sixth number is added the mean becomes 14. What number was added?', opts: ['22', '24', '26', '14'], correct: '24' },
+    { q: 'Solve the equation: 2(x − 3) = x + 5', opts: ['8', '11', '2', '−1'], correct: '11' },
+    { q: 'A die is rolled. What is the probability of an even number greater than 2?', opts: ['1/2', '1/3', '2/3', '1/6'], correct: '1/3' }
   ];
 
   (function renderQuiz() {
@@ -515,7 +515,7 @@
     if (!card) return;
     const item = QUIZ_POOL[Math.floor(Math.random() * QUIZ_POOL.length)];
 
-    // перемешиваем варианты (Фишер–Йетс)
+    // shuffle the options (Fisher-Yates)
     const opts = item.opts.slice();
     for (let i = opts.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -534,7 +534,7 @@
     card.dataset.answer = item.correct;
   })();
 
-  /* ===== логика ответа (та же, текст фидбэка берёт правильный ответ из данных) ===== */
+  /* ===== answer logic (unchanged; the feedback text takes the correct answer from the data) ===== */
   const quizOpts = document.querySelectorAll('.quiz-opt');
   const feedback = document.getElementById('quiz-feedback');
   let quizAnswered = false;
@@ -548,26 +548,26 @@
         if (o.dataset.correct === 'true') o.classList.add('correct');
         else if (o === btn) o.classList.add('wrong');
       });
-      feedback.textContent = isCorrect ? ('Верно! Так и есть — ' + answer + '.') : ('Неверно. Правильный ответ — ' + answer + '.');
+      feedback.textContent = isCorrect ? ('Correct — that is right: ' + answer + '.') : ('Not quite. The correct answer is ' + answer + '.');
       feedback.className = 'quiz-feedback ' + (isCorrect ? 'ok' : 'no');
     });
   });
 
-  /* ===== GSAP-анимации ===== */
+  /* ===== GSAP animations ===== */
   (function () {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // dock: выезд слева при загрузке
+    // dock: slides in from the left on load
     gsap.from('.dock', { x: -90, opacity: 0, duration: 0.7, ease: 'power3.out' });
     gsap.from('.dock-logo, .dock-item', { x: -24, opacity: 0, duration: 0.5, stagger: 0.07, delay: 0.3, ease: 'power3.out', clearProps: 'all' });
 
-    // hero: появление при загрузке
+    // hero: fades in on load
     gsap.from('.hero-left > *', { y: 26, opacity: 0, duration: 0.8, delay: 0.2, stagger: 0.1, ease: 'power3.out' });
     gsap.from('.quiz-card', { y: 44, opacity: 0, duration: 0.9, delay: 0.4, ease: 'power3.out' });
 
-    // параллакс фото-фонов
+    // parallax on the photo backgrounds
     gsap.to('.hero-photo', {
       y: 90, ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
@@ -581,7 +581,7 @@
       scrollTrigger: { trigger: '.cta-band', start: 'top bottom', end: 'bottom top', scrub: true }
     });
 
-    // параллакс контента hero
+    // parallax on the hero content
     gsap.to('.quiz-card', {
       y: -46, ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
@@ -591,7 +591,7 @@
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
     });
 
-    // секции: появление вниз, исчезание при скролле вверх
+    // sections: fade in downwards, fade out on scrolling up
     gsap.utils.toArray('[data-reveal]').forEach(el => {
       gsap.from(el, {
         y: 36, opacity: 0, duration: 0.8, ease: 'power3.out',
@@ -599,7 +599,7 @@
       });
     });
 
-    // карточки: стаггер вниз, обратный при скролле вверх
+    // cards: staggered downwards, reversed on scrolling up
     ['.tracks', '.how'].forEach(sel => {
       const cards = gsap.utils.toArray(sel + ' [data-reveal-card]');
       if (!cards.length) return;
@@ -609,7 +609,7 @@
       });
     });
 
-    // счётчики цифр
+    // number counters
     gsap.utils.toArray('.stat-num').forEach(el => {
       const target = parseFloat(el.dataset.target);
       const decimals = parseInt(el.dataset.decimals || '0', 10);
@@ -626,7 +626,7 @@
 </script>
 
 
-<!-- ===== Prepline × Supabase: авторизация ===== -->
+<!-- ===== Prepline x Supabase: auth ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 </body>

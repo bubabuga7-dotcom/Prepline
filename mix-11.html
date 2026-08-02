@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тест 11 — Prepline</title>
+<title>Test 11 — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -107,8 +107,8 @@
 <body>
 <div class="page-photo"></div>
 <div class="wrap">
-  <a href="index.html" class="back">&larr; На главную</a>
-  <h2>Тест 11 — Математика NUET (30 вопросов, 25 с ключом)</h2>
+  <a href="index.html" class="back">&larr; Home</a>
+  <h2>Test 11 — NUET Mathematics (30 questions, 25 with key)</h2>
   <div id="app"></div>
 </div>
 
@@ -131,20 +131,20 @@ function render() {
 
   app.innerHTML = `
     <div class="topbar">
-      <span>Вопрос ${state.idx+1} из ${questions.length}</span>
+      <span>Question ${state.idx+1} of ${questions.length}</span>
       <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
     </div>
     <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
-    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Рисунок к вопросу">` : ''}
+    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Figure for the question">` : ''}
     <div class="question">${q.text}</div>
     <div class="options">
       ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
     </div>
     <div class="nav-row">
-      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Назад</button>
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Back</button>
       ${state.idx === questions.length-1
-        ? '<button class="submit-btn" id="submit">Завершить тест</button>'
-        : '<button class="nav-btn" id="next">Далее &rarr;</button>'}
+        ? '<button class="submit-btn" id="submit">Finish test</button>'
+        : '<button class="nav-btn" id="next">Next &rarr;</button>'}
     </div>
   `;
 
@@ -167,7 +167,7 @@ function finish() {
   appendHistory();
 }
 
-/* === Prepline: история результатов (localStorage) === */
+/* === Prepline: attempt history (localStorage) === */
 function mockKey() {
   return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
 }
@@ -184,7 +184,7 @@ function saveAttempt() {
 function appendHistory() {
   try {
     const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
-    if (hist.length < 2) return; // первая попытка — истории ещё нет
+    if (hist.length < 2) return; // first attempt — no history yet
     const best = Math.max.apply(null, hist.map(a => a.s));
     const rows = hist.slice(-10).reverse().map(a => {
       const d = new Date(a.t);
@@ -195,7 +195,7 @@ function appendHistory() {
         '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
     }).join('');
     const div = document.createElement('div');
-    div.innerHTML = '<h2 style="margin-top:28px">История попыток &middot; лучший результат ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    div.innerHTML = '<h2 style="margin-top:28px">Attempt history &middot; best result ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
     const app = document.getElementById('app');
     const rb = app.querySelector('.restart-btn');
     if (rb) app.insertBefore(div, rb); else app.appendChild(div);
@@ -210,11 +210,11 @@ function renderResults(app) {
 
   app.innerHTML = `
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-label">Итог</div><div class="stat-num">${correctCount}/${verifiedQs.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Процент</div><div class="stat-num">${pct}%</div></div>
-      <div class="stat-card"><div class="stat-label">Не отвечено</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+      <div class="stat-card"><div class="stat-label">Result</div><div class="stat-num">${correctCount}/${verifiedQs.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Percentage</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Unanswered</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
     </div>
-    <p style="font-size:13px; opacity:0.7; margin-bottom:16px;">5 вопросов без проверенного ключа ответа не входят в счёт — помечены серым, просто для практики.</p>
+    <p style="font-size:13px; opacity:0.7; margin-bottom:16px;">5 questions without a verified answer key do not count towards the score — they are greyed out, for practice only.</p>
     ${questions.map(q => {
       const unverified = q.verified === false;
       const ok = state.answers[q.id] === q.correct;
@@ -222,14 +222,14 @@ function renderResults(app) {
       const correctAns = unverified ? null : q.options[q.correct];
       return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span>Вопрос ${q.id}${q.text ? ': ' + q.text : ''}</span><span class="mark ${unverified ? '' : (ok ? 'ok' : 'no')}" style="${unverified ? 'color:var(--text); opacity:0.6; font-weight:500; font-size:12px;' : ''}">${unverified ? 'нет ключа' : (ok ? '&#10003;' : '&#10007;')}</span>
+          <span>Question ${q.id}${q.text ? ': ' + q.text : ''}</span><span class="mark ${unverified ? '' : (ok ? 'ok' : 'no')}" style="${unverified ? 'color:var(--text); opacity:0.6; font-weight:500; font-size:12px;' : ''}">${unverified ? 'no key' : (ok ? '&#10003;' : '&#10007;')}</span>
         </div>
-        ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Вопрос ${q.id}">` : ''}
-        ${unverified ? `<div style="font-size:13px; margin-top:6px; opacity:0.6;">Твой ответ: ${userAns} &nbsp;·&nbsp; ответ пока не проверен, только для практики</div>` : ''}
-        ${(!unverified && !ok) ? `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Твой ответ: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Правильный: ${correctAns}</span></div>` : ''}
+        ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Question ${q.id}">` : ''}
+        ${unverified ? `<div style="font-size:13px; margin-top:6px; opacity:0.6;">Your answer: ${userAns} &nbsp;·&nbsp; the answer has not been verified yet, practice only</div>` : ''}
+        ${(!unverified && !ok) ? `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Correct: ${correctAns}</span></div>` : ''}
       </div>`;
     }).join('')}
-    <button class="restart-btn" id="restart">Пройти ещё раз</button>
+    <button class="restart-btn" id="restart">Take it again</button>
   `;
   document.getElementById('restart').onclick = () => {
     state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
@@ -250,7 +250,7 @@ startTimer();
 render();
 </script>
 
-<!-- ===== Prepline × Supabase: авторизация + облачное сохранение ===== -->
+<!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 <script>
@@ -258,7 +258,7 @@ render();
   function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
 
   if (typeof saveAttempt === 'function') {
-    /* mix-1..7: перехватываем saveAttempt — localStorage остаётся, добавляем облако */
+    /* mix-1..7: hook saveAttempt — localStorage stays, cloud is added */
     const orig = saveAttempt;
     saveAttempt = function () {
       orig();
@@ -271,7 +271,7 @@ render();
       } catch (e) { console.error('[Prepline]', e); }
     };
   } else if (typeof finish === 'function') {
-    /* mix-8: saveAttempt нет, оборачиваем finish */
+    /* mix-8: no saveAttempt, wrap finish instead */
     const origFinish = finish;
     finish = function (reason) {
       const was = state.finished;

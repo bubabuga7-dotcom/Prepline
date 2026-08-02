@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Диагностика — Prepline</title>
+<title>Diagnostic — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -107,13 +107,13 @@
 <body>
 <div class="page-photo"></div>
 <div class="wrap">
-  <a href="index.html" class="back">&larr; На главную</a>
-  <h2>Mock Exam #1 — Математика NUFYPET</h2>
+  <a href="index.html" class="back">&larr; Home</a>
+  <h2>Mock Exam #1 — NUFYPET Mathematics</h2>
   <div id="app"></div>
 </div>
 
 <script>
-const questions = [{"id":1,"section":"math","text":"Aygerim, Almaz, Yerkezhan, Kaisar and Madina are going for a drive in a jeep that has five seats, including one driver's seat and four passenger seats. If only Almaz can drive, the number of possible different seating arrangements is","options":["12","18","24","120","15"],"correct":2,"topic":"M2.5"},{"id":2,"section":"math","text":"If 40% of x is equal to 160% of y, what is the value of (3x − 12y)/5?","options":["3","1","2","4","0"],"correct":4,"topic":"M3.8"},{"id":3,"section":"math","text":"If ab = 8/3, bc = 12 and ac = 2, what is the cube root of abc?","options":["2","1","3","5","4"],"correct":0,"topic":"M4.6"},{"id":4,"section":"math","text":"If 4^(x+2) = 64, what is 8x?","options":["8","4","16","1","32"],"correct":0,"topic":"M2.7"},{"id":5,"section":"math","text":"The operation ∆ is defined by a∆b = a/b − b/a. Find k such that 3∆k = k∆2.","options":["±2.0","±2.4","±3.0","±5.5","±6.0"],"correct":1,"topic":"M4.15"},{"id":6,"section":"math","text":"f(x) = kx (k ≠ 0) and g(x) = x + k. Which of these statements is always true? I. f(2x) = 2f(x)  II. f(x + 2) = f(x) + 2  III. f(g(x)) = g(f(x))","options":["I only","II only","I and II","I and III","I, II and III"],"correct":0,"topic":"M4.8"},{"id":7,"section":"math","text":"√(10 × (6⁴ − 16)/32) = ?","options":["√5","15","20","24","√10"],"correct":2,"topic":"M2.4"},{"id":8,"section":"math","text":"A cube is inscribed in a sphere of radius 3. What is the volume of the cube?","options":["12√3","24√3","3√3","48√3","72√3"],"correct":1,"topic":"M5.7"},{"id":9,"section":"math","text":"At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?","options":["−2","3","−2","−3","1"],"correct":1,"topic":"M4.11"},{"id":10,"section":"math","text":"The volume and the surface area of a cube are numerically equal. What is the length of one edge?","options":["1","9","6","2","4"],"correct":2,"topic":"M4.15"},{"id":11,"section":"math","text":"On her 18th birthday in 2012 Aigerim was 159 cm tall, having grown 6% since 2011. How tall was she in 2011?","options":["155 cm","140 cm","145 cm","150 cm","160 cm"],"correct":3,"topic":"M3.8"},{"id":12,"section":"math","text":"An icosagon is a polygon with 20 sides. What is the sum of all the interior angles of a regular icosagon?","options":["3340°","3240°","3640°","3440°","3540°"],"correct":1,"topic":"M5.2"},{"id":13,"section":"math","text":"A cone is inscribed in a hemisphere of radius r so that the base of the cone coincides with the base of the hemisphere. What is the ratio of the volume of the cone to the volume of the hemisphere?","options":["1/2","1/4","2r/3","r/2","r/3"],"correct":0,"topic":"M5.15"},{"id":14,"section":"math","text":"ASB is a quarter circle. PQRS is a rectangle with PQ = 8 and PS = 6. What is the length of the arc AQB?","options":["5π","25","28","10π","14"],"correct":0,"topic":"M5.16"},{"id":15,"section":"math","text":"The perimeter of a triangle is 13. The two shorter sides have integer lengths x and x + 1. What could the length of the third side be?","options":["8","10","6","2","4"],"correct":2,"topic":"M5.3"},{"id":16,"section":"math","text":"What is the length of the line segment with endpoints (−2, −2) and (2, 3)?","options":["√31","9","√41","3","7"],"correct":2,"topic":"M5.10"},{"id":17,"section":"math","text":"A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?","options":["4π","5π","2.5π","10π","3π"],"correct":1,"topic":"M5.9"},{"id":18,"section":"math","text":"Through how many degrees does the hour hand turn between noon and 14:30 on the same day?","options":["180","65","75","60","720"],"correct":2,"topic":"M1.1"},{"id":19,"section":"math","text":"m and n are the roots of x² + 5x + 8 = 0. What is √(m² + n²)?","options":["9","5","4","3","6"],"correct":3,"topic":"M4.16"},{"id":20,"section":"math","text":"If g(x − 1) = x² + 2, what is g(x + 1)?","options":["x²+3","x²+4x+6","x²+2x+4","x²+5","x²+4x+2"],"correct":1,"topic":"M4.3"},{"id":21,"section":"math","text":"For which non-zero value of k is the polynomial p(x) = x² + 3x + k divisible by x + k?","options":["-1","3","2","-4","-2"],"correct":2,"topic":"M4.5"},{"id":22,"section":"math","text":"If x = −8, what is the value of x^(2/3) + 2x⁰?","options":["−2","4","−4","6","−6"],"correct":3,"topic":"M2.7"},{"id":23,"section":"math","text":"Under which condition is the expression xy/(x − y) negative?","options":["0 < y < x","x < y < 0","x < 0 < y","y < x < 0","None of these"],"correct":1,"topic":"M2.1"},{"id":24,"section":"math","text":"What is the sum of the roots of 2x³ − 4x² + 9x = 0?","options":["4","3","1/2","3/4","2"],"correct":4,"topic":"M4.16"},{"id":25,"section":"math","text":"The mean of the roots of a quadratic equation is 3 and the difference between the roots is 2. Which equation fits?","options":["x² − 5x + 6 = 0","x² + 5x + 6 = 0","x² − 6x + 8 = 0","x² − 6x − 8 = 0","x² − 6x + 6 = 0"],"correct":2,"topic":"M4.16"},{"id":26,"section":"math","text":"If 24 of the 40 students in a club are girls, what is the ratio of boys to girls?","options":["2:5","3:5","2:3","3:2","5:2"],"correct":2,"topic":"M3.3"}];
+const questions = [{"id":1,"section":"math","text":"Aygerim, Almaz, Yerkezhan, Kaisar and Madina are going for a drive in a jeep that has five seats, including one driver's seat and four passenger seats. If only Almaz can drive, the number of possible different seating arrangements is","options":["12","18","24","120","15"],"correct":2,"topic":"M2.5"},{"id":2,"section":"math","text":"If 40% of x is equal to 160% of y, what is the value of (3x − 12y)/5?","options":["3","1","2","4","0"],"correct":4,"topic":"M3.8"},{"id":3,"section":"math","text":"If ab = 8/3, bc = 12 and ac = 2, what is the cube root of abc?","options":["2","1","3","5","4"],"correct":0,"topic":"M4.6"},{"id":4,"section":"math","text":"If 4^(x+2) = 64, what is 8x?","options":["8","4","16","1","32"],"correct":0,"topic":"M2.7"},{"id":5,"section":"math","text":"The operation ∆ is defined by a∆b = a/b − b/a. Find k such that 3∆k = k∆2.","options":["±2.0","±2.4","±3.0","±5.5","±6.0"],"correct":1,"topic":"M4.15"},{"id":6,"section":"math","text":"f(x) = kx (k ≠ 0) and g(x) = x + k. Which of these statements is always true? I. f(2x) = 2f(x)  II. f(x + 2) = f(x) + 2  III. f(g(x)) = g(f(x))","options":["I only","II only","I and II","I and III","I, II and III"],"correct":0,"topic":"M4.8"},{"id":7,"section":"math","text":"√(10 × (6⁴ − 16)/32) = ?","options":["√5","15","20","24","√10"],"correct":2,"topic":"M2.4"},{"id":8,"section":"math","text":"A cube is inscribed in a sphere of radius 3. What is the volume of the cube?","options":["12√3","24√3","3√3","48√3","72√3"],"correct":1,"topic":"M5.7"},{"id":9,"section":"math","text":"At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?","options":["−2","3","−1","−3","1"],"correct":1,"topic":"M4.11"},{"id":10,"section":"math","text":"The volume and the surface area of a cube are numerically equal. What is the length of one edge?","options":["1","9","6","2","4"],"correct":2,"topic":"M4.15"},{"id":11,"section":"math","text":"On her 18th birthday in 2012 Aigerim was 159 cm tall, having grown 6% since 2011. How tall was she in 2011?","options":["155 cm","140 cm","145 cm","150 cm","160 cm"],"correct":3,"topic":"M3.8"},{"id":12,"section":"math","text":"An icosagon is a polygon with 20 sides. What is the sum of all the interior angles of a regular icosagon?","options":["3340°","3240°","3640°","3440°","3540°"],"correct":1,"topic":"M5.2"},{"id":13,"section":"math","text":"A cone is inscribed in a hemisphere of radius r so that the base of the cone coincides with the base of the hemisphere. What is the ratio of the volume of the cone to the volume of the hemisphere?","options":["1/2","1/4","2r/3","r/2","r/3"],"correct":0,"topic":"M5.15"},{"id":14,"section":"math","text":"ASB is a quarter circle. PQRS is a rectangle with PQ = 8 and PS = 6. What is the length of the arc AQB?","options":["5π","25","28","10π","14"],"correct":0,"topic":"M5.16"},{"id":15,"section":"math","text":"The perimeter of a triangle is 13. The two shorter sides have integer lengths x and x + 1. What could the length of the third side be?","options":["8","10","6","2","4"],"correct":2,"topic":"M5.3"},{"id":16,"section":"math","text":"What is the length of the line segment with endpoints (−2, −2) and (2, 3)?","options":["√31","9","√41","3","7"],"correct":2,"topic":"M5.10"},{"id":17,"section":"math","text":"A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?","options":["4π","5π","2.5π","10π","3π"],"correct":1,"topic":"M5.9"},{"id":18,"section":"math","text":"Through how many degrees does the hour hand turn between noon and 14:30 on the same day?","options":["180","65","75","60","720"],"correct":2,"topic":"M1.1"},{"id":19,"section":"math","text":"m and n are the roots of x² + 5x + 8 = 0. What is √(m² + n²)?","options":["9","5","4","3","6"],"correct":3,"topic":"M4.16"},{"id":20,"section":"math","text":"If g(x − 1) = x² + 2, what is g(x + 1)?","options":["x²+3","x²+4x+6","x²+2x+4","x²+5","x²+4x+2"],"correct":1,"topic":"M4.3"},{"id":21,"section":"math","text":"For which non-zero value of k is the polynomial p(x) = x² + 3x + k divisible by x + k?","options":["-1","3","2","-4","-2"],"correct":2,"topic":"M4.5"},{"id":22,"section":"math","text":"If x = −8, what is the value of x^(2/3) + 2x⁰?","options":["−2","4","−4","6","−6"],"correct":3,"topic":"M2.7"},{"id":23,"section":"math","text":"Under which condition is the expression xy/(x − y) negative?","options":["0 < y < x","x < y < 0","x < 0 < y","y < x < 0","None of these"],"correct":1,"topic":"M2.1"},{"id":24,"section":"math","text":"What is the sum of the roots of 2x³ − 4x² + 9x = 0?","options":["4","3","1/2","3/4","2"],"correct":4,"topic":"M4.16"},{"id":25,"section":"math","text":"The mean of the roots of a quadratic equation is 3 and the difference between the roots is 2. Which equation fits?","options":["x² − 5x + 6 = 0","x² + 5x + 6 = 0","x² − 6x + 8 = 0","x² − 6x − 8 = 0","x² − 6x + 6 = 0"],"correct":2,"topic":"M4.16"},{"id":26,"section":"math","text":"If 24 of the 40 students in a club are girls, what is the ratio of boys to girls?","options":["2:5","3:5","2:3","3:2","5:2"],"correct":2,"topic":"M3.3"}];
 
 let state = { idx: 0, answers: {}, timeLeft: 1560, timerId: null, finished: false };
 
@@ -128,11 +128,11 @@ function render() {
 
   const q = questions[state.idx];
   const answeredCount = Object.keys(state.answers).length;
-  const label = q.section === 'math' ? 'Математика' : 'Критическое мышление';
+  const label = q.section === 'math' ? 'Mathematics' : 'Critical Thinking';
 
   app.innerHTML = `
     <div class="topbar">
-      <span>Вопрос ${state.idx+1} из ${questions.length} · ${label}</span>
+      <span>Question ${state.idx+1} of ${questions.length} · ${label}</span>
       <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
     </div>
     <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
@@ -141,10 +141,10 @@ function render() {
       ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
     </div>
     <div class="nav-row">
-      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Назад</button>
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Back</button>
       ${state.idx === questions.length-1
-        ? '<button class="submit-btn" id="submit">Завершить тест</button>'
-        : '<button class="nav-btn" id="next">Далее &rarr;</button>'}
+        ? '<button class="submit-btn" id="submit">Finish test</button>'
+        : '<button class="nav-btn" id="next">Next &rarr;</button>'}
     </div>
   `;
 
@@ -167,7 +167,7 @@ function finish() {
   appendHistory();
 }
 
-/* === Prepline: история результатов (localStorage) === */
+/* === Prepline: attempt history (localStorage) === */
 function mockKey() {
   return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
 }
@@ -183,7 +183,7 @@ function saveAttempt() {
 function appendHistory() {
   try {
     const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
-    if (hist.length < 2) return; // первая попытка — истории ещё нет
+    if (hist.length < 2) return; // first attempt — no history yet
     const best = Math.max.apply(null, hist.map(a => a.s));
     const rows = hist.slice(-10).reverse().map(a => {
       const d = new Date(a.t);
@@ -194,7 +194,7 @@ function appendHistory() {
         '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
     }).join('');
     const div = document.createElement('div');
-    div.innerHTML = '<h2 style="margin-top:28px">История попыток &middot; лучший результат ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    div.innerHTML = '<h2 style="margin-top:28px">Attempt history &middot; best result ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
     const app = document.getElementById('app');
     const rb = app.querySelector('.restart-btn');
     if (rb) app.insertBefore(div, rb); else app.appendChild(div);
@@ -208,15 +208,15 @@ function renderResults(app) {
 
   app.innerHTML = `
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-label">Итог</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Процент</div><div class="stat-num">${pct}%</div></div>
-      <div class="stat-card"><div class="stat-label">Не отвечено</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+      <div class="stat-card"><div class="stat-label">Result</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Percentage</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Unanswered</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
     </div>
     ${questions.map(q => {
       const ok = state.answers[q.id] === q.correct;
       return `<div class="review-item"><span>${q.id}. ${q.text}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '✓' : '✕'}</span></div>`;
     }).join('')}
-    <button class="restart-btn" id="restart">Пройти ещё раз</button>
+    <button class="restart-btn" id="restart">Take it again</button>
   `;
   document.getElementById('restart').onclick = () => {
     state = { idx: 0, answers: {}, timeLeft: 1560, timerId: null, finished: false };

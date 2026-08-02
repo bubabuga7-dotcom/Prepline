@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Что такое NUET — Prepline</title>
+<title>What is NUET — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -31,7 +31,7 @@
   main { margin-left: var(--dock-w); position: relative; z-index: 1; }
   .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
 
-  /* фон — млечный путь на всю страницу */
+  /* background: milky way, full page */
   .page-photo {
     position: fixed; inset: 0; z-index: 0;
     background: url('bg-milkyway.jpg') center / cover no-repeat;
@@ -41,7 +41,7 @@
     background: linear-gradient(180deg, rgba(10,14,30,0.72) 0%, rgba(10,14,30,0.82) 100%);
   }
 
-  /* ---------- левый taskbar (dock) ---------- */
+  /* ---------- left taskbar (dock) ---------- */
   .dock {
     position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
     display: flex; flex-direction: column; align-items: center;
@@ -139,7 +139,7 @@
   .empty-note a { color: var(--blue); font-weight: 500; text-decoration: none; }
   .empty-note a:hover { color: var(--pink); text-decoration: underline; }
 
-  /* ---------- mobile: dock становится нижней панелью ---------- */
+  /* ---------- mobile: dock becomes a bottom bar ---------- */
   @media (max-width: 780px) {
     :root { --dock-w: 0px; }
     main { margin-left: 0; }
@@ -171,30 +171,30 @@
 <body>
 <div class="page-photo"></div>
 
-<!-- ЛЕВЫЙ TASKBAR -->
+<!-- LEFT TASKBAR -->
 <aside class="dock">
-  <a href="index.html" class="dock-logo" aria-label="Prepline — на главную">P</a>
-  <a href="index.html" class="dock-item" aria-label="Главная">
+  <a href="index.html" class="dock-logo" aria-label="Prepline — home">P</a>
+  <a href="index.html" class="dock-item" aria-label="Home">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span class="dock-tip">Главная</span>
+    <span class="dock-tip">Home</span>
   </a>
-  <a href="index.html#tracks" class="dock-item" aria-label="Направления">
+  <a href="index.html#tracks" class="dock-item" aria-label="Sections">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-    <span class="dock-tip">Направления</span>
+    <span class="dock-tip">Sections</span>
   </a>
-  <a href="index.html#how" class="dock-item" aria-label="Как это работает">
+  <a href="index.html#how" class="dock-item" aria-label="How it works">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
-    <span class="dock-tip">Как это работает</span>
+    <span class="dock-tip">How it works</span>
   </a>
   <div class="dock-spacer"></div>
-  <a href="intro.html" class="dock-item active" aria-label="Что такое NUET">
+  <a href="intro.html" class="dock-item active" aria-label="What is NUET">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <span class="dock-tip">Что такое NUET</span>
+    <span class="dock-tip">What is NUET</span>
   </a>
 
-  <a href="math.html" class="dock-item" aria-label="Математика">
+  <a href="math.html" class="dock-item" aria-label="Mathematics">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Математика</span>
+    <span class="dock-tip">Mathematics</span>
   </a>
   <a href="crit.html" class="dock-item" aria-label="Critical Thinking">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
@@ -208,123 +208,123 @@
 
 <main>
 <div class="wrap">
-  <h1>Что такое <span class="grad-text">NUET</span></h1>
-  <p class="subtitle">Коротко о том, что за экзамен, из чего состоит и зачем он нужен.</p>
+  <h1>What is <span class="grad-text">NUET</span></h1>
+  <p class="subtitle">A short guide to what the exam is, how it is structured and why it matters.</p>
 
   <div class="mock-list">
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
-      <h3 style="font-size:20px;">Кто проводит экзамен</h3>
-      <p style="opacity:0.9;">NUET (Nazarbayev University Entrance Test) — вступительный тест Nazarbayev University. Раньше он назывался NUFYPET. Тест разработан вместе с Cambridge Assessment International Education (Кембриджский университет), а принимает его Center for Preparatory Studies (CPS) университета. Экзамен платный — взнос <strong>5 000 тенге</strong>, оплачивается при подаче заявки на admissions.nu.edu.kz; ближе к концу периода подачи заявок стоимость может вырасти, поэтому не стоит тянуть с регистрацией. Апелляции результатов не предусмотрено.</p>
+      <h3 style="font-size:20px;">Who runs the exam</h3>
+      <p style="opacity:0.9;">NUET (Nazarbayev University Entrance Test) is the entrance test for Nazarbayev University. It was formerly known as NUFYPET. The test was developed together with Cambridge Assessment International Education, and it is administered by the university's Center for Preparatory Studies (CPS). There is an entry fee of <strong>KZT 5 000</strong>, paid when you apply at admissions.nu.edu.kz. The fee may rise towards the end of the application window, so it is worth registering early. There is no appeals procedure for results.</p>
     </div>
 
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
-      <h3 style="font-size:20px;">Структура: две секции</h3>
-      <p style="opacity:0.9;">NUET состоит из двух отдельных секций, идущих подряд:</p>
+      <h3 style="font-size:20px;">Structure: two sections</h3>
+      <p style="opacity:0.9;">NUET consists of two separate sections, taken one after the other:</p>
       <div class="track-meta" style="display:flex; gap:24px; flex-wrap:wrap; margin-top:4px;">
-        <span>📐 <strong>Математика</strong> — 30 вопросов, 60 минут</span>
-        <span>🧠 <strong>Critical Thinking &amp; Problem Solving</strong> — 30 вопросов, 60 минут</span>
+        <span>📐 <strong>Mathematics</strong> — 30 questions, 60 minutes</span>
+        <span>🧠 <strong>Critical Thinking &amp; Problem Solving</strong> — 30 questions, 60 minutes</span>
       </div>
-      <p style="opacity:0.75; font-size:14px; margin-top:6px;">Итого: 60 вопросов, 120 минут, только тесты с выбором ответа (multiple-choice).</p>
+      <p style="opacity:0.75; font-size:14px; margin-top:6px;">In total: 60 questions, 120 minutes, multiple-choice only.</p>
     </div>
 
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
-      <h3 style="font-size:20px;">Как считаются баллы</h3>
-      <p style="opacity:0.9;">Каждая секция оценивается по шкале <strong>0–120</strong>, итоговый максимум — <strong>240</strong> баллов за обе секции вместе. Проходной балл зависит от категории поступления и года — ориентируйся на официальные документы NU перед подачей, но на практике для гранта нужно заметно выше формального минимума. Мы в Prepline ориентируемся на цель <strong>210+/240</strong> — это уже конкурентный результат.</p>
+      <h3 style="font-size:20px;">How the score works</h3>
+      <p style="opacity:0.9;">Each section is marked on a scale of <strong>0–120</strong>, giving a maximum of <strong>240</strong> for both sections combined. The pass mark depends on the admission category and the year, so check the official NU documents before applying. In practice, a scholarship requires well above the formal minimum. At Prepline we aim for <strong>210+/240</strong> — that is already a competitive score.</p>
     </div>
 
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:10px;">
-      <h3 style="font-size:20px;">Зачем он нужен</h3>
-      <p style="opacity:0.9;">NUET — обязательный экзамен для поступления в Nazarbayev University по категории «NUET applicants»: и на программу Foundation Year (NUFYP), и напрямую на бакалавриат. Хороший результат по IELTS (6.0+) может давать дополнительную скидку на обучение — но сам NUET сдаётся отдельно и не заменяет языковой сертификат.</p>
+      <h3 style="font-size:20px;">Why it matters</h3>
+      <p style="opacity:0.9;">NUET is compulsory for anyone applying to Nazarbayev University under the “NUET applicants” category, whether for the Foundation Year programme (NUFYP) or directly for an undergraduate degree. A good IELTS score (6.0+) can earn an additional tuition discount, but NUET is taken separately and does not replace a language certificate.</p>
     </div>
 
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:14px;">
-      <h3 style="font-size:20px;">Полная спецификация — Математика (M1–M5)</h3>
-      <p style="opacity:0.75; font-size:14px;">Официальный список тем от Cambridge Assessment. Каждый M-код — это конкретный навык, который может встретиться на экзамене.</p>
+      <h3 style="font-size:20px;">Full specification — Mathematics (M1–M5)</h3>
+      <p style="opacity:0.75; font-size:14px;">The official topic list from Cambridge Assessment. Each M code is a specific skill that may appear in the exam.</p>
 
       <div>
-        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M1. Единицы измерения</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа со стандартными единицами (масса, длина, время, деньги) и составными величинами (скорость, плотность, давление, цена за единицу).</p>
-        <p style="opacity:0.85; font-size:14px;">Перевод между связанными единицами измерения, включая площадь и объём, в числовых и алгебраических задачах.</p>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M1. Units</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Standard units of mass, length, time and money, and compound units such as speed, density, pressure and unit pricing.</p>
+        <p style="opacity:0.85; font-size:14px;">Converting freely between related units, including area and volume, in numerical and algebraic contexts.</p>
       </div>
 
       <div>
-        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M2. Числа</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Сравнение и упорядочивание целых, отрицательных чисел, десятичных дробей; четыре арифметических действия с дробями и десятичными.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Простые числа, делители, кратные, НОД и НОК с разложением на множители; обратные операции и порядок действий; систематический перебор вариантов.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Квадратные и кубические корни; законы степеней, включая дробные и отрицательные показатели; стандартный вид числа (a×10ⁿ).</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Переводы между дробями, десятичными и процентами, включая периодические дроби.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Точные вычисления с корнями и π, упрощение выражений с корнями и рационализация знаменателя.</p>
-        <p style="opacity:0.85; font-size:14px;">Границы точности (округление) и оценка результата вычислений.</p>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M2. Number</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Ordering integers, negative numbers and decimals; the four operations with fractions and decimals.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Primes, factors, multiples, HCF and LCM with prime factorisation; inverse operations and priority of operations; systematic listing strategies.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Square and cube roots; index laws including fractional and negative powers; standard form (a×10ⁿ).</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Converting between fractions, decimals and percentages, including recurring decimals.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Exact calculation with surds and π, simplifying surd expressions and rationalising denominators.</p>
+        <p style="opacity:0.85; font-size:14px;">Bounds and rounding, and estimating the result of a calculation.</p>
       </div>
 
       <div>
-        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M3. Отношения и пропорции</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Масштабные коэффициенты и масштабные схемы; выражение величины как доли другой; деление величины в заданном отношении.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Отношения в реальных задачах: смеси, конвертация, сравнение величин.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Прямая и обратная пропорциональность, включая графики и уравнения.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Проценты — вычисление, сравнение, изменение, включая сложные проценты.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Сравнение длин, площадей и объёмов через отношения и подобие.</p>
-        <p style="opacity:0.85; font-size:14px;">Задачи на рост и убывание, в том числе сложный процент.</p>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M3. Ratio and proportion</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Scale factors and scale diagrams; expressing one quantity as a fraction of another; dividing a quantity in a given ratio.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Ratio in real contexts: mixtures, conversion and comparison of quantities.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Direct and inverse proportion, including graphs and equations.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Percentages: calculating, comparing and percentage change, including compound interest.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Comparing lengths, areas and volumes through ratio and similarity.</p>
+        <p style="opacity:0.85; font-size:14px;">Growth and decay problems, including compound interest.</p>
       </div>
 
       <div>
-        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M4. Алгебра</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Алгебраическая нотация и подстановка значений в формулы.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Раскрытие скобок, вынесение общего множителя, разложение квадратных выражений на множители, включая разность квадратов.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Упрощение выражений и рациональных дробей; преобразование формул; различие между уравнением и тождеством.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа с координатами и построение графиков линейных и квадратичных функций; нахождение уравнения прямой.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Корни, точки пересечения и вершины парабол; графики кубических, обратных, показательных и тригонометрических функций.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Вычисление наклона графика и площади под графиком.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Решение линейных и квадратных уравнений (включая метод выделения полного квадрата и формулу корней), а также систем уравнений.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Решение линейных неравенств.</p>
-        <p style="opacity:0.85; font-size:14px;">Арифметические и квадратичные последовательности, нахождение формулы n-го члена.</p>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M4. Algebra</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Algebraic notation and substituting values into formulae.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Expanding brackets, taking out common factors and factorising quadratics, including the difference of two squares.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Simplifying expressions and rational expressions; rearranging formulae; the difference between an equation and an identity.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Working with coordinates and sketching linear and quadratic graphs; finding the equation of a straight line.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Roots, intercepts and turning points of quadratics; graphs of cubic, reciprocal, exponential and trigonometric functions.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Calculating gradients of graphs and areas under graphs.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Solving linear and quadratic equations (including completing the square and the quadratic formula), and simultaneous equations.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Solving linear inequalities.</p>
+        <p style="opacity:0.85; font-size:14px;">Linear and quadratic sequences, and finding the nth term.</p>
       </div>
 
       <div>
-        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M5. Геометрия</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Термины и обозначения: точки, прямые, углы, многоугольники.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Свойства углов при параллельных прямых, в треугольниках и четырёхугольниках; сумма углов многоугольника.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Признаки равенства треугольников (SSS, SAS, ASA, RHS) и подобия.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Преобразования фигур — поворот, отражение, перенос, масштабирование — и векторы.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Теорема Пифагора в 2D и 3D.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Окружности: термины, теоремы об углах, хордах и касательных, циклические четырёхугольники.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Координатная геометрия; масштабные схемы и азимуты (bearings).</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Площади треугольников, параллелограммов, трапеций; объём призм.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Длина окружности, площадь круга, объём цилиндра; площадь сектора и длина дуги.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Тригонометрические соотношения (sin, cos, tan) для прямоугольных и произвольных треугольников, точные значения для стандартных углов.</p>
-        <p style="opacity:0.85; font-size:14px;">Действия с векторами.</p>
+        <h4 style="font-size:15px; color:var(--blue); margin-bottom:6px;">M5. Geometry</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Terms and notation: points, lines, angles and polygons.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Angle properties of parallel lines, triangles and quadrilaterals; the sum of the angles of a polygon.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Congruence criteria for triangles (SSS, SAS, ASA, RHS) and similarity.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Transformations: rotation, reflection, translation and enlargement, and vectors.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Pythagoras' theorem in 2-D and 3-D.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Circles: terminology, theorems on angles, chords and tangents, and cyclic quadrilaterals.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Coordinate geometry; scale drawings and three-figure bearings.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Area of triangles, parallelograms and trapezia; volume of prisms.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Circumference and area of a circle, volume of a cylinder; area of a sector and arc length.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Trigonometric ratios (sin, cos, tan) for right-angled and general triangles, and exact values for standard angles.</p>
+        <p style="opacity:0.85; font-size:14px;">Operations with vectors.</p>
       </div>
     </div>
 
     <div class="mock-card" style="flex-direction:column; align-items:stretch; text-align:left; gap:14px;">
-      <h3 style="font-size:20px;">Полная спецификация — Critical Thinking &amp; Problem Solving</h3>
-      <p style="opacity:0.75; font-size:14px;">Формат основан на TSA (Thinking Skills Assessment) от Cambridge. Вопросы вперемешку — Critical Thinking (текстовые аргументы) и Problem Solving (числа, таблицы, графики).</p>
+      <h3 style="font-size:20px;">Full specification — Critical Thinking &amp; Problem Solving</h3>
+      <p style="opacity:0.75; font-size:14px;">The format is based on Cambridge's TSA (Thinking Skills Assessment). Questions are mixed: Critical Thinking (written arguments) and Problem Solving (numbers, tables, graphs).</p>
 
       <div>
-        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Critical Thinking — типы заданий</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Main Conclusion</strong> — найти главный вывод аргумента среди пяти вариантов.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Conclusion</strong> — определить, какой вывод логически следует из текста.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Assumption</strong> — найти недостающее допущение, без которого аргумент не работает.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Flaw</strong> — определить логическую ошибку в рассуждении.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Strengthen / Weaken</strong> — выбрать утверждение, которое усиливает или ослабляет аргумент.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Principle</strong> — применить общий принцип к конкретной ситуации или найти принцип, который иллюстрирует пример.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Parallel reasoning</strong> — найти аргумент с такой же логической структурой, но на другую тему.</p>
-        <p style="opacity:0.85; font-size:14px;"><strong>Evaluate</strong> — оценить, насколько дополнительная информация повлияла бы на аргумент.</p>
+        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Critical Thinking — question types</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Main Conclusion</strong> — identify the main conclusion of an argument from five options.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Conclusion</strong> — decide which conclusion follows logically from the passage.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Assumption</strong> — find the missing assumption without which the argument fails.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Flaw</strong> — identify the flaw in the reasoning.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Strengthen / Weaken</strong> — choose the statement that strengthens or weakens the argument.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Principle</strong> — apply a general principle to a specific case, or identify the principle a case illustrates.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;"><strong>Parallel reasoning</strong> — find an argument with the same logical structure on a different topic.</p>
+        <p style="opacity:0.85; font-size:14px;"><strong>Evaluate</strong> — judge how far additional information would affect the argument.</p>
       </div>
 
       <div>
-        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Problem Solving — типы заданий</h4>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Отбор нужных данных из текста, таблицы или графика.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Поиск закономерности или процедуры решения.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Работа с расписаниями, графиками и диаграммами.</p>
-        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Пространственное мышление: развёртки фигур, вращение, симметрия.</p>
-        <p style="opacity:0.85; font-size:14px;">Логические головоломки на комбинаторику и перебор вариантов.</p>
+        <h4 style="font-size:15px; color:var(--violet); margin-bottom:6px;">Problem Solving — question types</h4>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Selecting the relevant data from a passage, table or graph.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Finding a pattern or a procedure for solving the problem.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Working with timetables, charts and diagrams.</p>
+        <p style="opacity:0.85; font-size:14px; margin-bottom:8px;">Spatial reasoning: nets of solids, rotation and symmetry.</p>
+        <p style="opacity:0.85; font-size:14px;">Logic puzzles involving combinations and systematic listing.</p>
       </div>
     </div>
   </div>
 
   <div style="margin-top:36px; text-align:center;">
-    <a href="index.html#tracks" class="btn-primary" style="text-decoration:none;">Выбрать раздел и начать готовиться &rarr;</a>
+    <a href="index.html#tracks" class="btn-primary" style="text-decoration:none;">Choose a section and start preparing &rarr;</a>
   </div>
 </div>
 
@@ -359,7 +359,7 @@
 </script>
 
 <script>
-/* Prepline: показать лучший результат на карточках моков */
+/* Prepline: show the best result on the mock cards */
 (function () {
   try {
     document.querySelectorAll('.mock-card').forEach(card => {
@@ -372,15 +372,15 @@
       const n = hist[hist.length-1].n;
       const span = document.createElement('span');
       span.className = 'mock-progress';
-      span.textContent = 'Лучший: ' + best + '/' + n + ' · попыток: ' + hist.length;
+      span.textContent = 'Best: ' + best + '/' + n + ' · attempts: ' + hist.length;
       card.querySelector('div').appendChild(span);
-      link.textContent = 'Ещё раз';
+      link.textContent = 'Again';
     });
   } catch (e) {}
 })();
 </script>
 
-<!-- ===== Prepline × Supabase: авторизация + облачные результаты на карточках ===== -->
+<!-- ===== Prepline x Supabase: auth + cloud results on the cards ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 <script>
@@ -415,7 +415,7 @@
       span.style.background = 'rgba(96,165,250,0.14)';
       span.style.color = '#BFDBFE';
       span.style.borderColor = 'rgba(96,165,250,0.4)';
-      span.textContent = '\u2601 Лучший: ' + a.best + '/' + a.total + ' \u00B7 попыток: ' + a.count;
+      span.textContent = '\u2601 Best: ' + a.best + '/' + a.total + ' \u00B7 attempts: ' + a.count;
       card.querySelector('div').appendChild(span);
     });
   }

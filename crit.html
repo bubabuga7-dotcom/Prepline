@@ -31,7 +31,7 @@
   main { margin-left: var(--dock-w); position: relative; z-index: 1; }
   .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
 
-  /* фон — млечный путь на всю страницу */
+  /* background: milky way, full page */
   .page-photo {
     position: fixed; inset: 0; z-index: 0;
     background: url('bg-milkyway.jpg') center / cover no-repeat;
@@ -41,7 +41,7 @@
     background: linear-gradient(180deg, rgba(10,14,30,0.72) 0%, rgba(10,14,30,0.82) 100%);
   }
 
-  /* ---------- левый taskbar (dock) ---------- */
+  /* ---------- left taskbar (dock) ---------- */
   .dock {
     position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
     display: flex; flex-direction: column; align-items: center;
@@ -139,7 +139,7 @@
   .empty-note a { color: var(--blue); font-weight: 500; text-decoration: none; }
   .empty-note a:hover { color: var(--pink); text-decoration: underline; }
 
-  /* ---------- mobile: dock становится нижней панелью ---------- */
+  /* ---------- mobile: dock becomes a bottom bar ---------- */
   @media (max-width: 780px) {
     :root { --dock-w: 0px; }
     main { margin-left: 0; }
@@ -171,30 +171,30 @@
 <body>
 <div class="page-photo"></div>
 
-<!-- ЛЕВЫЙ TASKBAR -->
+<!-- LEFT TASKBAR -->
 <aside class="dock">
-  <a href="index.html" class="dock-logo" aria-label="Prepline — на главную">P</a>
-  <a href="index.html" class="dock-item" aria-label="Главная">
+  <a href="index.html" class="dock-logo" aria-label="Prepline — home">P</a>
+  <a href="index.html" class="dock-item" aria-label="Home">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span class="dock-tip">Главная</span>
+    <span class="dock-tip">Home</span>
   </a>
-  <a href="index.html#tracks" class="dock-item" aria-label="Направления">
+  <a href="index.html#tracks" class="dock-item" aria-label="Sections">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-    <span class="dock-tip">Направления</span>
+    <span class="dock-tip">Sections</span>
   </a>
-  <a href="index.html#how" class="dock-item" aria-label="Как это работает">
+  <a href="index.html#how" class="dock-item" aria-label="How it works">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
-    <span class="dock-tip">Как это работает</span>
+    <span class="dock-tip">How it works</span>
   </a>
   <div class="dock-spacer"></div>
-  <a href="intro.html" class="dock-item" aria-label="Что такое NUET">
+  <a href="intro.html" class="dock-item" aria-label="What is NUET">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <span class="dock-tip">Что такое NUET</span>
+    <span class="dock-tip">What is NUET</span>
   </a>
 
-  <a href="math.html" class="dock-item" aria-label="Математика">
+  <a href="math.html" class="dock-item" aria-label="Mathematics">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Математика</span>
+    <span class="dock-tip">Mathematics</span>
   </a>
   <a href="crit.html" class="dock-item active" aria-label="Critical Thinking">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
@@ -209,125 +209,125 @@
 <main>
 <div class="wrap">
   <h1>Critical <span class="grad-text">Thinking</span></h1>
-  <p class="subtitle">16 тестов, 442 проверенных вопроса. Assumptions, Conclusions, Flaws, External Factors, Main Conclusions.</p>
+  <p class="subtitle">16 tests, 442 verified questions. Assumptions, Conclusions, Flaws, External Factors, Main Conclusions.</p>
 
   <div class="mock-list">
     <div class="mock-card">
       <div>
-        <h3>CT Тест 1</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · все 5 типов заданий</div>
+        <h3>CT Test 1</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
       </div>
-      <a href="crit-1.html" class="mock-btn">Начать</a>
+      <a href="crit-1.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 2</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · все 5 типов заданий</div>
+        <h3>CT Test 2</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
       </div>
-      <a href="crit-2.html" class="mock-btn">Начать</a>
+      <a href="crit-2.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 3</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · все 5 типов заданий</div>
+        <h3>CT Test 3</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
       </div>
-      <a href="crit-3.html" class="mock-btn">Начать</a>
+      <a href="crit-3.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 4</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · все 5 типов заданий</div>
+        <h3>CT Test 4</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
       </div>
-      <a href="crit-4.html" class="mock-btn">Начать</a>
+      <a href="crit-4.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 5</h3>
-        <div class="mock-meta">Крит. мышление · <strong>22 вопроса</strong> · <strong>22 мин</strong> · Assumptions, Conclusions, External Factors</div>
+        <h3>CT Test 5</h3>
+        <div class="mock-meta">Critical Thinking · <strong>22 questions</strong> · <strong>22 min</strong> · Assumptions, Conclusions, External Factors</div>
       </div>
-      <a href="crit-5.html" class="mock-btn">Начать</a>
+      <a href="crit-5.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 6</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 6</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-6.html" class="mock-btn">Начать</a>
+      <a href="crit-6.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 7</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 7</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-7.html" class="mock-btn">Начать</a>
+      <a href="crit-7.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 8</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 8</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-8.html" class="mock-btn">Начать</a>
+      <a href="crit-8.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 9</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 9</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-9.html" class="mock-btn">Начать</a>
+      <a href="crit-9.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 10</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 10</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-10.html" class="mock-btn">Начать</a>
+      <a href="crit-10.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 11</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 11</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-11.html" class="mock-btn">Начать</a>
+      <a href="crit-11.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 12</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 12</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-12.html" class="mock-btn">Начать</a>
+      <a href="crit-12.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 13</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 13</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-13.html" class="mock-btn">Начать</a>
+      <a href="crit-13.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 14</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 14</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-14.html" class="mock-btn">Начать</a>
+      <a href="crit-14.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 15</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · <strong>30 мин</strong> · разбор с решениями</div>
+        <h3>CT Test 15</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
       </div>
-      <a href="crit-15.html" class="mock-btn">Начать</a>
+      <a href="crit-15.html" class="mock-btn">Start</a>
     </div>
     <div class="mock-card">
       <div>
-        <h3>CT Тест 16</h3>
-        <div class="mock-meta">Крит. мышление · <strong>30 вопросов</strong> · без ключа ответов, для практики</div>
+        <h3>CT Test 16</h3>
+        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · no answer key, for practice</div>
       </div>
-      <a href="crit-16.html" class="mock-btn">Начать</a>
+      <a href="crit-16.html" class="mock-btn">Start</a>
     </div>
   </div>
 
   
-  <p class="empty-note">442 проверенных вопроса + 30 практики без ключа в 16 тестах. Assumptions, Conclusions, Flaws, External Factors, Main Conclusions — из TSA past papers и NUET-моков.</p>
+  <p class="empty-note">442 verified questions plus 30 practice questions without a key across 16 tests. Assumptions, Conclusions, Flaws, External Factors and Main Conclusions, taken from TSA past papers and NUET mocks.</p>
 </div>
 </main>
 
@@ -360,7 +360,7 @@
 </script>
 
 <script>
-/* Prepline: показать лучший результат на карточках моков */
+/* Prepline: show the best result on the mock cards */
 (function () {
   try {
     document.querySelectorAll('.mock-card').forEach(card => {
@@ -373,15 +373,15 @@
       const n = hist[hist.length-1].n;
       const span = document.createElement('span');
       span.className = 'mock-progress';
-      span.textContent = 'Лучший: ' + best + '/' + n + ' · попыток: ' + hist.length;
+      span.textContent = 'Best: ' + best + '/' + n + ' · attempts: ' + hist.length;
       card.querySelector('div').appendChild(span);
-      link.textContent = 'Ещё раз';
+      link.textContent = 'Again';
     });
   } catch (e) {}
 })();
 </script>
 
-<!-- ===== Prepline × Supabase: авторизация + облачные результаты на карточках ===== -->
+<!-- ===== Prepline x Supabase: auth + cloud results on the cards ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 <script>
@@ -416,7 +416,7 @@
       span.style.background = 'rgba(96,165,250,0.14)';
       span.style.color = '#BFDBFE';
       span.style.borderColor = 'rgba(96,165,250,0.4)';
-      span.textContent = '\u2601 Лучший: ' + a.best + '/' + a.total + ' \u00B7 попыток: ' + a.count;
+      span.textContent = '\u2601 Best: ' + a.best + '/' + a.total + ' \u00B7 attempts: ' + a.count;
       card.querySelector('div').appendChild(span);
     });
   }

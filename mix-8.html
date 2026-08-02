@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тест 8 — Prepline</title>
+<title>Test 8 — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -95,20 +95,20 @@
 
 <div class="topbar">
   <div class="topbar-inner">
-    <h1>Mixed Mock #8 · Математика</h1>
+    <h1>Mixed Mock #8 · Mathematics</h1>
     <div id="timer">30:00</div>
   </div>
 </div>
 
 <div class="wrap">
-  <a href="math.html" class="back">&larr; К списку моков</a>
-  <p class="progress">30 вопросов · 30 минут · источник: Mock 6 (ответы сверены по решениям)</p>
+  <a href="math.html" class="back">&larr; Back to the mock list</a>
+  <p class="progress">30 questions · 30 minutes · source: Mock 6 (answers checked against the solutions)</p>
   <div id="result">
     <div class="score" id="score-num"></div>
     <p id="score-text"></p>
   </div>
   <div id="quiz"></div>
-  <div class="submit-row"><button class="btn" id="submit-btn">Завершить тест</button></div>
+  <div class="submit-row"><button class="btn" id="submit-btn">Finish test</button></div>
 </div>
 
 <script>
@@ -122,9 +122,9 @@ function render() {
   const root = document.getElementById('quiz');
   root.innerHTML = QUESTIONS.map(q => `
     <div class="q-card" id="qc-${q.id}">
-      <span class="q-num">Вопрос ${q.id} / 30</span>
+      <span class="q-num">Question ${q.id} / 30</span>
       <div class="q-text">${q.text}</div>
-      ${q.img ? `<img loading="lazy" class="q-img" src="${q.img}" alt="Чертёж к вопросу ${q.id}">` : ''}
+      ${q.img ? `<img loading="lazy" class="q-img" src="${q.img}" alt="Diagram for question ${q.id}">` : ''}
       ${q.options.map((o,i) => `
         <button class="opt" data-q="${q.id}" data-i="${i}">
           <span class="letter">${LETTERS[i]}.</span><span>${o}</span>
@@ -150,7 +150,7 @@ function finish(reason) {
   let score = 0;
   QUESTIONS.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
 
-  /* Prepline: сохранение результата */
+  /* Prepline: save the result */
   let hist = [];
   try {
     const key = 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
@@ -171,8 +171,8 @@ function finish(reason) {
     const div = document.createElement('div');
     div.className = 'review-answer';
     div.innerHTML = ok
-      ? `<span class="ok">&#10003; Верно.</span> Правильный ответ: ${LETTERS[q.correct]}`
-      : `<span class="no">&#10007; ${user === undefined ? 'Нет ответа' : 'Неверно'}.</span> Правильный ответ: <b>${LETTERS[q.correct]}</b> — ${q.options[q.correct]}`;
+      ? `<span class="ok">&#10003; Correct.</span> Correct answer: ${LETTERS[q.correct]}`
+      : `<span class="no">&#10007; ${user === undefined ? 'No answer' : 'Incorrect'}.</span> Correct answer: <b>${LETTERS[q.correct]}</b> — ${q.options[q.correct]}`;
     card.appendChild(div);
   });
 
@@ -181,7 +181,7 @@ function finish(reason) {
   document.getElementById('score-num').textContent = score + ' / 30';
   const pct = Math.round(score / 30 * 100);
   document.getElementById('score-text').textContent =
-    (reason === 'time' ? 'Время вышло. ' : '') + pct + '% — разбор ответов под каждым вопросом.';
+    (reason === 'time' ? 'Time is up. ' : '') + pct + '% — the breakdown is under each question.';
   if (hist.length >= 2) {
     const best = Math.max.apply(null, hist.map(a => a.s));
     const prev = hist.slice(-6, -1).reverse().map(a => {
@@ -190,7 +190,7 @@ function finish(reason) {
     }).join(' &middot; ');
     const el = document.createElement('p');
     el.style.cssText = 'margin-top:10px;font-size:13px;opacity:0.75;';
-    el.innerHTML = 'Лучший: <b>' + best + '/30</b>. Прошлые: ' + prev;
+    el.innerHTML = 'Best: <b>' + best + '/30</b>. Previous: ' + prev;
     document.getElementById('result').appendChild(el);
   }
   document.getElementById('submit-btn').style.display = 'none';
@@ -208,12 +208,12 @@ const timerInt = setInterval(() => {
 
 document.getElementById('submit-btn').addEventListener('click', () => {
   const unanswered = QUESTIONS.filter(q => !(q.id in state.answers)).length;
-  if (unanswered > 0 && !confirm('Без ответа: ' + unanswered + ' вопрос(ов). Завершить?')) return;
+  if (unanswered > 0 && !confirm('Unanswered: ' + unanswered + ' question(s). Finish anyway?')) return;
   finish('manual');
 });
 </script>
 
-<!-- ===== Prepline × Supabase: авторизация + облачное сохранение ===== -->
+<!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 <script>
@@ -221,7 +221,7 @@ document.getElementById('submit-btn').addEventListener('click', () => {
   function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
 
   if (typeof saveAttempt === 'function') {
-    /* mix-1..7: перехватываем saveAttempt — localStorage остаётся, добавляем облако */
+    /* mix-1..7: hook saveAttempt — localStorage stays, cloud is added */
     const orig = saveAttempt;
     saveAttempt = function () {
       orig();
@@ -233,7 +233,7 @@ document.getElementById('submit-btn').addEventListener('click', () => {
       } catch (e) { console.error('[Prepline]', e); }
     };
   } else if (typeof finish === 'function') {
-    /* mix-8: saveAttempt нет, оборачиваем finish */
+    /* mix-8: no saveAttempt, wrap finish instead */
     const origFinish = finish;
     finish = function (reason) {
       const was = state.finished;

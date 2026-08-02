@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Слабые места — Prepline</title>
+<title>Weak spots — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
@@ -101,33 +101,33 @@
 
 <aside class="dock">
   <a href="index.html" class="logo">P</a>
-  <a href="math.html" title="Математика">∑</a>
+  <a href="math.html" title="Mathematics">∑</a>
   <a href="crit.html" title="Critical Thinking">CT</a>
-  <a href="weak-spots.html" title="Слабые места">◎</a>
+  <a href="weak-spots.html" title="Weak spots">◎</a>
 </aside>
 
 <main>
   <div class="wrap">
     <div class="head">
-      <h1>Слабые места</h1>
-      <p>Разбор по темам официальной спецификации NUET. Считаются все попытки,
-         сохранённые в облако. Темы отсортированы от худшей к лучшей.</p>
+      <h1>Weak spots</h1>
+      <p>A breakdown by topic from the official NUET specification. Every attempt
+         saved to the cloud is counted. Topics run from weakest to strongest.</p>
     </div>
 
     <div class="card stats" id="stats" style="display:none;">
-      <div class="stat"><b id="sTotal">—</b><span>ответов</span></div>
-      <div class="stat"><b id="sAcc">—</b><span>верно</span></div>
-      <div class="stat"><b id="sTopics">—</b><span>тем затронуто</span></div>
-      <div class="stat"><b id="sWorst">—</b><span>худшая тема</span></div>
+      <div class="stat"><b id="sTotal">—</b><span>answers</span></div>
+      <div class="stat"><b id="sAcc">—</b><span>correct</span></div>
+      <div class="stat"><b id="sTopics">—</b><span>topics covered</span></div>
+      <div class="stat"><b id="sWorst">—</b><span>weakest topic</span></div>
     </div>
 
     <div class="tabs" id="tabs" style="display:none;">
-      <button class="tab on" data-f="all">Всё</button>
-      <button class="tab" data-f="math">Математика</button>
+      <button class="tab on" data-f="all">All</button>
+      <button class="tab" data-f="math">Mathematics</button>
       <button class="tab" data-f="ct">Critical Thinking</button>
     </div>
 
-    <div class="card" id="list"><div class="msg">Загружаю…</div></div>
+    <div class="card" id="list"><div class="msg">Loading...</div></div>
   </div>
 </main>
 
@@ -206,7 +206,7 @@ const NAMES = {
   "M5.18": "Trigonometric ratios and exact values",
   "M5.19": "Vectors"
 };
-const MIN_TRIES = 4;           // меньше этого — данных мало, вывод недостоверен
+const MIN_TRIES = 4;           // below this the sample is too small to trust
 let AGG = [];
 
 function colour(p) {
@@ -222,7 +222,7 @@ function render(filter) {
   if (filter === 'math') rows = rows.filter(r => r.topic[0] === 'M' && r.topic.includes('.'));
   if (filter === 'ct')   rows = rows.filter(r => !r.topic.includes('.'));
 
-  if (!rows.length) { box.innerHTML = '<div class="msg">По этому разделу пока нет данных.</div>'; return; }
+  if (!rows.length) { box.innerHTML = '<div class="msg">No data for this section yet.</div>'; return; }
 
   box.innerHTML = rows.map(r => {
     const p = Math.round(r.correct / r.total * 100);
@@ -230,10 +230,10 @@ function render(filter) {
     return `<div class="row">
       <div>
         <div class="name">${NAMES[r.topic] || r.topic}</div>
-        <div class="code">${r.topic}${weak ? ' · <span class="thin">мало данных</span>' : ''}</div>
+        <div class="code">${r.topic}${weak ? ' · <span class="thin">not enough data</span>' : ''}</div>
         <div class="bar"><i style="width:${p}%;background:${weak ? 'rgba(255,255,255,0.25)' : colour(p)}"></i></div>
       </div>
-      <div class="pct">${p}%<small>${r.correct} из ${r.total}</small></div>
+      <div class="pct">${p}%<small>${r.correct} of ${r.total}</small></div>
     </div>`;
   }).join('');
 }
@@ -241,12 +241,12 @@ function render(filter) {
 async function load() {
   const box = document.getElementById('list');
   const supa = window.preplineSupa;
-  if (!supa) { box.innerHTML = '<div class="msg">Не удалось подключиться к базе.</div>'; return; }
+  if (!supa) { box.innerHTML = '<div class="msg">Could not connect to the database.</div>'; return; }
 
   const { data: { user } } = await supa.auth.getUser();
   if (!user) {
-    box.innerHTML = '<div class="msg">Войди в аккаунт, чтобы увидеть разбор по темам.<br>' +
-      'Кнопка входа — в правом верхнем углу.</div>';
+    box.innerHTML = '<div class="msg">Sign in to see the breakdown by topic.<br>' +
+      'The sign-in button is in the top right corner.</div>';
     return;
   }
 
@@ -254,10 +254,10 @@ async function load() {
     .from('answer_log').select('topic, correct')
     .not('topic', 'is', null).limit(20000);
 
-  if (error) { box.innerHTML = '<div class="msg">Ошибка: ' + error.message + '</div>'; return; }
+  if (error) { box.innerHTML = '<div class="msg">Error: ' + error.message + '</div>'; return; }
   if (!data || !data.length) {
-    box.innerHTML = '<div class="msg">Пока нет данных. Пройди любой тест — ' +
-      'разбор появится здесь автоматически.<a class="btn" href="crit.html">Начать тест</a></div>';
+    box.innerHTML = '<div class="msg">No data yet. Take any test — ' +
+      'the breakdown will appear here automatically.<a class="btn" href="crit.html">Start a test</a></div>';
     return;
   }
 
@@ -270,8 +270,8 @@ async function load() {
 
   AGG = Object.values(map).sort((a, b) => {
     const wa = a.total < MIN_TRIES, wb = b.total < MIN_TRIES;
-    if (wa !== wb) return wa ? 1 : -1;                     // «мало данных» — вниз
-    return (a.correct / a.total) - (b.correct / b.total);  // худшие — вверх
+    if (wa !== wb) return wa ? 1 : -1;                     // 'not enough data' goes to the bottom
+    return (a.correct / a.total) - (b.correct / b.total);  // weakest first
   });
 
   const total = data.length;
@@ -294,7 +294,7 @@ document.getElementById('tabs').addEventListener('click', e => {
   render(e.target.dataset.f);
 });
 
-setTimeout(load, 350);   // ждём инициализацию prepline-supabase.js
+setTimeout(load, 350);   // wait for prepline-supabase.js to initialise
 </script>
 </body>
 </html>
