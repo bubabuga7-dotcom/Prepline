@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepline — NUET preparation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1120; --bg-2:#111A2E;
+    --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.07);
+    --ink:#E6ECF7; --ink-2:#B4C0D6; --ink-3:#8492AC;
+    --blue:#84AEEC; --blue-deep:#143B6B; --gold:#C9A227;
+    --ok:#4ADE9A; --warn:#F5C451; --bad:#F87171;
+    --dock:84px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+  /* ---------- меню ---------- */
+  .dock{position:fixed;left:0;top:0;bottom:0;width:var(--dock);z-index:100;display:flex;flex-direction:column;
+        align-items:center;padding:18px 0;gap:8px;background:#0C1424;border-right:1px solid var(--line)}
+  .dock-logo{width:44px;height:44px;border-radius:8px;background:var(--blue-deep);color:#fff;display:grid;place-items:center;
+             font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin-bottom:10px}
+  .dock-item{width:44px;height:44px;border-radius:8px;display:grid;place-items:center;color:var(--ink-3);
+             border:1px solid transparent;transition:background .15s,color .15s;position:relative}
+  .dock-item:hover{background:rgba(132,174,236,.12);color:var(--blue);border-color:var(--line)}
+  .dock-item.on{background:rgba(132,174,236,.14);color:var(--blue)}
+  .dock-item svg{width:20px;height:20px}
+  .dock-tip{position:absolute;left:56px;white-space:nowrap;background:#EAF0FA;color:#0F1930;font-size:12px;font-weight:600;
+            padding:5px 10px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .14s}
+  .dock-item:hover .dock-tip{opacity:1}
+  .dock-sep{width:26px;height:1px;background:var(--line);margin:6px 0}
+
+  /* ---------- каркас ---------- */
+  main{margin-left:var(--dock);padding:30px 34px 60px;max-width:1280px}
+  .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+  .col{display:flex;flex-direction:column;gap:18px}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+  .panel h2{font-size:15px;margin-bottom:2px}
+  .panel .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+  .panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .panel-head h2{margin:0}
+  .more{font-size:12.5px;color:var(--blue)}
+
+  /* ---------- приветствие ---------- */
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+  .hello h1{font-size:27px;line-height:1.2}
+  .hello h1 span{color:var(--ink-3);font-weight:600}
+  .hello p{font-size:14px;color:var(--ink-2);margin-top:4px}
+
+  .countdown{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 20px;min-width:230px}
+  .countdown .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .countdown .big{font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:var(--gold);line-height:1.1}
+  .countdown .big small{font-size:14px;color:var(--ink-2);font-weight:400;margin-left:6px}
+  .countdown .date{font-size:12.5px;color:var(--ink-3);margin-top:4px}
+  .countdown input{width:150px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:5px;
+                   color:var(--ink);padding:7px 9px;font-family:inherit;font-size:13px;margin-right:6px}
+  .countdown button{background:var(--blue-deep);border:0;color:#fff;font:600 13px Inter,sans-serif;
+                    padding:8px 14px;border-radius:5px;cursor:pointer}
+  .countdown .edit{font-size:11.5px;color:var(--ink-3);cursor:pointer;margin-top:6px;display:inline-block}
+  .countdown .edit:hover{color:var(--blue)}
+
+  /* ---------- полоска цифр ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);
+         border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .stat{background:#0E1728;padding:16px 18px}
+  .stat b{display:block;font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;color:var(--ink);line-height:1.2}
+  .stat span{font-size:12px;color:var(--ink-3)}
+
+  /* ---------- задание на сегодня ---------- */
+  .today{background:linear-gradient(135deg,rgba(20,59,107,.55),rgba(17,26,46,.4));border:1px solid rgba(132,174,236,.3)}
+  .today .kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .today h2{font-size:19px;margin-bottom:8px}
+  .today p{font-size:14px;color:var(--ink-2);margin-bottom:16px;max-width:520px}
+  .btn{display:inline-block;background:var(--gold);color:#0E1A2E;font-weight:700;font-size:14px;
+       padding:11px 24px;border-radius:5px;cursor:pointer;border:0;font-family:inherit}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);font-weight:600}
+
+  /* ---------- слабые темы ---------- */
+  .wrow{display:grid;grid-template-columns:1fr 54px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line-2)}
+  .wrow:last-child{border-bottom:0}
+  .wrow .nm{font-size:13.5px;color:var(--ink)}
+  .wrow .cd{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-3)}
+  .wbar{height:5px;border-radius:99px;background:rgba(255,255,255,.09);margin-top:6px;overflow:hidden}
+  .wbar i{display:block;height:100%;border-radius:99px}
+  .wpct{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink)}
+
+  /* ---------- последние попытки ---------- */
+  .arow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:13.5px}
+  .arow:last-child{border-bottom:0}
+  .arow .nm{color:var(--ink)}
+  .arow .dt{font-size:11.5px;color:var(--ink-3)}
+  .arow .sc{font-family:'IBM Plex Mono',monospace;font-size:14px}
+
+  /* ---------- разделы ---------- */
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .track{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;transition:border-color .15s}
+  .track:hover{border-color:var(--blue)}
+  .track b{display:block;font-family:Sora,sans-serif;font-size:15.5px;margin-bottom:5px}
+  .track span{font-size:12.5px;color:var(--ink-3);display:block;margin-bottom:10px}
+  .track i{font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:11.5px;color:var(--gold)}
+
+  .empty{font-size:13px;color:var(--ink-3);padding:14px 0}
+  .signin{font-size:13px;color:var(--ink-2)}
+  .signin b{color:var(--blue);font-weight:600}
+
+  @media(max-width:1000px){ .grid{grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:760px){
+    :root{--dock:0px}
+    .dock{position:fixed;flex-direction:row;top:auto;left:0;right:0;bottom:0;width:100%;height:60px;
+          justify-content:space-around;align-items:center;padding:0;gap:0;
+          border-right:0;border-top:1px solid var(--line);background:#0C1424}
+    .dock-logo,.dock-sep{display:none}
+    .dock-tip{display:none}
+    main{padding:20px 16px 90px}
+    .tracks{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<aside class="dock">
+  <a href="index.html" class="dock-logo">P</a>
+  <a href="index.html" class="dock-item on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="dock-tip">Home</span></a>
+  <div class="dock-sep"></div>
+  <a href="math.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14L11 12l8 7H5"/></svg><span class="dock-tip">Mathematics</span></a>
+  <a href="crit.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17h.01"/></svg><span class="dock-tip">Critical Thinking</span></a>
+  <a href="weak-spots.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/></svg><span class="dock-tip">Weak spots</span></a>
+  <div class="dock-sep"></div>
+  <a href="intro.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg><span class="dock-tip">What is NUET</span></a>
+</aside>
+
+<main>
+  <div class="top">
+    <div class="hello">
+      <h1 id="greet">Welcome<span id="who"></span></h1>
+      <p id="tagline">Your progress, weak topics and what to do next — all in one place.</p>
+    </div>
+
+    <div class="countdown" id="cd">
+      <div class="lbl">NUET countdown</div>
+      <div id="cdBody">
+        <input type="date" id="dateIn"><button id="dateSet">Set</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" id="stats">
+    <div class="stat"><b id="sTests">—</b><span>tests taken</span></div>
+    <div class="stat"><b id="sQs">—</b><span>questions answered</span></div>
+    <div class="stat"><b id="sAvg">—</b><span>average score</span></div>
+    <div class="stat"><b id="sTopics">—</b><span>topics practised</span></div>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div class="grid">
+    <div class="col">
+
+      <div class="panel today">
+        <div class="kicker">Today</div>
+        <h2 id="todayTitle">Start with the diagnostic</h2>
+        <p id="todayText">A 10-minute test establishes your current level. After that this page will
+           show your weakest topics and point you at the right practice.</p>
+        <a class="btn" id="todayBtn" href="diagnostic-math.html">Take the diagnostic</a>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Weakest topics</h2>
+          <a class="more" href="weak-spots.html">Full breakdown &rarr;</a>
+        </div>
+        <div id="weak"><div class="empty">No data yet — take any test and your weakest topics will appear here.</div></div>
+      </div>
+
+      <div class="panel">
+        <h2>Sections</h2>
+        <div class="sub">Every question is tagged with a Cambridge specification code.</div>
+        <div class="tracks">
+          <a class="track" href="math.html"><b>Mathematics</b><span>22 tests &middot; 606 questions</span><i>M1 &ndash; M5</i></a>
+          <a class="track" href="crit.html"><b>Critical Thinking</b><span>16 tests &middot; 442 questions</span><i>ASM &middot; CON &middot; EF &middot; MC</i></a>
+          <a class="track" href="weak-spots.html"><b>Weak spots</b><span>Breakdown by topic</span><i>458 tagged</i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col">
+
+      <div class="panel">
+        <div class="panel-head"><h2>Recent attempts</h2></div>
+        <div id="recent"><div class="empty">Nothing yet.</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Not attempted yet</h2></div>
+        <div id="todo"><div class="empty">Loading&hellip;</div></div>
+      </div>
+
+      <div class="panel" id="cloud">
+        <div class="signin">Signed out — your results are stored on this device only.
+          <b>Sign in</b> to keep them in the cloud and see the full topic breakdown.</div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+/* ================= данные ================= */
+const TESTS = [];
+for (let i=1;i<=22;i++) TESTS.push({id:'mix-'+i,  name:'Math Test '+i,       kind:'math'});
+for (let i=1;i<=16;i++) TESTS.push({id:'crit-'+i, name:'CT Test '+i,         kind:'ct'});
+TESTS.push({id:'test',   name:'Mock Exam #1', kind:'math'});
+TESTS.push({id:'test-2', name:'Mock Exam #2', kind:'math'});
+TESTS.push({id:'test-3', name:'Mock Exam #3', kind:'math'});
+
+const NAMES = {
+  ASM:'Assumptions', CON:'Conclusions', EF:'External factors',
+  MC:'Main conclusion', FLAW:'Flaws in reasoning',
+  'M1.1':'Standard and compound units','M1.2':'Converting between units',
+  'M2.1':'Ordering numbers and symbols','M2.2':'The four operations','M2.3':'Primes, factors, multiples, HCF and LCM',
+  'M2.4':'Inverse operations and priority','M2.5':'Systematic listing','M2.6':'Squares, cubes and roots',
+  'M2.7':'Index laws (numbers)','M2.8':'Standard form','M2.9':'Fractions, decimals and percentages',
+  'M2.10':'Using fractions and percentages','M2.11':'Surds and π','M2.12':'Upper and lower bounds',
+  'M2.13':'Rounding and accuracy','M2.14':'Approximation and estimation',
+  'M3.1':'Scale factors and diagrams','M3.2':'One quantity as a fraction of another','M3.3':'Ratio notation',
+  'M3.4':'Dividing in a ratio','M3.5':'Ratio in real contexts','M3.6':'Proportion','M3.7':'Fractions in ratio problems',
+  'M3.8':'Percentages and percentage change','M3.9':'Direct and inverse proportion',
+  'M3.10':'Lengths, areas and volumes by ratio','M3.11':'Growth, decay and compound interest',
+  'M4.1':'Algebraic notation','M4.2':'Index laws (algebra)','M4.3':'Substituting into formulae',
+  'M4.4':'Brackets and common factors','M4.5':'Factorising quadratics','M4.6':'Simplifying expressions',
+  'M4.7':'Changing the subject','M4.8':'Equations and identities','M4.9':'Coordinates',
+  'M4.10':'Straight lines','M4.11':'Quadratic graphs','M4.12':'Graphs of functions',
+  'M4.13':'Interpreting graphs','M4.14':'Gradients and areas under graphs','M4.15':'Equations and simultaneous equations',
+  'M4.16':'Quadratic equations','M4.17':'Linear inequalities','M4.18':'Sequences','M4.19':'The nth term',
+  'M5.1':'Geometrical terms and symmetry','M5.2':'Angle properties','M5.3':'Quadrilaterals and triangles',
+  'M5.4':'Congruence criteria','M5.5':'Angles and sides via similarity','M5.6':'Transformations',
+  'M5.7':'Pythagoras','M5.8':'Circle terminology','M5.9':'Circle theorems','M5.10':'Coordinate geometry',
+  'M5.11':'Faces, edges and vertices','M5.12':'Plans and elevations','M5.13':'Maps and bearings',
+  'M5.14':'Areas and volumes of prisms','M5.15':'Circle and solid formulae','M5.16':'Arcs and sectors',
+  'M5.17':'Similarity: lengths, areas, volumes','M5.18':'Trigonometric ratios','M5.19':'Vectors'
+};
+
+const MIN_TRIES = 4;
+const $ = id => document.getElementById(id);
+const pct = (a,b) => b ? Math.round(a/b*100) : 0;
+const colour = p => p<50 ? '#F87171' : p<70 ? '#F5C451' : p<85 ? '#84AEEC' : '#4ADE9A';
+
+/* ================= обратный отсчёт ================= */
+function drawCountdown(){
+  const iso = localStorage.getItem('prepline:examDate');
+  const box = $('cdBody');
+  if(!iso){
+    box.innerHTML = '<input type="date" id="dateIn"><button id="dateSet">Set</button>';
+    $('dateSet').onclick = () => {
+      const v = $('dateIn').value;
+      if(v){ localStorage.setItem('prepline:examDate', v); drawCountdown(); }
+    };
+    return;
+  }
+  const target = new Date(iso + 'T00:00:00');
+  const days = Math.ceil((target - new Date()) / 86400000);
+  const nice = target.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  box.innerHTML = days >= 0
+    ? '<div class="big mono">'+days+'<small>days left</small></div><div class="date">'+nice+'</div><span class="edit" id="cdEdit">change date</span>'
+    : '<div class="big mono">—</div><div class="date">Exam date has passed ('+nice+')</div><span class="edit" id="cdEdit">change date</span>';
+  $('cdEdit').onclick = () => { localStorage.removeItem('prepline:examDate'); drawCountdown(); };
+}
+
+/* ================= локальная история ================= */
+function localHistory(){
+  const out = [];
+  for(const t of TESTS){
+    let hist = [];
+    try{ hist = JSON.parse(localStorage.getItem('prepline:'+t.id) || '[]'); }catch(e){}
+    hist.forEach(h => out.push({id:t.id, name:t.name, score:h.s, total:h.n, at:h.t}));
+  }
+  return out.sort((a,b) => b.at - a.at);
+}
+
+/* ================= отрисовка ================= */
+function drawStats(attempts, answered, avg, topics){
+  $('sTests').textContent  = attempts;
+  $('sQs').textContent     = answered;
+  $('sAvg').textContent    = attempts ? avg + '%' : '—';
+  $('sTopics').textContent = topics || '—';
+}
+
+function drawRecent(list){
+  const box = $('recent');
+  if(!list.length){ box.innerHTML = '<div class="empty">Nothing yet.</div>'; return; }
+  box.innerHTML = list.slice(0,6).map(a => {
+    const p = pct(a.score, a.total);
+    const when = a.at ? new Date(a.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
+    return '<div class="arow"><div><div class="nm">'+a.name+'</div><div class="dt">'+when+'</div></div>'+
+           '<div class="sc" style="color:'+colour(p)+'">'+a.score+'/'+a.total+'</div></div>';
+  }).join('');
+}
+
+function drawTodo(doneIds){
+  const left = TESTS.filter(t => !doneIds.has(t.id));
+  const box = $('todo');
+  if(!left.length){ box.innerHTML = '<div class="empty">Every test has been attempted. Strong work.</div>'; return; }
+  box.innerHTML = left.slice(0,6).map(t =>
+    '<div class="arow"><div class="nm">'+t.name+'</div><a class="sc" style="color:var(--blue)" href="'+t.id+'.html">Start &rarr;</a></div>'
+  ).join('') + (left.length>6 ? '<div class="dt" style="padding-top:8px">and '+(left.length-6)+' more</div>' : '');
+}
+
+function drawWeak(rows){
+  const box = $('weak');
+  if(!rows.length){
+    box.innerHTML = '<div class="empty">No data yet — take any test and your weakest topics will appear here.</div>';
+    return;
+  }
+  box.innerHTML = rows.slice(0,5).map(r => {
+    const p = pct(r.correct, r.total);
+    const thin = r.total < MIN_TRIES;
+    return '<div class="wrow"><div>'+
+      '<div class="nm">'+(NAMES[r.topic]||r.topic)+'</div>'+
+      '<div class="cd">'+r.topic+(thin?' · limited data':'')+'</div>'+
+      '<div class="wbar"><i style="width:'+p+'%;background:'+(thin?'rgba(255,255,255,.25)':colour(p))+'"></i></div>'+
+      '</div><div class="wpct">'+p+'%</div></div>';
+  }).join('');
+}
+
+function drawToday(rows, attempts){
+  if(!attempts){
+    $('todayTitle').textContent = 'Start with the diagnostic';
+    $('todayText').textContent  = 'A 10-minute test establishes your current level. After that this page will show your weakest topics and point you at the right practice.';
+    $('todayBtn').textContent   = 'Take the diagnostic';
+    $('todayBtn').href          = 'diagnostic-math.html';
+    return;
+  }
+  const solid = rows.filter(r => r.total >= MIN_TRIES);
+  if(!solid.length){
+    $('todayTitle').textContent = 'Keep going — not enough data yet';
+    $('todayText').textContent  = 'A few more tests and this page will be able to tell which topics are actually weak rather than unlucky.';
+    $('todayBtn').textContent   = 'Take another test';
+    $('todayBtn').href          = 'math.html';
+    return;
+  }
+  const w = solid[0];
+  const p = pct(w.correct, w.total);
+  $('todayTitle').textContent = 'Your weakest topic is ' + (NAMES[w.topic] || w.topic);
+  $('todayText').textContent  = 'You are getting ' + p + '% right on ' + w.topic + ' (' + w.correct + ' of ' + w.total +
+                               '). That is the single change most likely to move your score.';
+  $('todayBtn').textContent    = 'Open the full breakdown';
+  $('todayBtn').href           = 'weak-spots.html';
+}
+
+/* ================= сборка ================= */
+async function boot(){
+  drawCountdown();
+
+  // локальные данные — работают и без входа
+  const local = localHistory();
+  const doneIds = new Set(local.map(a => a.id));
+  const localQs = local.reduce((s,a) => s + a.total, 0);
+  const localAvg = local.length ? Math.round(local.reduce((s,a)=>s+pct(a.score,a.total),0)/local.length) : 0;
+  drawStats(local.length, localQs, localAvg, 0);
+  drawRecent(local);
+  drawTodo(doneIds);
+  drawToday([], local.length);
+
+  const supa = window.preplineSupa;
+  if(!supa) return;
+
+  let user = null;
+  try{ ({data:{user}} = await supa.auth.getUser()); }catch(e){}
+  if(!user) return;
+
+  $('who').textContent = ', ' + (user.email || '').split('@')[0];
+  $('cloud').innerHTML = '<div class="signin">Signed in as <b>'+(user.email||'')+'</b>. Results are saved to the cloud.</div>';
+
+  // облачные результаты
+  const {data:res} = await supa.from('results').select('mock_id,score,total,created_at').limit(2000);
+  if(res && res.length){
+    const cloudDone = new Set(res.map(r => r.mock_id));
+    const list = res.map(r => {
+      const t = TESTS.find(x => x.id === r.mock_id);
+      return {id:r.mock_id, name:(t?t.name:r.mock_id), score:r.score, total:r.total,
+              at:r.created_at ? Date.parse(r.created_at) : 0};
+    }).sort((a,b)=>b.at-a.at);
+    const qs  = list.reduce((s,a)=>s+a.total,0);
+    const avg = Math.round(list.reduce((s,a)=>s+pct(a.score,a.total),0)/list.length);
+    drawRecent(list);
+    drawTodo(cloudDone);
+    drawStats(list.length, qs, avg, 0);
+    var attemptCount = list.length;
+  }
+
+  // темы
+  const {data:log} = await supa.from('answer_log').select('topic,correct').not('topic','is',null).limit(20000);
+  if(log && log.length){
+    const map = {};
+    log.forEach(r => {
+      (map[r.topic] = map[r.topic] || {topic:r.topic,total:0,correct:0}).total++;
+      if(r.correct) map[r.topic].correct++;
+    });
+    const rows = Object.values(map).sort((a,b)=>{
+      const wa=a.total<MIN_TRIES, wb=b.total<MIN_TRIES;
+      if(wa!==wb) return wa?1:-1;
+      return (a.correct/a.total)-(b.correct/b.total);
+    });
+    drawWeak(rows);
+    drawToday(rows, (typeof attemptCount!=='undefined'?attemptCount:local.length));
+    $('sTopics').textContent = rows.length;
+  }
+}
+
+setTimeout(boot, 300);
+</script>
+</body>
+</html>
