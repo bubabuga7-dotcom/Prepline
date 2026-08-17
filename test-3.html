@@ -403,5 +403,66 @@ render();
 })();
 </script>
 
+
+<!-- ===== Prepline: sign-in gate ===== -->
+<style id="prepline-gate-css">
+  #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
+           background:rgba(6,10,20,.78);backdrop-filter:blur(4px);padding:20px}
+  #pl-gate.on{display:flex}
+  #pl-gate .box{max-width:420px;width:100%;background:#111A2E;border:1px solid rgba(255,255,255,.14);
+                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#E6ECF7}
+  #pl-gate h3{font-family:Sora,Inter,sans-serif;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
+  #pl-gate p{font-size:14px;line-height:1.55;color:#B4C0D6;margin:0 0 18px}
+  #pl-gate .row{display:flex;gap:10px;flex-wrap:wrap}
+  #pl-gate button{font:600 14px Inter,sans-serif;padding:11px 22px;border-radius:5px;cursor:pointer;border:0}
+  #pl-gate .go{background:#C9A227;color:#10192C}
+  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#E6ECF7}
+</style>
+<div id="pl-gate">
+  <div class="box">
+    <h3>Sign in to start this test</h3>
+    <p>Your answers are saved per question so the platform can show which specification
+       topics you are weakest on. That needs an account — it takes about twenty seconds.</p>
+    <div class="row">
+      <button class="go" id="plGateGo">Sign in or create an account</button>
+      <button class="back" id="plGateBack">Back to the list</button>
+    </div>
+  </div>
+</div>
+<script id="prepline-gate">
+(function () {
+  const gate = document.getElementById('pl-gate');
+  if (!gate) return;
+
+  function show(){ gate.classList.add('on'); }
+  function hide(){ gate.classList.remove('on'); }
+
+  document.getElementById('plGateGo').onclick = () => {
+    hide();
+    const pill = document.getElementById('plPill');
+    if (pill) pill.click();          // открываем штатное окно входа
+  };
+  document.getElementById('plGateBack').onclick = () => {
+    const isCT = /crit-\d/.test(location.pathname);
+    location.href = isCT ? 'crit.html' : 'math.html';
+  };
+
+  async function check(){
+    const supa = window.preplineSupa;
+    if (!supa) return;               // база не поднялась — не мешаем работать
+    try {
+      const { data: { user } } = await supa.auth.getUser();
+      if (!user) show(); else hide();
+    } catch (e) { /* молча пропускаем */ }
+  }
+
+  setTimeout(check, 500);
+  const supa = window.preplineSupa;
+  if (supa && supa.auth && supa.auth.onAuthStateChange) {
+    supa.auth.onAuthStateChange(() => check());
+  }
+})();
+</script>
+
 </body>
 </html>

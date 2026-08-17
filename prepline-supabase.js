@@ -1,7 +1,7 @@
-/* Prepline × Supabase: авторизация + сохранение результатов в облако.
-   Подключается на всех страницах ПОСЛЕ supabase-js (CDN). */
+/* Prepline x Supabase: authentication + saving results to the cloud.
+   Included on every page AFTER supabase-js (CDN). */
 (function () {
-  if (typeof supabase === 'undefined') { console.error('[Prepline] supabase-js не загружен'); return; }
+  if (typeof supabase === 'undefined') { console.error('[Prepline] supabase-js failed to load'); return; }
 
   const supa = supabase.createClient(
     'https://spwavetenjuvvohlnsvx.supabase.co',
@@ -9,21 +9,21 @@
   );
   window.preplineSupa = supa;
 
-  /* ---------- сохранение результата (вызывается из квиза) ---------- */
+  /* ---------- saving a result (called by the quiz) ---------- */
   window.preplineSaveResult = async function (mockId, score, total) {
     try {
       const { data: { user } } = await supa.auth.getUser();
-      if (!user) { toast('Результат сохранён локально. Войди, чтобы сохранять в облако.'); return; }
+      if (!user) { toast('Saved on this device. Sign in to keep your results in the cloud.'); return; }
       const { error } = await supa.from('results').insert({
         user_id: user.id, mock_id: mockId, score: score, total: total
       });
-      if (error) { console.error('[Prepline] insert:', error.message); toast('Ошибка сохранения: ' + error.message); }
-      else toast('☁ Результат ' + score + '/' + total + ' сохранён в облако');
+      if (error) { console.error('[Prepline] insert:', error.message); toast('Could not save: ' + error.message); }
+      else toast('Result ' + score + '/' + total + ' saved to the cloud');
     } catch (e) { console.error('[Prepline]', e); }
   };
 
 
-  /* ---------- подробное сохранение: каждый вопрос отдельно ---------- */
+  /* ---------- per-question saving ---------- */
   window.preplineSaveAnswers = async function (mockId, qs, answers) {
     try {
       const { data: { user } } = await supa.auth.getUser();
@@ -44,7 +44,7 @@
     } catch (e) { console.error('[Prepline]', e); }
   };
 
-  /* ---------- стили виджета ---------- */
+  /* ---------- widget styles ---------- */
   const css = document.createElement('style');
   css.textContent = `
     .pl-auth { position: fixed; top: 14px; right: 14px; z-index: 400; font-family: 'Inter', sans-serif; }
@@ -114,10 +114,10 @@
   `;
   document.head.appendChild(css);
 
-  /* ---------- разметка ---------- */
+  /* ---------- markup ---------- */
   const root = document.createElement('div');
   root.className = 'pl-auth';
-  root.innerHTML = '<div class="pl-pill" id="plPill"><span class="pl-dot"></span><span id="plPillText">Войти</span></div>';
+  root.innerHTML = '<div class="pl-pill" id="plPill"><span class="pl-dot"></span><span id="plPillText">Sign in</span></div>';
   document.body.appendChild(root);
 
   const modalBg = document.createElement('div');
@@ -125,17 +125,17 @@
   modalBg.innerHTML = `
     <div class="pl-modal">
       <button class="pl-close" id="plClose">&#10005;</button>
-      <h3 id="plTitle">Вход в Prepline</h3>
+      <h3 id="plTitle">Sign in to Prepline</h3>
       <div id="plForm">
         <input type="email" id="plEmail" placeholder="Email" autocomplete="email">
-        <input type="password" id="plPass" placeholder="Пароль (мин. 6 символов)" autocomplete="current-password">
+        <input type="password" id="plPass" placeholder="Password (at least 6 characters)" autocomplete="current-password">
         <div class="pl-row">
-          <button class="pl-btn" id="plSignIn">Войти</button>
-          <button class="pl-btn ghost" id="plSignUp">Регистрация</button>
+          <button class="pl-btn" id="plSignIn">Sign in</button>
+          <button class="pl-btn ghost" id="plSignUp">Create account</button>
         </div>
       </div>
       <div id="plLogged" style="display:none;">
-        <div class="pl-row"><button class="pl-btn ghost" id="plSignOut">Выйти</button></div>
+        <div class="pl-row"><button class="pl-btn ghost" id="plSignOut">Sign out</button></div>
       </div>
       <div class="pl-msg" id="plMsg"></div>
     </div>`;
@@ -168,8 +168,8 @@
       $('plLogged').style.display = 'block';
     } else {
       pill.classList.remove('on');
-      pillText.textContent = 'Войти';
-      $('plTitle').textContent = 'Вход в Prepline';
+      pillText.textContent = 'Sign in';
+      $('plTitle').textContent = 'Sign in to Prepline';
       $('plForm').style.display = 'block';
       $('plLogged').style.display = 'none';
     }
@@ -182,36 +182,36 @@
   function readCreds() {
     const email = $('plEmail').value.trim();
     const password = $('plPass').value;
-    if (!email || !email.includes('@')) { setMsg('Введи email'); return null; }
-    if (!password || password.length < 6) { setMsg('Пароль минимум 6 символов'); return null; }
+    if (!email || !email.includes('@')) { setMsg('Enter your email'); return null; }
+    if (!password || password.length < 6) { setMsg('Password must be at least 6 characters'); return null; }
     return { email, password };
   }
 
   $('plSignIn').onclick = async () => {
     const creds = readCreds();
     if (!creds) return;
-    setMsg('Входим...', true);
+    setMsg('Signing in...', true);
     const { error } = await supa.auth.signInWithPassword(creds);
     if (error) { setMsg(error.message); return; }
     setMsg('');
     modalBg.classList.remove('open');
-    toast('Вход выполнен');
+    toast('Signed in');
   };
 
   $('plSignUp').onclick = async () => {
     const creds = readCreds();
     if (!creds) return;
-    setMsg('Создаём аккаунт...', true);
+    setMsg('Creating your account...', true);
     const { data, error } = await supa.auth.signUp(creds);
     if (error) { setMsg(error.message); return; }
-    if (data.session) { setMsg(''); modalBg.classList.remove('open'); toast('Аккаунт создан, ты в системе'); }
-    else setMsg('Аккаунт создан. Подтверди email по ссылке из письма, затем войди.', true);
+    if (data.session) { setMsg(''); modalBg.classList.remove('open'); toast('Account created — you are signed in'); }
+    else setMsg('Account created. Confirm your email using the link we sent, then sign in.', true);
   };
 
   $('plSignOut').onclick = async () => {
     await supa.auth.signOut();
     modalBg.classList.remove('open');
-    toast('Ты вышел из аккаунта');
+    toast('Signed out');
   };
 
   supa.auth.onAuthStateChange(() => { refreshUI(); });
