@@ -113,7 +113,7 @@
 </div>
 
 <script>
-const questions = [{"id":1,"text":"A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?","options":["4π","5π","2.5π","10π","3π"],"correct":1,"src":"M1","topic":"M5.9"},{"id":2,"text":"Given 19 > x ≥ 1 and y = 6/(x − 7), what is the range of values of y?","options":["−1 ≤ y ≤ 1/2","y ≤ −1 or y > 1/2","y < −1 or y < 1/2","−1 < y < 1/2","y  1/2"],"correct":1,"src":"M4","topic":"M4.12"},{"id":3,"text":"","image":"images/q-8c8503f522.jpg","options":["A","B","C","D","E"],"correct":1,"src":"GEO"},{"id":4,"text":"","image":"images/q-27f7f1f7b9.jpg","options":["A","B","C","D","E"],"correct":3,"src":"GEO"},{"id":5,"text":"","image":"images/q-0410009222.jpg","options":["A","B","C","D","E"],"correct":0,"verified":true,"src":"ME1"},{"id":6,"text":"","image":"images/q-bb060d3355.jpg","options":["A","B","C","D","E"],"correct":0,"verified":true,"src":"ME1"},{"id":7,"text":"","image":"images/q-62a4b2749b.jpg","options":["A","B","C","D","E"],"correct":3,"verified":true,"src":"ME1"},{"id":8,"text":"","image":"images/q-f3ba2896f2.jpg","options":["A","B","C","D","E"],"correct":0,"src":"M31"},{"id":9,"text":"","image":"images/q-2cf7221047.jpg","options":["A","B","C","D","E"],"correct":1,"src":"M31"},{"id":10,"text":"","image":"images/q-ba1a3c5bf7.jpg","options":["A","B","C","D","E"],"correct":2,"verified":true,"src":"M39"}];
+const questions = [{"id":1,"text":"A 3 by 4 rectangle is inscribed in a circle. What is the circumference of the circle?","options":["4π","5π","2.5π","10π","3π"],"correct":1,"src":"M1","topic":"M5.9"},{"id":2,"text":"Given 19 > x ≥ 1 and y = 6/(x − 7), what is the range of values of y?","options":["−1 ≤ y ≤ 1/2","y ≤ −1 or y > 1/2","y < −1 or y < 1/2","−1 < y < 1/2","y  1/2"],"correct":1,"src":"M4","topic":"M4.12"},{"id":3,"text":"<p>In the figure above, \\(AB = BC\\) and \\(DE = EF = DF\\). If the measure of \\(\\angle ABC\\) is \\(30°\\) and the measure of \\(\\angle BDE\\) is \\(50°\\), what is the measure of \\(\\angle DFA\\)?</p>","image":"images/q-8c8503f522.jpg","options":["\\(30°\\)","\\(35°\\)","\\(40°\\)","\\(45°\\)","\\(50°\\)"],"correct":1,"src":"GEO","orig":"images/q-8c8503f522.jpg","review":true},{"id":4,"text":"<p>In the figure above, if \\(z = 30\\), what is the value of \\(x + y\\)?</p>","image":"images/q-27f7f1f7b9.jpg","options":["60","150","180","210","330"],"correct":3,"src":"GEO","orig":"images/q-27f7f1f7b9.jpg","review":true},{"id":5,"text":"<p>If \\(ab = \\frac{8}{3}\\), \\(bc = 12\\) and \\(ac = 2\\), then a value of \\(\\sqrt[3]{abc}\\) would be</p>","image":"","options":["2","1","3","5","4"],"correct":0,"verified":true,"src":"ME1","orig":"images/q-0410009222.jpg"},{"id":6,"text":"<p>If \\(f(x) = kx\\), where \\(k \\neq 0\\), and \\(g(x) = x + k\\), then which of the following must be true?</p><p>I. \\(f(2x) = 2f(x)\\) &amp;emsp; II. \\(f(x + 2) = f(x) + 2\\) &amp;emsp; III. \\(f(g(x)) = g(f(x))\\)</p>","image":"","options":["I only","II only","I and II only","I and III only","I, II and III"],"correct":0,"verified":true,"src":"ME1","orig":"images/q-bb060d3355.jpg"},{"id":7,"text":"<p>On Aigerim's 18th birthday in 2012, she was 159 cm in height, having grown 6% since her birthday in 2011. How tall was she in 2011?</p>","image":"","options":["155 cm","140 cm","145 cm","150 cm","160 cm"],"correct":3,"verified":true,"src":"ME1","orig":"images/q-62a4b2749b.jpg"},{"id":8,"text":"<p>Simplify the following expression:</p><p>\\(\\left(\\dfrac{5a^{1/4}b^{5}}{\\sqrt{c}}\\right)^{2}\\)</p>","image":"","options":["\\(\\dfrac{25a^{0.5}b^{10}}{c}\\)","\\(\\dfrac{25a^{0.5}b^{7}}{c^{2}}\\)","\\(\\dfrac{25a^{0.5}b^{7}}{c^{2}}\\)","\\(\\dfrac{25a^{0.5}b^{9}}{c^{3}}\\)"],"correct":0,"src":"M31","review":true,"orig":"images/q-f3ba2896f2.jpg"},{"id":9,"text":"<p>Given the vectors</p><p>\\(\\mathbf{a}=(5 \\ -2), \\quad \\mathbf{b}=(1 \\ 3)\\)</p><p>What is the vector a−b?</p>","image":"","options":["\\((6 \\quad 1)\\)","\\((4 \\quad -5)\\)","\\((5 \\quad -1)\\)","\\((3 \\quad -5)\\)","\\((4 \\quad 5)\\)"],"correct":1,"src":"M31","orig":"images/q-2cf7221047.jpg"},{"id":10,"text":"<p>A cube has the property that its total surface area has the same numerical value as its volume. What is the length of the side (edge) of this cube?</p>","image":"","options":["\\(s=2\\)","\\(s=4\\)","\\(s=6\\)","\\(s=8\\)","\\(s=12\\)"],"correct":2,"verified":true,"src":"M39","orig":"images/q-ba1a3c5bf7.jpg"}];
 
 let state = { idx: 0, answers: {}, timeLeft: 600, timerId: null, finished: false };
 
@@ -385,13 +385,13 @@ render();
       for (var k = 0; k < (q.options || []).length; k++) {
         var on = state.answers[q.id] === k ? ' sel' : '';
         opts += '<button type="button" class="pl-opt' + on + '" data-q="' + q.id +
-                '" data-i="' + k + '">' + (LETTERS[k] || (k + 1)) + ') ' + esc(q.options[k]) + '</button>';
+                '" data-i="' + k + '">' + (LETTERS[k] || (k + 1)) + ') ' + (q.options[k]) + '</button>';
       }
       parts.push(
         '<div class="pl-q" id="pl-q-' + q.id + '">' +
           '<div class="pl-num">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
           (q.image ? '<img loading="lazy" class="pl-img" src="' + q.image + '" alt="Figure">' : '') +
-          (esc(q.text) ? '<div class="pl-text">' + esc(q.text) + '</div>' : '') +
+          (q.text ? '<div class="pl-text">' + q.text + '</div>' : '') +
           '<div class="pl-opts">' + opts + '</div>' +
         '</div>');
     }
@@ -518,5 +518,32 @@ render();
 })();
 </script>
 
+
+<style>
+.q-table{border-collapse:collapse;margin:10px 0;font-size:.95em}
+.q-table th,.q-table td{border:1px solid rgba(128,150,200,.45);padding:4px 10px;text-align:left}
+.q-table th{font-weight:600}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  var pending = null;
+  function draw(){
+    if(!window.renderMathInElement) return;
+    renderMathInElement(document.body, {
+      delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],
+      throwOnError: false
+    });
+  }
+  function schedule(){ clearTimeout(pending); pending = setTimeout(draw, 60); }
+  window.addEventListener("load", function(){
+    schedule();
+    new MutationObserver(schedule).observe(document.body, {childList:true, subtree:true});
+  });
+})();
+</script>
 </body>
 </html>
