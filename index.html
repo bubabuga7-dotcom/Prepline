@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -302,7 +302,15 @@
     }
     .dock-logo { width: 40px; height: 40px; margin-bottom: 0; font-size: 17px; animation: none; }
     .dock-spacer { display: none; }
-    .dock-tip { display: none; }
+    .dock-item[aria-label="Home"], .dock-item[aria-label="How it works"] { display: none; }
+    .dock { height: 76px; }
+    .dock-logo { display: none; }
+    .dock-item { width: 25%; height: 64px; gap: 4px; flex-direction: column; justify-content: center; }
+    .dock-item svg { width: 20px; height: 20px; }
+    .dock-tip { position: static; display: block; opacity: 1; transform: none; background: none;
+      border: 0; padding: 0; white-space: normal; text-align: center; font-size: 12px;
+      line-height: 1.15; pointer-events: none; }
+    .dock-item:hover .dock-tip { transform: none; }
     .dock-item:hover { transform: none; }
 
     .wrap { padding: 0 18px; }
@@ -328,6 +336,53 @@
     * { animation: none !important; }
     *, *::before, *::after { transition-duration: 0.01ms !important; }
   }
+</style>
+
+<style>
+/* ---- новая главная ---- */
+:root{
+  --f-bg:#0F1417; --f-panel:rgba(19,25,29,.72); --f-line:rgba(143,176,206,.16);
+  --f-text:#E6ECEF; --f-muted:#93A3AB;
+  --f-mist:#8FB0CE; --f-pine:#79B0B4; --f-sand:#C9A288;
+}
+body{
+  background:
+    linear-gradient(180deg, rgba(15,20,23,.72) 0%, rgba(15,20,23,.90) 55%, #0F1417 100%),
+    url('bg-home-A.jpg') center 28% / cover no-repeat fixed !important;
+  color:var(--f-text);
+}
+main{padding:0}
+.dock-item.accent{background:rgba(121,176,180,.18);color:var(--f-text);box-shadow:none;animation:none;border-color:rgba(121,176,180,.32)}
+.dock-item.accent:hover{background:rgba(121,176,180,.28)}
+.f-wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+.f-enter{padding:74px 0 34px}
+.f-enter h1{font-size:40px;line-height:1.18;margin:0 0 14px;font-weight:600;max-width:17ch}
+.f-enter h1 span{color:var(--f-pine)}
+.f-lead{color:var(--f-muted);font-size:16px;line-height:1.6;max-width:54ch;margin:0 0 26px}
+.f-row{display:flex;gap:12px;flex-wrap:wrap}
+.f-btn{display:inline-block;padding:12px 22px;border-radius:9px;text-decoration:none;font-size:15px}
+.f-main{background:var(--f-pine);color:#0F1417;font-weight:600}
+.f-main:hover{background:#8DBFC2}
+.f-ghost{border:1px solid var(--f-line);color:var(--f-text)}
+.f-ghost:hover{border-color:var(--f-pine)}
+.f-note{color:var(--f-muted);font-size:14px;margin-top:14px}
+.f-facts{display:flex;gap:44px;flex-wrap:wrap;padding:26px 0;border-top:1px solid var(--f-line);
+         border-bottom:1px solid var(--f-line)}
+.f-fact b{display:block;font-size:26px;color:var(--f-sand);font-variant-numeric:tabular-nums}
+.f-fact span{font-size:13px;color:var(--f-muted)}
+.f-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:40px 0}
+.f-card{background:var(--f-panel);border:1px solid var(--f-line);border-radius:12px;padding:20px}
+.f-card h3{margin:0 0 8px;font-size:17px;font-weight:600}
+.f-card p{margin:0 0 14px;color:var(--f-muted);font-size:14px;line-height:1.55}
+.f-card a{color:var(--f-mist);text-decoration:none;font-size:14px}
+.f-card a:hover{text-decoration:underline}
+.f-tag{display:inline-block;font-size:12px;color:var(--f-muted);border:1px solid var(--f-line);
+       border-radius:99px;padding:3px 10px;margin-bottom:12px}
+.f-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;padding:6px 0 60px}
+.f-step b{display:block;color:var(--f-pine);font-size:13px;margin-bottom:6px}
+.f-step p{margin:0;color:var(--f-muted);font-size:14px;line-height:1.55}
+.f-foot{border-top:1px solid var(--f-line);padding:22px 0 44px;color:var(--f-muted);font-size:13px}
+@media(max-width:640px){.f-enter h1{font-size:29px}.f-enter{padding:44px 0 24px}}
 </style>
 </head>
 <body>
@@ -360,271 +415,60 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
     <span class="dock-tip">Critical Thinking</span>
   </a>
-  <a href="weak-spots.html" class="dock-item accent" aria-label="Weak spots">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/></svg>
-    <span class="dock-tip">Weak spots</span>
-  </a>
 </aside>
 
 <main>
+  <div class="f-wrap">
 
-<section class="hero">
-  <div class="hero-photo"></div>
-  <div class="wrap">
-    <div class="hero-left">
-      <span class="eyebrow">10-minute diagnostic</span>
-      <h1>Prepare for NUET where you can see <em>real progress</em></h1>
-      <p class="lead">Practice with instant feedback, a breakdown by section and a timer, just like the real exam. No filler — only questions that count.</p>
-      <div class="hero-actions">
-        <a href="#tracks" class="btn-primary">Choose a section and start</a>
+    <section class="f-enter">
+      <h1>Prepare for NUET <span>with focused practice</span></h1>
+      <p class="f-lead">Start with a 10-question diagnostic, then practise with timed tests and review your answers.</p>
+      <div class="f-row">
+        <a class="f-btn f-main" href="diagnostic-math.html">Mathematics diagnostic</a>
+        <a class="f-btn f-ghost" href="diagnostic-crit.html">Critical Thinking diagnostic</a>
       </div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-top">
-        <span class="quiz-badge">Try it yourself</span>
-        <span class="quiz-hint">One NUET question</span>
+      <p class="f-note">Sign in or create an account to start a test and save your results.</p>
+    </section>
+
+    <section class="f-facts">
+      <div class="f-fact"><b>1,216</b><span>question entries</span></div>
+      <div class="f-fact"><b>43</b><span>test sets</span></div>
+      <div class="f-fact"><b>724</b><span>Mathematics entries</span></div>
+      <div class="f-fact"><b>472</b><span>Critical Thinking entries</span></div>
+    </section>
+
+    <section class="f-cards" id="tracks">
+      <div class="f-card">
+        <span class="f-tag">724 question entries</span>
+        <h3>Mathematics</h3>
+        <p>Algebra, geometry, probability, exponents and logarithms. Practise with a timer and review your answers.</p>
+        <a href="math.html">Browse tests →</a>
       </div>
-      <div class="quiz-q">If 40% of x equals 160% of y, what is (3x − 12y)/5?</div>
-      <button class="quiz-opt" data-correct="false">3</button>
-      <button class="quiz-opt" data-correct="false">2</button>
-      <button class="quiz-opt" data-correct="true">0</button>
-      <button class="quiz-opt" data-correct="false">4</button>
-      <div class="quiz-feedback" id="quiz-feedback"></div>
-    </div>
-  </div>
-</section>
-
-<section class="stats">
-  <div class="stats-photo"></div>
-  <div class="wrap">
-    <div>
-      <div class="stat-num" data-target="1048" data-decimals="0" data-suffix="">1048</div>
-      <div class="stat-label">verified questions in the bank</div>
-    </div>
-    <div>
-      <div class="stat-num" data-target="38" data-decimals="0" data-suffix="">38</div>
-      <div class="stat-label">timed tests</div>
-    </div>
-    <div>
-      <div class="stat-num" data-target="30" data-decimals="0" data-suffix="">30</div>
-      <div class="stat-label">minutes per test</div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="tracks">
-  <div class="section-head" data-reveal>
-    <h2>Two NUET sections, <span class="grad-text">one principle</span></h2>
-    <p>The real exam format, not abstract exercises.</p>
-  </div>
-  <div class="wrap tracks">
-    <div class="track-card" data-reveal-card>
-      <span class="track-tag">NUET · Mathematics</span>
-      <h3>Mathematics</h3>
-      <p>22 tests of 27–30 questions from real NUET and NUFYPET mock exams, with a timer, navigation and a breakdown of every answer.</p>
-      <div class="track-meta">
-        <span>Target: <strong>210+/240</strong></span>
-        <span>Base: <strong>606 questions</strong></span>
+      <div class="f-card">
+        <span class="f-tag">472 question entries</span>
+        <h3>Critical Thinking</h3>
+        <p>Arguments, assumptions, conclusions and problem solving with tables, routes and schedules.</p>
+        <a href="crit.html">Browse tests →</a>
       </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="diagnostic-math.html" class="track-btn">Diagnostic (10 questions)</a>
-        <a href="math.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">All tests</a>
+      <div class="f-card">
+        <span class="f-tag">Exam guide</span>
+        <h3>What is NUET?</h3>
+        <p>Learn about the exam sections, timing and scoring.</p>
+        <a href="intro.html">Read the guide →</a>
       </div>
-    </div>
-    <div class="track-card" data-reveal-card>
-      <span class="track-tag">NUET · Critical Thinking</span>
-      <h3>Critical Thinking and Problem Solving</h3>
-      <p>The second NUET section as specified by NU: analysing arguments, logic and problem solving. 16 tests of 30 questions.</p>
-      <div class="track-meta">
-        <span>Format: <strong>MCQ</strong></span>
-        <span>Base: <strong>442 questions</strong></span>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="diagnostic-crit.html" class="track-btn">Diagnostic (10 questions)</a>
-        <a href="crit.html" class="track-btn" style="background:transparent; border:1px solid var(--glass-line);">All tests</a>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="section" id="how">
-  <div class="section-head" data-reveal>
-    <h2>How it <span class="grad-text">works</span></h2>
-    <p>Three steps from your first test to your exam result.</p>
-  </div>
-  <div class="wrap how">
-    <div class="how-step" data-reveal-card>
-      <span class="how-num">01</span>
-      <h3>Diagnostic</h3>
-      <p>A 10-minute test establishes your current level in each section.</p>
-    </div>
-    <div class="how-step" data-reveal-card>
-      <span class="how-num">02</span>
-      <h3>Plan</h3>
-      <p>Weak topics get more practice, without repeating what you already know.</p>
-    </div>
-    <div class="how-step" data-reveal-card>
-      <span class="how-num">03</span>
-      <h3>Practice</h3>
-      <p>Daily timed sessions with an instant breakdown of every answer.</p>
-    </div>
-    <div class="how-step" data-reveal-card>
-      <span class="how-num">04</span>
-      <h3>Exam</h3>
-      <p>You sit the real test already used to the format and the pace.</p>
-    </div>
-  </div>
-</section>
+    <section class="f-steps" id="how">
+      <div class="f-step"><b>01</b><p>Take a diagnostic to see where you stand.</p></div>
+      <div class="f-step"><b>02</b><p>Work through timed test sets.</p></div>
+      <div class="f-step"><b>03</b><p>Review your answers after each test.</p></div>
+      <div class="f-step"><b>04</b><p>Use your results to decide what to practise next.</p></div>
+    </section>
 
-<section class="cta-band" id="cta">
-  <div class="cta-photo"></div>
-  <div class="wrap" data-reveal>
-    <h2>Find out your level <span class="grad-text">right now</span></h2>
-    <p>A free diagnostic: 10 questions, 10 minutes, an honest result.</p>
-    <a href="#tracks" class="btn-primary">Start for free</a>
-  </div>
-</section>
+    <div class="f-foot">Prepline — free NUET preparation.</div>
 
-<footer>
-  <div class="wrap">
-    <span>Prepline © 2026</span>
-    <span>Astana, Kazakhstan</span>
   </div>
-</footer>
-
 </main>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-<script>
-  /* ===== mini quiz: a random question on every load ===== */
-  const QUIZ_POOL = [
-    { q: 'If 40% of x equals 160% of y, what is (3x - 12y)/5?', opts: ['3', '2', '0', '4'], correct: '0' },
-    { q: 'If x + y = 10 and x - y = 4, what is xy?', opts: ['18', '21', '24', '12'], correct: '21' },
-    { q: '25% of 80 plus 30% of 50 equals:', opts: ['30', '35', '40', '45'], correct: '35' },
-    { q: 'Continue the sequence: 2, 6, 18, 54, ...', opts: ['108', '162', '148', '216'], correct: '162' },
-    { q: 'If 3^x = 81, what is x² − x?', opts: ['6', '12', '16', '20'], correct: '12' },
-    { q: 'The mean of five numbers is 12. After a sixth number is added the mean becomes 14. What number was added?', opts: ['22', '24', '26', '14'], correct: '24' },
-    { q: 'Solve the equation: 2(x − 3) = x + 5', opts: ['8', '11', '2', '−1'], correct: '11' },
-    { q: 'A die is rolled. What is the probability of an even number greater than 2?', opts: ['1/2', '1/3', '2/3', '1/6'], correct: '1/3' }
-  ];
-
-  (function renderQuiz() {
-    const card = document.querySelector('.quiz-card');
-    if (!card) return;
-    const item = QUIZ_POOL[Math.floor(Math.random() * QUIZ_POOL.length)];
-
-    // shuffle the options (Fisher-Yates)
-    const opts = item.opts.slice();
-    for (let i = opts.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [opts[i], opts[j]] = [opts[j], opts[i]];
-    }
-
-    card.querySelector('.quiz-q').textContent = item.q;
-    card.querySelectorAll('.quiz-opt').forEach((btn, i) => {
-      btn.textContent = opts[i];
-      btn.dataset.correct = String(opts[i] === item.correct);
-      btn.classList.remove('correct', 'wrong');
-    });
-    const fb = document.getElementById('quiz-feedback');
-    fb.textContent = '';
-    fb.className = 'quiz-feedback';
-    card.dataset.answer = item.correct;
-  })();
-
-  /* ===== answer logic (unchanged; the feedback text takes the correct answer from the data) ===== */
-  const quizOpts = document.querySelectorAll('.quiz-opt');
-  const feedback = document.getElementById('quiz-feedback');
-  let quizAnswered = false;
-  quizOpts.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (quizAnswered) return;
-      quizAnswered = true;
-      const isCorrect = btn.dataset.correct === 'true';
-      const answer = document.querySelector('.quiz-card').dataset.answer;
-      quizOpts.forEach(o => {
-        if (o.dataset.correct === 'true') o.classList.add('correct');
-        else if (o === btn) o.classList.add('wrong');
-      });
-      feedback.textContent = isCorrect ? ('Correct — that is right: ' + answer + '.') : ('Not quite. The correct answer is ' + answer + '.');
-      feedback.className = 'quiz-feedback ' + (isCorrect ? 'ok' : 'no');
-    });
-  });
-
-  /* ===== GSAP animations ===== */
-  (function () {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    // dock: slides in from the left on load
-    gsap.from('.dock', { x: -90, opacity: 0, duration: 0.7, ease: 'power3.out' });
-    gsap.from('.dock-logo, .dock-item', { x: -24, opacity: 0, duration: 0.5, stagger: 0.07, delay: 0.3, ease: 'power3.out', clearProps: 'all' });
-
-    // hero: fades in on load
-    gsap.from('.hero-left > *', { y: 26, opacity: 0, duration: 0.8, delay: 0.2, stagger: 0.1, ease: 'power3.out' });
-    gsap.from('.quiz-card', { y: 44, opacity: 0, duration: 0.9, delay: 0.4, ease: 'power3.out' });
-
-    // parallax on the photo backgrounds
-    gsap.to('.hero-photo', {
-      y: 90, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-    gsap.to('.stats-photo', {
-      y: 60, ease: 'none',
-      scrollTrigger: { trigger: '.stats', start: 'top bottom', end: 'bottom top', scrub: true }
-    });
-    gsap.to('.cta-photo', {
-      y: 60, ease: 'none',
-      scrollTrigger: { trigger: '.cta-band', start: 'top bottom', end: 'bottom top', scrub: true }
-    });
-
-    // parallax on the hero content
-    gsap.to('.quiz-card', {
-      y: -46, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-    gsap.to('.hero-left', {
-      y: -22, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-
-    // sections: fade in downwards, fade out on scrolling up
-    gsap.utils.toArray('[data-reveal]').forEach(el => {
-      gsap.from(el, {
-        y: 36, opacity: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
-      });
-    });
-
-    // cards: staggered downwards, reversed on scrolling up
-    ['.tracks', '.how'].forEach(sel => {
-      const cards = gsap.utils.toArray(sel + ' [data-reveal-card]');
-      if (!cards.length) return;
-      gsap.from(cards, {
-        y: 40, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: sel, start: 'top 82%', toggleActions: 'play none none reverse' }
-      });
-    });
-
-    // number counters
-    gsap.utils.toArray('.stat-num').forEach(el => {
-      const target = parseFloat(el.dataset.target);
-      const decimals = parseInt(el.dataset.decimals || '0', 10);
-      const suffix = el.dataset.suffix || '';
-      const obj = { v: 0 };
-      el.textContent = (0).toFixed(decimals) + suffix;
-      gsap.to(obj, {
-        v: target, duration: 1.6, ease: 'power2.out',
-        scrollTrigger: { trigger: '.stats', start: 'top 82%', once: true },
-        onUpdate: () => { el.textContent = obj.v.toFixed(decimals) + suffix; }
-      });
-    });
-  })();
-</script>
-
 
 <!-- ===== Prepline x Supabase: auth ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
