@@ -74,6 +74,12 @@
     .head h1{font-size:27px}
   }
   #rv-filter button{flex:none;white-space:nowrap;padding:7px 14px}
+  .duel-card{margin-top:16px;display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:center;
+             border-color:rgba(201,162,39,.4);background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(255,255,255,.03))}
+  .winner{background:linear-gradient(135deg,rgba(201,162,39,.2),rgba(201,162,39,.05));border:1px solid rgba(201,162,39,.5);
+          border-radius:8px;padding:14px 18px;margin-bottom:14px;font:700 18px Sora,Inter,sans-serif;color:var(--ink)}
+  .winner small{display:block;font:500 13px Inter,sans-serif;color:var(--ink-2);margin-top:2px}
+  @media (max-width:780px){.duel-card{grid-template-columns:1fr}}
   .rv-item{border-top:1px solid var(--line-2);padding:16px 0}
   .rv-item:first-child{border-top:0}
   .rv-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:13px}
@@ -130,6 +136,18 @@
         <div class="err" id="create-err"></div>
       </div>
     </div>
+    <div class="panel duel-card">
+      <div>
+        <span class="kicker">1 on 1</span>
+        <h2 style="margin-top:6px">Duel a friend</h2>
+        <p class="sub" style="margin-bottom:0">10 random questions, 10 minutes, and you both see the score live. It starts as soon as your friend joins.</p>
+      </div>
+      <div class="duel-form">
+        <div class="seg" id="duel-seg"><button data-k="math" class="on">Mathematics</button><button data-k="ct">Critical Thinking</button></div>
+        <div class="actions" style="margin-top:12px"><button class="btn" id="duel-btn">Create a duel →</button></div>
+        <div class="err" id="duel-err"></div>
+      </div>
+    </div>
   </section>
 
   <!-- room -->
@@ -175,6 +193,7 @@
     <!-- results -->
     <div id="p-results" style="display:none">
       <div class="panel" style="margin-bottom:14px">
+        <div id="winner"></div>
         <h2 style="font-size:16px;margin-bottom:8px">Results</h2>
         <table class="lb"><thead><tr><th>#</th><th>Name</th><th style="text-align:right">Correct</th><th style="text-align:right">Score</th></tr></thead>
           <tbody id="lb-body"></tbody></table>
@@ -267,6 +286,48 @@
     this.disabled = false;
   };
 
+  /* ---------- duel ---------- */
+  var duelKind = 'math';
+  $('duel-seg').onclick = function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    duelKind = b.dataset.k;
+    [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
+  };
+  async function questionsOf(mockId) {
+    var html = await (await fetch(mockId + '.html')).text();
+    var m = html.match(/^const questions = (\[.*\]);\s*$/m);
+    return m ? JSON.parse(m[1]) : null;
+  }
+  $('duel-btn').onclick = async function () {
+    var name = $('join-name').value.trim() || savedName() || (me.email || 'Player').split('@')[0];
+    $('duel-err').textContent = '';
+    this.disabled = true; var btn = this;
+    try {
+      var pool = TESTS.filter(function (t) { return t.kind === duelKind && t.group !== 'Original mock exams' && t.id !== 'mix-8'; });
+      var t, qs, scored = [];
+      for (var k = 0; k < 4 && scored.length < 10; k++) {            // a few mocks have many unscored questions: try another
+        t = pool[Math.floor(Math.random() * pool.length)];
+        qs = await questionsOf(t.id);
+        scored = (qs || []).filter(function (q) { return q.verified !== false && (q.options || []).length; });
+      }
+      if (!scored.length) throw new Error('Could not load questions, try again.');
+      for (var i = scored.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = scored[i]; scored[i] = scored[j]; scored[j] = x; }
+      var ids = scored.slice(0, 10).map(function (q) { return q.id; }).sort(function (a, b) { return a - b; });
+      var res;
+      for (var tries = 0; tries < 5; tries++) {
+        var code = ''; for (var c = 0; c < 6; c++) code += ALPH[Math.floor(Math.random() * ALPH.length)];
+        res = await supa.from('rooms').insert({ code: code, mock_id: t.id, duration_sec: 600, mode: 'duel', q_ids: ids }).select().single();
+        if (!res.error || !/duplicate|unique/i.test(res.error.message)) break;
+      }
+      if (res.error) throw res.error;
+      var j2 = await supa.from('room_players').insert({ room_id: res.data.id, name: name });
+      if (j2.error) throw j2.error;
+      saveName(name);
+      openRoom(res.data.code);
+    } catch (e) { $('duel-err').textContent = e.message || String(e); }
+    btn.disabled = false;
+  };
+
   /* ---------- join ---------- */
   $('join-btn').onclick = async function () {
     var code = $('join-code').value.trim().toUpperCase(), name = $('join-name').value.trim();
@@ -276,6 +337,11 @@
     var r = await supa.from('rooms').select('*').eq('code', code).maybeSingle();
     if (r.error || !r.data) { $('join-err').textContent = 'No room with this code.'; return; }
     if (r.data.status === 'finished') { $('join-err').textContent = 'This room has already finished.'; return; }
+    if (r.data.mode === 'duel') {
+      var cnt = await supa.from('room_players').select('user_id').eq('room_id', r.data.id);
+      var inIt = (cnt.data || []).some(function (p) { return p.user_id === me.id; });
+      if (!inIt && (cnt.data || []).length >= 2) { $('join-err').textContent = 'This duel already has two players.'; return; }
+    }
     var ins = await supa.from('room_players').insert({ room_id: r.data.id, name: name });
     if (ins.error && !/duplicate/i.test(ins.error.message)) { $('join-err').textContent = ins.error.message; return; }
     if (ins.error) await supa.from('room_players').update({ name: name }).eq('room_id', r.data.id).eq('user_id', me.id);
@@ -297,7 +363,8 @@
     var r = await supa.from('rooms').select('*').eq('code', code).maybeSingle();
     if (r.error || !r.data) { $('room-err').textContent = 'Room not found.'; clearInterval(poll); return; }
     room = r.data;
-    var p = await supa.from('room_players').select('user_id,name,answered,finished').eq('room_id', room.id).order('joined_at');
+    var p = await supa.from('room_players').select('user_id,name,answered,finished,correct_live').eq('room_id', room.id).order('joined_at');
+    if (p.error) p = await supa.from('room_players').select('user_id,name,answered,finished').eq('room_id', room.id).order('joined_at');   // before stage2.sql
     players = p.data || [];
     draw();
   }
@@ -310,12 +377,15 @@
   }
 
   function draw() {
-    var t = testOf(room.mock_id);
-    $('r-title').textContent = testName(t) || room.mock_id;
-    $('r-sub').textContent = (t ? (t.kind === 'ct' ? 'Critical Thinking' : 'Mathematics') + ' · ' + t.q + ' questions · ' : '') +
-      Math.round(room.duration_sec / 60) + ' min' + (isHost() ? ' · you are the host' : '');
+    var t = testOf(room.mock_id), duel = room.mode === 'duel';
+    $('r-title').textContent = duel ? 'Duel · ' + (t && t.kind === 'ct' ? 'Critical Thinking' : 'Mathematics') : (testName(t) || room.mock_id);
+    $('r-sub').textContent = duel
+      ? (room.q_ids || []).length + ' questions from ' + testName(t) + ' · ' + Math.round(room.duration_sec / 60) + ' min · live score'
+      : (t ? (t.kind === 'ct' ? 'Critical Thinking' : 'Mathematics') + ' · ' + t.q + ' questions · ' : '') +
+        Math.round(room.duration_sec / 60) + ' min' + (isHost() ? ' · you are the host' : '');
     drawClock();
-    var host = isHost(), mine = myRow();
+    // in a duel the creator plays; in a room the creator only watches
+    var ctl = isHost(), host = ctl && !duel, mine = myRow();
     var showLobby = room.status === 'lobby', showRun = room.status === 'running' && !ended();
     $('p-lobby').style.display = showLobby ? '' : 'none';
     $('p-progress').style.display = showRun && host ? '' : 'none';
@@ -330,6 +400,12 @@
       $('host-start').style.display = host ? '' : 'none';
       $('start-btn').disabled = !players.length;
       $('wait-msg').style.display = host ? 'none' : '';
+      if (duel) {
+        $('wait-msg').textContent = players.length < 2
+          ? 'Waiting for your opponent… Send them the code or the invite link. The duel starts as soon as they join.'
+          : 'Both players are here. Starting…';
+        if (ctl && players.length === 2) startRoom();
+      }
       if (!host && !mine) { show('v-start'); $('join-code').value = room.code; $('join-name').value = savedName(); clearInterval(poll); }
     }
     if (showRun && !host) {
@@ -349,16 +425,20 @@
       }).join('') || '<p class="muted">Nobody in the room.</p>';
       if (players.length && fin === players.length) endRoom();
     }
+    if (showRun && ctl && !host && players.length && players.every(function (p) { return p.finished; })) endRoom();
     if (ended() && !resultsShown) loadResults();
   }
 
-  $('start-btn').onclick = async function () {
-    this.disabled = true;
+  var starting = false;
+  async function startRoom() {
+    if (starting || room.status !== 'lobby') return;
+    starting = true; $('start-btn').disabled = true;
     var now = new Date(), ends = new Date(now.getTime() + room.duration_sec * 1000);
     var r = await supa.from('rooms').update({ status: 'running', started_at: now.toISOString(), ends_at: ends.toISOString() }).eq('id', room.id);
-    if (r.error) { $('room-err').textContent = r.error.message; this.disabled = false; return; }
+    if (r.error) { $('room-err').textContent = r.error.message; $('start-btn').disabled = false; starting = false; return; }
     refresh(room.code);
-  };
+  }
+  $('start-btn').onclick = startRoom;
   async function endRoom() {
     if (!isHost() || room.status === 'finished') return;
     await supa.from('rooms').update({ status: 'finished', ends_at: new Date().toISOString() }).eq('id', room.id);
@@ -386,17 +466,30 @@
         (r.finished ? '' : ' <span class="muted">(did not submit)</span>') + '</td>' +
         '<td class="raw">' + (r.finished ? r.raw + '/' + r.total : '—') + '</td><td class="sc">' + (r.finished ? r.score + '<small>/120</small>' : '—') + '</td></tr>';
     }).join('');
+    if (room.mode === 'duel') {
+      var top = a.data.filter(function (r) { return r.finished; });
+      var w = '';
+      if (top.length === 2 && top[0].raw === top[1].raw) w = '🤝 Draw<small>' + top[0].raw + ' : ' + top[1].raw + '</small>';
+      else if (top.length) w = '🏆 ' + esc(top[0].name) + ' wins<small>' + top.map(function (r) { return esc(r.name) + ' ' + r.raw; }).join(' : ') +
+        (top.length < 2 ? ' · opponent did not submit' : '') + '</small>';
+      $('winner').innerHTML = w ? '<div class="winner">' + w + '</div>' : '';
+      // a duel is decided by correct answers; sort by them
+      var body = $('lb-body');
+      [].slice.call(body.rows).sort(function (x, y) { return (parseInt(y.cells[2].textContent) || -1) - (parseInt(x.cells[2].textContent) || -1); })
+        .forEach(function (tr, i) { tr.cells[0].textContent = i + 1; body.appendChild(tr); });
+    }
     var qs = b.data || [], weighted = qs.length && qs[0].weighted;
     var subs = a.data.filter(function (r) { return r.finished; }).length;
-    $('q-title').textContent = weighted ? 'How hard each question was in this room' : 'How the room did on each question';
-    $('q-note').innerHTML = weighted
+    $('q-title').textContent = room.mode === 'duel' ? 'Each question of the duel' : weighted ? 'How hard each question was in this room' : 'How the room did on each question';
+    $('q-note').innerHTML = room.mode === 'duel' ? 'A duel is decided by the number of correct answers. Score /120 = 120 × correct ÷ total.' : weighted
       ? '<b>' + subs + ' students submitted</b>, so harder questions are worth more: 1 + 2 × (share of the room who got it wrong) — about 1 point if everyone solved it, up to 3 if nobody did. ' +
         'The share is lightly smoothed (as if one extra person got it right and one got it wrong). Score = 120 × points earned ÷ points available.'
       : '<b>Only ' + subs + (subs === 1 ? ' student' : ' students') + ' submitted.</b> Difficulty weighting starts at 5 students — with fewer, a single person’s mistake would decide how much a question is worth. ' +
         'So every question counts the same here: score = 120 × correct ÷ total.';
     $('q-grid').innerHTML = qs.map(function (q) {
       var p = q.wrong / q.players, lvl = p >= 0.6 ? 'hard' : p <= 0.34 ? 'easy' : 'medium';
-      return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + q.q_id + '</b><span>' +
+      var num = room.q_ids && room.q_ids.length ? room.q_ids.indexOf(q.q_id) + 1 : q.q_id;   // same numbering as in the test
+      return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + num + '</b><span>' +
         (weighted ? q.weight.toFixed(1) + ' pt' : Math.round(100 * (1 - p)) + '% ✓') + '</span></div>';
     }).join('');
   }
@@ -420,6 +513,7 @@
         var html = await (await fetch(rvMine.mock + '.html')).text();
         var m = html.match(/^const questions = (\[.*\]);\s*$/m);
         rvQs = JSON.parse(m[1]);
+        if (room.q_ids && room.q_ids.length) rvQs = rvQs.filter(function (q) { return room.q_ids.indexOf(q.id) >= 0; });
       } catch (e) { $('rv-list').innerHTML = '<p class="muted">Could not load the questions. Open the test page from the section list instead.</p>'; return; }
     }
     drawReview();

@@ -72,14 +72,34 @@
   var grid = map.querySelector('.qmap-grid');
   var flagBtn = map.querySelector('.qmap-flag');
 
-  var cells = [], pinned = 0, pinnedUntil = 0;
-  questions.forEach(function (q, i) {
-    var b = document.createElement('button');
-    b.type = 'button'; b.className = 'qm'; b.textContent = i + 1;
-    b.setAttribute('aria-label', 'Question ' + (i + 1));
-    b.onclick = function () { go(i); };
-    grid.appendChild(b); cells.push(b);
-  });
+  var cells = [], pinned = 0, pinnedUntil = 0, diff = {};
+  function buildCells() {
+    grid.innerHTML = ''; cells = [];
+    questions.forEach(function (q, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'qm'; b.textContent = i + 1;
+      b.setAttribute('aria-label', 'Question ' + (i + 1));
+      b.onclick = function () { go(i); };
+      grid.appendChild(b); cells.push(b);
+    });
+  }
+  buildCells();
+  // keep only some questions of this mock (duels, challenge of the week); order follows ids
+  function useSubset(ids) {
+    var byId = {};
+    questions.forEach(function (q) { byId[q.id] = q; });
+    var keep = ids.map(function (id) { return byId[id]; }).filter(Boolean);
+    if (!keep.length) return false;
+    questions.splice.apply(questions, [0, questions.length].concat(keep));
+    state.idx = 0; state.answers = {};
+    buildCells(); lastSig = null;
+    partial = true;
+    // a part of the mock is not an attempt of the whole mock: keep it out of the test history and cloud results
+    if (typeof window.saveAttempt === 'function') window.saveAttempt = function () {};
+    if (typeof window.appendHistory === 'function') window.appendHistory = function () {};
+    return true;
+  }
+  var partial = false;
 
   map.querySelector('.qmap-toggle').onclick = function () {
     map.classList.toggle('closed');
@@ -129,7 +149,7 @@
     questions.forEach(function (q, i) {
       var a = q.id in state.answers; if (a) answered++;
       var c = cells[i];
-      c.className = 'qm' + (a ? ' ans' : '') + (i === cur ? ' cur' : '') + (flags[q.id] ? ' flag' : '') +
+      c.className = 'qm' + (a ? ' ans' : '') + (i === cur ? ' cur' : '') + (flags[q.id] ? ' flag' : '') + (diff[i] ? ' ' + diff[i] : '') +
                     ((q.options || []).length ? '' : ' nokey');
     });
     var nf = Object.keys(flags).length;
@@ -232,7 +252,8 @@
         return supa.from('room_players').select('*').eq('room_id', room.id).eq('user_id', user.id).maybeSingle().then(function (m) {
           var ends = room.ends_at ? new Date(room.ends_at).getTime() : 0;
           if (!m.data || m.data.finished || room.status !== 'running' || Date.now() >= ends) return back();
-          live = { room: room, user: user, ends: ends, sent: -1 };
+          live = { room: room, user: user, ends: ends, sent: '', duel: room.mode === 'duel' };
+          if (room.q_ids && room.q_ids.length) useSubset(room.q_ids);
           // answers survive an accidental reload
           try {
             var saved = JSON.parse(sessionStorage.getItem(saveKey()) || '{}');
@@ -245,8 +266,15 @@
           }, 5000);
           var bar = document.createElement('div');
           bar.className = 'lroom';
-          bar.innerHTML = '<span>Live room <b>' + ROOM_CODE + '</b> · shared timer · scores are revealed when the test ends</span>';
+          bar.innerHTML = live.duel
+            ? '<span>Duel <b>' + ROOM_CODE + '</b> · ' + questions.length + ' questions</span><span class="dscore">…</span>'
+            : '<span>Live room <b>' + ROOM_CODE + '</b> · shared timer · scores are revealed when the test ends</span>';
           map.parentNode.insertBefore(bar, map.previousElementSibling || map);
+          if (live.duel) {
+            duelScores(bar.querySelector('.dscore'));
+            var h2 = document.querySelector('.wrap h2');
+            if (h2) h2.textContent = 'Duel · ' + questions.length + ' questions';
+          }
           cover.remove();
           pushProgress();
         });
@@ -269,13 +297,39 @@
     if (!live || live.done) return;
     try { sessionStorage.setItem(saveKey(), JSON.stringify(state.answers)); } catch (e) {}
     var n = Object.keys(state.answers).length;
-    if (n === live.sent) return;
+    var right = questions.filter(function (q) { return state.answers[q.id] === q.correct && q.verified !== false; }).length;
+    var key = n + ':' + right;
+    if (key === live.sent) return;
     clearTimeout(progressTimer);
     progressTimer = setTimeout(function () {
-      live.sent = n;
-      window.preplineSupa.from('room_players').update({ answered: n })
+      live.sent = key;
+      var upd = { answered: n };
+      if (live.duel) upd.correct_live = right;      // a duel shows the score live
+      window.preplineSupa.from('room_players').update(upd)
         .eq('room_id', live.room.id).eq('user_id', live.user.id).then(function () {});
-    }, 800);
+    }, live.duel ? 300 : 800);
+  }
+
+  // duel: both scores, refreshed every 2 seconds
+  function duelScores(el) {
+    css.textContent += '\n.lroom .dscore{font:600 13px "IBM Plex Mono",monospace;white-space:nowrap}' +
+      '\n.lroom .dscore .me{color:#C9A227}.lroom .dscore .lead{color:#4ADE9A}';
+    function pull() {
+      if (state.finished) return;
+      window.preplineSupa.from('room_players').select('user_id,name,correct_live,answered,finished').eq('room_id', live.room.id)
+        .then(function (r) {
+          if (!r.data) return;
+          var mine = r.data.filter(function (p) { return p.user_id === live.user.id; })[0];
+          var opp = r.data.filter(function (p) { return p.user_id !== live.user.id; })[0];
+          var my = questions.filter(function (q) { return state.answers[q.id] === q.correct && q.verified !== false; }).length;
+          if (!opp) { el.textContent = 'You ' + my + ' · waiting for opponent'; return; }
+          var o = opp.correct_live;
+          el.innerHTML = '<span class="me' + (my > o ? ' lead' : '') + '">You ' + my + '</span> · ' +
+            '<span' + (o > my ? ' class="lead"' : '') + '>' + String(opp.name).replace(/[<&]/g, '') + ' ' + o + '</span>' +
+            (opp.finished ? ' ✓' : ' (' + opp.answered + '/' + questions.length + ')');
+        });
+    }
+    pull(); setInterval(pull, 2000);
   }
 
   function submitRoom() {
@@ -362,7 +416,7 @@
     if (state.finished) return;
     var n = Object.keys(state.answers).length;
     if (n !== lastCount) { lastCount = n; pace.push([Math.max(0, elapsed()), n]); }
-    if (!ghost || EXAM) return;
+    if (!ghost || EXAM || partial) return;
     if (!ghostEl) {
       ghostEl = document.createElement('div');
       ghostEl.className = 'ghost';
@@ -442,11 +496,61 @@
     if (typeof f !== 'function') return;
     window.finish = function () {
       var was = state.finished, r = f.apply(this, arguments);
-      if (!was && state.finished && pace.length > 1) savePace();
+      if (!was && state.finished && pace.length > 1 && !partial) savePace();
       if (ghostEl) ghostEl.style.display = 'none';
       return r;
     };
   })();
+
+  /* ---------- challenge of the week: <test>.html?only=ID&challenge=1&p=players&w=wrong ---------- */
+  var ONLY = PARAMS.get('only');
+  if (ONLY && !ROOM_CODE && !EXAM) {
+    var ids = ONLY.split(',').map(Number).filter(Boolean);
+    if (useSubset(ids)) {
+      T0 = state.timeLeft = 180 * questions.length;              // 3 minutes per question
+      var isCh = PARAMS.get('challenge') === '1', cp = +PARAMS.get('p') || 0, cw = +PARAMS.get('w') || 0;
+      var hdr = document.querySelector('.wrap h2');
+      if (hdr) hdr.textContent = isCh ? 'Challenge of the week' : 'Practice · ' + questions.length + (questions.length === 1 ? ' question' : ' questions');
+      if (isCh && cp) {
+        var cb = document.createElement('div'); cb.className = 'lroom';
+        cb.innerHTML = '<span><b>' + cw + ' of ' + cp + '</b> students in live rooms got this one wrong. 3 minutes. Can you?</span>';
+        map.parentNode.insertBefore(cb, map.previousElementSibling || map);
+        css.textContent += '\n.lroom{display:flex;gap:12px;align-items:center;justify-content:space-between;background:rgba(201,162,39,.1);' +
+          'border:1px solid rgba(201,162,39,.45);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#E6ECF7}' +
+          '\n.lroom b{font-family:"IBM Plex Mono",monospace;color:#C9A227}';
+      }
+      map.style.display = 'none';
+      render();
+    }
+  }
+
+  /* ---------- difficulty map: hardest questions of this mock, from live rooms (practice mode only) ---------- */
+  if (!ROOM_CODE && !EXAM && !partial && window.preplineSupa) {
+    window.preplineSupa.rpc('mock_difficulty', { p_mock: page }).then(function (res) {
+      if (res.error || !res.data || !res.data.length) return;
+      css.textContent += '\n.qm.d-hard{box-shadow:inset 0 -3px 0 #F87171}.qm.d-med{box-shadow:inset 0 -3px 0 #F5C451}' +
+        '\n.qm.cur.d-hard{box-shadow:0 0 0 1px #C9A227 inset,inset 0 -3px 0 #F87171}.qm.cur.d-med{box-shadow:0 0 0 1px #C9A227 inset,inset 0 -3px 0 #F5C451}' +
+        '\n.qmap-diff{font-size:12px;color:#8492AC;margin-top:9px}.qmap-diff b{color:#F87171;font-family:"IBM Plex Mono",monospace}' +
+        '\n.qmap-legend .l-hard::before{background:#F87171;border:0;height:3px;vertical-align:2px}';
+      var maxN = 0, hard = [];
+      var byId = {}; questions.forEach(function (q, i) { byId[q.id] = i; });
+      res.data.forEach(function (d) {
+        var i = byId[d.q_id]; if (i === undefined) return;
+        var p = d.wrong / d.players; maxN = Math.max(maxN, d.players);
+        diff[i] = p >= 0.6 ? 'd-hard' : p >= 0.4 ? 'd-med' : '';
+        if (p >= 0.6) hard.push([i + 1, p]);
+      });
+      hard.sort(function (a, b) { return b[1] - a[1]; });
+      var line = document.createElement('div'); line.className = 'qmap-diff';
+      line.innerHTML = hard.length
+        ? 'Hardest in live rooms: <b>' + hard.slice(0, 5).map(function (h) { return h[0]; }).join(', ') + '</b> — don’t get stuck on them. Based on up to ' + maxN + ' students.'
+        : 'Based on up to ' + maxN + ' students in live rooms, no question here is especially hard.';
+      map.appendChild(line);
+      var lg = map.querySelector('.qmap-legend');
+      if (lg && hard.length) lg.insertAdjacentHTML('beforeend', '<span class="l-hard">hard for others</span>');
+      updateMap();
+    });
+  }
 
   decorate(); updateMap(); tick();
   lastSig = sig();   // the engine already drew the first question before this script loaded

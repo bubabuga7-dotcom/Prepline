@@ -47,6 +47,15 @@
   .step b{font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:13px}
   .step h3{font-size:15px;margin:6px 0 4px}
   .step p{font-size:13px;color:var(--ink-3)}
+  .challenge{display:grid;grid-template-columns:1fr auto;gap:4px 20px;align-items:center;margin-top:16px;padding:18px 22px;
+             border:1px solid rgba(248,113,113,.4);border-radius:var(--r);background:linear-gradient(135deg,rgba(248,113,113,.1),rgba(255,255,255,.03));
+             transition:border-color .15s,transform .15s}
+  .challenge:hover{border-color:var(--bad);transform:translateY(-2px)}
+  .challenge .kicker{grid-column:1/-1;color:var(--bad)}
+  .challenge b{font:700 19px Sora,sans-serif;color:var(--ink)}
+  .challenge #ch-sub{grid-column:1;font-size:13px;color:var(--ink-3)}
+  .challenge .go{grid-column:2;grid-row:2/4;color:var(--gold);font-weight:700;font-size:14px;white-space:nowrap}
+  @media (max-width:780px){.challenge{grid-template-columns:1fr}.challenge .go{grid-column:1;grid-row:auto;margin-top:8px}}
   .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink-3);
         display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .foot a{color:var(--ink-2)} .foot a:hover{color:var(--gold)}
@@ -85,6 +94,13 @@
     <div class="stat"><b id="n-math">—</b><span>Mathematics tests</span></div>
     <div class="stat"><b id="n-ct">—</b><span>Critical Thinking tests</span></div>
   </div>
+
+  <a class="challenge" id="challenge" href="#" style="display:none">
+    <span class="kicker">Challenge of the week</span>
+    <b id="ch-title">—</b>
+    <span id="ch-sub"></span>
+    <span class="go">Try it — 3 minutes →</span>
+  </a>
 
   <div class="sec-title" id="tracks"><h2>Choose a section</h2><a href="dashboard.html">Your progress →</a></div>
   <section class="tracks">
@@ -132,5 +148,24 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script>
+/* challenge of the week: the question most students in live rooms got wrong */
+(function () {
+  var supa = window.preplineSupa; if (!supa) return;
+  supa.rpc('weekly_challenge').then(function (r) {
+    var c = r.data && r.data[0]; if (r.error || !c) return;
+    var t = (window.PREPLINE_TESTS || []).filter(function (x) { return x.id === c.mock_id; })[0];
+    var right = c.players - c.wrong;
+    document.getElementById('ch-title').textContent = right === 0
+      ? 'Nobody solved this one — ' + c.players + ' students tried'
+      : 'Only ' + right + ' of ' + c.players + ' students solved this one';
+    document.getElementById('ch-sub').textContent = (t ? (t.kind === 'ct' ? 'Critical Thinking' : 'Mathematics') + ' · ' : '') +
+      (c.recent ? 'hardest question in live rooms this week' : 'hardest question in live rooms so far');
+    var a = document.getElementById('challenge');
+    a.href = c.mock_id + '.html?only=' + c.q_id + '&challenge=1&p=' + c.players + '&w=' + c.wrong;
+    a.style.display = '';
+  });
+})();
+</script>
 </body>
 </html>
