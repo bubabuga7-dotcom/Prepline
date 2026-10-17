@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New password — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:460px;padding-top:80px}
+  h1{font-size:28px;margin:8px 0 6px}
+  .muted{color:var(--ink-3);font-size:14px;margin-bottom:18px}
+  .in{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:6px;color:var(--ink);
+      padding:11px 12px;font:15px Inter,sans-serif;margin-bottom:10px}
+  .in:focus{outline:none;border-color:var(--gold)}
+  .msg{font-size:13.5px;min-height:20px;margin-top:12px;color:var(--bad)}
+  .msg.ok{color:var(--ok)}
+</style>
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <span class="kicker">Account</span>
+  <h1>Set a new password</h1>
+  <div id="form" style="display:none">
+    <p class="muted" id="who">Choose a new password for your account.</p>
+    <input class="in" type="password" id="p1" placeholder="New password (at least 6 characters)" autocomplete="new-password">
+    <input class="in" type="password" id="p2" placeholder="Repeat the new password" autocomplete="new-password">
+    <button class="btn" id="save">Save new password</button>
+  </div>
+  <p class="muted" id="wait">Checking your reset link…</p>
+  <div class="msg" id="msg"></div>
+</div></main>
+<script src="nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var supa = window.preplineSupa, ready = false;
+  function msg(t, ok) { $('msg').textContent = t; $('msg').className = 'msg' + (ok ? ' ok' : ''); }
+  function showForm(user) {
+    if (ready) return; ready = true;
+    $('wait').style.display = 'none'; $('form').style.display = 'block';
+    if (user && user.email) $('who').textContent = 'Account: ' + user.email;
+  }
+  if (!supa) { $('wait').textContent = 'Could not connect. Refresh the page.'; return; }
+  // supabase-js reads the token from the link and fires PASSWORD_RECOVERY
+  supa.auth.onAuthStateChange(function (ev, session) {
+    if (ev === 'PASSWORD_RECOVERY' || (session && /type=recovery|code=/.test(location.href))) showForm(session && session.user);
+  });
+  setTimeout(async function () {
+    if (ready) return;
+    var s = (await supa.auth.getSession()).data.session;
+    var err = new URLSearchParams(location.hash.slice(1)).get('error_description');
+    if (s && !err) showForm(s.user);
+    else $('wait').textContent = err ? 'The link is not valid: ' + err + '. Request a new one from the sign-in window.'
+                                     : 'This page works only from a password reset link. Open "Sign in" → "Forgot password?" to get one.';
+  }, 2500);
+  $('save').onclick = async function () {
+    var a = $('p1').value, b = $('p2').value;
+    if (a.length < 6) return msg('The password must be at least 6 characters.');
+    if (a !== b) return msg('The two passwords do not match.');
+    $('save').disabled = true; msg('Saving…', true);
+    var r = await supa.auth.updateUser({ password: a });
+    $('save').disabled = false;
+    if (r.error) return msg(r.error.message);
+    msg('Password changed. You are signed in.', true);
+    setTimeout(function () { location.href = 'dashboard.html'; }, 1500);
+  };
+})();
+</script>
+</body>
+</html>

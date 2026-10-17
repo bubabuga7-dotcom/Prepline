@@ -23,25 +23,57 @@
   };
 
 
-  /* ---------- per-question saving ---------- */
+  /* ---------- per-question saving: one compact row per test (stage5.sql), else the old answer_log ---------- */
   window.preplineSaveAnswers = async function (mockId, qs, answers) {
     try {
       const { data: { user } } = await supa.auth.getUser();
       if (!user || !qs || !qs.length) return;
-      const rows = qs.map(function (q) {
+      const mark = q => {
         const given = answers ? answers[q.id] : undefined;
-        return {
-          user_id: user.id,
-          mock_id: mockId,
-          q_id: q.id,
-          topic: q.topic || null,
-          correct: given === q.correct,
-          answered: given !== undefined && given !== null && given !== ''
-        };
-      });
+        const answered = given !== undefined && given !== null && given !== '';
+        return !answered ? 's' : given === q.correct ? 'c' : 'w';
+      };
+      const ids = qs.map(q => q.id);
+      if (ids.every(id => Number.isInteger(id) && id > 0 && id < 32768)) {
+        const { error } = await supa.from('answer_attempts').insert({
+          mock_id: mockId, q_ids: ids, marks: qs.map(mark).join('')
+        });
+        if (!error) {
+          // topics are stored once per question; register them the first time this device saves this test
+          const key = 'prepline:topics-sent:' + mockId;
+          const tagged = qs.filter(q => q.topic).map(q => ({ mock_id: mockId, q_id: q.id, topic: q.topic }));
+          if (tagged.length && !localStorage.getItem(key)) {
+            const t = await supa.from('question_topics').upsert(tagged, { onConflict: 'mock_id,q_id', ignoreDuplicates: true });
+            if (!t.error) try { localStorage.setItem(key, '1'); } catch (e) {}
+          }
+          return;
+        }
+        if (!/answer_attempts|schema cache|does not exist/i.test(error.message)) {
+          console.error('[Prepline] answer_attempts:', error.message); return;
+        }
+      }
+      // fallback: before stage5.sql is run
+      const rows = qs.map(q => ({
+        user_id: user.id, mock_id: mockId, q_id: q.id, topic: q.topic || null,
+        correct: mark(q) === 'c', answered: mark(q) !== 's'
+      }));
       const { error } = await supa.from('answer_log').insert(rows);
       if (error) console.error('[Prepline] answer_log:', error.message);
     } catch (e) { console.error('[Prepline]', e); }
+  };
+
+  /* ---------- topic statistics of the signed-in student ---------- */
+  window.preplineTopicStats = async function () {
+    const r = await supa.rpc('my_topic_stats');
+    if (!r.error) return r.data || [];
+    // before stage5.sql: aggregate the old per-question log in the browser
+    const { data } = await supa.from('answer_log').select('topic,correct').not('topic', 'is', null).limit(20000);
+    const map = {};
+    (data || []).forEach(x => {
+      const m = map[x.topic] = map[x.topic] || { topic: x.topic, total: 0, correct: 0 };
+      m.total++; if (x.correct) m.correct++;
+    });
+    return Object.values(map);
   };
 
   /* ---------- widget styles ---------- */
@@ -92,6 +124,9 @@
     }
     .pl-btn:hover { background: #E0BC45; }
     .pl-btn.ghost { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); }
+    .pl-forgot { background: none; border: 0; padding: 0; margin-top: 12px; cursor: pointer;
+      font: 500 12.5px 'Inter', sans-serif; color: #8492AC; text-decoration: underline; }
+    .pl-forgot:hover { color: #E6ECF7; }
     .pl-msg { font-size: 12.5px; min-height: 18px; margin-top: 10px; color: #FCA5A5; }
     .pl-msg.ok { color: #A7F3D0; }
     .pl-close {
@@ -132,6 +167,7 @@
           <button class="pl-btn" id="plSignIn">Sign in</button>
           <button class="pl-btn ghost" id="plSignUp">Create account</button>
         </div>
+        <button type="button" class="pl-forgot" id="plForgot">Forgot password?</button>
       </div>
       <div id="plLogged" style="display:none;">
         <div class="pl-row"><button class="pl-btn ghost" id="plSignOut">Sign out</button></div>
@@ -195,6 +231,16 @@
     setMsg('');
     modalBg.classList.remove('open');
     toast('Signed in');
+  };
+
+  $('plForgot').onclick = async () => {
+    const email = $('plEmail').value.trim();
+    if (!email || !email.includes('@')) { setMsg('Enter your email above, then press "Forgot password?" again'); return; }
+    setMsg('Sending a reset link...', true);
+    const base = location.href.split(/[?#]/)[0].replace(/[^/]*$/, '');
+    const { error } = await supa.auth.resetPasswordForEmail(email, { redirectTo: base + 'reset.html' });
+    if (error) { setMsg(error.message); return; }
+    setMsg('If an account exists for ' + email + ', a reset link is on its way. Check spam too.', true);
   };
 
   $('plSignUp').onclick = async () => {

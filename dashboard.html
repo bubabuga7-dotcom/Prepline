@@ -544,14 +544,9 @@ async function boot(){
   }
 
   // темы
-  const {data:log} = await supa.from('answer_log').select('topic,correct').not('topic','is',null).limit(20000);
-  if(log && log.length){
-    const map = {};
-    log.forEach(r => {
-      (map[r.topic] = map[r.topic] || {topic:r.topic,total:0,correct:0}).total++;
-      if(r.correct) map[r.topic].correct++;
-    });
-    const rows = Object.values(map).sort((a,b)=>{
+  const stats = window.preplineTopicStats ? await window.preplineTopicStats() : [];
+  if(stats && stats.length){
+    const rows = stats.map(r => ({topic:r.topic, total:r.total, correct:r.correct})).sort((a,b)=>{
       const wa=a.total<MIN_TRIES, wb=b.total<MIN_TRIES;
       if(wa!==wb) return wa?1:-1;
       return (a.correct/a.total)-(b.correct/b.total);

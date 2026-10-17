@@ -250,11 +250,10 @@ async function load() {
     return;
   }
 
-  const { data, error } = await supa
-    .from('answer_log').select('topic, correct')
-    .not('topic', 'is', null).limit(20000);
+  let data, error = null;
+  try { data = await window.preplineTopicStats(); } catch (e) { error = e; }
 
-  if (error) { box.innerHTML = '<div class="msg">Error: ' + error.message + '</div>'; return; }
+  if (error) { box.innerHTML = '<div class="msg">Error: ' + (error.message || error) + '</div>'; return; }
   if (!data || !data.length) {
     box.innerHTML = '<div class="msg">No data yet. Take any test — ' +
       'the breakdown will appear here automatically.<a class="btn" href="crit.html">Start a test</a></div>';
@@ -262,11 +261,7 @@ async function load() {
   }
 
   const map = {};
-  data.forEach(r => {
-    if (!map[r.topic]) map[r.topic] = { topic: r.topic, total: 0, correct: 0 };
-    map[r.topic].total++;
-    if (r.correct) map[r.topic].correct++;
-  });
+  data.forEach(r => { map[r.topic] = { topic: r.topic, total: r.total, correct: r.correct }; });
 
   AGG = Object.values(map).sort((a, b) => {
     const wa = a.total < MIN_TRIES, wb = b.total < MIN_TRIES;
