@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live room — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:980px}
+  .head{margin-bottom:24px}
+  .head h1{font-size:34px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:620px}
+  .view{display:none} .view.on{display:block}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .panel h2{font-size:18px;margin-bottom:4px}
+  .panel .sub{font-size:13px;color:var(--ink-3);margin-bottom:16px}
+  label.f{display:block;font-size:12px;color:var(--ink-3);margin:12px 0 5px;font-weight:600;letter-spacing:.02em}
+  .in,select.in{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:6px;color:var(--ink);
+       padding:11px 12px;font:15px Inter,sans-serif}
+  .in:focus{outline:none;border-color:var(--gold)}
+  .in.code{font:600 26px 'IBM Plex Mono',monospace;letter-spacing:.3em;text-transform:uppercase;text-align:center}
+  .seg{display:flex;gap:6px;margin-bottom:4px}
+  .seg button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;
+      padding:9px;border-radius:6px;cursor:pointer}
+  .seg button.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:var(--gold)}
+  .actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+  .err{color:var(--bad);font-size:13px;min-height:18px;margin-top:10px}
+  .muted{color:var(--ink-3);font-size:13px}
+
+  .room-top{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;margin-bottom:16px}
+  .codebox{background:var(--bg-3);border:1px solid rgba(201,162,39,.45);border-radius:8px;padding:12px 20px;text-align:center}
+  .codebox small{display:block;font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--ink-3)}
+  .codebox b{font:600 34px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--gold)}
+  .room-info h2{font-size:20px}
+  .room-info p{font-size:13px;color:var(--ink-3)}
+  .clock{font:600 30px 'IBM Plex Mono',monospace;color:var(--gold);text-align:right}
+  .clock small{display:block;font:500 11px Inter,sans-serif;color:var(--ink-3)}
+
+  .plist{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+  .chip{background:var(--panel-2);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:14px;font-weight:600}
+  .chip.me{border-color:var(--gold);color:var(--gold)}
+
+  .prow{display:grid;grid-template-columns:180px 1fr 70px;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line-2)}
+  .prow:last-child{border-bottom:0}
+  .prow .nm{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .prow .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+  .prow .bar i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .5s}
+  .prow.done .bar i{background:var(--ok)}
+  .prow .ct{font:600 13px 'IBM Plex Mono',monospace;text-align:right;color:var(--ink-2)}
+
+  .lb{width:100%;border-collapse:collapse}
+  .lb th{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  .lb td{padding:12px 10px;border-bottom:1px solid var(--line-2);font-size:15px}
+  .lb tr.me td{background:rgba(201,162,39,.08)}
+  .lb .rk{font:600 15px 'IBM Plex Mono',monospace;color:var(--ink-3);width:44px}
+  .lb tr:nth-child(1) .rk{color:var(--gold)}
+  .lb .sc{font:600 20px 'IBM Plex Mono',monospace;text-align:right}
+  .lb .sc small{font-size:12px;color:var(--ink-3)}
+  .lb .raw{font:500 13px 'IBM Plex Mono',monospace;color:var(--ink-3);text-align:right}
+  .qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;margin-top:12px}
+  .qc{border:1px solid var(--line);border-radius:6px;padding:6px 4px;text-align:center}
+  .qc b{display:block;font:600 12px 'IBM Plex Mono',monospace;color:var(--ink-2)}
+  .qc span{font:600 11px 'IBM Plex Mono',monospace}
+  .qc.easy span{color:var(--ok)} .qc.medium span{color:var(--warn)} .qc.hard span{color:var(--bad)}
+  .qc.hard{border-color:rgba(248,113,113,.4)}
+  .how{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.55}
+  @media (max-width:780px){
+    .two{grid-template-columns:1fr}
+    .room-top{grid-template-columns:1fr;text-align:left;gap:12px}
+    .clock{text-align:left}
+    .prow{grid-template-columns:110px 1fr 56px}
+    .head h1{font-size:27px}
+  }
+</style>
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Live room</span>
+    <h1>Take a mock together</h1>
+    <p>One person creates a room and shares the code. Everyone starts at the same moment with one shared timer. Harder questions — the ones most of the room got wrong — are worth more in the final score.</p>
+  </div>
+
+  <!-- signed out -->
+  <section class="view" id="v-signin">
+    <div class="panel"><h2>Sign in first</h2><p class="sub">Rooms need an account so your answers and score belong to you.</p>
+      <button class="btn" id="signin-btn">Sign in or create an account</button></div>
+  </section>
+
+  <!-- start: join or create -->
+  <section class="view" id="v-start">
+    <div class="two">
+      <div class="panel">
+        <h2>Join a room</h2><p class="sub">Enter the 6-character code from the host.</p>
+        <label class="f" for="join-code">Room code</label>
+        <input class="in code" id="join-code" maxlength="6" autocomplete="off" placeholder="ABC123">
+        <label class="f" for="join-name">Your name</label>
+        <input class="in" id="join-name" maxlength="40" placeholder="How others will see you">
+        <div class="actions"><button class="btn" id="join-btn">Join →</button></div>
+        <div class="err" id="join-err"></div>
+      </div>
+      <div class="panel">
+        <h2>Create a room</h2><p class="sub">You host: share the code, watch progress, then see everyone's results.</p>
+        <label class="f">Section</label>
+        <div class="seg" id="kind-seg"><button data-k="math" class="on">Mathematics</button><button data-k="ct">Critical Thinking</button></div>
+        <label class="f" for="mock-sel">Mock</label>
+        <select class="in" id="mock-sel"></select>
+        <label class="f" for="dur">Time limit</label>
+        <select class="in" id="dur"></select>
+        <div class="actions"><button class="btn" id="create-btn">Create room →</button></div>
+        <div class="err" id="create-err"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- room -->
+  <section class="view" id="v-room">
+    <div class="room-top">
+      <div class="codebox"><small>ROOM CODE</small><b id="r-code">——————</b></div>
+      <div class="room-info"><h2 id="r-title">—</h2><p id="r-sub">—</p></div>
+      <div class="clock" id="r-clock"></div>
+    </div>
+
+    <!-- lobby -->
+    <div class="panel" id="p-lobby">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+        <h2 style="font-size:16px">In the room · <span class="mono" id="r-count">0</span></h2>
+        <button class="btn ghost" id="copy-btn" style="padding:7px 14px;font-size:13px">Copy invite link</button>
+      </div>
+      <div class="plist" id="r-players"></div>
+      <div class="actions" id="host-start" style="display:none">
+        <button class="btn" id="start-btn">Start for everyone →</button>
+        <span class="muted" style="align-self:center">Students who join later get the remaining time.</span>
+      </div>
+      <p class="muted" id="wait-msg" style="margin-top:16px;display:none">Waiting for the host to start… This page opens the test by itself.</p>
+      <div class="err" id="room-err"></div>
+    </div>
+
+    <!-- running (host) -->
+    <div class="panel" id="p-progress" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+        <h2 style="font-size:16px">Progress · <span class="mono" id="r-done">0/0</span> finished</h2>
+        <button class="btn ghost" id="end-btn" style="padding:7px 14px;font-size:13px">End now and show results</button>
+      </div>
+      <p class="muted" style="margin-bottom:6px">Scores stay hidden until the test ends.</p>
+      <div id="r-progress"></div>
+    </div>
+
+    <!-- waiting for others (player who finished) -->
+    <div class="panel" id="p-wait" style="display:none">
+      <h2 style="font-size:16px">Answers submitted ✓</h2>
+      <p class="muted" style="margin-top:6px"><span id="w-done"></span> Results appear here when the time is up or the host ends the test.</p>
+      <p class="muted" id="w-rejoin" style="margin-top:10px;display:none"><a class="btn" id="rejoin-btn" href="#">Back to the test →</a></p>
+    </div>
+
+    <!-- results -->
+    <div id="p-results" style="display:none">
+      <div class="panel" style="margin-bottom:14px">
+        <h2 style="font-size:16px;margin-bottom:8px">Results</h2>
+        <table class="lb"><thead><tr><th>#</th><th>Name</th><th style="text-align:right">Correct</th><th style="text-align:right">Score</th></tr></thead>
+          <tbody id="lb-body"></tbody></table>
+      </div>
+      <div class="panel">
+        <h2 style="font-size:16px">How hard each question was in this room</h2>
+        <div class="qgrid" id="q-grid"></div>
+        <p class="how">Each question is worth 1 + 2 × (share of the room who got it wrong): about 1 point if everyone solved it, up to 3 if nobody did.
+          The share is lightly smoothed (as if one extra person got it right and one got it wrong), so in a small room a single mistake does not decide everything.
+          Score = 120 × points earned ÷ points available. 105/120 in each section is the pace for 210+/240.</p>
+        <div class="actions"><a class="btn ghost" href="live.html">New room</a></div>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var supa = window.preplineSupa;
+  var $ = function (id) { return document.getElementById(id); };
+  var TESTS = window.PREPLINE_TESTS || [];
+  var ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var params = new URLSearchParams(location.search);
+  var me = null, room = null, players = [], poll = null, tick = null, resultsShown = false;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function show(id) { ['v-signin', 'v-start', 'v-room'].forEach(function (v) { $(v).classList.toggle('on', v === id); }); }
+  function testOf(id) { return TESTS.filter(function (t) { return t.id === id; })[0]; }
+  function testName(t) { return !t ? '' : t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Math Test ') + t.n; }
+  function fmt(s) { s = Math.max(0, Math.floor(s)); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+  function left() { return room && room.ends_at ? (new Date(room.ends_at) - Date.now()) / 1000 : 0; }
+  function ended() { return room && (room.status === 'finished' || (room.status === 'running' && left() <= 0)); }
+  function isHost() { return room && me && room.host_id === me.id; }
+  function myRow() { return players.filter(function (p) { return p.user_id === (me && me.id); })[0]; }
+  function savedName() { try { return localStorage.getItem('prepline:live-name') || ''; } catch (e) { return ''; } }
+  function saveName(n) { try { localStorage.setItem('prepline:live-name', n); } catch (e) {} }
+
+  if (!supa) { show('v-signin'); $('signin-btn').textContent = 'Could not connect. Refresh the page.'; return; }
+
+  /* ---------- start view: pickers ---------- */
+  var kind = 'math';
+  function fillMocks() {
+    var list = TESTS.filter(function (t) { return t.kind === kind; });
+    $('mock-sel').innerHTML = list.map(function (t) {
+      return '<option value="' + t.id + '">' + esc(testName(t)) + (t.src && t.group !== 'Original mock exams' ? ' — ' + esc(t.src) : '') + ' (' + t.q + ' q)</option>';
+    }).join('');
+    fillDur();
+  }
+  function fillDur() {
+    var t = testOf($('mock-sel').value) || { min: 30 };
+    var opts = [[t.min, t.min + ' min — this mock’s own time']];
+    [30, 45, 60, 90].forEach(function (m) { if (m !== t.min) opts.push([m, m + ' min']); });
+    $('dur').innerHTML = opts.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('');
+  }
+  $('kind-seg').onclick = function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    kind = b.dataset.k;
+    [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
+    fillMocks();
+  };
+  $('mock-sel').onchange = fillDur;
+  fillMocks();
+  $('join-code').oninput = function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); };
+  $('signin-btn').onclick = function () { var p = $('plPill'); if (p) p.click(); };
+
+  /* ---------- create ---------- */
+  $('create-btn').onclick = async function () {
+    $('create-err').textContent = '';
+    var t = testOf($('mock-sel').value);
+    if (!t) return;
+    this.disabled = true;
+    for (var tries = 0; tries < 5; tries++) {
+      var code = ''; for (var i = 0; i < 6; i++) code += ALPH[Math.floor(Math.random() * ALPH.length)];
+      var res = await supa.from('rooms').insert({ code: code, mock_id: t.id, duration_sec: +$('dur').value * 60 }).select().single();
+      if (!res.error) { this.disabled = false; return openRoom(res.data.code); }
+      if (!/duplicate|unique/i.test(res.error.message)) { $('create-err').textContent = res.error.message; break; }
+    }
+    this.disabled = false;
+  };
+
+  /* ---------- join ---------- */
+  $('join-btn').onclick = async function () {
+    var code = $('join-code').value.trim().toUpperCase(), name = $('join-name').value.trim();
+    $('join-err').textContent = '';
+    if (code.length !== 6) { $('join-err').textContent = 'The code has 6 characters.'; return; }
+    if (!name) { $('join-err').textContent = 'Enter your name.'; return; }
+    var r = await supa.from('rooms').select('*').eq('code', code).maybeSingle();
+    if (r.error || !r.data) { $('join-err').textContent = 'No room with this code.'; return; }
+    if (r.data.status === 'finished') { $('join-err').textContent = 'This room has already finished.'; return; }
+    var ins = await supa.from('room_players').insert({ room_id: r.data.id, name: name });
+    if (ins.error && !/duplicate/i.test(ins.error.message)) { $('join-err').textContent = ins.error.message; return; }
+    if (ins.error) await supa.from('room_players').update({ name: name }).eq('room_id', r.data.id).eq('user_id', me.id);
+    saveName(name);
+    openRoom(code);
+  };
+
+  /* ---------- room ---------- */
+  function openRoom(code) {
+    history.replaceState(null, '', 'live.html?room=' + code);
+    show('v-room');
+    $('r-code').textContent = code;
+    clearInterval(poll); poll = setInterval(function () { refresh(code); }, 2000);
+    clearInterval(tick); tick = setInterval(drawClock, 500);
+    refresh(code);
+  }
+
+  async function refresh(code) {
+    var r = await supa.from('rooms').select('*').eq('code', code).maybeSingle();
+    if (r.error || !r.data) { $('room-err').textContent = 'Room not found.'; clearInterval(poll); return; }
+    room = r.data;
+    var p = await supa.from('room_players').select('user_id,name,answered,finished').eq('room_id', room.id).order('joined_at');
+    players = p.data || [];
+    draw();
+  }
+
+  function drawClock() {
+    if (!room) return;
+    if (room.status === 'running' && left() > 0) $('r-clock').innerHTML = fmt(left()) + '<small>time left</small>';
+    else if (room.status === 'lobby') $('r-clock').innerHTML = fmt(room.duration_sec) + '<small>time limit</small>';
+    else $('r-clock').innerHTML = '';
+  }
+
+  function draw() {
+    var t = testOf(room.mock_id);
+    $('r-title').textContent = testName(t) || room.mock_id;
+    $('r-sub').textContent = (t ? (t.kind === 'ct' ? 'Critical Thinking' : 'Mathematics') + ' · ' + t.q + ' questions · ' : '') +
+      Math.round(room.duration_sec / 60) + ' min' + (isHost() ? ' · you are the host' : '');
+    drawClock();
+    var host = isHost(), mine = myRow();
+    var showLobby = room.status === 'lobby', showRun = room.status === 'running' && !ended();
+    $('p-lobby').style.display = showLobby ? '' : 'none';
+    $('p-progress').style.display = showRun && host ? '' : 'none';
+    $('p-wait').style.display = showRun && !host && mine && mine.finished ? '' : 'none';
+    $('p-results').style.display = ended() ? '' : 'none';
+
+    if (showLobby) {
+      $('r-count').textContent = players.length;
+      $('r-players').innerHTML = players.length ? players.map(function (p) {
+        return '<span class="chip' + (me && p.user_id === me.id ? ' me' : '') + '">' + esc(p.name) + '</span>';
+      }).join('') : '<span class="muted">Nobody yet. Share the code.</span>';
+      $('host-start').style.display = host ? '' : 'none';
+      $('start-btn').disabled = !players.length;
+      $('wait-msg').style.display = host ? 'none' : '';
+      if (!host && !mine) { show('v-start'); $('join-code').value = room.code; $('join-name').value = savedName(); clearInterval(poll); }
+    }
+    if (showRun && !host) {
+      if (!mine) { show('v-start'); $('join-code').value = room.code; $('join-name').value = savedName(); clearInterval(poll); return; }
+      if (!mine.finished) { location.href = room.mock_id + '.html?room=' + room.code; return; }
+      var done = players.filter(function (p) { return p.finished; }).length;
+      $('w-done').textContent = done + ' of ' + players.length + ' finished.';
+    }
+    if (showRun && host) {
+      var n = t ? t.q : 30, fin = players.filter(function (p) { return p.finished; }).length;
+      $('r-done').textContent = fin + '/' + players.length;
+      $('r-progress').innerHTML = players.map(function (p) {
+        var a = Math.min(p.answered, n);
+        return '<div class="prow' + (p.finished ? ' done' : '') + '"><span class="nm">' + esc(p.name) + '</span>' +
+          '<div class="bar"><i style="width:' + (100 * a / n) + '%"></i></div>' +
+          '<span class="ct">' + (p.finished ? '✓' : a + '/' + n) + '</span></div>';
+      }).join('') || '<p class="muted">Nobody in the room.</p>';
+      if (players.length && fin === players.length) endRoom();
+    }
+    if (ended() && !resultsShown) loadResults();
+  }
+
+  $('start-btn').onclick = async function () {
+    this.disabled = true;
+    var now = new Date(), ends = new Date(now.getTime() + room.duration_sec * 1000);
+    var r = await supa.from('rooms').update({ status: 'running', started_at: now.toISOString(), ends_at: ends.toISOString() }).eq('id', room.id);
+    if (r.error) { $('room-err').textContent = r.error.message; this.disabled = false; return; }
+    refresh(room.code);
+  };
+  async function endRoom() {
+    if (!isHost() || room.status === 'finished') return;
+    await supa.from('rooms').update({ status: 'finished', ends_at: new Date().toISOString() }).eq('id', room.id);
+    refresh(room.code);
+  }
+  $('end-btn').onclick = function () { if (confirm('End the test for everyone now?')) endRoom(); };
+  $('copy-btn').onclick = function () {
+    var url = location.origin + location.pathname + '?room=' + room.code;
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () {
+      window.preplineToast && window.preplineToast('Invite link copied');
+    }, function () { prompt('Copy this link:', url); });
+  };
+
+  async function loadResults() {
+    var a = await supa.rpc('room_results', { p_room: room.id });
+    var b = await supa.rpc('room_question_stats', { p_room: room.id });
+    if (a.error || !a.data || !a.data.length) return;          // server not ready yet (grace window): try again next poll
+    resultsShown = true; clearInterval(poll);
+    var rank = 0, prev = null;
+    $('lb-body').innerHTML = a.data.map(function (r, i) {
+      if (r.score !== prev) rank = i + 1; prev = r.score;
+      return '<tr class="' + (me && r.user_id === me.id ? 'me' : '') + '"><td class="rk">' + rank + '</td><td>' + esc(r.name) +
+        (r.finished ? '' : ' <span class="muted">(did not submit)</span>') + '</td>' +
+        '<td class="raw">' + (r.finished ? r.raw + '/' + r.total : '—') + '</td><td class="sc">' + (r.finished ? r.score + '<small>/120</small>' : '—') + '</td></tr>';
+    }).join('');
+    $('q-grid').innerHTML = (b.data || []).map(function (q) {
+      var p = q.wrong / q.players, lvl = p >= 0.6 ? 'hard' : p <= 0.34 ? 'easy' : 'medium';
+      return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + q.q_id + '</b><span>' + q.weight.toFixed(1) + ' pt</span></div>';
+    }).join('');
+  }
+
+  /* ---------- boot ---------- */
+  async function boot() {
+    var u = await supa.auth.getUser();
+    me = u.data && u.data.user;
+    if (!me) { show('v-signin'); return; }
+    if (!$('join-name').value) $('join-name').value = savedName() || (me.email || '').split('@')[0];
+    var code = (params.get('room') || params.get('join') || '').toUpperCase();
+    if (code) {
+      // a link from someone else: join first, unless already in the room or hosting it
+      var r = await supa.from('rooms').select('id,host_id').eq('code', code).maybeSingle();
+      if (r.data && r.data.host_id !== me.id) {
+        var m = await supa.from('room_players').select('user_id').eq('room_id', r.data.id).eq('user_id', me.id).maybeSingle();
+        if (!m.data) { show('v-start'); $('join-code').value = code; return; }
+      }
+      return openRoom(code);
+    }
+    show('v-start');
+  }
+  supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') boot(); });
+  boot();
+})();
+</script>
+</body>
+</html>
