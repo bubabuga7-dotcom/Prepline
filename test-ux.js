@@ -266,6 +266,8 @@
 
   function submitRoom() {
     live.done = true;
+    // kept on this device for the "Review my answers" screen in live.html
+    try { localStorage.setItem('prepline-room-answers:' + ROOM_CODE, JSON.stringify({ mock: page, answers: state.answers })); } catch (e) {}
     var supa = window.preplineSupa;
     var cover = document.createElement('div');
     cover.className = 'lcover'; cover.textContent = 'Submitting your answers…';

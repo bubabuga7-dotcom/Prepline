@@ -73,6 +73,22 @@
     .prow{grid-template-columns:110px 1fr 56px}
     .head h1{font-size:27px}
   }
+  #rv-filter button{flex:none;white-space:nowrap;padding:7px 14px}
+  .rv-item{border-top:1px solid var(--line-2);padding:16px 0}
+  .rv-item:first-child{border-top:0}
+  .rv-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:13px}
+  .rv-head b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink)}
+  .rv-tag{font:600 11px 'IBM Plex Mono',monospace;padding:2px 8px;border-radius:99px;border:1px solid}
+  .rv-tag.ok{color:var(--ok);border-color:rgba(74,222,154,.4)} .rv-tag.no{color:var(--bad);border-color:rgba(248,113,113,.4)}
+  .rv-tag.skip{color:var(--ink-3);border-color:var(--line)}
+  .rv-meta{color:var(--ink-3);font-size:12px;margin-left:auto}
+  .rv-img{max-width:100%;background:#fff;border-radius:6px;padding:4px;display:block;margin-bottom:10px}
+  .rv-text{font-size:14.5px;color:var(--ink);margin-bottom:10px;line-height:1.55}
+  .rv-opts{display:flex;flex-wrap:wrap;gap:6px}
+  .rv-opt{border:1px solid var(--line);border-radius:6px;padding:7px 12px;font-size:13.5px;color:var(--ink-2)}
+  .rv-opt.c{border-color:var(--ok);color:var(--ok);background:rgba(74,222,154,.08)}
+  .rv-opt.u{border-color:var(--bad);color:var(--bad);background:rgba(248,113,113,.08)}
+  .rv-opt i{font-style:normal;font:600 11px 'IBM Plex Mono',monospace;margin-left:6px;opacity:.85}
 </style>
 </head>
 <body>
@@ -162,6 +178,15 @@
         <h2 style="font-size:16px;margin-bottom:8px">Results</h2>
         <table class="lb"><thead><tr><th>#</th><th>Name</th><th style="text-align:right">Correct</th><th style="text-align:right">Score</th></tr></thead>
           <tbody id="lb-body"></tbody></table>
+        <div class="actions" id="rv-actions" style="display:none"><button class="btn" id="rv-btn">Review my answers →</button>
+          <span class="muted" id="rv-sum" style="align-self:center"></span></div>
+      </div>
+      <div class="panel" id="rv" style="display:none;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:6px">
+          <h2 style="font-size:16px">Your answers</h2>
+          <div class="seg" id="rv-filter" style="margin:0"><button data-f="wrong" class="on">Mistakes</button><button data-f="all">All questions</button></div>
+        </div>
+        <div id="rv-list"></div>
       </div>
       <div class="panel">
         <h2 style="font-size:16px" id="q-title">How hard each question was in this room</h2>
@@ -352,6 +377,8 @@
     var b = await supa.rpc('room_question_stats', { p_room: room.id });
     if (a.error || !a.data || !a.data.length) return;          // server not ready yet (grace window): try again next poll
     resultsShown = true; clearInterval(poll);
+    roomStats = {}; (b.data || []).forEach(function (q) { roomStats[q.q_id] = q; });
+    setupReview();
     var rank = 0, prev = null;
     $('lb-body').innerHTML = a.data.map(function (r, i) {
       if (r.score !== prev) rank = i + 1; prev = r.score;
@@ -372,6 +399,72 @@
       return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + q.q_id + '</b><span>' +
         (weighted ? q.weight.toFixed(1) + ' pt' : Math.round(100 * (1 - p)) + '% ✓') + '</span></div>';
     }).join('');
+  }
+
+  /* ---------- review my answers ---------- */
+  var roomStats = {}, rvQs = null, rvMine = null, rvFilter = 'wrong';
+  function setupReview() {
+    try { rvMine = JSON.parse(localStorage.getItem('prepline-room-answers:' + room.code) || 'null'); } catch (e) { rvMine = null; }
+    var mine = myRow();
+    if (!mine) return;                                   // the host did not take the test
+    $('rv-actions').style.display = '';
+    if (!rvMine) { $('rv-btn').disabled = true; $('rv-sum').textContent = 'Your answers are saved on the device you took the test on.'; }
+  }
+  $('rv-btn').onclick = async function () {
+    var box = $('rv');
+    if (box.style.display === '') { box.style.display = 'none'; return; }
+    box.style.display = '';
+    if (!rvQs) {
+      $('rv-list').innerHTML = '<p class="muted">Loading questions…</p>';
+      try {
+        var html = await (await fetch(rvMine.mock + '.html')).text();
+        var m = html.match(/^const questions = (\[.*\]);\s*$/m);
+        rvQs = JSON.parse(m[1]);
+      } catch (e) { $('rv-list').innerHTML = '<p class="muted">Could not load the questions. Open the test page from the section list instead.</p>'; return; }
+    }
+    drawReview();
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  $('rv-filter').onclick = function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    rvFilter = b.dataset.f;
+    [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
+    drawReview();
+  };
+  function drawReview() {
+    var L = 'ABCDEFGH', ans = rvMine.answers || {}, h = '', wrong = 0;
+    rvQs.forEach(function (q, i) {
+      var scored = q.verified !== false && (q.options || []).length;
+      if (!scored) return;
+      var u = ans[q.id], ok = u === q.correct, skipped = u === undefined || u === null;
+      if (!ok) wrong++;
+      if (rvFilter === 'wrong' && ok) return;
+      var st = roomStats[q.id], meta = st ? Math.round(100 * (st.players - st.wrong) / st.players) + '% of the room got it right' +
+        (st.weighted ? ' · ' + st.weight.toFixed(1) + ' pt' : '') : '';
+      var letters = q.options.every(function (o, k) { return o === L[k]; });
+      h += '<div class="rv-item"><div class="rv-head"><b>Q' + (i + 1) + '</b>' +
+        '<span class="rv-tag ' + (ok ? 'ok">✓ correct' : skipped ? 'skip">no answer' : 'no">✗ wrong') + '</span>' +
+        '<span class="rv-meta">' + meta + '</span></div>' +
+        (q.image ? '<img class="rv-img" loading="lazy" src="' + q.image + '" alt="Question ' + (i + 1) + '">' : '') +
+        (q.text ? '<div class="rv-text">' + q.text + '</div>' : '') +
+        '<div class="rv-opts">' + q.options.map(function (o, k) {
+          var c = k === q.correct, me = k === u;
+          return '<span class="rv-opt' + (c ? ' c' : me ? ' u' : '') + '">' + (letters ? o : L[k] + ') ' + o) +
+            (c ? '<i>correct</i>' : me ? '<i>your answer</i>' : '') + '</span>';
+        }).join('') + '</div></div>';
+    });
+    $('rv-list').innerHTML = h || '<p class="muted">No mistakes — every scored question is correct.</p>';
+    $('rv-sum').textContent = wrong ? wrong + ' to review' : 'no mistakes';
+    renderMath($('rv-list'));
+  }
+  function renderMath(el) {
+    var go = function () { window.renderMathInElement && renderMathInElement(el, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }], throwOnError: false }); };
+    if (window.renderMathInElement) return go();
+    if (document.getElementById('katex-js')) return;
+    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css'; document.head.appendChild(l);
+    var a = document.createElement('script'); a.id = 'katex-js'; a.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+    a.onload = function () { var b = document.createElement('script'); b.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js'; b.onload = go; document.head.appendChild(b); };
+    document.head.appendChild(a);
   }
 
   /* ---------- boot ---------- */
