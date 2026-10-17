@@ -1,0 +1,69 @@
+/* Prepline shared theme: navy + gold (same palette as dashboard.html) */
+:root{
+  --bg:#0B1120; --bg-2:#111A2E; --bg-3:#0E1728;
+  --panel:rgba(255,255,255,.045); --panel-2:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.07);
+  --ink:#E6ECF7; --ink-2:#B4C0D6; --ink-3:#8492AC;
+  --blue:#84AEEC; --blue-deep:#143B6B; --gold:#C9A227; --gold-2:#E0BC45;
+  --ok:#4ADE9A; --warn:#F5C451; --bad:#F87171;
+  --dock:84px; --r:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;
+     -webkit-font-smoothing:antialiased;overflow-x:hidden;
+     background-image:radial-gradient(1100px 420px at 70% -120px,rgba(20,59,107,.45),transparent 70%)}
+h1,h2,h3{font-family:Sora,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ---------- side menu ---------- */
+.dock{position:fixed;left:0;top:0;bottom:0;width:var(--dock);z-index:100;display:flex;flex-direction:column;
+      align-items:center;padding:18px 0;gap:8px;background:#0C1424;border-right:1px solid var(--line)}
+.dock-logo{width:44px;height:44px;border-radius:var(--r);background:var(--blue-deep);color:#fff;display:grid;place-items:center;
+           font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin-bottom:10px;border:1px solid rgba(201,162,39,.45)}
+.dock-item{width:44px;height:44px;border-radius:var(--r);display:grid;place-items:center;color:var(--ink-3);
+           border:1px solid transparent;transition:background .15s,color .15s;position:relative}
+.dock-item:hover{background:rgba(132,174,236,.12);color:var(--blue);border-color:var(--line)}
+.dock-item.on{background:rgba(201,162,39,.14);color:var(--gold);border-color:rgba(201,162,39,.35)}
+.dock-item svg{width:20px;height:20px}
+.dock-tip{position:absolute;left:56px;white-space:nowrap;background:#EAF0FA;color:#0F1930;font-size:12px;font-weight:600;
+          padding:5px 10px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .14s}
+.dock-item:hover .dock-tip{opacity:1}
+.dock-sep{width:26px;height:1px;background:var(--line);margin:6px 0}
+.dock-spacer{flex:1}
+.dock-label{display:none}
+
+main{margin-left:var(--dock)}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 36px 70px}
+
+/* ---------- common pieces ---------- */
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0E1A2E;font-weight:700;font-size:14px;
+     padding:11px 22px;border-radius:5px;cursor:pointer;border:0;font-family:inherit;transition:background .15s}
+.btn:hover{background:var(--gold-2)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);font-weight:600}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);
+       border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--bg-3);padding:15px 18px}
+.stat b{display:block;font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:var(--ink);line-height:1.2}
+.stat b.gold{color:var(--gold)}
+.stat span{font-size:12px;color:var(--ink-3)}
+
+/* ---------- mobile: menu becomes a bottom bar ---------- */
+@media (max-width:780px){
+  :root{--dock:0px}
+  body{padding-bottom:72px}
+  .dock{top:auto;bottom:0;right:0;width:auto;height:64px;flex-direction:row;justify-content:space-around;
+        padding:0 6px;gap:0;border-right:0;border-top:1px solid var(--line)}
+  .dock-logo,.dock-sep,.dock-spacer,.dock-tip{display:none}
+  .dock-item{width:auto;flex:1;height:54px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+  .dock-label{display:block;font-size:10.5px;font-weight:600;line-height:1}
+  .wrap{padding:26px 16px 40px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation:none!important}}

@@ -148,20 +148,14 @@
     main{padding:20px 16px 90px}
     .tracks{grid-template-columns:1fr}
   }
+  .dock-spacer{flex:1} .dock-label{display:none}
+  @media(max-width:760px){.dock-spacer{display:none}.dock-item{flex:1;flex-direction:column;gap:2px}.dock-label{display:block;font-size:10px;font-weight:600;line-height:1}}
+  .dock-item.on{background:rgba(201,162,39,.14);color:var(--gold);border-color:rgba(201,162,39,.35)}
 </style>
 </head>
 <body>
 
-<aside class="dock">
-  <a href="index.html" class="dock-logo">P</a>
-  <a href="index.html" class="dock-item on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="dock-tip">Home</span></a>
-  <div class="dock-sep"></div>
-  <a href="math.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14L11 12l8 7H5"/></svg><span class="dock-tip">Mathematics</span></a>
-  <a href="crit.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17h.01"/></svg><span class="dock-tip">Critical Thinking</span></a>
-  <a href="weak-spots.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/></svg><span class="dock-tip">Weak spots</span></a>
-  <div class="dock-sep"></div>
-  <a href="intro.html" class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg><span class="dock-tip">What is NUET</span></a>
-</aside>
+<aside class="dock" id="dock"></aside>
 
 <main>
   <div class="top">
@@ -266,14 +260,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="tests.js"></script>
+<script src="nav.js"></script>
 <script>
 /* ================= данные ================= */
-const TESTS = [];
-for (let i=1;i<=22;i++) TESTS.push({id:'mix-'+i,  name:'Math Test '+i,       kind:'math'});
-for (let i=1;i<=16;i++) TESTS.push({id:'crit-'+i, name:'CT Test '+i,         kind:'ct'});
-TESTS.push({id:'test',   name:'Mock Exam #1', kind:'math'});
-TESTS.push({id:'test-2', name:'Mock Exam #2', kind:'math'});
-TESTS.push({id:'test-3', name:'Mock Exam #3', kind:'math'});
+const TESTS = (window.PREPLINE_TESTS || []).map(t => ({
+  id: t.id, kind: t.kind,
+  name: t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Math Test ') + t.n
+}));
 
 const NAMES = {
   ASM:'Assumptions', CON:'Conclusions', EF:'External factors',

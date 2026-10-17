@@ -4,473 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prepline — NUET preparation</title>
+<meta name="description" content="Free NUET preparation: timed Mathematics and Critical Thinking tests with answer review.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
 <style>
-  :root {
-    --bg: #0A0E1E;
-    --bg-2: #0E1430;
-    --text: #C9D2F0;
-    --text-bright: #F2F5FF;
-    --blue: #60A5FA;
-    --violet: #A78BFA;
-    --pink: #F472B6;
-    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
-    --grad-135: linear-gradient(135deg, #60A5FA 0%, #A78BFA 55%, #F472B6 100%);
-    --glass: rgba(255,255,255,0.05);
-    --glass-line: rgba(255,255,255,0.12);
-    --shadow-glow: 0 12px 40px -10px rgba(167,139,250,0.45);
-    --dock-w: 84px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  h1, h2, h3 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-  main { margin-left: var(--dock-w); }
+  .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;padding:34px 0 34px}
+  .hero h1{font-size:46px;line-height:1.08;margin:14px 0 16px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero .lead{font-size:16.5px;color:var(--ink-2);max-width:520px;margin-bottom:26px}
+  .hero .row{display:flex;gap:10px;flex-wrap:wrap}
+  .hero .note{font-size:12.5px;color:var(--ink-3);margin-top:14px}
 
-  .grad-text {
-    background: var(--grad);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
+  .exam{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .exam-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line-2)}
+  .exam-head b{font-family:Sora,sans-serif;font-size:14.5px}
+  .exam-row{display:grid;grid-template-columns:1fr auto;padding:14px 18px;border-bottom:1px solid var(--line-2);gap:4px 12px}
+  .exam-row:last-child{border-bottom:0}
+  .exam-row .nm{font-weight:600;font-size:14.5px}
+  .exam-row .val{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--gold);text-align:right}
+  .exam-row .ds{grid-column:1/-1;font-size:12.5px;color:var(--ink-3)}
 
-  /* ---------- left taskbar (dock) ---------- */
-  .dock {
-    position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 18px 0; gap: 8px;
-    background: rgba(12,16,36,0.72);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-right: 1px solid var(--glass-line);
-  }
-  .dock-logo {
-    width: 46px; height: 46px; border-radius: 14px; margin-bottom: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
-    background: var(--grad-135);
-    box-shadow: var(--shadow-glow);
-    text-decoration: none;
-    animation: floaty 5s ease-in-out infinite;
-  }
-  .dock-item {
-    position: relative;
-    width: 48px; height: 48px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text); text-decoration: none;
-    border: 1px solid transparent;
-    transition: background .25s, color .25s, border-color .25s, transform .2s;
-  }
-  .dock-item svg { width: 22px; height: 22px; }
-  .dock-item:hover {
-    background: var(--glass); border-color: var(--glass-line); color: var(--text-bright);
-    transform: translateX(3px);
-  }
-  .dock-item.accent {
-    color: #fff; background: var(--grad-135); background-size: 200% 200%;
-    box-shadow: 0 8px 24px -8px rgba(244,114,182,0.5);
-    animation: floaty 4s ease-in-out 0.6s infinite, gradShift 6s ease infinite;
-  }
-  .dock-tip {
-    position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%) translateX(-6px);
-    background: rgba(14,20,48,0.95); border: 1px solid var(--glass-line);
-    color: var(--text-bright); font-size: 12px; font-weight: 600; white-space: nowrap;
-    padding: 6px 12px; border-radius: 8px;
-    opacity: 0; pointer-events: none;
-    transition: opacity .2s, transform .2s;
-  }
-  .dock-item:hover .dock-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
-  .dock-spacer { flex: 1; }
+  .sec-title{display:flex;justify-content:space-between;align-items:baseline;margin:46px 0 16px}
+  .sec-title h2{font-size:21px}
+  .sec-title a{font-size:13px;color:var(--blue)}
 
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  @keyframes gradShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .track{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+         padding:20px 22px;transition:border-color .15s,transform .15s}
+  .track:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .track .kicker{margin-bottom:10px}
+  .track h3{font-size:19px;margin-bottom:6px}
+  .track p{font-size:13.5px;color:var(--ink-2);flex:1}
+  .track .meta{display:flex;gap:16px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line-2);
+               font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3)}
+  .track .meta b{color:var(--ink);font-weight:600}
+  .track .go{margin-left:auto;color:var(--gold);font-weight:600}
 
-  /* ---------- hero: background of stars with red clouds ---------- */
-  .hero {
-    padding: 110px 0 130px; position: relative; overflow: hidden;
-  }
-  .hero-photo {
-    position: absolute; inset: -60px 0; z-index: 0;
-    background: url('bg-stars.jpg') center 30% / cover no-repeat;
-    will-change: transform;
-  }
-  .hero::after {
-    content: ''; position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(180deg, rgba(10,14,30,0.35) 0%, rgba(10,14,30,0.55) 60%, var(--bg) 100%);
-  }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
-  .eyebrow {
-    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 13px;
-    color: var(--blue); background: rgba(96,165,250,0.12);
-    border: 1px solid rgba(96,165,250,0.35);
-    padding: 5px 14px; border-radius: 999px;
-    margin-bottom: 22px; letter-spacing: 0.02em;
-    backdrop-filter: blur(6px);
-  }
-  .hero h1 { font-size: 48px; line-height: 1.12; margin-bottom: 22px; font-weight: 800; text-shadow: 0 4px 30px rgba(10,14,30,0.6); }
-  .hero h1 em {
-    font-style: normal;
-    background: var(--grad);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .hero p.lead { font-size: 18px; max-width: 480px; margin-bottom: 34px; color: var(--text); text-shadow: 0 2px 16px rgba(10,14,30,0.8); }
-  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);
+         border-radius:var(--r);overflow:hidden}
+  .step{background:var(--bg-3);padding:18px 20px}
+  .step b{font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:13px}
+  .step h3{font-size:15px;margin:6px 0 4px}
+  .step p{font-size:13px;color:var(--ink-3)}
+  .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink-3);
+        display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .foot a{color:var(--ink-2)} .foot a:hover{color:var(--gold)}
 
-  .btn-primary {
-    display: inline-block;
-    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
-    color: #fff; padding: 14px 28px;
-    border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 15px;
-    transition: background-position .45s ease, box-shadow .3s ease, scale .2s ease;
-    box-shadow: 0 10px 30px -10px rgba(167,139,250,0.6);
-    animation: floaty 4.5s ease-in-out infinite;
-  }
-  .btn-primary:hover { background-position: 100% 50%; box-shadow: var(--shadow-glow); scale: 1.05; }
-  .btn-ghost {
-    display: inline-block;
-    border: 1.5px solid var(--glass-line); color: var(--text-bright); padding: 13px 26px;
-    background: var(--glass); backdrop-filter: blur(8px);
-    border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 15px;
-    transition: border-color .25s, scale .2s, box-shadow .25s;
-    animation: floaty 4.5s ease-in-out 0.8s infinite;
-  }
-  .btn-ghost:hover { border-color: var(--violet); scale: 1.05; box-shadow: 0 10px 24px -14px rgba(167,139,250,0.5); }
-
-  /* ---------- live mini quiz ---------- */
-  .quiz-card {
-    background: rgba(14,20,48,0.68);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--glass-line);
-    border-radius: 20px;
-    padding: 26px;
-    box-shadow: 0 24px 60px -24px rgba(0,0,0,0.6);
-    position: relative;
-    will-change: transform;
-  }
-  .quiz-card::before {
-    content: ''; position: absolute; inset: -1px; border-radius: 21px; padding: 1.5px;
-    background: var(--grad); opacity: 0.55;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    pointer-events: none;
-    animation: glowPulse 5s ease-in-out infinite;
-  }
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0.75; }
-  }
-  .quiz-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-  .quiz-badge {
-    font-size: 12px; font-weight: 600;
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .quiz-hint { font-size: 12px; opacity: 0.55; }
-  .quiz-q { font-size: 15px; font-weight: 600; color: var(--text-bright); margin-bottom: 14px; }
-  .quiz-opt {
-    border: 1px solid var(--glass-line); border-radius: 10px; padding: 11px 14px; width: 100%; text-align: left;
-    font-size: 14px; margin-bottom: 8px; cursor: pointer;
-    background: rgba(255,255,255,0.04); font-family: inherit; color: var(--text);
-    transition: border-color .2s, transform .15s, background .2s;
-  }
-  .quiz-opt:hover { border-color: var(--violet); transform: translateX(3px); background: rgba(167,139,250,0.1); }
-  .quiz-opt.correct { border-color: #34D399; background: rgba(52,211,153,0.15); color: #A7F3D0; font-weight: 600; }
-  .quiz-opt.wrong { border-color: #F87171; background: rgba(248,113,113,0.14); color: #FECACA; font-weight: 600; }
-  .quiz-feedback { font-size: 13px; font-weight: 600; margin-top: 8px; min-height: 18px; }
-  .quiz-feedback.ok { color: #A7F3D0; }
-  .quiz-feedback.no { color: #FECACA; }
-
-  /* ---------- stats: planet background ---------- */
-  .stats {
-    position: relative; padding: 84px 0; overflow: hidden;
-  }
-  .stats-photo {
-    position: absolute; inset: -40px 0;
-    background: url('bg-planet.jpg') center / cover no-repeat;
-    will-change: transform;
-  }
-  .stats::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, var(--bg) 0%, rgba(10,14,30,0.25) 25%, rgba(10,14,30,0.25) 75%, var(--bg) 100%);
-  }
-  .stats .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; position: relative; z-index: 1; }
-  .stat-num {
-    font-family: 'IBM Plex Mono', monospace; font-size: 48px; font-weight: 500; color: #fff;
-    text-shadow: 0 0 24px rgba(96,165,250,0.8), 0 2px 12px rgba(0,0,0,0.5);
-  }
-  .stat-label { color: var(--text); font-size: 14px; margin-top: 6px; text-shadow: 0 2px 10px rgba(0,0,0,0.7); }
-
-  /* ---------- sections ---------- */
-  .section { padding: 96px 0; position: relative; }
-  .section-head { text-align: center; max-width: 560px; margin: 0 auto 56px; }
-  .section-head h2 { font-size: 34px; margin-bottom: 12px; font-weight: 800; }
-  .section-head p { opacity: 0.8; }
-
-  .tracks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .track-card {
-    border: 1px solid var(--glass-line); border-radius: 20px; padding: 34px;
-    background: var(--glass);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s, background .3s;
-  }
-  .track-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-glow);
-    border-color: rgba(167,139,250,0.5);
-    background: rgba(167,139,250,0.07);
-  }
-  .track-tag {
-    font-family: 'IBM Plex Mono', monospace; font-size: 12px;
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; display: inline-block; font-weight: 500;
-  }
-  .track-card h3 { font-size: 23px; margin-bottom: 10px; }
-  .track-card p { font-size: 15px; opacity: 0.85; margin-bottom: 18px; }
-  .track-meta { display: flex; gap: 20px; font-size: 13px; }
-  .track-meta strong { color: var(--text-bright); font-family: 'IBM Plex Mono', monospace; }
-  .track-btn {
-    display: inline-block; margin-top: 20px; text-decoration: none; font-weight: 600; font-size: 14px;
-    color: #fff; background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
-    padding: 10px 20px; border-radius: 999px;
-    transition: background-position .45s ease, box-shadow .3s, scale .2s;
-    animation: floaty 5s ease-in-out infinite;
-  }
-  .track-btn:hover { background-position: 100% 50%; box-shadow: var(--shadow-glow); scale: 1.05; }
-  .track-btn.soon {
-    background: rgba(255,255,255,0.08); color: var(--text); cursor: default;
-    box-shadow: none; animation: none;
-  }
-  .track-btn.soon:hover { scale: 1; box-shadow: none; }
-
-  .how { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .how-step {
-    background: var(--glass); border: 1px solid var(--glass-line); border-radius: 16px; padding: 24px;
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s, border-color .3s;
-  }
-  .how-step:hover { transform: translateY(-6px); box-shadow: 0 14px 32px -14px rgba(96,165,250,0.4); border-color: rgba(96,165,250,0.4); }
-  .how-num {
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-    border-bottom: 2px solid; border-image: var(--grad) 1;
-    display: inline-block; padding-bottom: 4px; margin-bottom: 16px;
-  }
-  .how-step h3 { font-size: 17px; margin-bottom: 8px; }
-  .how-step p { font-size: 14px; opacity: 0.8; }
-
-  /* ---------- CTA: milky way background ---------- */
-  .cta-band {
-    padding: 110px 0; text-align: center; position: relative; overflow: hidden;
-  }
-  .cta-photo {
-    position: absolute; inset: -40px 0;
-    background: url('bg-milkyway.jpg') center / cover no-repeat;
-    will-change: transform;
-  }
-  .cta-band::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, var(--bg) 0%, rgba(10,14,30,0.35) 30%, rgba(10,14,30,0.35) 70%, var(--bg) 100%);
-  }
-  .cta-band .wrap { position: relative; z-index: 1; }
-  .cta-band h2 { font-size: 32px; margin-bottom: 14px; font-weight: 800; text-shadow: 0 4px 24px rgba(0,0,0,0.6); }
-  .cta-band p { margin-bottom: 30px; opacity: 0.9; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
-
-  footer {
-    border-top: 1px solid var(--glass-line); padding: 32px 0; font-size: 13px; opacity: 0.65;
-  }
-  footer .wrap { display: flex; justify-content: space-between; }
-
-  /* ---------- mobile: dock becomes a bottom bar ---------- */
-  @media (max-width: 780px) {
-    :root { --dock-w: 0px; }
-    main { margin-left: 0; }
-    body { padding-bottom: 78px; }
-    .dock {
-      top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 68px;
-      flex-direction: row; justify-content: space-around; padding: 0 10px; gap: 0;
-      border-right: none; border-top: 1px solid var(--glass-line);
-    }
-    .dock-logo { width: 40px; height: 40px; margin-bottom: 0; font-size: 17px; animation: none; }
-    .dock-spacer { display: none; }
-    .dock-item[aria-label="Home"], .dock-item[aria-label="How it works"] { display: none; }
-    .dock { height: 76px; }
-    .dock-logo { display: none; }
-    .dock-item { width: 25%; height: 64px; gap: 4px; flex-direction: column; justify-content: center; }
-    .dock-item svg { width: 20px; height: 20px; }
-    .dock-tip { position: static; display: block; opacity: 1; transform: none; background: none;
-      border: 0; padding: 0; white-space: normal; text-align: center; font-size: 12px;
-      line-height: 1.15; pointer-events: none; }
-    .dock-item:hover .dock-tip { transform: none; }
-    .dock-item:hover { transform: none; }
-
-    .wrap { padding: 0 18px; }
-    .hero .wrap { grid-template-columns: 1fr; }
-    .tracks, .how, .stats .wrap { grid-template-columns: 1fr 1fr; gap: 16px; }
-    .hero { padding: 56px 0 66px; }
-    .hero h1 { font-size: 30px; }
-    .hero p.lead { font-size: 16px; }
-    .hero-actions { flex-direction: column; align-items: stretch; }
-    .hero-actions a { text-align: center; }
-    .section { padding: 60px 0; }
-    .section-head h2 { font-size: 26px; }
-    .stat-num { font-size: 32px; }
-    .hero-photo, .stats-photo, .cta-photo { background-attachment: scroll; }
-  }
-
-  @media (max-width: 480px) {
-    .tracks, .how, .stats .wrap { grid-template-columns: 1fr; }
-    .quiz-card { padding: 18px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; }
-    *, *::before, *::after { transition-duration: 0.01ms !important; }
-  }
-</style>
-
-<style>
-/* ---- новая главная ---- */
-:root{
-  --f-bg:#0F1417; --f-panel:rgba(19,25,29,.72); --f-line:rgba(143,176,206,.16);
-  --f-text:#E6ECEF; --f-muted:#93A3AB;
-  --f-mist:#8FB0CE; --f-pine:#79B0B4; --f-sand:#C9A288;
-}
-body{
-  background:
-    linear-gradient(180deg, rgba(15,20,23,.72) 0%, rgba(15,20,23,.90) 55%, #0F1417 100%),
-    url('bg-home-A.jpg') center 28% / cover no-repeat fixed !important;
-  color:var(--f-text);
-}
-main{padding:0}
-.dock-item.accent{background:rgba(121,176,180,.18);color:var(--f-text);box-shadow:none;animation:none;border-color:rgba(121,176,180,.32)}
-.dock-item.accent:hover{background:rgba(121,176,180,.28)}
-.f-wrap{max-width:1060px;margin:0 auto;padding:0 28px}
-.f-enter{padding:74px 0 34px}
-.f-enter h1{font-size:40px;line-height:1.18;margin:0 0 14px;font-weight:600;max-width:17ch}
-.f-enter h1 span{color:var(--f-pine)}
-.f-lead{color:var(--f-muted);font-size:16px;line-height:1.6;max-width:54ch;margin:0 0 26px}
-.f-row{display:flex;gap:12px;flex-wrap:wrap}
-.f-btn{display:inline-block;padding:12px 22px;border-radius:9px;text-decoration:none;font-size:15px}
-.f-main{background:var(--f-pine);color:#0F1417;font-weight:600}
-.f-main:hover{background:#8DBFC2}
-.f-ghost{border:1px solid var(--f-line);color:var(--f-text)}
-.f-ghost:hover{border-color:var(--f-pine)}
-.f-note{color:var(--f-muted);font-size:14px;margin-top:14px}
-.f-facts{display:flex;gap:44px;flex-wrap:wrap;padding:26px 0;border-top:1px solid var(--f-line);
-         border-bottom:1px solid var(--f-line)}
-.f-fact b{display:block;font-size:26px;color:var(--f-sand);font-variant-numeric:tabular-nums}
-.f-fact span{font-size:13px;color:var(--f-muted)}
-.f-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:40px 0}
-.f-card{background:var(--f-panel);border:1px solid var(--f-line);border-radius:12px;padding:20px}
-.f-card h3{margin:0 0 8px;font-size:17px;font-weight:600}
-.f-card p{margin:0 0 14px;color:var(--f-muted);font-size:14px;line-height:1.55}
-.f-card a{color:var(--f-mist);text-decoration:none;font-size:14px}
-.f-card a:hover{text-decoration:underline}
-.f-tag{display:inline-block;font-size:12px;color:var(--f-muted);border:1px solid var(--f-line);
-       border-radius:99px;padding:3px 10px;margin-bottom:12px}
-.f-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;padding:6px 0 60px}
-.f-step b{display:block;color:var(--f-pine);font-size:13px;margin-bottom:6px}
-.f-step p{margin:0;color:var(--f-muted);font-size:14px;line-height:1.55}
-.f-foot{border-top:1px solid var(--f-line);padding:22px 0 44px;color:var(--f-muted);font-size:13px}
-@media(max-width:640px){.f-enter h1{font-size:29px}.f-enter{padding:44px 0 24px}}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:26px} .tracks{grid-template-columns:1fr} .steps{grid-template-columns:1fr 1fr} }
+  @media (max-width:780px){ .hero{padding:10px 0 10px} .hero h1{font-size:33px} .hero .row .btn{flex:1;justify-content:center} }
 </style>
 </head>
 <body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
 
-<!-- LEFT TASKBAR -->
-<aside class="dock">
-  <a href="#" class="dock-logo" aria-label="Prepline">P</a>
-  <a href="#" class="dock-item" aria-label="Home">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span class="dock-tip">Home</span>
-  </a>
-  <a href="#tracks" class="dock-item" aria-label="Sections">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-    <span class="dock-tip">Sections</span>
-  </a>
-  <a href="intro.html" class="dock-item" aria-label="What is NUET">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <span class="dock-tip">What is NUET</span>
-  </a>
-  <a href="#how" class="dock-item" aria-label="How it works">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
-    <span class="dock-tip">How it works</span>
-  </a>
-  <div class="dock-spacer"></div>
-  <a href="math.html" class="dock-item accent" aria-label="Mathematics">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Mathematics</span>
-  </a>
-  <a href="crit.html" class="dock-item accent" aria-label="Critical Thinking">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
-    <span class="dock-tip">Critical Thinking</span>
-  </a>
-</aside>
-
-<main>
-  <div class="f-wrap">
-
-    <section class="f-enter">
-      <h1>Prepare for NUET <span>with focused practice</span></h1>
-      <p class="f-lead">Start with a 10-question diagnostic, then practise with timed tests and review your answers.</p>
-      <div class="f-row">
-        <a class="f-btn f-main" href="diagnostic-math.html">Mathematics diagnostic</a>
-        <a class="f-btn f-ghost" href="diagnostic-crit.html">Critical Thinking diagnostic</a>
+  <section class="hero">
+    <div>
+      <span class="kicker">Free NUET preparation</span>
+      <h1>Prepare for NUET<br><em>one timed test</em> at a time</h1>
+      <p class="lead">Start with a 10-question diagnostic, then work through full timed tests in Mathematics and Critical Thinking. Every answer is reviewed at the end.</p>
+      <div class="row">
+        <a class="btn" href="diagnostic-math.html">Mathematics diagnostic →</a>
+        <a class="btn ghost" href="diagnostic-crit.html">Critical Thinking diagnostic</a>
       </div>
-      <p class="f-note">Sign in or create an account to start a test and save your results.</p>
-    </section>
+      <p class="note">Sign in to save your results in the cloud and see them on any device.</p>
+    </div>
+    <div class="exam">
+      <div class="exam-head"><b>The NUET at a glance</b><a class="mono" style="font-size:12px;color:var(--blue)" href="intro.html">Guide →</a></div>
+      <div class="exam-row"><span class="nm">Mathematics</span><span class="val">30 q · 60 min</span><span class="ds">Algebra, geometry, functions, probability</span></div>
+      <div class="exam-row"><span class="nm">Critical Thinking</span><span class="val">30 q · 60 min</span><span class="ds">Arguments, assumptions, flaws, problem solving</span></div>
+      <div class="exam-row"><span class="nm">Competitive score</span><span class="val">210+ / 240</span><span class="ds">Each section is marked out of 120</span></div>
+    </div>
+  </section>
 
-    <section class="f-facts">
-      <div class="f-fact"><b>1,216</b><span>question entries</span></div>
-      <div class="f-fact"><b>43</b><span>test sets</span></div>
-      <div class="f-fact"><b>724</b><span>Mathematics entries</span></div>
-      <div class="f-fact"><b>472</b><span>Critical Thinking entries</span></div>
-    </section>
-
-    <section class="f-cards" id="tracks">
-      <div class="f-card">
-        <span class="f-tag">724 question entries</span>
-        <h3>Mathematics</h3>
-        <p>Algebra, geometry, probability, exponents and logarithms. Practise with a timer and review your answers.</p>
-        <a href="math.html">Browse tests →</a>
-      </div>
-      <div class="f-card">
-        <span class="f-tag">472 question entries</span>
-        <h3>Critical Thinking</h3>
-        <p>Arguments, assumptions, conclusions and problem solving with tables, routes and schedules.</p>
-        <a href="crit.html">Browse tests →</a>
-      </div>
-      <div class="f-card">
-        <span class="f-tag">Exam guide</span>
-        <h3>What is NUET?</h3>
-        <p>Learn about the exam sections, timing and scoring.</p>
-        <a href="intro.html">Read the guide →</a>
-      </div>
-    </section>
-
-    <section class="f-steps" id="how">
-      <div class="f-step"><b>01</b><p>Take a diagnostic to see where you stand.</p></div>
-      <div class="f-step"><b>02</b><p>Work through timed test sets.</p></div>
-      <div class="f-step"><b>03</b><p>Review your answers after each test.</p></div>
-      <div class="f-step"><b>04</b><p>Use your results to decide what to practise next.</p></div>
-    </section>
-
-    <div class="f-foot">Prepline — free NUET preparation.</div>
-
+  <div class="stats">
+    <div class="stat"><b id="n-tests" class="gold">—</b><span>timed tests</span></div>
+    <div class="stat"><b id="n-q">—</b><span>questions</span></div>
+    <div class="stat"><b id="n-math">—</b><span>Mathematics tests</span></div>
+    <div class="stat"><b id="n-ct">—</b><span>Critical Thinking tests</span></div>
   </div>
-</main>
 
-<!-- ===== Prepline x Supabase: auth ===== -->
+  <div class="sec-title" id="tracks"><h2>Choose a section</h2><a href="dashboard.html">Your progress →</a></div>
+  <section class="tracks">
+    <a class="track" href="math.html">
+      <span class="kicker">Section 1</span>
+      <h3>Mathematics</h3>
+      <p>Mixed tests from NUET-style mocks plus a large mock collection: Practice Compilation, Kiseki, Matesha and Trial Tests.</p>
+      <div class="meta"><span><b id="m-tests">—</b> tests</span><span><b id="m-q">—</b> q</span><span class="go">Open →</span></div>
+    </a>
+    <a class="track" href="crit.html">
+      <span class="kicker">Section 2</span>
+      <h3>Critical Thinking</h3>
+      <p>Topic mixes and official past papers from BMAT, TSA Oxford and IMAT, checked against the official keys.</p>
+      <div class="meta"><span><b id="c-tests">—</b> tests</span><span><b id="c-q">—</b> q</span><span class="go">Open →</span></div>
+    </a>
+    <a class="track" href="intro.html">
+      <span class="kicker">Exam guide</span>
+      <h3>What is NUET?</h3>
+      <p>Sections, timing, scoring and what score you need for Nazarbayev University foundation and undergraduate programmes.</p>
+      <div class="meta"><span>5 min read</span><span class="go">Read →</span></div>
+    </a>
+  </section>
+
+  <div class="sec-title" id="how"><h2>How it works</h2></div>
+  <section class="steps">
+    <div class="step"><b>01</b><h3>Diagnostic</h3><p>10 questions show where you stand.</p></div>
+    <div class="step"><b>02</b><h3>Timed tests</h3><p>Real exam pace, one question or scroll view.</p></div>
+    <div class="step"><b>03</b><h3>Review</h3><p>See every answer you got wrong and the correct one.</p></div>
+    <div class="step"><b>04</b><h3>Track</h3><p>Best scores show on every test card.</p></div>
+  </section>
+
+  <div class="foot"><span>Prepline — free NUET preparation.</span><span><a href="math.html">Mathematics</a> · <a href="crit.html">Critical Thinking</a> · <a href="intro.html">About NUET</a></span></div>
+</div></main>
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script>
+(function () {
+  var T = window.PREPLINE_TESTS || [], f = function (n) { return n.toLocaleString('en-US'); };
+  var m = T.filter(function (t) { return t.kind === 'math'; }), c = T.filter(function (t) { return t.kind === 'ct'; });
+  var q = function (a) { return a.reduce(function (s, t) { return s + t.q; }, 0); };
+  var set = function (id, v) { var e = document.getElementById(id); if (e) e.textContent = v; };
+  set('n-tests', f(T.length)); set('n-q', f(q(T))); set('n-math', m.length); set('n-ct', c.length);
+  set('m-tests', m.length); set('m-q', f(q(m))); set('c-tests', c.length); set('c-q', f(q(c)));
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 </body>

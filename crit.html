@@ -1,791 +1,116 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Critical Thinking NUET — Prepline</title>
+<title>NUET Critical Thinking — Prepline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
 <style>
-  :root {
-    --bg: #0A0E1E;
-    --text: #C9D2F0;
-    --text-bright: #F2F5FF;
-    --blue: #60A5FA;
-    --violet: #A78BFA;
-    --pink: #F472B6;
-    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
-    --grad-135: linear-gradient(135deg, #60A5FA 0%, #A78BFA 55%, #F472B6 100%);
-    --glass: rgba(255,255,255,0.05);
-    --glass-line: rgba(255,255,255,0.12);
-    --shadow-glow: 0 12px 40px -10px rgba(167,139,250,0.45);
-    --dock-w: 84px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg);
-    line-height: 1.6; overflow-x: hidden;
-  }
-  h1, h3 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; }
-  main { margin-left: var(--dock-w); position: relative; z-index: 1; }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
+  .hub-head{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:end;margin-bottom:22px}
+  .hub-head h1{font-size:34px;line-height:1.15;margin:8px 0 8px}
+  .hub-head p{color:var(--ink-2);font-size:15px;max-width:560px}
+  .next{background:linear-gradient(135deg,rgba(20,59,107,.6),rgba(17,26,46,.5));border:1px solid rgba(132,174,236,.3);
+         border-radius:var(--r);padding:18px 20px}
+  .next .next-label{display:block;margin-bottom:6px}
+  .next .next-name{font-family:Sora,sans-serif;font-weight:700;font-size:19px;display:block}
+  .next .next-src{font-size:12.5px;color:var(--ink-3);display:block;margin:2px 0 14px;
+                   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .progress{height:4px;background:rgba(255,255,255,.08);border-radius:99px;margin:14px 0 26px;overflow:hidden}
+  .progress i{display:block;height:100%;width:0;background:var(--gold);border-radius:99px;transition:width .6s}
 
-  /* background: milky way, full page */
-  .page-photo {
-    position: fixed; inset: 0; z-index: 0;
-    background: url('bg-milkyway.jpg') center / cover no-repeat;
-  }
-  .page-photo::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10,14,30,0.72) 0%, rgba(10,14,30,0.82) 100%);
-  }
+  .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px;position:sticky;top:0;z-index:5;
+            padding:12px 0;background:linear-gradient(var(--bg) 75%,rgba(11,17,32,0))}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;
+        padding:7px 12px;border-radius:6px;cursor:pointer;transition:border-color .15s,color .15s}
+  .tab span{color:var(--ink-3);font-size:11.5px;margin-left:3px}
+  .tab:hover{border-color:var(--blue);color:var(--ink)}
+  .tab.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:var(--gold)}
+  .tab.on span{color:var(--gold)}
+  .tools-right{margin-left:auto;display:flex;gap:12px;align-items:center}
+  .search{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:6px;color:var(--ink);
+           padding:8px 12px;font:13px Inter,sans-serif;width:200px}
+  .search::placeholder{color:var(--ink-3)}
+  .toggle{font-size:13px;color:var(--ink-2);display:flex;gap:7px;align-items:center;cursor:pointer;white-space:nowrap}
+  .toggle input{accent-color:var(--gold)}
 
-  /* ---------- left taskbar (dock) ---------- */
-  .dock {
-    position: fixed; left: 0; top: 0; bottom: 0; width: var(--dock-w); z-index: 100;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 18px 0; gap: 8px;
-    background: rgba(12,16,36,0.72);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-right: 1px solid var(--glass-line);
-  }
-  .dock-logo {
-    width: 46px; height: 46px; border-radius: 14px; margin-bottom: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
-    background: var(--grad-135);
-    box-shadow: var(--shadow-glow);
-    text-decoration: none;
-    animation: floaty 5s ease-in-out infinite;
-  }
-  .dock-item {
-    position: relative; width: 48px; height: 48px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text); text-decoration: none; border: 1px solid transparent;
-    transition: background .25s, color .25s, border-color .25s, transform .2s;
-  }
-  .dock-item svg { width: 22px; height: 22px; }
-  .dock-item:hover {
-    background: var(--glass); border-color: var(--glass-line); color: var(--text-bright);
-    transform: translateX(3px);
-  }
-  .dock-item.active {
-    color: #fff; background: var(--grad-135);
-    box-shadow: 0 8px 24px -8px rgba(244,114,182,0.5);
-  }
-  .dock-tip {
-    position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%) translateX(-6px);
-    background: rgba(14,20,48,0.95); border: 1px solid var(--glass-line);
-    color: var(--text-bright); font-size: 12px; font-weight: 600; white-space: nowrap;
-    padding: 6px 12px; border-radius: 8px;
-    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
-  }
-  .dock-item:hover .dock-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
-  .dock-spacer { flex: 1; }
+  .group{margin-top:22px}
+  .group-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line-2);
+               padding-bottom:8px;margin-bottom:14px}
+  .group-head h2{font-size:17px}
+  .group-head span{font-size:12px;color:var(--ink-3)}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+  .tile{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+         padding:14px 16px 12px;min-height:138px;transition:border-color .15s,background .15s,transform .15s}
+  .tile:hover{border-color:var(--gold);background:var(--panel-2);transform:translateY(-2px)}
+  .tile.done{border-color:rgba(255,255,255,.08);background:rgba(255,255,255,.025)}
+  .tile-top{min-height:22px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .num{font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}
+  .tile h3{font-size:15.5px;margin-bottom:3px}
+  .src{font-size:12.5px;color:var(--ink-3);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+  .tile-foot{display:flex;gap:12px;font-size:11.5px;color:var(--ink-3);margin-top:10px;padding-top:9px;border-top:1px solid var(--line-2)}
+  .tile-foot .go{margin-left:auto;color:var(--gold);font-weight:600}
+  .tile-foot .tries{margin-left:auto}
+  .score{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid}
+  .score.ok{color:var(--ok);border-color:rgba(74,222,154,.4);background:rgba(74,222,154,.1)}
+  .score.warn{color:var(--warn);border-color:rgba(245,196,81,.4);background:rgba(245,196,81,.1)}
+  .score.bad{color:var(--bad);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.1)}
+  .empty{color:var(--ink-3);padding:30px 0}
+  .foot-note{margin-top:40px;font-size:13px;color:var(--ink-3);border-top:1px solid var(--line-2);padding-top:16px}
+  .foot-note a{color:var(--blue)}
 
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-
-  h1 { font-size: 32px; margin: 4px 0 8px; font-weight: 800; text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
-  h1 .grad-text {
-    background: var(--grad);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .subtitle { margin-bottom: 34px; opacity: 0.85; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
-
-  .mock-list { display: flex; flex-direction: column; gap: 16px; }
-  .mock-card {
-    background: rgba(14,20,48,0.55);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-line); border-radius: 16px; padding: 24px;
-    display: flex; justify-content: space-between; align-items: center; gap: 20px;
-    transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s, background .3s;
-    will-change: transform;
-  }
-  .mock-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-glow);
-    border-color: rgba(167,139,250,0.5);
-    background: rgba(167,139,250,0.1);
-  }
-  .mock-card h3 { font-size: 19px; margin-bottom: 6px; }
-  .mock-meta { font-size: 13px; opacity: 0.8; }
-  .mock-meta strong { font-family: 'IBM Plex Mono', monospace; color: var(--text-bright); }
-  .mock-btn {
-    flex-shrink: 0; text-decoration: none; font-weight: 600; font-size: 14px; color: #fff;
-    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
-    padding: 11px 22px; border-radius: 999px; white-space: nowrap;
-    transition: background-position .45s ease, box-shadow .3s ease, scale .2s ease;
-    animation: floaty 4.5s ease-in-out infinite;
-  }
-  .mock-list .mock-card:nth-child(2n) .mock-btn { animation-delay: 0.7s; }
-  .mock-list .mock-card:nth-child(3n) .mock-btn { animation-delay: 1.4s; }
-  .mock-btn:hover { background-position: 100% 50%; box-shadow: var(--shadow-glow); scale: 1.06; }
-
-  .mock-progress {
-    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600;
-    font-family: 'IBM Plex Mono', monospace;
-    background: rgba(52,211,153,0.14); color: #A7F3D0;
-    border: 1px solid rgba(52,211,153,0.4);
-    padding: 3px 10px; border-radius: 999px;
-  }
-  .empty-note {
-    margin-top: 30px; font-size: 14px; opacity: 0.85;
-    border-top: 1px solid var(--glass-line); padding-top: 20px;
-  }
-  .empty-note a { color: var(--blue); font-weight: 500; text-decoration: none; }
-  .empty-note a:hover { color: var(--pink); text-decoration: underline; }
-
-  /* ---------- mobile: dock becomes a bottom bar ---------- */
-  @media (max-width: 780px) {
-    :root { --dock-w: 0px; }
-    main { margin-left: 0; }
-    body { padding-bottom: 78px; }
-    .dock {
-      top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 68px;
-      flex-direction: row; justify-content: space-around; padding: 0 10px; gap: 0;
-      border-right: none; border-top: 1px solid var(--glass-line);
-    }
-    .dock-logo { width: 40px; height: 40px; margin-bottom: 0; font-size: 17px; animation: none; }
-    .dock-spacer { display: none; }
-    .dock-tip { display: none; }
-    .dock-item:hover { transform: none; }
-  }
-
-  @media (max-width: 560px) {
-    .wrap { padding: 28px 16px; }
-    h1 { font-size: 26px; }
-    .mock-card { flex-direction: column; align-items: stretch; text-align: left; gap: 14px; }
-    .mock-btn { text-align: center; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; }
-    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  @media (max-width:900px){ .hub-head{grid-template-columns:1fr} }
+  @media (max-width:780px){
+    .hub-head h1{font-size:27px}
+    .tools-right{margin-left:0;width:100%}
+    .search{flex:1;width:auto}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:2px}
+    .tab{white-space:nowrap}
+    .tiles{grid-template-columns:1fr 1fr;gap:10px}
+    .tile{min-height:124px;padding:12px 13px 10px}
   }
 </style>
 </head>
-<body>
-<div class="page-photo"></div>
-
-<!-- LEFT TASKBAR -->
-<aside class="dock">
-  <a href="index.html" class="dock-logo" aria-label="Prepline — home">P</a>
-  <a href="index.html" class="dock-item" aria-label="Home">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span class="dock-tip">Home</span>
-  </a>
-  <a href="index.html#tracks" class="dock-item" aria-label="Sections">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-    <span class="dock-tip">Sections</span>
-  </a>
-  <a href="index.html#how" class="dock-item" aria-label="How it works">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
-    <span class="dock-tip">How it works</span>
-  </a>
-  <div class="dock-spacer"></div>
-  <a href="intro.html" class="dock-item" aria-label="What is NUET">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <span class="dock-tip">What is NUET</span>
-  </a>
-
-  <a href="math.html" class="dock-item" aria-label="Mathematics">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15l-3-3 8.5-8.5c1.5-1.5 4-1.5 4-1.5s0 2.5-1.5 4L12 15z"/><path d="M9 12l-4.5.5L3 9l5-2"/><path d="M12 15l-.5 4.5L15 21l2-5"/></svg>
-    <span class="dock-tip">Mathematics</span>
-  </a>
-  <a href="crit.html" class="dock-item active" aria-label="Critical Thinking">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg>
-    <span class="dock-tip">Critical Thinking</span>
-  </a>
-  <a href="weak-spots.html" class="dock-item accent" aria-label="Weak spots">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/></svg>
-    <span class="dock-tip">Weak spots</span>
-  </a>
-</aside>
-
-<main>
-<div class="wrap">
-  <h1>Critical <span class="grad-text">Thinking</span></h1>
-  <p class="subtitle">67 tests, 1,958 verified questions. Assumptions, Conclusions, Flaws, External Factors, Main Conclusions.</p>
-
-  <div class="mock-list">
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 1</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
-      </div>
-      <a href="crit-1.html" class="mock-btn">Start</a>
+<body data-kind="ct">
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="hub-head">
+    <div>
+      <span class="kicker">Section 2 · Critical Thinking</span>
+      <h1>Critical Thinking</h1>
+      <p>Arguments, assumptions, flaws and problem solving — topic mixes and official BMAT, TSA and IMAT past papers.</p>
     </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 2</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
-      </div>
-      <a href="crit-2.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 3</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
-      </div>
-      <a href="crit-3.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 4</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · all 5 question types</div>
-      </div>
-      <a href="crit-4.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 5</h3>
-        <div class="mock-meta">Critical Thinking · <strong>22 questions</strong> · <strong>22 min</strong> · Assumptions, Conclusions, External Factors</div>
-      </div>
-      <a href="crit-5.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 6</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-6.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 7</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-7.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 8</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-8.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 9</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-9.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 10</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-10.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 11</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-11.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 12</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-12.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 13</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-13.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 14</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-14.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 15</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · <strong>30 min</strong> · worked solutions</div>
-      </div>
-      <a href="crit-15.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 16</h3>
-        <div class="mock-meta">Critical Thinking · <strong>30 questions</strong> · no answer key, for practice</div>
-      </div>
-      <a href="crit-16.html" class="mock-btn">Start</a>
+    <div class="next" id="next">
+      <span class="kicker next-label">Start here</span>
+      <span class="next-name">—</span>
+      <span class="next-src"></span>
+      <a class="btn" href="#">Start test →</a>
     </div>
   </div>
+  <div class="stats">
+    <div class="stat"><b id="st-tests">—</b><span>tests</span></div>
+    <div class="stat"><b id="st-q">—</b><span>questions</span></div>
+    <div class="stat"><b id="st-done" class="gold">—</b><span>completed by you</span></div>
+    <div class="stat"><b id="st-avg">—</b><span>average best score</span></div>
+  </div>
+  <div class="progress"><i id="done-bar"></i></div>
 
-  <h2 class="pp-title" style="font-family:'Sora',sans-serif;margin:40px 0 6px;font-size:22px;">Past papers <span class="grad-text">BMAT · TSA · IMAT</span></h2>
-  <p class="subtitle" style="margin-bottom:20px;">51 tests built from official BMAT 2009–2022, TSA Oxford 2008–2022 and IMAT 2011–2022 Critical Thinking &amp; Problem Solving sections. Every answer checked against the official key.</p>
-  <div class="mock-list">
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 17</h3>
-        <div class="mock-meta">Past paper · BMAT 2009 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key (4 unscored)</div>
-      </div>
-      <a href="crit-17.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 18</h3>
-        <div class="mock-meta">Past paper · BMAT 2009 + BMAT 2010 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key (1 unscored)</div>
-      </div>
-      <a href="crit-18.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 19</h3>
-        <div class="mock-meta">Past paper · BMAT 2010 + BMAT 2011 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-19.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 20</h3>
-        <div class="mock-meta">Past paper · BMAT 2011 + BMAT 2012 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key</div>
-      </div>
-      <a href="crit-20.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 21</h3>
-        <div class="mock-meta">Past paper · BMAT 2012 + BMAT 2013 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key</div>
-      </div>
-      <a href="crit-21.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 22</h3>
-        <div class="mock-meta">Past paper · BMAT 2013 + BMAT 2014 · <strong>30 questions</strong> · <strong>30 min</strong> · 13 CT / 17 PS · official key</div>
-      </div>
-      <a href="crit-22.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 23</h3>
-        <div class="mock-meta">Past paper · BMAT 2014 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key</div>
-      </div>
-      <a href="crit-23.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 24</h3>
-        <div class="mock-meta">Past paper · BMAT 2015 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-24.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 25</h3>
-        <div class="mock-meta">Past paper · BMAT 2015 + BMAT 2016 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key</div>
-      </div>
-      <a href="crit-25.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 26</h3>
-        <div class="mock-meta">Past paper · BMAT 2016 + BMAT 2017 · <strong>30 questions</strong> · <strong>30 min</strong> · 11 CT / 19 PS · official key</div>
-      </div>
-      <a href="crit-26.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 27</h3>
-        <div class="mock-meta">Past paper · BMAT 2017 + BMAT 2018 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-27.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 28</h3>
-        <div class="mock-meta">Past paper · BMAT 2018 + BMAT 2019 · <strong>30 questions</strong> · <strong>30 min</strong> · 10 CT / 20 PS · official key</div>
-      </div>
-      <a href="crit-28.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 29</h3>
-        <div class="mock-meta">Past paper · BMAT 2019 + BMAT 2020 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-29.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 30</h3>
-        <div class="mock-meta">Past paper · BMAT 2020 + BMAT 2021 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-30.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 31</h3>
-        <div class="mock-meta">Past paper · BMAT 2021 + BMAT 2022 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-31.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 32</h3>
-        <div class="mock-meta">Past paper · BMAT 2022 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-32.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 33</h3>
-        <div class="mock-meta">Past paper · BMAT 2022 + TSA 2008 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-33.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 34</h3>
-        <div class="mock-meta">Past paper · TSA 2008 + TSA 2009 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-34.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 35</h3>
-        <div class="mock-meta">Past paper · TSA 2009 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-35.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 36</h3>
-        <div class="mock-meta">Past paper · TSA 2009 + TSA 2010 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-36.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 37</h3>
-        <div class="mock-meta">Past paper · TSA 2010 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-37.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 38</h3>
-        <div class="mock-meta">Past paper · TSA 2010 + TSA 2011 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-38.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 39</h3>
-        <div class="mock-meta">Past paper · TSA 2011 + TSA 2012 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-39.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 40</h3>
-        <div class="mock-meta">Past paper · TSA 2012 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-40.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 41</h3>
-        <div class="mock-meta">Past paper · TSA 2012 + TSA 2013 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-41.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 42</h3>
-        <div class="mock-meta">Past paper · TSA 2013 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-42.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 43</h3>
-        <div class="mock-meta">Past paper · TSA 2013 + TSA 2014 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-43.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 44</h3>
-        <div class="mock-meta">Past paper · TSA 2014 + TSA 2015 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-44.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 45</h3>
-        <div class="mock-meta">Past paper · TSA 2015 · <strong>30 questions</strong> · <strong>30 min</strong> · 17 CT / 13 PS · official key</div>
-      </div>
-      <a href="crit-45.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 46</h3>
-        <div class="mock-meta">Past paper · TSA 2015 + TSA 2016 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-46.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 47</h3>
-        <div class="mock-meta">Past paper · TSA 2016 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-47.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 48</h3>
-        <div class="mock-meta">Past paper · TSA 2016 + TSA 2017 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-48.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 49</h3>
-        <div class="mock-meta">Past paper · TSA 2017 + TSA 2018 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-49.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 50</h3>
-        <div class="mock-meta">Past paper · TSA 2018 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-50.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 51</h3>
-        <div class="mock-meta">Past paper · TSA 2018 + TSA 2019 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-51.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 52</h3>
-        <div class="mock-meta">Past paper · TSA 2019 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-52.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 53</h3>
-        <div class="mock-meta">Past paper · TSA 2019 + TSA 2020 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-53.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 54</h3>
-        <div class="mock-meta">Past paper · TSA 2020 + TSA 2021 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-54.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 55</h3>
-        <div class="mock-meta">Past paper · TSA 2021 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-55.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 56</h3>
-        <div class="mock-meta">Past paper · TSA 2021 + TSA 2022 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-56.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 57</h3>
-        <div class="mock-meta">Past paper · TSA 2022 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-57.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 58</h3>
-        <div class="mock-meta">Past paper · TSA 2022 + TSA Specimen · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-58.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 59</h3>
-        <div class="mock-meta">Past paper · TSA Specimen + IMAT 2011 · <strong>30 questions</strong> · <strong>30 min</strong> · 12 CT / 18 PS · official key</div>
-      </div>
-      <a href="crit-59.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 60</h3>
-        <div class="mock-meta">Past paper · IMAT 2011 + IMAT 2012 · <strong>30 questions</strong> · <strong>30 min</strong> · 16 CT / 14 PS · official key</div>
-      </div>
-      <a href="crit-60.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 61</h3>
-        <div class="mock-meta">Past paper · IMAT 2012 · <strong>30 questions</strong> · <strong>30 min</strong> · 13 CT / 17 PS · official key</div>
-      </div>
-      <a href="crit-61.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 62</h3>
-        <div class="mock-meta">Past paper · IMAT 2012 + IMAT 2013 + IMAT 2014 · <strong>30 questions</strong> · <strong>30 min</strong> · 17 CT / 13 PS · official key</div>
-      </div>
-      <a href="crit-62.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 63</h3>
-        <div class="mock-meta">Past paper · IMAT 2014 + IMAT 2015 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-63.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 64</h3>
-        <div class="mock-meta">Past paper · IMAT 2015 + IMAT 2016 · <strong>30 questions</strong> · <strong>30 min</strong> · 14 CT / 16 PS · official key</div>
-      </div>
-      <a href="crit-64.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 65</h3>
-        <div class="mock-meta">Past paper · IMAT 2016 + IMAT 2017 + IMAT 2018 · <strong>30 questions</strong> · <strong>30 min</strong> · 17 CT / 13 PS · official key</div>
-      </div>
-      <a href="crit-65.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 66</h3>
-        <div class="mock-meta">Past paper · IMAT 2018 + IMAT 2019 + IMAT 2020 · <strong>30 questions</strong> · <strong>30 min</strong> · 15 CT / 15 PS · official key</div>
-      </div>
-      <a href="crit-66.html" class="mock-btn">Start</a>
-    </div>
-    <div class="mock-card">
-      <div>
-        <h3>CT Test 67</h3>
-        <div class="mock-meta">Past paper · IMAT 2020 + IMAT 2021 + IMAT 2022 · <strong>21 questions</strong> · <strong>21 min</strong> · 11 CT / 10 PS · official key · original IMAT order, most answers are A</div>
-      </div>
-      <a href="crit-67.html" class="mock-btn">Start</a>
+  <div class="toolbar">
+    <div class="tabs" id="tabs"></div>
+    <div class="tools-right">
+      <input class="search" id="search" type="search" placeholder="Find a test…" aria-label="Find a test">
+      <label class="toggle"><input type="checkbox" id="hide-done"> Hide completed</label>
     </div>
   </div>
-
-  
-  <p class="empty-note">1,958 verified questions plus 35 practice questions without a key across 67 tests. Assumptions, Conclusions, Flaws, External Factors and Main Conclusions, taken from BMAT, TSA and IMAT past papers and NUET mocks.</p>
-</div>
-</main>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-  (function () {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from('.dock', { x: -90, opacity: 0, duration: 0.7, ease: 'power3.out' });
-
-    gsap.from('.wrap > h1, .wrap > .subtitle', {
-      y: 22, opacity: 0, duration: 0.7, stagger: 0.08, delay: 0.2, ease: 'power3.out'
-    });
-
-    gsap.utils.toArray('.mock-card').forEach((card, i) => {
-      gsap.from(card, {
-        y: 34, opacity: 0, duration: 0.65, delay: Math.min(i * 0.06, 0.3), ease: 'power3.out',
-        scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none reverse' }
-      });
-    });
-
-    gsap.from('.empty-note', {
-      opacity: 0, y: 20, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '.empty-note', start: 'top 92%', toggleActions: 'play none none reverse' }
-    });
-  })();
-</script>
-
-<script>
-/* Prepline: show the best result on the mock cards */
-(function () {
-  try {
-    document.querySelectorAll('.mock-card').forEach(card => {
-      const link = card.querySelector('a.mock-btn');
-      if (!link) return;
-      const id = link.getAttribute('href').replace('.html','');
-      const hist = JSON.parse(localStorage.getItem('prepline:' + id) || '[]');
-      if (!hist.length) return;
-      const best = Math.max.apply(null, hist.map(a => a.s));
-      const n = hist[hist.length-1].n;
-      const span = document.createElement('span');
-      span.className = 'mock-progress';
-      span.textContent = 'Best: ' + best + '/' + n + ' · attempts: ' + hist.length;
-      card.querySelector('div').appendChild(span);
-      link.textContent = 'Again';
-    });
-  } catch (e) {}
-})();
-</script>
-
-<!-- ===== Prepline x Supabase: auth + cloud results on the cards ===== -->
+  <div id="groups"></div>
+  <p class="foot-note">Spotted a typo or a wrong key? Use <b>⚑ Report an error</b> under the question. Results are saved on this device; sign in to keep them in the cloud.</p>
+</div></main>
+<script src="nav.js"></script>
+<script src="tests.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
-<script>
-(function () {
-  const supa = window.preplineSupa;
-  if (!supa) return;
-
-  async function showCloudBest() {
-    const { data: { user } } = await supa.auth.getUser();
-    document.querySelectorAll('.mock-progress.cloud').forEach(el => el.remove());
-    if (!user) return;
-
-    const { data, error } = await supa.from('results').select('mock_id,score,total');
-    if (error || !data || !data.length) return;
-
-    const agg = {};
-    data.forEach(r => {
-      const a = agg[r.mock_id] || (agg[r.mock_id] = { best: 0, total: r.total, count: 0 });
-      a.count++;
-      if (r.score >= a.best) { a.best = r.score; a.total = r.total; }
-    });
-
-    document.querySelectorAll('.mock-card').forEach(card => {
-      const link = card.querySelector('a.mock-btn');
-      if (!link) return;
-      const id = link.getAttribute('href').replace('.html','');
-      const a = agg[id];
-      if (!a) return;
-      const span = document.createElement('span');
-      span.className = 'mock-progress cloud';
-      span.style.marginLeft = '8px';
-      span.style.background = 'rgba(96,165,250,0.14)';
-      span.style.color = '#BFDBFE';
-      span.style.borderColor = 'rgba(96,165,250,0.4)';
-      span.textContent = '\u2601 Best: ' + a.best + '/' + a.total + ' \u00B7 attempts: ' + a.count;
-      card.querySelector('div').appendChild(span);
-    });
-  }
-
-  supa.auth.onAuthStateChange(() => { showCloudBest(); });
-  showCloudBest();
-})();
-</script>
+<script src="hub.js"></script>
 </body>
 </html>
