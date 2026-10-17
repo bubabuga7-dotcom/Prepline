@@ -216,4 +216,118 @@
 
   supa.auth.onAuthStateChange(() => { refreshUI(); });
   refreshUI();
+
+  /* ---------- "Report an error" button on every question ---------- */
+  if (typeof questions === 'undefined' && typeof QUESTIONS === 'undefined') return;
+  const QS = () => (typeof questions !== 'undefined' ? questions : QUESTIONS);
+  const mockId = (location.pathname.split('/').pop() || 'mock').replace('.html', '');
+  const REASONS = ['Typo in the question', 'Typo in the options', 'Wrong answer key', 'No correct option', 'Image unreadable / cut off', 'Other'];
+
+  const rcss = document.createElement('style');
+  rcss.textContent = `
+    .pl-rep { display: inline-flex; align-items: center; gap: 6px; margin: 2px 0 14px; padding: 5px 12px;
+      font: 500 12.5px 'Inter', sans-serif; color: inherit; opacity: .6; cursor: pointer;
+      background: none; border: 1px dashed rgba(255,255,255,0.25); border-radius: 999px; }
+    .pl-rep:hover { opacity: 1; border-color: #F87171; color: #FCA5A5; }
+    .pl-rep.done { opacity: .5; border-style: solid; cursor: default; color: #34D399; border-color: rgba(52,211,153,.4); }
+    .pl-rep-box { background: #0E1430; border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; padding: 22px;
+      width: min(420px, calc(100vw - 32px)); color: #C9D2F0; font-family: 'Inter', sans-serif; }
+    .pl-rep-box h3 { font: 700 17px 'Sora', sans-serif; color: #F2F5FF; margin-bottom: 4px; }
+    .pl-rep-box .sub { font-size: 13px; opacity: .65; margin-bottom: 14px; }
+    .pl-rep-box label { display: flex; gap: 10px; align-items: center; font-size: 14px; padding: 7px 0; cursor: pointer; }
+    .pl-rep-box textarea { width: 100%; min-height: 70px; margin: 10px 0 14px; padding: 10px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14); color: #F2F5FF; font: 14px 'Inter', sans-serif; resize: vertical; }
+    .pl-rep-box .row { display: flex; gap: 10px; justify-content: flex-end; }
+    .pl-rep-box button { font: 600 14px 'Inter', sans-serif; border-radius: 999px; padding: 9px 18px; cursor: pointer; }
+    .pl-rep-box .cancel { background: none; color: #C9D2F0; border: 1px solid rgba(255,255,255,0.2); }
+    .pl-rep-box .send { border: 0; color: #fff; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); }
+    .pl-rep-bg { position: fixed; inset: 0; z-index: 500; background: rgba(5,8,20,0.7); display: none; align-items: center; justify-content: center; }
+    .pl-rep-bg.open { display: flex; }`;
+  document.head.appendChild(rcss);
+
+  const sent = new Set();
+  try { JSON.parse(localStorage.getItem('prepline:reported') || '[]').forEach(k => sent.add(k)); } catch (e) {}
+
+  const rbg = document.createElement('div');
+  rbg.className = 'pl-rep-bg';
+  rbg.innerHTML = `<div class="pl-rep-box">
+      <h3>Report an error</h3><div class="sub" id="plRepSub"></div>
+      ${REASONS.map((r, i) => `<label><input type="radio" name="plRepR" value="${r}" ${i === 0 ? 'checked' : ''}> ${r}</label>`).join('')}
+      <textarea id="plRepTxt" maxlength="1000" placeholder="What exactly is wrong? (optional)"></textarea>
+      <div class="row"><button class="cancel" id="plRepCancel">Cancel</button><button class="send" id="plRepSend">Send</button></div>
+    </div>`;
+  document.body.appendChild(rbg);
+  let target = null;
+  const close = () => rbg.classList.remove('open');
+  rbg.onclick = e => { if (e.target === rbg) close(); };
+  rbg.querySelector('#plRepCancel').onclick = close;
+  rbg.querySelector('#plRepSend').onclick = async () => {
+    if (!target) return;
+    const reason = rbg.querySelector('input[name=plRepR]:checked').value;
+    const comment = rbg.querySelector('#plRepTxt').value.trim() || null;
+    const btn = rbg.querySelector('#plRepSend'); btn.disabled = true;
+    try {
+      const { data: { user } } = await supa.auth.getUser();
+      const { error } = await supa.from('question_reports').insert({
+        mock_id: mockId, q_id: target.id, image: target.image || null,
+        reason: reason, comment: comment, user_id: user ? user.id : null, page_url: location.href
+      });
+      if (error) { console.error('[Prepline] report:', error.message); toast('Could not send: ' + error.message); }
+      else {
+        sent.add(mockId + ':' + target.id);
+        try { localStorage.setItem('prepline:reported', JSON.stringify([...sent].slice(-500))); } catch (e) {}
+        toast('Thanks! The report has been sent.');
+        close(); decorate();
+      }
+    } catch (e) { console.error('[Prepline]', e); }
+    btn.disabled = false;
+  };
+
+  function openFor(q, num) {
+    target = q;
+    rbg.querySelector('#plRepSub').textContent = 'Question ' + num + ' · ' + mockId;
+    rbg.querySelector('#plRepTxt').value = '';
+    rbg.querySelector('input[name=plRepR]').checked = true;
+    rbg.classList.add('open');
+  }
+  function makeBtn(q, num) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pl-rep';
+    if (sent.has(mockId + ':' + q.id)) { b.classList.add('done'); b.textContent = '✓ Reported'; }
+    else { b.textContent = '⚑ Report an error'; b.onclick = e => { e.stopPropagation(); openFor(q, num); }; }
+    return b;
+  }
+  function decorate() {
+    const qs = QS();
+    // one-at-a-time view
+    const app = document.getElementById('app');
+    if (app && typeof state !== 'undefined' && !state.finished) {
+      const opts = app.querySelector('.options');
+      const q = qs[state.idx];
+      if (opts && q) {
+        const old = app.querySelector(':scope > .pl-rep, .pl-rep[data-v=one]'); if (old) old.remove();
+        const b = makeBtn(q, state.idx + 1); b.dataset.v = 'one';
+        opts.parentNode.insertBefore(b, opts);
+      }
+    }
+    // scroll view
+    document.querySelectorAll('.pl-scroll .pl-q').forEach(el => {
+      const id = el.id.replace('pl-q-', '');
+      const i = qs.findIndex(x => String(x.id) === id);
+      if (i < 0) return;
+      const old = el.querySelector('.pl-rep'); if (old) old.remove();
+      const opts = el.querySelector('.pl-opts');
+      if (opts) opts.parentNode.insertBefore(makeBtn(qs[i], i + 1), opts);
+    });
+  }
+  let busy = false;
+  new MutationObserver(() => {
+    if (busy) return; busy = true;
+    requestAnimationFrame(() => {
+      const need = [...document.querySelectorAll('#app .options, .pl-scroll .pl-opts')].some(o => !o.previousElementSibling || !o.previousElementSibling.classList.contains('pl-rep'));
+      if (need) decorate();
+      busy = false;
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+  decorate();
 })();
