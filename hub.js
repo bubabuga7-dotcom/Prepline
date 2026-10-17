@@ -7,6 +7,10 @@
   var tabs = document.getElementById('tabs');
   var search = document.getElementById('search');
   var hideDone = document.getElementById('hide-done');
+  var examBox = document.getElementById('exam-mode');
+  var exam = false;
+  try { exam = localStorage.getItem('prepline:exam-mode') === '1'; } catch (e) {}
+  function link(id) { return id + '.html' + (exam ? '?exam=1' : ''); }
   var results = {};           // id -> {best, total, count}
   var state = { group: 'All', q: '', hide: false };
 
@@ -49,7 +53,7 @@
       var cls = p >= 70 ? 'ok' : p >= 45 ? 'warn' : 'bad';
       badge = '<span class="score ' + cls + '">' + r.best + '/' + r.total + '</span>';
     }
-    return '<a class="tile' + (r ? ' done' : '') + '" href="' + t.id + '.html">' +
+    return '<a class="tile' + (r ? ' done' : '') + '" href="' + link(t.id) + '">' +
       '<div class="tile-top"><span class="num mono">' + (t.group === 'Original mock exams' ? 'EXAM' : '#' + t.n) + '</span>' + badge + '</div>' +
       '<h3>' + esc(title(t)) + '</h3>' +
       '<p class="src">' + esc(t.src || '') + '</p>' +
@@ -92,7 +96,7 @@
     if (next && nx) {
       nx.querySelector('.next-name').textContent = title(next);
       nx.querySelector('.next-src').textContent = (next.src ? next.src + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
-      nx.querySelector('a.btn').href = next.id + '.html';
+      nx.querySelector('a.btn').href = link(next.id);
       nx.querySelector('.next-label').textContent = done.length ? 'Next up' : 'Start here';
     }
   }
@@ -103,6 +107,14 @@
   });
   search.addEventListener('input', function () { state.q = search.value; render(); });
   hideDone.addEventListener('change', function () { state.hide = hideDone.checked; render(); });
+  if (examBox) {
+    examBox.checked = exam;
+    examBox.addEventListener('change', function () {
+      exam = examBox.checked;
+      try { localStorage.setItem('prepline:exam-mode', exam ? '1' : '0'); } catch (e) {}
+      render();
+    });
+  }
 
   search.placeholder = kind === 'ct' ? 'Find: 24, TSA 2019, IMAT…' : 'Find: 23, Kiseki, Trial Test…';
   loadLocal(); renderTabs(); render();

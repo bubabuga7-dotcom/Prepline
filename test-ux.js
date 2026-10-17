@@ -184,6 +184,7 @@
     if (sig() === lastSig && t && app.contains(t) && !state.finished) {
       t.textContent = mmss(state.timeLeft);
       t.classList.toggle('low', state.timeLeft < 60);
+      tick();
       return;
     }
     lastSig = sig();
@@ -193,11 +194,12 @@
       decorate(); updateMap();
       if (live) pushProgress();
     } catch (e) {}
+    tick();
     return r;
   };
   if (host) {
     new MutationObserver(function () { decorateScroll(); updateMap(); }).observe(host, { childList: true });
-    host.addEventListener('click', function () { setTimeout(function () { updateMap(); if (live) pushProgress(); }, 0); });
+    host.addEventListener('click', function () { setTimeout(function () { updateMap(); if (live) pushProgress(); tick(); }, 0); });
     window.addEventListener('scroll', function () { if (scrollMode()) updateMap(); }, { passive: true });
   }
 
@@ -323,6 +325,129 @@
     if (opts[i]) { opts[i].click(); e.preventDefault(); }
   });
 
-  decorate(); updateMap();
+  /* ======================================================================
+     Exam day mode (?exam=1) and the ghost of your previous attempt
+     ====================================================================== */
+  var PARAMS = new URLSearchParams(location.search);
+  var EXAM = PARAMS.get('exam') === '1' && !ROOM_CODE;
+  var T0 = state.timeLeft;                          // full time; the engine started counting at page load
+  function elapsed() { return (live ? live.room.duration_sec : T0) - state.timeLeft; }
+  function tick() { try { ghostTick(); examTick(); } catch (e) {} }
+
+  /* ---------- ghost ---------- */
+  var GKEY = 'prepline-pace:' + page;
+  var pace = [], lastCount = -1, ghost = null, ghostEl = null;
+  try {
+    var hist = JSON.parse(localStorage.getItem(GKEY) || '[]');
+    ghost = hist.length ? hist[hist.length - 1] : null;  // the most recent finished attempt
+  } catch (e) {}
+  css.textContent += [
+    '.ghost{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:12.5px;color:#8492AC}',
+    '.ghost .gl{white-space:nowrap}',
+    '.ghost .gl b{color:#E6ECF7;font-family:"IBM Plex Mono",monospace}',
+    '.ghost .gt{flex:1;position:relative;height:6px;border-radius:99px;background:rgba(255,255,255,.07);min-width:60px}',
+    '.ghost .gt i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}',
+    '.ghost .gt .g{background:rgba(180,192,214,.35)}',
+    '.ghost .gt .y{background:#C9A227;height:3px;top:1.5px}',
+    '.ghost .gd{font:600 12px "IBM Plex Mono",monospace;white-space:nowrap}',
+    '.ghost .gd.ahead{color:#4ADE9A} .ghost .gd.behind{color:#F5C451}',
+    '@media (max-width:640px){.ghost{flex-wrap:wrap;gap:6px 10px}.ghost .gt{order:3;flex-basis:100%}}'
+  ].join('\n');
+  function ghostAt(sec) {                            // how many the ghost had answered by this second
+    var n = 0;
+    for (var i = 0; i < ghost.p.length && ghost.p[i][0] <= sec; i++) n = ghost.p[i][1];
+    return n;
+  }
+  function ghostTick() {
+    if (state.finished) return;
+    var n = Object.keys(state.answers).length;
+    if (n !== lastCount) { lastCount = n; pace.push([Math.max(0, elapsed()), n]); }
+    if (!ghost || EXAM) return;
+    if (!ghostEl) {
+      ghostEl = document.createElement('div');
+      ghostEl.className = 'ghost';
+      ghostEl.title = 'Your pace in your previous attempt of this test';
+      app.parentNode.insertBefore(ghostEl, app);
+    }
+    var g = ghostAt(elapsed()), total = questions.length, d = n - g;
+    var when = new Date(ghost.t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    ghostEl.innerHTML = '<span class="gl">👻 You on ' + when + ': <b>' + g + '</b> answered by now</span>' +
+      '<span class="gt"><i class="g" style="width:' + (100 * g / total) + '%"></i><i class="y" style="width:' + (100 * n / total) + '%"></i></span>' +
+      '<span class="gd ' + (d > 0 ? 'ahead">' + d + ' ahead' : d < 0 ? 'behind">' + (-d) + ' behind' : '">level') + '</span>';
+  }
+  function savePace() {
+    try {
+      var h = JSON.parse(localStorage.getItem(GKEY) || '[]');
+      h.push({ t: Date.now(), p: pace });
+      localStorage.setItem(GKEY, JSON.stringify(h.slice(-5)));
+    } catch (e) {}
+  }
+
+  /* ---------- exam day ---------- */
+  var examAlerts = { 600: 'Ten minutes remaining.', 300: 'Five minutes remaining.', 60: 'One minute remaining.' };
+  var examStarted = false, examBox = null;
+  function examTick() {
+    if (!EXAM || !examStarted || state.finished) return;
+    var msg = examAlerts[state.timeLeft];
+    if (msg) {
+      examBox.textContent = msg; examBox.classList.add('on');
+      clearTimeout(examBox._t); examBox._t = setTimeout(function () { examBox.classList.remove('on'); }, 6000);
+    }
+  }
+  function setupExam() {
+    document.body.classList.add('exam-day');
+    css.textContent += [
+      'body.exam-day{background:#000!important;background-image:none!important}',
+      'body.exam-day .qmap,body.exam-day .pl-mode,body.exam-day .pl-auth,body.exam-day .ghost,body.exam-day .pl-pill{display:none!important}',
+      'body.exam-day #timer{visibility:hidden}',
+      'body.exam-day [class*="pl-rep"],body.exam-day .pl-report{display:none!important}',
+      'body.exam-day .opt .k{display:none}',
+      '.exam-tag{display:inline-block;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.12em;color:#C9A227;border:1px solid rgba(201,162,39,.45);border-radius:4px;padding:2px 8px;margin-bottom:10px}',
+      '.exam-alert{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);z-index:7000;background:#C9A227;color:#0E1A2E;',
+      '  font:700 15px Inter,sans-serif;padding:12px 22px;border-radius:6px;transition:transform .3s;box-shadow:0 8px 30px rgba(0,0,0,.6)}',
+      '.exam-alert.on{transform:translate(-50%,0)}',
+      '.exam-intro{position:fixed;inset:0;z-index:8500;background:#000;display:flex;align-items:center;justify-content:center;padding:20px}',
+      '.exam-intro .box{max-width:460px;color:#E6ECF7;font:15px/1.6 Inter,sans-serif}',
+      '.exam-intro h3{font:700 24px Sora,Inter,sans-serif;margin:10px 0 14px}',
+      '.exam-intro ul{margin:0 0 22px 18px;color:#B4C0D6} .exam-intro li{margin:6px 0}',
+      '.exam-intro button{background:#C9A227;color:#0E1A2E;border:0;font:700 15px Inter,sans-serif;padding:13px 26px;border-radius:6px;cursor:pointer}',
+      '.exam-intro a{color:#8492AC;font-size:13px;margin-left:16px}'
+    ].join('\n');
+    examBox = document.createElement('div'); examBox.className = 'exam-alert'; document.body.appendChild(examBox);
+    var tag = document.createElement('div'); tag.className = 'exam-tag'; tag.textContent = 'EXAM DAY MODE';
+    var h = document.querySelector('.wrap h2'); if (h) h.parentNode.insertBefore(tag, h);
+    // nothing counts until the student presses Start
+    var stopId = setInterval(function () { if (!examStarted) state.timeLeft = T0; }, 200);
+    var intro = document.createElement('div'); intro.className = 'exam-intro';
+    intro.innerHTML = '<div class="box"><span class="exam-tag">EXAM DAY MODE</span><h3>Like the real NUET</h3><ul>' +
+      '<li>The clock is hidden. You get a signal at 10, 5 and 1 minute left.</li>' +
+      '<li>No question map, flags, hints or scroll view.</li>' +
+      '<li>You have <b>' + Math.round(T0 / 60) + ' minutes</b> for ' + questions.length + ' questions. When time is up, the test is submitted.</li>' +
+      '<li>Leaving the page asks for confirmation.</li></ul>' +
+      '<button type="button">Start the exam</button><a href="' + location.pathname + '">Practice mode instead</a></div>';
+    document.body.appendChild(intro);
+    intro.querySelector('button').onclick = function () {
+      clearInterval(stopId); state.timeLeft = T0; examStarted = true; intro.remove();
+      pace = []; lastCount = -1;
+    };
+    window.addEventListener('beforeunload', function (e) {
+      if (examStarted && !state.finished) { e.preventDefault(); e.returnValue = ''; }
+    });
+  }
+  if (EXAM) setupExam();
+
+  // remember the pace of every finished attempt for the ghost next time
+  (function () {
+    var f = window.finish;
+    if (typeof f !== 'function') return;
+    window.finish = function () {
+      var was = state.finished, r = f.apply(this, arguments);
+      if (!was && state.finished && pace.length > 1) savePace();
+      if (ghostEl) ghostEl.style.display = 'none';
+      return r;
+    };
+  })();
+
+  decorate(); updateMap(); tick();
   lastSig = sig();   // the engine already drew the first question before this script loaded
 })();
