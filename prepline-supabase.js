@@ -123,7 +123,9 @@
       transition: background .15s;
     }
     .pl-btn:hover { background: #E0BC45; }
-    .pl-btn.ghost { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); }
+    .pl-btn.ghost { background: transparent; border: 1px solid #C9A227; color: #E0BC45; }
+    .pl-btn.ghost:hover { background: rgba(201,162,39,0.16); color: #F1D27A; }
+    .pl-btn:disabled { opacity: .55; cursor: default; }
     .pl-forgot { background: none; border: 0; padding: 0; margin-top: 12px; cursor: pointer;
       font: 500 12.5px 'Inter', sans-serif; color: #8492AC; text-decoration: underline; }
     .pl-forgot:hover { color: #E6ECF7; }
@@ -247,7 +249,9 @@
     const creds = readCreds();
     if (!creds) return;
     setMsg('Creating your account...', true);
-    const { data, error } = await supa.auth.signUp(creds);
+    // the confirmation link must come back to /Prepline/, not to the root of github.io
+    const base = location.href.split(/[?#]/)[0].replace(/[^/]*$/, '');
+    const { data, error } = await supa.auth.signUp({ ...creds, options: { emailRedirectTo: base + 'dashboard.html' } });
     if (error) { setMsg(error.message); return; }
     if (data.session) { setMsg(''); modalBg.classList.remove('open'); toast('Account created — you are signed in'); }
     else setMsg('Account created. Confirm your email using the link we sent, then sign in.', true);
