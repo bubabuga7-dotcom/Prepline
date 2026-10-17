@@ -81,7 +81,7 @@
   <div class="head">
     <span class="kicker">Live room</span>
     <h1>Take a mock together</h1>
-    <p>One person creates a room and shares the code. Everyone starts at the same moment with one shared timer. Harder questions — the ones most of the room got wrong — are worth more in the final score.</p>
+    <p>One person creates a room and shares the code. Everyone starts at the same moment with one shared timer. With 5 or more students, harder questions — the ones most of the room got wrong — are worth more in the final score.</p>
   </div>
 
   <!-- signed out -->
@@ -164,11 +164,10 @@
           <tbody id="lb-body"></tbody></table>
       </div>
       <div class="panel">
-        <h2 style="font-size:16px">How hard each question was in this room</h2>
+        <h2 style="font-size:16px" id="q-title">How hard each question was in this room</h2>
         <div class="qgrid" id="q-grid"></div>
-        <p class="how">Each question is worth 1 + 2 × (share of the room who got it wrong): about 1 point if everyone solved it, up to 3 if nobody did.
-          The share is lightly smoothed (as if one extra person got it right and one got it wrong), so in a small room a single mistake does not decide everything.
-          Score = 120 × points earned ÷ points available. 105/120 in each section is the pace for 210+/240.</p>
+        <p class="how" id="q-note"></p>
+        <p class="how">105/120 in each section is the pace for 210+/240.</p>
         <div class="actions"><a class="btn ghost" href="live.html">New room</a></div>
       </div>
     </div>
@@ -360,9 +359,18 @@
         (r.finished ? '' : ' <span class="muted">(did not submit)</span>') + '</td>' +
         '<td class="raw">' + (r.finished ? r.raw + '/' + r.total : '—') + '</td><td class="sc">' + (r.finished ? r.score + '<small>/120</small>' : '—') + '</td></tr>';
     }).join('');
-    $('q-grid').innerHTML = (b.data || []).map(function (q) {
+    var qs = b.data || [], weighted = qs.length && qs[0].weighted;
+    var subs = a.data.filter(function (r) { return r.finished; }).length;
+    $('q-title').textContent = weighted ? 'How hard each question was in this room' : 'How the room did on each question';
+    $('q-note').innerHTML = weighted
+      ? '<b>' + subs + ' students submitted</b>, so harder questions are worth more: 1 + 2 × (share of the room who got it wrong) — about 1 point if everyone solved it, up to 3 if nobody did. ' +
+        'The share is lightly smoothed (as if one extra person got it right and one got it wrong). Score = 120 × points earned ÷ points available.'
+      : '<b>Only ' + subs + (subs === 1 ? ' student' : ' students') + ' submitted.</b> Difficulty weighting starts at 5 students — with fewer, a single person’s mistake would decide how much a question is worth. ' +
+        'So every question counts the same here: score = 120 × correct ÷ total.';
+    $('q-grid').innerHTML = qs.map(function (q) {
       var p = q.wrong / q.players, lvl = p >= 0.6 ? 'hard' : p <= 0.34 ? 'easy' : 'medium';
-      return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + q.q_id + '</b><span>' + q.weight.toFixed(1) + ' pt</span></div>';
+      return '<div class="qc ' + lvl + '" title="' + q.wrong + ' of ' + q.players + ' got it wrong"><b>Q' + q.q_id + '</b><span>' +
+        (weighted ? q.weight.toFixed(1) + ' pt' : Math.round(100 * (1 - p)) + '% ✓') + '</span></div>';
     }).join('');
   }
 

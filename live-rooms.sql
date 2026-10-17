@@ -1,7 +1,7 @@
 -- Prepline live rooms (Quizizz-style): run once in Supabase → SQL Editor.
 -- Students join one mock with a code and start together. Each student's answers are private
 -- until the room ends; then the server computes scores where a question's weight depends on
--- how many people in THIS room got it wrong.
+-- how many people in THIS room got it wrong (only when 5+ students submitted).
 
 -- ---------- rooms ----------
 create table if not exists public.rooms (
@@ -67,13 +67,21 @@ create policy answers_own_upd on public.room_answers for update to authenticated
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 -- ---------- results: only after the room has ended ----------
+-- Weighting needs at least 5 students who submitted; with fewer, every question counts the same.
 -- weight = 1 + 2·p,  p = (wrong + 1) / (players + 2)   (light smoothing for small rooms)
 -- score  = 120 · Σ weight of correct answers / Σ weight of all scored questions
+drop function if exists public.room_results(uuid);
+drop function if exists public.room_question_stats(uuid);
+
 create or replace function public.room_question_stats(p_room uuid)
-returns table (q_id int, players int, wrong int, weight float8)
+returns table (q_id int, players int, wrong int, weight float8, weighted boolean)
 language sql stable security definer set search_path = public as $$
+  with sub as (select count(distinct a.user_id) as n from room_answers a where a.room_id = p_room)
   select a.q_id, count(*)::int, count(*) filter (where not a.correct)::int,
-         1 + 2 * ((count(*) filter (where not a.correct))::float8 + 1) / (count(*)::float8 + 2)
+         case when (select n from sub) >= 5
+              then 1 + 2 * ((count(*) filter (where not a.correct))::float8 + 1) / (count(*)::float8 + 2)
+              else 1 end,
+         (select n from sub) >= 5
   from room_answers a
   where a.room_id = p_room
     and exists (select 1 from rooms r where r.id = p_room and (r.status = 'finished' or r.ends_at < now()))
