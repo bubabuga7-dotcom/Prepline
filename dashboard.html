@@ -151,6 +151,27 @@
   .dock-spacer{flex:1} .dock-label{display:none}
   @media(max-width:760px){.dock-spacer{display:none}.dock-item{flex:1;flex-direction:column;gap:2px}.dock-label{display:block;font-size:10px;font-weight:600;line-height:1}}
   .dock-item.on{background:rgba(201,162,39,.14);color:var(--gold);border-color:rgba(201,162,39,.35)}
+
+  /* ---------- NU-scale estimate ---------- */
+  .nu{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+  .nu-total{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:600;color:var(--gold);line-height:1}
+  .nu-total small{font-size:18px;color:var(--ink-3)}
+  .nu-total .kicker{display:block;margin-bottom:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-family:Inter,sans-serif;font-weight:600}
+  .nu-secs{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .nu-sec{display:grid;grid-template-columns:130px 1fr 92px;gap:12px;align-items:center;font-size:13.5px}
+  .nu-sec b{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;color:var(--ink)}
+  .nu-sec b small{color:var(--ink-3);font-weight:500}
+  .nu-bar{height:9px;border-radius:99px;background:rgba(255,255,255,.08);position:relative}
+  .nu-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+  .nu-bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink-2);text-decoration:none}
+  .nu-text{font-size:14px;color:var(--ink-2);margin-top:12px;grid-column:1/-1}
+  .nu-text b{color:var(--ink)}
+  .nu-note{font-size:12px;color:var(--ink-3);grid-column:1/-1;margin-top:-4px}
+  .nu-target{text-align:right;font-size:12px;color:var(--ink-3)}
+  .nu-target input{width:62px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:5px;color:var(--ink);
+                   font:600 15px 'IBM Plex Mono',monospace;padding:5px 6px;text-align:center;display:block;margin:4px 0 0 auto}
+  .up{color:var(--ok)} .down{color:var(--bad)}
+  @media (max-width:780px){.nu{grid-template-columns:1fr;gap:16px}.nu-target{text-align:left}.nu-target input{margin:4px 0 0}.nu-sec{grid-template-columns:96px 1fr 84px}}
 </style>
 </head>
 <body>
@@ -177,6 +198,12 @@
     <div class="stat"><b id="sQs">—</b><span>questions answered</span></div>
     <div class="stat"><b id="sAvg">—</b><span>average score</span></div>
     <div class="stat"><b id="sTopics">—</b><span>topics practised</span></div>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div class="panel" id="nuPanel">
+    <div class="nu" id="nu"><div class="empty">Loading&hellip;</div></div>
   </div>
 
   <div style="height:18px"></div>
@@ -403,6 +430,67 @@ function drawToday(rows, attempts){
   $('todayBtn').href           = 'weak-spots.html';
 }
 
+
+/* ================= оценка по шкале NU ================= */
+// Linear estimate: share correct on recent full mocks × 120 per section.
+const NU_FULL = 20;          // tests with fewer questions (duels, single questions) are not mocks
+const NU_LAST = 3;           // recent mocks per section that make the estimate
+let nuAttempts = [], nuTopics = [];
+function nuTarget(){ const v = parseInt(localStorage.getItem('prepline:target')||'',10); return v>=60 && v<=240 ? v : 210; }
+
+function nuSection(kind){
+  const all = nuAttempts.filter(a => a.kind === kind && a.total >= NU_FULL).sort((a,b) => b.at - a.at);
+  if(!all.length) return null;
+  const avg = list => list.reduce((s,a) => s + a.score/a.total, 0) / list.length;
+  const cur = all.slice(0, NU_LAST), prev = all.slice(NU_LAST, NU_LAST*2);
+  return { n: cur.length, total: all.length, score: Math.round(avg(cur)*120),
+           prev: prev.length >= 2 ? Math.round(avg(prev)*120) : null };
+}
+
+function drawNU(){
+  const box = $('nu');
+  const m = nuSection('math'), c = nuSection('ct');
+  const full = nuAttempts.filter(a => a.total >= NU_FULL && (a.kind === 'math' || a.kind === 'ct')).length;
+  const target = nuTarget();
+  if(full < 3){
+    box.innerHTML = '<div><div class="kicker">NU scale estimate</div><h2 style="font-size:18px;margin:6px 0 4px">Take '+(3-full)+' more full mock'+(3-full===1?'':'s')+' to see your estimate</h2>'+
+      '<p class="sub" style="margin:0">After 3 mocks this panel estimates your NUET score out of 240 and how far you are from '+target+'.</p></div>';
+    return;
+  }
+  const secRow = (name, x) => {
+    if(!x) return '<div class="nu-sec"><span>'+name+'</span><div class="nu-bar"><u style="left:'+(target/240*100)+'%"></u></div><b><small>no data</small></b></div>';
+    const p = x.score/120*100;
+    const d = x.prev == null ? '' : (x.score - x.prev >= 0 ? ' <small class="up">+' : ' <small class="down">') + (x.score - x.prev) + '</small>';
+    return '<div class="nu-sec"><span>'+name+' <small style="color:var(--ink-3)">· last '+x.n+'</small></span>'+
+      '<div class="nu-bar"><i style="width:'+p+'%;background:'+colour(p)+'"></i><u style="left:'+(target/240*100)+'%" title="'+(target/2)+' per section"></u></div>'+
+      '<b>'+x.score+'<small>/120</small>'+d+'</b></div>';
+  };
+  let total = null, text = '';
+  if(m && c){
+    total = m.score + c.score;
+    if(total >= target){
+      text = 'At this pace you are <b>at or above '+target+'</b>. Keep the level steady on the next mocks — one bad test drops the estimate quickly.';
+    } else {
+      const gap = target - total, qs = Math.ceil(gap/4);         // one question = 120/30 = 4 points
+      const weak = m.score <= c.score ? 'Mathematics' : 'Critical Thinking';
+      const isMath = t => /^M\d/.test(t);
+      const tops = nuTopics.filter(r => r.total >= MIN_TRIES && isMath(r.topic) === (weak === 'Mathematics')).slice(0,2)
+                           .map(r => NAMES[r.topic] || r.topic);
+      text = '<b>'+gap+' points</b> short of '+target+' — about <b>'+qs+' more correct answer'+(qs===1?'':'s')+'</b> across both sections. '+
+             'Biggest room for growth: <b>'+weak+'</b>'+(tops.length ? ', mostly '+tops.join(' and ') : '')+'.';
+    }
+  } else {
+    text = 'Take a '+(m ? 'Critical Thinking' : 'Mathematics')+' mock to complete the estimate — the total needs both sections.';
+  }
+  box.innerHTML =
+    '<div class="nu-total"><span class="kicker">NU scale estimate</span>'+(total == null ? '<span style="font-size:28px;color:var(--ink-3)">—&nbsp;</span>' : total)+'<small>/240</small></div>'+
+    '<div class="nu-secs">'+secRow('Mathematics', m)+secRow('Critical Thinking', c)+'</div>'+
+    '<label class="nu-target">Your target<input id="nuT" type="number" min="60" max="240" step="5" value="'+target+'"></label>'+
+    '<p class="nu-text">'+text+'</p>'+
+    '<p class="nu-note">Estimate = share of correct answers on your last '+NU_LAST+' mocks per section × 120. NU converts raw scores with its own scale, which is not published, so treat ±10 points as normal. Coloured change = compared with the '+NU_LAST+' mocks before.</p>';
+  $('nuT').onchange = e => { const v = parseInt(e.target.value,10); if(v>=60 && v<=240){ localStorage.setItem('prepline:target', v); drawNU(); } };
+}
+
 /* ================= сборка ================= */
 async function boot(){
   drawCountdown();
@@ -416,6 +504,8 @@ async function boot(){
   drawRecent(local);
   drawTodo(doneIds);
   drawToday([], local.length);
+  nuAttempts = local.map(a => ({...a, kind:(TESTS.find(t => t.id === a.id)||{}).kind}));
+  drawNU();
 
   const supa = window.preplineSupa;
   if(!supa) return;
@@ -426,6 +516,13 @@ async function boot(){
 
   $('who').textContent = ', ' + (user.email || '').split('@')[0];
   $('cloud').innerHTML = '<div class="signin">Signed in as <b>'+(user.email||'')+'</b>. Results are saved to the cloud.</div>';
+  supa.rpc('league_table', {p_prev:false}).then(r => {
+    if(r.error || !r.data) return;
+    const me = r.data.find(x => x.me);
+    $('cloud').insertAdjacentHTML('beforeend', '<a class="signin" href="league.html" style="display:block;margin-top:10px">'+
+      (me ? 'League this month: <b style="color:var(--gold)">'+me.tier+'</b> · #'+me.rank+' · '+me.points+' points &rarr;'
+          : 'League: not ranked yet this month — play a live room or a duel &rarr;')+'</a>');
+  });
 
   // облачные результаты
   const {data:res} = await supa.from('results').select('mock_id,score,total,created_at').limit(2000);
@@ -442,6 +539,8 @@ async function boot(){
     drawTodo(cloudDone);
     drawStats(list.length, qs, avg, 0);
     var attemptCount = list.length;
+    nuAttempts = list.filter(a => TESTS.some(t => t.id === a.id)).map(a => ({...a, kind:TESTS.find(t => t.id === a.id).kind}));
+    drawNU();
   }
 
   // темы
@@ -458,6 +557,7 @@ async function boot(){
       return (a.correct/a.total)-(b.correct/b.total);
     });
     drawWeak(rows);
+    nuTopics = rows; drawNU();
     drawToday(rows, (typeof attemptCount!=='undefined'?attemptCount:local.length));
     $('sTopics').textContent = rows.length;
   }

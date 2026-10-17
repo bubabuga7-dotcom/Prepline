@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>League — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:980px}
+  .head{margin-bottom:22px}
+  .head h1{font-size:34px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:640px}
+  .view{display:none} .view.on{display:block}
+  .muted{color:var(--ink-3);font-size:13px}
+
+  .season{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-bottom:16px}
+  .season h2{font-size:20px}
+  .season .left{font:600 30px 'IBM Plex Mono',monospace;color:var(--gold);text-align:right;line-height:1.1}
+  .season .left small{display:block;font:500 11px Inter,sans-serif;color:var(--ink-3)}
+
+  .me{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-bottom:16px;
+      border-color:rgba(201,162,39,.4);background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(255,255,255,.03))}
+  .badge{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;text-align:center;
+         font:700 13px Sora,sans-serif;line-height:1.15;border:2px solid;padding:6px}
+  .t-Bronze{color:#D39A6A;border-color:#B87333;background:rgba(184,115,51,.12)}
+  .t-Silver{color:#D5DCE8;border-color:#A9B4C6;background:rgba(169,180,198,.12)}
+  .t-Gold{color:var(--gold-2);border-color:var(--gold);background:rgba(201,162,39,.14)}
+  .t-Club{color:#0E1A2E;border-color:var(--gold-2);background:linear-gradient(135deg,var(--gold-2),var(--gold))}
+  .me h2{font-size:20px;margin-bottom:2px}
+  .me .nums{display:flex;gap:22px;flex-wrap:wrap;margin:8px 0}
+  .me .nums div{font-size:12px;color:var(--ink-3)}
+  .me .nums b{display:block;font:600 20px 'IBM Plex Mono',monospace;color:var(--ink)}
+  .next{font-size:14px;color:var(--ink-2)}
+  .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px;max-width:420px}
+  .bar i{display:block;height:100%;background:var(--gold);border-radius:99px}
+
+  .tabs{display:flex;gap:6px;margin:4px 0 12px}
+  .tabs button{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;
+      padding:8px 14px;border-radius:6px;cursor:pointer}
+  .tabs button.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:var(--gold)}
+
+  .lb{width:100%;border-collapse:collapse}
+  .lb th{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+         text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  .lb th.r,.lb td.r{text-align:right}
+  .lb td{padding:11px 10px;border-bottom:1px solid var(--line-2);font-size:15px}
+  .lb tr.mine td{background:rgba(201,162,39,.08)}
+  .lb tr.gap td{padding:4px 10px;color:var(--ink-3);border-bottom:0}
+  .lb .rk{font:600 15px 'IBM Plex Mono',monospace;color:var(--ink-3);width:44px}
+  .lb tr.top1 .rk{color:var(--gold)}
+  .lb .pt{font:600 18px 'IBM Plex Mono',monospace}
+  .lb .sm{font:500 13px 'IBM Plex Mono',monospace;color:var(--ink-3)}
+  .tier{font:600 11px 'IBM Plex Mono',monospace;padding:2px 9px;border-radius:99px;border:1px solid;white-space:nowrap}
+  .empty{color:var(--ink-3);font-size:14px;padding:18px 0}
+
+  .rules{margin-top:16px}
+  .rules h2{font-size:17px;margin-bottom:8px}
+  .rules ol{padding-left:20px;color:var(--ink-2);font-size:14px}
+  .rules li{margin:4px 0}
+  .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+  .tiers div{border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:12.5px;color:var(--ink-3)}
+  .tiers b{display:block;font:700 14px Sora,sans-serif;margin-bottom:2px}
+  @media (max-width:780px){
+    .head h1{font-size:27px}
+    .me{grid-template-columns:1fr}
+    .tiers{grid-template-columns:1fr 1fr}
+    .lb .hide-m{display:none}
+  }
+</style>
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Monthly league</span>
+    <h1>Season standings</h1>
+    <p>Every correct answer in a live room or a duel earns a point. Points reset on the 1st of each month — a new season, a fresh start.</p>
+  </div>
+
+  <section class="view" id="v-signin">
+    <div class="panel"><h2>Sign in to see the league</h2>
+      <p class="muted" style="margin:4px 0 14px">The league uses the names students choose in live rooms, so it is only visible to signed-in students.</p>
+      <button class="btn" id="signin-btn">Sign in or create an account</button></div>
+  </section>
+
+  <section class="view" id="v-league">
+    <div class="season">
+      <div><h2 id="s-title">—</h2><p class="muted" id="s-sub">—</p></div>
+      <div class="left" id="s-left"></div>
+    </div>
+
+    <div class="panel me" id="me"></div>
+
+    <div class="panel">
+      <div class="tabs" id="tabs"><button data-p="0" class="on">This season</button><button data-p="1">Last season</button></div>
+      <div id="table"><div class="empty">Loading…</div></div>
+    </div>
+
+    <div class="panel rules">
+      <h2>How points work</h2>
+      <ol>
+        <li><b>1 point</b> for every correct answer in a live room or a duel.</li>
+        <li><b>+5 points</b> for winning a duel (more correct answers than your opponent).</li>
+        <li>Normal practice tests do not count — only games played together, where everyone starts at once.</li>
+        <li>Ties are broken by accuracy: share of answered questions you got right.</li>
+      </ol>
+      <div class="tiers">
+        <div><b style="color:#D39A6A">Bronze</b>any points</div>
+        <div><b style="color:#D5DCE8">Silver</b>50+ points</div>
+        <div><b style="color:var(--gold-2)">Gold</b>150+ points</div>
+        <div><b style="color:var(--gold)">210+ Club</b>150+ points and 88%+ accuracy — the pace of 210/240</div>
+      </div>
+      <div style="margin-top:16px"><a class="btn" href="live.html">Play in a live room →</a></div>
+    </div>
+  </section>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var supa = window.preplineSupa;
+  var TIERS = [['Bronze', 1], ['Silver', 50], ['Gold', 150]];
+  var cache = {};
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function show(id) { ['v-signin', 'v-league'].forEach(function (v) { $(v).classList.toggle('on', v === id); }); }
+  function cls(t) { return 't-' + (t === '210+ Club' ? 'Club' : t); }
+  function tierTag(t) { return '<span class="tier ' + cls(t) + '">' + esc(t) + '</span>'; }
+  function monthName(d) { return new Date(d.getTime() + 5 * 3600e3).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }); }
+
+  async function load(prev) {
+    if (cache[prev]) return cache[prev];
+    var r = await supa.rpc('league_table', { p_prev: !!prev });
+    if (r.error) throw r.error;
+    var rows = r.data || [];
+    var bounds = rows.find(function (x) { return x.rank == null; }) || {};
+    cache[prev] = { rows: rows.filter(function (x) { return x.rank != null; }),
+                    start: new Date(bounds.season_start), end: new Date(bounds.season_end) };
+    return cache[prev];
+  }
+
+  function drawSeason(s) {
+    $('s-title').textContent = 'Season: ' + monthName(s.start);
+    var ms = s.end - Date.now(), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5);
+    $('s-sub').textContent = 'Ends ' + new Date(s.end.getTime() + 5 * 3600e3).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' }) + ' at 00:00 (Astana time)';
+    $('s-left').innerHTML = (d > 0 ? d + 'd ' : '') + h + 'h<small>until reset</small>';
+  }
+
+  function drawMe(s) {
+    var me = s.rows.find(function (x) { return x.me; });
+    if (!me) {
+      $('me').innerHTML = '<div class="badge t-Bronze">—</div><div><h2>Not ranked yet this season</h2>' +
+        '<p class="next">Play one live room or duel — every correct answer is a point.</p>' +
+        '<div style="margin-top:12px"><a class="btn" href="live.html">Join or create a room →</a></div></div>';
+      return;
+    }
+    var next = '', pct = 100;
+    if (me.points < 50) { next = (50 - me.points) + ' points to Silver'; pct = me.points / 50 * 100; }
+    else if (me.points < 150) { next = (150 - me.points) + ' points to Gold'; pct = (me.points - 50) / 100 * 100; }
+    else if (me.tier === 'Gold') { next = 'Raise your accuracy to 88% to enter the 210+ Club (now ' + me.accuracy + '%)'; pct = Math.min(100, me.accuracy / 88 * 100); }
+    else next = 'Top tier. Keep your accuracy at 88%+ to stay in the club.';
+    $('me').innerHTML = '<div class="badge ' + cls(me.tier) + '">' + esc(me.tier) + '</div><div>' +
+      '<h2>#' + me.rank + ' · ' + esc(me.name) + '</h2>' +
+      '<div class="nums"><div><b>' + me.points + '</b>points</div><div><b>' + me.accuracy + '%</b>accuracy</div>' +
+      '<div><b>' + me.games + '</b>games</div><div><b>' + me.duel_wins + '</b>duels won</div></div>' +
+      '<p class="next">' + next + '</p><div class="bar"><i style="width:' + Math.round(pct) + '%"></i></div></div>';
+  }
+
+  function drawTable(s, prev) {
+    if (!s.rows.length) {
+      $('table').innerHTML = '<div class="empty">' + (prev ? 'Nobody played last season.' : 'No games yet this season. The first live room puts you at the top.') + '</div>';
+      return;
+    }
+    var h = '<table class="lb"><thead><tr><th>#</th><th>Name</th><th>Tier</th><th class="r hide-m">Games</th><th class="r hide-m">Accuracy</th><th class="r">Points</th></tr></thead><tbody>';
+    var last = 0;
+    s.rows.forEach(function (x) {
+      if (x.rank > last + 1 && last >= 50) h += '<tr class="gap"><td colspan="6">⋯</td></tr>';
+      last = x.rank;
+      h += '<tr class="' + (x.me ? 'mine ' : '') + (x.rank === 1 ? 'top1' : '') + '"><td class="rk">' + x.rank + '</td>' +
+           '<td>' + esc(x.name) + (x.me ? ' <span class="muted">(you)</span>' : '') + '</td><td>' + tierTag(x.tier) + '</td>' +
+           '<td class="r sm hide-m">' + x.games + '</td><td class="r sm hide-m">' + x.accuracy + '%</td><td class="r pt">' + x.points + '</td></tr>';
+    });
+    $('table').innerHTML = h + '</tbody></table>';
+  }
+
+  async function open(prev) {
+    [].forEach.call($('tabs').children, function (b) { b.classList.toggle('on', b.dataset.p === String(prev)); });
+    $('table').innerHTML = '<div class="empty">Loading…</div>';
+    try { drawTable(await load(prev), prev); }
+    catch (e) { $('table').innerHTML = '<div class="empty">Could not load the league: ' + esc(e.message || e) + '</div>'; }
+  }
+
+  async function boot() {
+    if (!supa) { show('v-signin'); $('signin-btn').textContent = 'Could not connect. Refresh the page.'; return; }
+    var u = null;
+    try { u = (await supa.auth.getUser()).data.user; } catch (e) {}
+    if (!u) { show('v-signin'); return; }
+    show('v-league');
+    cache = {};
+    try {
+      var s = await load(0);
+      drawSeason(s); drawMe(s); drawTable(s, 0);
+    } catch (e) {
+      $('me').style.display = 'none';
+      var missing = /league_table|schema cache|does not exist|404/i.test(String(e.message || e));
+      $('table').innerHTML = '<div class="empty">' + (missing ? 'The league opens soon — check back in a day.'
+        : 'Could not load the league: ' + esc(e.message || e)) + '</div>';
+    }
+  }
+
+  $('signin-btn').onclick = function () { var p = $('plPill'); if (p) p.click(); };
+  $('tabs').onclick = function (e) { var b = e.target.closest('button'); if (b) open(+b.dataset.p); };
+  supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') boot(); });
+  boot();
+})();
+</script>
+</body>
+</html>
