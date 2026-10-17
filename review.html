@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mistakes deck — Prepline</title>
+<meta name="description" content="Questions you got wrong come back after 1, 3 and 7 days until you solve them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:820px}
+  .head h1{font-size:32px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:620px}
+  .view{display:none} .view.on{display:block}
+  .muted{color:var(--ink-3);font-size:13.5px}
+  .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);
+       border-radius:var(--r);overflow:hidden;margin:20px 0 16px}
+  .sum div{background:var(--bg-3);padding:14px 18px;font-size:12px;color:var(--ink-3)}
+  .sum b{display:block;font:600 24px 'IBM Plex Mono',monospace;color:var(--ink)}
+  .sum b.gold{color:var(--gold)}
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-size:13px;color:var(--ink-3)}
+  .card-top b{color:var(--ink);font-weight:600}
+  .boxes{display:inline-flex;gap:4px;vertical-align:middle;margin-left:6px}
+  .boxes i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--gold)}
+  .boxes i.on{background:var(--gold)}
+  .q-img{max-width:100%;background:#fff;border-radius:6px;padding:6px;display:block;margin:0 0 14px}
+  .q-text{font-size:16px;line-height:1.6;margin-bottom:16px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--ink);
+       border-radius:7px;padding:11px 14px;font:15px Inter,sans-serif;cursor:pointer;line-height:1.45}
+  .opt:hover:not(:disabled){border-color:var(--blue)}
+  .opt b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink-3);min-width:16px;padding-top:2px}
+  .opt:disabled{cursor:default}
+  .opt.c{border-color:var(--ok);background:rgba(74,222,154,.08)}
+  .opt.u{border-color:var(--bad);background:rgba(248,113,113,.08)}
+  .opts.row{flex-direction:row;flex-wrap:wrap}
+  .opts.row .opt{flex:1;min-width:56px;justify-content:center}
+  .res{margin-top:16px;padding:12px 16px;border-radius:7px;font-size:14.5px;display:none}
+  .res.ok{display:block;background:rgba(74,222,154,.08);border:1px solid rgba(74,222,154,.35)}
+  .res.no{display:block;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35)}
+  .res.gold{display:block;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.45)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .how{margin-top:16px}
+  .how ol{padding-left:20px;color:var(--ink-2);font-size:14px}
+  .how li{margin:3px 0}
+  @media (max-width:780px){.head h1{font-size:26px}.sum b{font-size:20px}}
+</style>
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Mistakes deck</span>
+    <h1>Fix what you got wrong</h1>
+    <p>Every question you miss in a test, live room or duel lands here. It comes back after 1 day; solve it and it returns after 3, then 7 days, then it leaves the deck for good.</p>
+  </div>
+
+  <section class="view" id="v-signin">
+    <div class="panel"><h2 style="font-size:18px">Sign in to use the deck</h2>
+      <p class="muted" style="margin:4px 0 14px">The deck is built from answers saved to your account.</p>
+      <button class="btn" id="signin-btn">Sign in or create an account</button></div>
+  </section>
+
+  <section class="view" id="v-deck">
+    <div class="sum">
+      <div><b class="gold" id="s-due">—</b>due now</div>
+      <div><b id="s-total">—</b>in the deck</div>
+      <div><b id="s-next">—</b>next card</div>
+    </div>
+    <div class="panel" id="card"></div>
+    <div class="panel how">
+      <h2 style="font-size:16px;margin-bottom:6px">How the deck works</h2>
+      <ol>
+        <li>A wrong answer adds the question. Skipped questions are not added.</li>
+        <li>Correct here: it comes back after <b>3 days</b>, then <b>7 days</b>, then it is mastered and leaves the deck.</li>
+        <li>Wrong here: back to the start — it returns tomorrow.</li>
+      </ol>
+    </div>
+  </section>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script src="explain.js?v=2"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var supa = window.preplineSupa, L = 'ABCDEFGH';
+  var cards = [], pos = 0, early = false, pages = {}, done = 0;
+  function show(id) { ['v-signin', 'v-deck'].forEach(function (v) { $(v).classList.toggle('on', v === id); }); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function testName(id) {
+    var t = (window.PREPLINE_TESTS || []).find(function (x) { return x.id === id; });
+    if (!t) return id;
+    return t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Math Test ') + t.n;
+  }
+  function when(iso) {
+    if (!iso) return '—';
+    var d = (Date.parse(iso) - Date.now()) / 36e5;
+    if (d <= 0) return 'now';
+    if (d < 24) { var h = Math.ceil(d); return h + (h === 1 ? ' hour' : ' hours'); }
+    var n = Math.ceil(d / 24); return n + (n === 1 ? ' day' : ' days');
+  }
+  // questions of a mock, read from its page (same data the test uses)
+  async function questionsOf(mock) {
+    if (pages[mock]) return pages[mock];
+    var html = await (await fetch(mock + '.html')).text();
+    var m = html.match(/^const (?:questions|QUESTIONS)\s*=\s*(\[.*\]);\s*$/m);
+    var qs = m ? JSON.parse(m[1]) : [];
+    var by = {}; qs.forEach(function (q) { by[q.id] = q; });
+    return (pages[mock] = by);
+  }
+  function renderMath(el) {
+    var go = function () { window.renderMathInElement && renderMathInElement(el, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }], throwOnError: false }); };
+    if (window.renderMathInElement) return go();
+    if (!/\\\(|\\\[/.test(el.textContent)) return;
+    if (document.getElementById('katex-js')) return;
+    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css'; document.head.appendChild(l);
+    var a = document.createElement('script'); a.id = 'katex-js'; a.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+    a.onload = function () {
+      var b = document.createElement('script'); b.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+      b.onload = go; document.head.appendChild(b);
+    };
+    document.head.appendChild(a);
+  }
+
+  async function summary() {
+    var r = await supa.rpc('deck_summary');
+    if (r.error) throw r.error;
+    var s = (r.data || [])[0] || { due: 0, total: 0 };
+    $('s-due').textContent = s.due; $('s-total').textContent = s.total; $('s-next').textContent = s.due ? 'now' : when(s.next_due);
+    return s;
+  }
+
+  async function load(isEarly) {
+    early = !!isEarly; pos = 0; done = 0;
+    $('card').innerHTML = '<p class="muted">Loading…</p>';
+    var r = await supa.rpc('deck_cards', { p_early: early, p_limit: 20 });
+    if (r.error) throw r.error;
+    cards = r.data || [];
+    next();
+  }
+
+  async function next() {
+    while (pos < cards.length) {
+      var c = cards[pos], qs = {};
+      try { qs = await questionsOf(c.mock_id); } catch (e) {}
+      var q = qs[c.q_id];
+      if (q && (q.options || []).length && q.verified !== false) return drawCard(c, q);
+      pos++;                                        // question no longer on the site: skip it
+    }
+    finished();
+  }
+
+  function drawCard(c, q) {
+    var img = q.image || q.img;
+    var letters = q.options.every(function (o, k) { return o === L[k]; });
+    var h = '<div class="card-top"><span>Card <b>' + (pos + 1) + '</b> of ' + cards.length + (early ? ' · early review' : '') + '</span>' +
+      '<span>' + esc(testName(c.mock_id)) + ', Q' + c.q_id + ' <span class="boxes" title="Step ' + (c.box + 1) + ' of 3">' +
+      [0, 1, 2].map(function (k) { return '<i class="' + (k < c.box ? 'on' : '') + '"></i>'; }).join('') + '</span></span></div>' +
+      '<div data-ex-mock="' + esc(c.mock_id) + '" data-ex-q="' + c.q_id + '" id="qbox">' +
+      (img ? '<img class="q-img" src="' + esc(img) + '" alt="Question">' : '') +
+      (q.text ? '<div class="q-text">' + q.text + '</div>' : '') +
+      '<div class="opts' + (letters ? ' row' : '') + '" id="opts">' + q.options.map(function (o, k) {
+        return '<button type="button" class="opt" data-k="' + k + '"><b>' + L[k] + '</b><span>' + (letters ? '' : o) + '</span></button>';
+      }).join('') + '</div><div class="res" id="res"></div></div>' +
+      '<div class="actions"><button class="btn" id="next" style="display:none">Next card →</button></div>';
+    $('card').innerHTML = h;
+    renderMath($('card'));
+    $('opts').onclick = async function (e) {
+      var b = e.target.closest('.opt'); if (!b || b.disabled) return;
+      var k = +b.dataset.k, ok = k === q.correct;
+      [].forEach.call(this.children, function (x) { x.disabled = true; if (+x.dataset.k === q.correct) x.classList.add('c'); });
+      if (!ok) b.classList.add('u');
+      var res = $('res');
+      res.className = 'res'; res.textContent = 'Saving…'; res.style.display = 'block';
+      var r = await supa.rpc('review_answer', { p_mock: c.mock_id, p_q: c.q_id, p_correct: ok });
+      res.style.display = '';
+      if (r.error) { res.className = 'res no'; res.textContent = 'Could not save: ' + r.error.message; }
+      else {
+        var x = (r.data || [])[0];
+        if (ok && x && x.mastered) { res.className = 'res gold'; res.innerHTML = '<b>Mastered.</b> Solved three times in a row — it leaves the deck.'; }
+        else if (ok) { res.className = 'res ok'; res.innerHTML = '<b>Correct.</b> Next review in ' + when(x && x.due_at) + '.'; }
+        else { res.className = 'res no'; res.innerHTML = '<b>Not yet.</b> The answer is ' + L[q.correct] + '. It comes back tomorrow — read an explanation below.'; }
+      }
+      done++;
+      $('next').style.display = ''; $('next').focus();
+      summary().catch(function () {});
+    };
+    $('next').onclick = function () { pos++; next(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  }
+
+  async function finished() {
+    var s = await summary().catch(function () { return { due: 0, total: 0 }; });
+    var h;
+    if (!s.total) h = '<h2 style="font-size:19px">The deck is empty</h2><p class="muted" style="margin:6px 0 14px">Take a test: every question you get wrong will appear here tomorrow.</p>' +
+      '<div class="actions"><a class="btn" href="math.html">Mathematics tests</a><a class="btn ghost" href="crit.html">Critical Thinking tests</a></div>';
+    else h = '<h2 style="font-size:19px">' + (done ? 'Done for now — ' + done + ' card' + (done === 1 ? '' : 's') + ' reviewed' : 'Nothing due right now') + '</h2>' +
+      '<p class="muted" style="margin:6px 0 14px">' + s.total + ' card' + (s.total === 1 ? '' : 's') + ' in the deck. The next one is due in ' + when(s.next_due) + '.</p>' +
+      '<div class="actions">' + (s.due ? '<button class="btn" id="again">Review due cards</button>' : '') +
+      '<button class="btn ghost" id="early">Review early</button></div>';
+    $('card').innerHTML = h;
+    if ($('again')) $('again').onclick = function () { load(false); };
+    if ($('early')) $('early').onclick = function () { load(true); };
+  }
+
+  async function boot() {
+    if (!supa) { show('v-signin'); $('signin-btn').textContent = 'Could not connect. Refresh the page.'; return; }
+    var u = null;
+    try { u = (await supa.auth.getUser()).data.user; } catch (e) {}
+    if (!u) { show('v-signin'); return; }
+    show('v-deck');
+    try { await summary(); await load(false); }
+    catch (e) {
+      var missing = /deck_|review_|schema cache|does not exist|404/i.test(String(e.message || e));
+      $('card').innerHTML = '<p class="muted">' + (missing ? 'The mistakes deck opens soon — check back in a day.' : 'Could not load the deck: ' + esc(e.message || e)) + '</p>';
+    }
+  }
+
+  $('signin-btn').onclick = function () { var p = $('plPill'); if (p) p.click(); };
+  document.addEventListener('keydown', function (e) {
+    if (e.target.closest('input,textarea')) return;
+    var k = e.key.length === 1 ? L.indexOf(e.key.toUpperCase()) : -1; if (k < 0) k = '12345678'.indexOf(e.key);
+    var o = document.querySelectorAll('#opts .opt')[k];
+    if (o && !o.disabled) o.click();
+    else if (e.key === 'Enter' && e.target !== $('next') && $('next') && $('next').style.display === '') $('next').click();
+  });
+  supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') boot(); });
+  boot();
+})();
+</script>
+</body>
+</html>

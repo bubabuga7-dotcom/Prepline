@@ -162,6 +162,11 @@
   @media(max-width:760px){.dock-spacer{display:none}.dock-item{flex:1;flex-direction:column;gap:2px}.dock-label{display:block;font-size:10px;font-weight:600;line-height:1}}
   .dock-item.on{background:rgba(201,162,39,.14);color:var(--gold);border-color:rgba(201,162,39,.35)}
 
+  .deck{display:block;border-color:rgba(201,162,39,.4)}
+  .deck:hover{border-color:var(--gold)}
+  .deck-n{display:flex;align-items:baseline;gap:10px}
+  .deck-n b{font-family:'IBM Plex Mono',monospace;font-size:34px;font-weight:600;color:var(--gold);line-height:1}
+  .deck-n span{font-size:13px;color:var(--ink-3)}
   /* ---------- NU-scale estimate ---------- */
   .nu{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
   .nu-total{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:600;color:var(--gold);line-height:1}
@@ -262,6 +267,11 @@
     </div>
 
     <div class="col">
+
+      <a class="panel deck" id="deck" href="review.html" style="display:none">
+        <div class="panel-head"><h2>Mistakes deck</h2><span class="more">Review &rarr;</span></div>
+        <div class="deck-n"><b id="deckDue">0</b><span id="deckTxt">due now</span></div>
+      </a>
 
       <div class="panel">
         <div class="panel-head"><h2>Recent attempts</h2></div>
@@ -533,6 +543,13 @@ async function boot(){
 
   $('who').textContent = ', ' + (user.email || '').split('@')[0];
   $('cloud').innerHTML = '<div class="signin">Signed in as <b>'+(user.email||'')+'</b>. Results are saved to the cloud.</div>';
+  supa.rpc('deck_summary').then(r => {
+    const s = r && !r.error && r.data && r.data[0];
+    if(!s || !s.total) return;
+    $('deck').style.display = 'block';
+    $('deckDue').textContent = s.due;
+    $('deckTxt').textContent = s.due ? 'due now · ' + s.total + ' in the deck' : s.total + ' in the deck · nothing due yet';
+  });
   supa.rpc('league_table', {p_prev:false}).then(r => {
     if(r.error || !r.data) return;
     const me = r.data.find(x => x.me);
