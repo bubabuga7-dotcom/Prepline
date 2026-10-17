@@ -173,8 +173,20 @@
   }
 
   /* re-apply after every engine render (the timer re-renders each second) */
-  var orig = render;
+  var orig = render, lastSig = null;   // set after the first decorate() below
+  function sig() { return state.finished + '|' + state.idx + '|' + JSON.stringify(state.answers); }
+  function mmss(s) { s = Math.max(0, s | 0); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
   render = function () {
+    // The engines call render() every second for the timer, which rebuilt the whole question:
+    // the picture reloaded and formulas flashed as raw text (visible flicker on phones).
+    // If nothing but the time changed, update only the timer.
+    var t = document.getElementById('timer');
+    if (sig() === lastSig && t && app.contains(t) && !state.finished) {
+      t.textContent = mmss(state.timeLeft);
+      t.classList.toggle('low', state.timeLeft < 60);
+      return;
+    }
+    lastSig = sig();
     var r = orig.apply(this, arguments);
     try {
       if (state.finished) { flags = {}; saveFlags(); }
@@ -312,4 +324,5 @@
   });
 
   decorate(); updateMap();
+  lastSig = sig();   // the engine already drew the first question before this script loaded
 })();
