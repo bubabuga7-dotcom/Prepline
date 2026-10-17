@@ -222,7 +222,6 @@
       <div class="panel">
         <div class="panel-head">
           <h2>Weakest topics</h2>
-          <a class="more" href="weak-spots.html">Full breakdown &rarr;</a>
         </div>
         <div id="weak"><div class="empty">No data yet — take any test and your weakest topics will appear here.</div></div>
       </div>
@@ -276,11 +275,11 @@
 
   <div class="panel">
     <h2>Sections</h2>
-    <div class="sub">Every question is tagged with a Cambridge specification code.</div>
+    <div class="sub">Every test is timed like the real exam.</div>
     <div class="tracks">
-      <a class="track" href="math.html"><b>Mathematics</b><span>66 tests &middot; 1,917 questions</span><i>M1 &ndash; M5</i></a>
-      <a class="track" href="crit.html"><b>Critical Thinking</b><span>67 tests &middot; 1,958 questions</span><i>ASM &middot; CON &middot; EF &middot; MC</i></a>
-      <a class="track" href="weak-spots.html"><b>Weak spots</b><span>Breakdown by topic</span><i>458 tagged</i></a>
+      <a class="track" href="math.html"><b>Mathematics</b><span id="trMath">—</span><i>M1 &ndash; M5</i></a>
+      <a class="track" href="crit.html"><b>Critical Thinking</b><span id="trCt">—</span><i>ASM &middot; CON &middot; EF &middot; MC</i></a>
+      <a class="track" href="league.html"><b>Monthly league</b><span>Points from live rooms and duels</span><i>Bronze &middot; Silver &middot; Gold &middot; 210+</i></a>
     </div>
   </div>
 </main>
@@ -426,8 +425,8 @@ function drawToday(rows, attempts){
   $('todayTitle').textContent = 'Your weakest topic is ' + (NAMES[w.topic] || w.topic);
   $('todayText').textContent  = 'You are getting ' + p + '% right on ' + w.topic + ' (' + w.correct + ' of ' + w.total +
                                '). That is the single change most likely to move your score.';
-  $('todayBtn').textContent    = 'Open the full breakdown';
-  $('todayBtn').href           = 'weak-spots.html';
+  $('todayBtn').textContent    = 'Practise ' + (/^M\d/.test(w.topic) ? 'Mathematics' : 'Critical Thinking') + ' tests';
+  $('todayBtn').href           = /^M\d/.test(w.topic) ? 'math.html' : 'crit.html';
 }
 
 
@@ -490,6 +489,14 @@ function drawNU(){
     '<p class="nu-note">Estimate = share of correct answers on your last '+NU_LAST+' mocks per section × 120. NU converts raw scores with its own scale, which is not published, so treat ±10 points as normal. Coloured change = compared with the '+NU_LAST+' mocks before.</p>';
   $('nuT').onchange = e => { const v = parseInt(e.target.value,10); if(v>=60 && v<=240){ localStorage.setItem('prepline:target', v); drawNU(); } };
 }
+
+/* ================= section counts from the test catalog ================= */
+(function(){
+  const all = window.PREPLINE_TESTS || [];
+  const line = k => { const t = all.filter(x => x.kind === k), q = t.reduce((s,x) => s + (x.q||0), 0);
+    return t.length + ' tests &middot; ' + q.toLocaleString('en-US') + ' questions'; };
+  $('trMath').innerHTML = line('math'); $('trCt').innerHTML = line('ct');
+})();
 
 /* ================= сборка ================= */
 async function boot(){
