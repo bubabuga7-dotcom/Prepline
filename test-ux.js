@@ -497,6 +497,8 @@
     window.finish = function () {
       var was = state.finished, r = f.apply(this, arguments);
       if (!was && state.finished && pace.length > 1 && !partial) savePace();
+      // challenge of the week: keep the answer (not as a test result) so the student can explain it
+      if (!was && state.finished && partial && !ROOM_CODE && window.preplineSaveAnswers) window.preplineSaveAnswers(page, questions, state.answers);
       if (ghostEl) ghostEl.style.display = 'none';
       return r;
     };
@@ -559,5 +561,5 @@
 /* explanations written by students on the results screen (explain.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="explain.js"]')) return;
-  var s = document.createElement('script'); s.src = 'explain.js?v=1'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'explain.js?v=2'; document.body.appendChild(s);
 })();

@@ -1,10 +1,13 @@
-/* Prepline: explanations written by students, shown on the results screen of every test.
-   Loaded by test-ux.js. Needs stage4.sql in Supabase. */
+/* Prepline: explanations written by students.
+   Test pages (loaded by test-ux.js): added to every .review-item of the results screen.
+   Any other page (live.html review): added to every element with data-ex-mock and data-ex-q.
+   Needs stage4.sql in Supabase. */
 (function () {
-  if (typeof questions === 'undefined' || typeof state === 'undefined') return;
-  var MOCK = (location.pathname.split('/').pop() || 'mock').replace('.html', '');
+  if (window.__preplineExplain) return; window.__preplineExplain = true;
+  var TEST = typeof questions !== 'undefined' && typeof state !== 'undefined';
+  var PAGE = (location.pathname.split('/').pop() || 'mock').replace('.html', '');
   var MIN = 30, MAX = 1500;
-  var counts = null, countsAt = 0, user = null, open = {};
+  var counts = {}, countsAt = {}, user = null, open = {};
 
   function supa() { return window.preplineSupa; }
   function toast(t) { if (window.preplineToast) window.preplineToast(t); }
@@ -48,30 +51,40 @@
     '.ex-rep button{background:transparent;border:1px solid #F87171;color:#F87171;border-radius:5px;font:600 12px Inter,sans-serif;padding:5px 10px;cursor:pointer}';
   document.head.appendChild(css);
 
-  async function loadCounts() {
-    if (counts && Date.now() - countsAt < 30000) return counts;
-    counts = {};
+  async function loadCounts(mock) {
+    if (counts[mock] && Date.now() - countsAt[mock] < 30000) return counts[mock];
+    var c = counts[mock] = {};
     try {
-      var r = await supa().rpc('explanation_counts', { p_mock: MOCK });
-      (r.data || []).forEach(function (x) { counts[x.q_id] = x.n; });
+      var r = await supa().rpc('explanation_counts', { p_mock: mock });
+      (r.data || []).forEach(function (x) { c[x.q_id] = x.n; });
     } catch (e) {}
-    countsAt = Date.now();
-    return counts;
+    countsAt[mock] = Date.now();
+    return c;
+  }
+
+  // [element, mock, question id] for every place that gets an explanation bar
+  function targets() {
+    var out = [];
+    if (TEST && state.finished)
+      [].forEach.call(document.querySelectorAll('.review-item'), function (el, i) { if (questions[i]) out.push([el, PAGE, questions[i].id]); });
+    [].forEach.call(document.querySelectorAll('[data-ex-mock][data-ex-q]'), function (el) {
+      out.push([el, el.getAttribute('data-ex-mock'), +el.getAttribute('data-ex-q')]);
+    });
+    return out;
   }
 
   function label(n) { return n ? '💬 ' + n + ' explanation' + (n === 1 ? '' : 's') : '💬 Explain this question'; }
 
   async function decorate() {
-    var items = document.querySelectorAll('.review-item');
-    if (!items.length || !state.finished || !supa()) return;
-    var todo = [].filter.call(items, function (el) { return !el.querySelector('.ex-bar'); });
+    if (!supa()) return;
+    var todo = targets().filter(function (t) { return !t[0].querySelector('.ex-bar'); });
     if (!todo.length) return;
     try { user = (await supa().auth.getUser()).data.user; } catch (e) { user = null; }
-    var c = await loadCounts();
-    items = document.querySelectorAll('.review-item');
-    [].forEach.call(items, function (el, i) {
-      var q = questions[i];
-      if (!q || el.querySelector('.ex-bar')) return;
+    var mocks = {}; todo.forEach(function (t) { mocks[t[1]] = 1; });
+    for (var m in mocks) await loadCounts(m);
+    todo.forEach(function (t) {
+      var el = t[0], q = { mock: t[1], id: t[2] }, c = counts[q.mock] || {};
+      if (el.querySelector('.ex-bar')) return;
       var bar = document.createElement('div');
       bar.className = 'ex-bar';
       bar.innerHTML = '<button type="button" class="ex-toggle' + (c[q.id] ? ' has' : '') + '">' + label(c[q.id] || 0) + '</button>';
@@ -79,7 +92,7 @@
       panel.className = 'ex-panel'; panel.style.display = 'none';
       el.appendChild(bar); el.appendChild(panel);
       bar.firstChild.onclick = function () { toggle(q, bar.firstChild, panel); };
-      if (open[q.id]) toggle(q, bar.firstChild, panel);
+      if (open[q.mock + ':' + q.id]) toggle(q, bar.firstChild, panel);
     });
   }
 
@@ -87,17 +100,17 @@
     var show = panel.style.display === 'none';
     panel.style.display = show ? 'block' : 'none';
     btn.classList.toggle('on', show);
-    open[q.id] = show;
+    open[q.mock + ':' + q.id] = show;
     if (show) draw(q, btn, panel);
   }
 
   async function draw(q, btn, panel) {
     panel.innerHTML = '<div class="ex-empty">Loading…</div>';
-    var r = await supa().rpc('explanations_for', { p_mock: MOCK, p_q: q.id });
+    var r = await supa().rpc('explanations_for', { p_mock: q.mock, p_q: q.id });
     if (r.error) { panel.innerHTML = '<div class="ex-err">Explanations are not available yet.</div>'; return; }
     var list = r.data || [];
     var visible = list.filter(function (x) { return x.status === 'visible'; }).length;
-    counts[q.id] = visible;
+    (counts[q.mock] = counts[q.mock] || {})[q.id] = visible;
     btn.textContent = label(visible); btn.classList.toggle('has', !!visible);
     var h = list.length ? '' : '<div class="ex-empty">No explanations yet. If you solved it, explain how — in your own words, the way you would tell a friend.</div>';
     list.forEach(function (x) {
@@ -141,11 +154,11 @@
         var name = panel.querySelector('.ex-name').value.trim(), body = ta.value.trim();
         if (!name) { err.textContent = 'Write your name — it is shown next to the explanation.'; return; }
         post.disabled = true; err.textContent = '';
-        var r = await supa().from('explanations').insert({ mock_id: MOCK, q_id: q.id, name: name, body: body });
+        var r = await supa().from('explanations').insert({ mock_id: q.mock, q_id: q.id, name: name, body: body });
         if (r.error) {
           post.disabled = false;
           err.textContent = /row-level security/i.test(r.error.message)
-            ? 'Could not post. You can explain only questions you answered in a full test or a live room (signed in), and up to 15 explanations a day.'
+            ? 'Could not post. You can explain only questions you answered while signed in, and up to 15 explanations a day.'
             : 'Could not post: ' + r.error.message;
           return;
         }
@@ -180,17 +193,13 @@
     };
   }
 
-  // the results screen is redrawn by the engine; decorate whenever review items appear
+  // review screens are redrawn (engine results, live review filters); decorate whenever new items appear
   var busy = false;
+  function pending() { return targets().some(function (t) { return !t[0].querySelector('.ex-bar'); }); }
   new MutationObserver(function () {
-    if (busy || !state.finished || !document.querySelector('.review-item:not(.ex-done)')) return;
+    if (busy || !pending()) return;
     busy = true;
-    setTimeout(function () {
-      decorate().catch(function () {}).then(function () {
-        [].forEach.call(document.querySelectorAll('.review-item'), function (el) { el.classList.add('ex-done'); });
-        busy = false;
-      });
-    }, 50);
+    setTimeout(function () { decorate().catch(function () {}).then(function () { busy = false; }); }, 50);
   }).observe(document.body, { childList: true, subtree: true });
-  if (state.finished) decorate();
+  if (pending()) decorate();
 })();

@@ -223,6 +223,7 @@
 <script src="tests.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="explain.js?v=2"></script>
 <script>
 (function () {
   var supa = window.preplineSupa;
@@ -537,7 +538,7 @@
       var st = roomStats[q.id], meta = st ? Math.round(100 * (st.players - st.wrong) / st.players) + '% of the room got it right' +
         (st.weighted ? ' · ' + st.weight.toFixed(1) + ' pt' : '') : '';
       var letters = q.options.every(function (o, k) { return o === L[k]; });
-      h += '<div class="rv-item"><div class="rv-head"><b>Q' + (i + 1) + '</b>' +
+      h += '<div class="rv-item" data-ex-mock="' + rvMine.mock + '" data-ex-q="' + q.id + '"><div class="rv-head"><b>Q' + (i + 1) + '</b>' +
         '<span class="rv-tag ' + (ok ? 'ok">✓ correct' : skipped ? 'skip">no answer' : 'no">✗ wrong') + '</span>' +
         '<span class="rv-meta">' + meta + '</span></div>' +
         (q.image ? '<img class="rv-img" loading="lazy" src="' + q.image + '" alt="Question ' + (i + 1) + '">' : '') +
