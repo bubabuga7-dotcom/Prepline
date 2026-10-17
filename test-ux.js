@@ -555,3 +555,9 @@
   decorate(); updateMap(); tick();
   lastSig = sig();   // the engine already drew the first question before this script loaded
 })();
+
+/* explanations written by students on the results screen (explain.js) */
+(function () {
+  if (typeof questions === 'undefined' || document.querySelector('script[src^="explain.js"]')) return;
+  var s = document.createElement('script'); s.src = 'explain.js?v=1'; document.body.appendChild(s);
+})();
