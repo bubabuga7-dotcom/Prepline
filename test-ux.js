@@ -177,7 +177,7 @@
   render = function () {
     var r = orig.apply(this, arguments);
     try {
-      if (state.finished) { flags = {}; saveFlags(); showScore(); }
+      if (state.finished) { flags = {}; saveFlags(); }
       decorate(); updateMap();
       if (live) pushProgress();
     } catch (e) {}
@@ -187,92 +187,6 @@
     new MutationObserver(function () { decorateScroll(); updateMap(); }).observe(host, { childList: true });
     host.addEventListener('click', function () { setTimeout(function () { updateMap(); if (live) pushProgress(); }, 0); });
     window.addEventListener('scroll', function () { if (scrollMode()) updateMap(); }, { passive: true });
-  }
-
-  /* ---------- NUET-style weighted score ----------
-     Weight of a question = 1 + 2·p, p = share of students who got it wrong
-     (smoothed towards 50% with PRIOR imaginary students, so early data cannot swing it).
-     Score = 120 · Σ weight(correct) / Σ weight(all scored questions). */
-  var PRIOR = 4, stats = {}, statsReady = false, totalStudents = 0;
-  (function loadStats() {
-    var supa = window.preplineSupa;
-    if (!supa) { statsReady = true; return; }
-    supa.from('question_stats').select('q_id,students,wrong').eq('mock_id', page).then(function (res) {
-      if (!res.error && res.data) res.data.forEach(function (r) {
-        stats[r.q_id] = r; totalStudents = Math.max(totalStudents, r.students);
-      });
-      statsReady = true;
-      if (state.finished) showScore();
-    }, function () { statsReady = true; });
-  })();
-
-  function qInfo(q) {
-    var s = stats[q.id] || { students: 0, wrong: 0 };
-    var p = (s.wrong + PRIOR / 2) / (s.students + PRIOR);
-    var w = 1 + 2 * p;
-    var right = s.students ? Math.round(100 * (1 - s.wrong / s.students)) : null;
-    var lvl = p >= 0.6 ? 'hard' : p <= 0.35 ? 'easy' : 'medium';
-    return { w: w, p: p, right: right, n: s.students, lvl: lvl };
-  }
-
-  css.textContent += [
-    '.nscore{background:linear-gradient(135deg,rgba(20,59,107,.6),rgba(17,26,46,.5));border:1px solid rgba(132,174,236,.3);',
-    '  border-radius:8px;padding:18px 20px;margin:0 0 16px;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center}',
-    '.nscore .k{grid-column:1/-1;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#C9A227}',
-    '.nscore .big{font:600 44px/1 "IBM Plex Mono",monospace;color:#E6ECF7}',
-    '.nscore .big small{font-size:18px;color:#8492AC;margin-left:4px}',
-    '.nscore .txt{font-size:13px;color:#B4C0D6;line-height:1.5}',
-    '.nscore .txt b{color:#E6ECF7}',
-    '.nscore .bar{grid-column:1/-1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);position:relative;margin-top:8px}',
-    '.nscore .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:#C9A227}',
-    '.nscore .bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:#4ADE9A}',
-    '.nscore .legend{grid-column:1/-1;display:flex;justify-content:space-between;font:500 11px "IBM Plex Mono",monospace;color:#8492AC}',
-    '.nscore .note{grid-column:1/-1;font-size:11.5px;color:#8492AC;margin-top:4px}',
-    '.qdiff{display:inline-block;margin-left:8px;font:600 10.5px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:99px;border:1px solid;vertical-align:1px;white-space:nowrap}',
-    '.qdiff.easy{color:#4ADE9A;border-color:rgba(74,222,154,.35)}',
-    '.qdiff.medium{color:#F5C451;border-color:rgba(245,196,81,.35)}',
-    '.qdiff.hard{color:#F87171;border-color:rgba(248,113,113,.35)}',
-    '@media (max-width:560px){.nscore{grid-template-columns:1fr}.nscore .big{font-size:38px}}'
-  ].join('\n');
-
-  function showScore() {
-    if (!state.finished || !statsReady || ROOM_CODE || app.querySelector('.nscore')) return;
-    var scored = questions.filter(function (q) { return q.verified !== false && (q.options || []).length; });
-    if (!scored.length) return;
-    var got = 0, all = 0, raw = 0;
-    scored.forEach(function (q) {
-      var w = qInfo(q).w; all += w;
-      if (state.answers[q.id] === q.correct) { got += w; raw++; }
-    });
-    var scaled = Math.round(120 * got / all);
-    // 105/120 per section ≈ the 210/240 competitive mark
-    var box = document.createElement('div');
-    box.className = 'nscore';
-    box.innerHTML =
-      '<span class="k">NUET-style score</span>' +
-      '<div class="big">' + scaled + '<small>/120</small></div>' +
-      '<div class="txt">Raw <b>' + raw + '/' + scored.length + '</b>. Harder questions are worth more: ' +
-        'a question most students miss counts up to 3× an easy one.<br>' +
-        (scaled >= 105 ? '<b style="color:#4ADE9A">On track for 210+/240.</b>'
-                       : 'Need <b>' + (105 - scaled) + '</b> more to reach 105/120 — the pace for 210+/240.') + '</div>' +
-      '<div class="bar"><i style="width:' + (100 * scaled / 120) + '%"></i><u style="left:' + (100 * 105 / 120) + '%"></u></div>' +
-      '<div class="legend"><span>0</span><span style="margin-left:auto;margin-right:' + (100 - 100 * 105 / 120) + '%">105</span><span>120</span></div>' +
-      '<div class="note">' + (totalStudents
-        ? 'Difficulty is based on answers from ' + totalStudents + (totalStudents === 1 ? ' student' : ' students') + ' so far and becomes more accurate as more people take this test.'
-        : 'No difficulty data for this test yet, so every question counts the same for now. It changes as students take the test.') + '</div>';
-    app.insertBefore(box, app.firstChild);
-
-    // difficulty tag on each reviewed question
-    var items = app.querySelectorAll('.review-item');
-    if (items.length >= questions.length) {
-      questions.forEach(function (q, i) {
-        if (q.verified === false || !(q.options || []).length) return;
-        var inf = qInfo(q), line = items[i].querySelector('span') || items[i];
-        var label = inf.lvl[0].toUpperCase() + inf.lvl.slice(1) + ' · ' + inf.w.toFixed(1) + ' pts' +
-                    (inf.right !== null && inf.n >= 3 ? ' · ' + inf.right + '% right' : '');
-        line.insertAdjacentHTML('beforeend', '<span class="qdiff ' + inf.lvl + '">' + label + '</span>');
-      });
-    }
   }
 
   /* ---------- live room mode: <test>.html?room=CODE ---------- */
