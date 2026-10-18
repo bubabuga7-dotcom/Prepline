@@ -497,6 +497,7 @@
     window.finish = function () {
       var was = state.finished, r = f.apply(this, arguments);
       if (!was && state.finished && pace.length > 1 && !partial) savePace();
+      if (!was && state.finished && !partial && window.preplineTrack) window.preplineTrack('test');
       // challenge of the week: keep the answer (not as a test result) so the student can explain it
       if (!was && state.finished && partial && !ROOM_CODE && window.preplineSaveAnswers) window.preplineSaveAnswers(page, questions, state.answers);
       if (ghostEl) ghostEl.style.display = 'none';

@@ -28,6 +28,21 @@
   );
   window.preplineSupa = supa;
 
+  /* ---------- anonymous counting (stage8.sql): a random id per browser, once a day per kind ---------- */
+  window.preplineTrack = function (kind) {
+    try {
+      var d = localStorage.getItem('prepline:device');
+      if (!d) {
+        d = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36);
+        localStorage.setItem('prepline:device', d);
+      }
+      var today = new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10), k = 'prepline:tracked:' + kind;
+      if (localStorage.getItem(k) === today) return;
+      supa.rpc('track', { p_device: d, p_kind: kind }).then(function (r) { if (!r.error) localStorage.setItem(k, today); });
+    } catch (e) {}
+  };
+  window.preplineTrack('visit');
+
   /* ---------- saving a result (called by the quiz) ---------- */
   window.preplineSaveResult = async function (mockId, score, total) {
     try {

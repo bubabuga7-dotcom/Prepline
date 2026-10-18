@@ -66,6 +66,9 @@
   <section class="view on" id="v-msg"><div class="panel" style="margin-top:20px"><p class="muted" id="msg">Loading…</p></div></section>
 
   <section class="view" id="v-stats">
+    <h2 style="font-size:15px;margin:0 0 10px">All visitors, signed in or not</h2>
+    <div class="tiles" id="traffic" style="margin-bottom:22px"></div>
+    <h2 style="font-size:15px;margin:0 0 10px">Accounts</h2>
     <div class="tiles" id="tiles"></div>
 
     <div class="panel">
@@ -167,6 +170,17 @@
       return msg('Error: ' + esc(m));
     }
     draw(r.data);
+    var t = await supa.rpc('admin_traffic');
+    if (t.error) {
+      $('traffic').innerHTML = '<div class="tile" style="grid-column:1/-1"><span>Run <b>stage8.sql</b> in Supabase → SQL Editor to count students who do not sign in.</span></div>';
+    } else {
+      var v = t.data, tl = function (a, label, sub) { return '<div class="tile"><b>' + a + '</b><span>' + label + '</span>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>'; };
+      $('traffic').innerHTML =
+        tl(num(v.visitors_today), 'visitors today', num(v.visitors_7d) + ' this week · ' + num(v.visitors_30d) + ' in 30 days') +
+        tl(num(v.testers_today), 'finished a test today', num(v.testers_7d) + ' this week · ' + num(v.testers_30d) + ' in 30 days') +
+        tl(num(v.returning_7d), 'came back on 2+ days', 'this week') +
+        tl(v.visitors_30d ? Math.round(100 * v.testers_30d / v.visitors_30d) + '%' : '—', 'of visitors finish a test', 'last 30 days');
+    }
   }
   $('reload').onclick = load;
   supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') load(); });
