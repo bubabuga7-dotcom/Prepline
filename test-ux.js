@@ -582,8 +582,8 @@
       var hub = page.indexOf('crit-') === 0 ? 'crit.html' : 'math.html';
       lockEl = document.createElement('div'); lockEl.className = 'pl-lock';
       var P = window.PREPLINE_PREMIUM, used = window.preplineFreeUsed ? window.preplineFreeUsed().length : P.weeklyTests;
-      lockEl.innerHTML = '<div class="box"><span class="tag">FREE PLAN</span><h3>You have used your ' + P.weeklyTests + ' free tests this week</h3><ul>' +
-        '<li>New free tests on <b>Monday</b>. The tests you started this week stay open.</li>' +
+      lockEl.innerHTML = '<div class="box"><span class="tag">FREE PLAN</span><h3>' + (P.weeklyTests === 1 ? 'You have used this week\'s free test' : 'You have used your ' + P.weeklyTests + ' free tests this week') + '</h3><ul>' +
+        '<li>' + (P.weeklyTests === 1 ? 'A new free test' : 'New free tests') + ' on <b>Monday</b>. The test you started this week stays open.</li>' +
         '<li>Premium: unlimited tests, all ' + ((window.PREPLINE_TESTS || []).length || 158) + ' of them, and unlimited topic practice</li>' +
         '<li>' + P.price + ', cancel any time</li></ul>' +
         '<div class="row"><a class="go" href="premium.html?from=' + encodeURIComponent(page) + '">Get Premium</a>' +

@@ -114,8 +114,8 @@
         var st = document.querySelector('.stats'); if (st) st.parentNode.insertBefore(fp, st.nextSibling);
       }
       var left = window.preplineFreeLeft(), W = window.PREPLINE_PREMIUM.weeklyTests;
-      fp.innerHTML = '<span><b>Free plan:</b> ' + (left ? left + ' of ' + W + ' tests left this week' : 'this week\'s ' + W + ' free tests are used, new ones on Monday') +
-        '. Tests you started stay open.</span><a href="premium.html?from=' + kind + '">Unlimited with Premium →</a>';
+      fp.innerHTML = '<span><b>Free plan:</b> ' + (W === 1 ? (left ? '1 free test this week' : 'this week\'s free test is used, a new one on Monday') : (left ? left + ' of ' + W + ' tests left this week' : 'this week\'s ' + W + ' free tests are used, new ones on Monday')) +
+        '. A test you started stays open.</span><a href="premium.html?from=' + kind + '">Unlimited with Premium →</a>';
     } else if (fp) fp.remove();
     var nx = document.getElementById('next');
     var wip = all.filter(function (t) { return drafts[t.id]; }).sort(function (a, b) { return drafts[b.id].at - drafts[a.id].at; })[0];

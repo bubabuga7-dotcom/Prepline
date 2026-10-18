@@ -6,7 +6,7 @@ window.PREPLINE_PREMIUM = {
   checkout: 'https://bubabuga7.lemonsqueezy.com/checkout/buy/5477f69c-1c92-4c17-87ca-04a239e804ee',
   live: false,
   price: '7 990 ₸ / month',
-  weeklyTests: 3,          // free plan: this many different tests per week (resets on Monday, Astana time)
+  weeklyTests: 1,          // free plan: this many different tests per week (resets on Monday, Astana time)
   dailyTopicQs: 15,        // free plan: topic-practice questions per day
   noLimit: ['diagnostic-math', 'diagnostic-crit']   // never counted
 };
@@ -40,6 +40,7 @@ window.preplineFreeMark = function (id) {
   ids.push(id);
   try { localStorage.setItem('prepline:free-week', JSON.stringify({ w: window.preplineWeekKey(), ids: ids })); } catch (e) {}
 };
+window.preplineTestsWord = function (n) { return n === 1 ? 'test' : 'tests'; };
 window.preplineFreeLeft = function () { return Math.max(0, window.PREPLINE_PREMIUM.weeklyTests - window.preplineFreeUsed().length); };
 // may this test be opened? (always yes while Premium is off, with Premium, for diagnostics and for tests already started this week)
 window.preplineIsFree = function (id) {
