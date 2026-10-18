@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/premium.html">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Premium — Prepline</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prepline">
+<meta property="og:title" content="Premium — Prepline">
+<meta property="og:description" content="Prepline Premium: all 158 timed NUET tests in Mathematics and Critical Thinking, and topic practice with every question.">
+<meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/premium.html">
+<meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Prepline Premium: all 158 timed NUET tests in Mathematics and Critical Thinking, and topic practice with every question.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:860px}
+  .head h1{font-size:34px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:620px}
+  .plan{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .card.pro{border-color:rgba(201,162,39,.55);background:linear-gradient(160deg,rgba(201,162,39,.08),transparent 60%)}
+  html[data-theme=light] .card.pro{border-color:#1D5FD1;background:linear-gradient(160deg,#EEF4FE,#fff 60%)}
+  .card h2{font-size:18px}
+  .price{font:600 30px 'IBM Plex Mono',monospace;color:var(--ink);margin:6px 0 2px}
+  .price small{font-size:14px;color:var(--ink-3);font-weight:500}
+  .card ul{list-style:none;margin:16px 0 0;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .card li{position:relative;padding-left:22px}.card li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+  .card li.no::before{content:"–";color:var(--ink-3)}
+  .cta{margin-top:20px}
+  .cta .btn[aria-disabled=true]{opacity:.55;pointer-events:none}
+  .state{margin-top:10px;font-size:13.5px;color:var(--ink-3);min-height:20px}
+  .state b{color:var(--ink)}
+  .faq{margin-top:10px}
+  .faq h3{font-size:15px;margin:18px 0 4px}
+  .faq p{color:var(--ink-2);font-size:14.5px;max-width:700px}
+  @media (max-width:700px){.plan{grid-template-columns:1fr}.head h1{font-size:28px}}
+</style>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="light.css">
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Prepline Premium</span>
+    <h1>Every test, every topic</h1>
+    <p>The free tests show you how the NUET feels. Premium gives you the whole bank, so you can practise until the exam without running out of new questions.</p>
+  </div>
+
+  <div class="plan">
+    <div class="card">
+      <h2>Free</h2>
+      <div class="price">0 ₸</div>
+      <ul>
+        <li>3 Mathematics and 3 Critical Thinking tests</li>
+        <li>Both 10-question diagnostics</li>
+        <li>Formula quiz, live rooms, duels and the league</li>
+        <li>Mistakes deck and progress dashboard</li>
+        <li class="no">Topic practice only with questions from the free tests</li>
+      </ul>
+    </div>
+    <div class="card pro">
+      <h2>Premium</h2>
+      <div class="price" id="price">—</div>
+      <ul>
+        <li>All <span id="n-tests">158</span> timed tests: <span id="n-q">4,715</span> questions</li>
+        <li>Topic practice with questions from every test</li>
+        <li>New tests as soon as they are added</li>
+        <li>Everything in Free</li>
+        <li>Cancel any time, no questions asked</li>
+      </ul>
+      <div class="cta"><a class="btn" id="buy" href="#">Get Premium →</a></div>
+      <div class="state" id="state"></div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h3>How do I pay?</h3>
+    <p>With any bank card on a secure page of Lemon Squeezy, a payment company owned by Stripe. The receipt comes to your e-mail. Prepline never sees your card details.</p>
+    <h3>When does Premium switch on?</h3>
+    <p>Usually within a minute after the payment. Come back to this page or any test and refresh it. Use the same e-mail as your Prepline account.</p>
+    <h3>How do I cancel?</h3>
+    <p>Open the link in your receipt e-mail and press Cancel. Premium stays on until the end of the month you paid for, and nothing more is charged.</p>
+  </div>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var P = window.PREPLINE_PREMIUM || { checkout: '', price: '' };
+  var all = window.PREPLINE_TESTS || [];
+  if (all.length) {
+    $('n-tests').textContent = all.length;
+    $('n-q').textContent = all.reduce(function (s, t) { return s + t.q; }, 0).toLocaleString('en-US');
+  }
+  var parts = String(P.price || '').split('/');
+  $('price').innerHTML = parts[0].trim() + (parts[1] ? ' <small>/ ' + parts[1].trim() + '</small>' : '');
+  var buy = $('buy'), st = $('state');
+  function off(text, note) { buy.textContent = text; buy.setAttribute('aria-disabled', 'true'); buy.removeAttribute('href'); st.innerHTML = note || ''; }
+
+  function update() {
+    if (!P.checkout) return off('Payments open soon', 'Right now every test on the site is free.');
+    if (!window.preplinePremium) return off('Could not connect', 'Refresh the page.');
+    window.preplinePremium().then(function (p) {
+      buy.removeAttribute('aria-disabled');
+      if (!p.signedIn) {
+        buy.textContent = 'Sign in to get Premium →'; buy.href = '#';
+        buy.onclick = function (e) { e.preventDefault(); var pill = document.getElementById('plPill'); if (pill) pill.click(); };
+        st.textContent = 'Premium is linked to your Prepline account, so sign in or create one first.';
+        return;
+      }
+      if (p.active) {
+        var d = new Date(p.until).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        off('Premium is active', 'Active until <b>' + d + '</b>' + (p.status === 'cancelled' ? ' (cancelled, will not renew)' : '') + '.');
+        return;
+      }
+      var url = P.checkout + (P.checkout.indexOf('?') < 0 ? '?' : '&') +
+        'checkout[custom][user_id]=' + encodeURIComponent(p.uid) + '&checkout[email]=' + encodeURIComponent(p.email || '');
+      buy.textContent = 'Get Premium →'; buy.href = url; buy.onclick = null;
+      st.innerHTML = 'Signed in as <b>' + String(p.email || '').replace(/[<&]/g, '') + '</b>.';
+    });
+  }
+  update();
+  document.addEventListener('prepline:premium-changed', update);
+  // back from the payment page: check again a few times while the webhook arrives
+  window.addEventListener('focus', function () { if (P.checkout) update(); });
+})();
+</script>
+</body>
+</html>

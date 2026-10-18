@@ -91,6 +91,20 @@
         <table id="hard"></table>
       </div>
     </div>
+
+    <div class="panel" id="prem-panel">
+      <h2>Premium</h2>
+      <p class="muted">Paid subscriptions arrive here by themselves. Here you can also give Premium by hand: a friend, a refund, a test.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">
+        <input id="pm-email" type="email" placeholder="student e-mail" style="flex:1;min-width:200px;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:9px 12px;font:14px Inter,sans-serif">
+        <select id="pm-days" style="background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:9px 10px;font:14px Inter,sans-serif">
+          <option value="31">+1 month</option><option value="93">+3 months</option><option value="365">+1 year</option><option value="0">Remove Premium</option>
+        </select>
+        <button class="btn" id="pm-go" type="button">Apply</button>
+      </div>
+      <p class="muted" id="pm-msg"></p>
+      <table id="pm-list"></table>
+    </div>
   </section>
 </div></main>
 
@@ -170,6 +184,7 @@
       return msg('Error: ' + esc(m));
     }
     draw(r.data);
+    loadPremium();
     var t = await supa.rpc('admin_traffic');
     if (t.error) {
       $('traffic').innerHTML = '<div class="tile" style="grid-column:1/-1"><span>Run <b>stage8.sql</b> in Supabase → SQL Editor to count students who do not sign in.</span></div>';
@@ -182,6 +197,25 @@
         tl(v.visitors_30d ? Math.round(100 * v.testers_30d / v.visitors_30d) + '%' : '—', 'of visitors finish a test', 'last 30 days');
     }
   }
+  async function loadPremium() {
+    var r = await supa.rpc('admin_premium_list');
+    if (r.error) { $('pm-list').innerHTML = '<tr><td>Run <b>stage9.sql</b> in Supabase → SQL Editor to turn on Premium.</td></tr>'; return; }
+    var rows = r.data || [];
+    var active = rows.filter(function (x) { return x.active; }).length;
+    $('pm-list').innerHTML = rows.length ? '<tr><th>Student</th><th>Until</th><th>From</th><th>Status</th></tr>' + rows.map(function (x) {
+      return '<tr><td>' + esc(x.email) + '</td><td' + (x.active ? '' : ' style="opacity:.5"') + '>' + new Date(x.until).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) +
+        '</td><td>' + esc(x.source) + '</td><td>' + esc(x.status || '') + '</td></tr>';
+    }).join('') + '<tr><td colspan="4" class="muted">' + active + ' active now</td></tr>' : '<tr><td>No Premium students yet.</td></tr>';
+  }
+  $('pm-go').onclick = async function () {
+    var email = $('pm-email').value.trim(), days = +$('pm-days').value;
+    if (!email) { $('pm-msg').textContent = 'Type an e-mail first.'; return; }
+    if (!days && !confirm('Remove Premium from ' + email + '?')) return;
+    var r = await supa.rpc('admin_grant_premium', { p_email: email, p_days: days });
+    if (r.error) { $('pm-msg').textContent = 'Error: ' + r.error.message; return; }
+    $('pm-msg').textContent = days ? email + ': Premium until ' + new Date(r.data.until).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : email + ': Premium removed.';
+    $('pm-email').value = ''; loadPremium();
+  };
   $('reload').onclick = load;
   supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') load(); });
   load();

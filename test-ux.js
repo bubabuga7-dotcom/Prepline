@@ -555,6 +555,57 @@
     });
   }
 
+  /* ---------- Premium lock: tests outside the free set need Premium (live rooms and the weekly challenge stay open) ---------- */
+  var IS_CHALLENGE = PARAMS.get('challenge') === '1';
+  if (!ROOM_CODE && !IS_CHALLENGE && window.preplineIsFree && !window.preplineIsFree(page)) {
+    var lockTimer = null, lockEl = null;
+    var showLock = function (signedIn) {
+      if (lockEl) return;
+      lockTimer = setInterval(function () { state.timeLeft = T0; }, 200);
+      css.textContent += '\n.pl-lock{position:fixed;inset:0;z-index:7500;display:flex;align-items:center;justify-content:center;padding:20px;' +
+        'background:rgba(11,17,32,.82);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}' +
+        '\n.pl-lock .box{max-width:440px;width:100%;background:#111A2E;border:1px solid rgba(201,162,39,.45);border-radius:12px;padding:26px 24px;' +
+        'color:#D5DDEC;font:15px/1.55 Inter,system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.5)}' +
+        '\n.pl-lock .tag{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.14em;color:#C9A227}' +
+        '\n.pl-lock h3{font:700 22px Sora,Inter,sans-serif;color:#E6ECF7;margin:8px 0 10px}' +
+        '\n.pl-lock ul{margin:0 0 18px 18px;color:#B4C0D6}.pl-lock li{margin:4px 0}' +
+        '\n.pl-lock .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}' +
+        '\n.pl-lock a.go{background:#C9A227;color:#0E1A2E;font-weight:700;padding:11px 18px;border-radius:6px;text-decoration:none}' +
+        '\n.pl-lock a.alt,.pl-lock button.alt{background:none;border:1px solid rgba(255,255,255,.2);color:#D5DDEC;font:600 14px Inter,sans-serif;' +
+        'padding:10px 14px;border-radius:6px;text-decoration:none;cursor:pointer}' +
+        '\n.pl-modal-bg{z-index:8000!important}' +
+        '\nhtml[data-theme=light] .pl-lock{background:rgba(255,255,255,.8)}' +
+        '\nhtml[data-theme=light] .pl-lock .box{background:#fff;border-color:#B9CDF1;color:#26324A;box-shadow:0 20px 60px rgba(15,27,51,.15)}' +
+        '\nhtml[data-theme=light] .pl-lock h3{color:#0F1B33}html[data-theme=light] .pl-lock ul{color:#3C4A63}' +
+        '\nhtml[data-theme=light] .pl-lock .tag{color:#1D5FD1}html[data-theme=light] .pl-lock a.go{background:#1D5FD1;color:#fff}' +
+        '\nhtml[data-theme=light] .pl-lock a.alt,html[data-theme=light] .pl-lock button.alt{border-color:#CBD5E4;color:#0F1B33}';
+      var hub = page.indexOf('crit-') === 0 ? 'crit.html' : 'math.html';
+      lockEl = document.createElement('div'); lockEl.className = 'pl-lock';
+      lockEl.innerHTML = '<div class="box"><span class="tag">PREMIUM</span><h3>This test is in Premium</h3><ul>' +
+        '<li>All ' + ((window.PREPLINE_TESTS || []).length || 158) + ' timed tests in Mathematics and Critical Thinking</li>' +
+        '<li>Topic practice with questions from every test</li>' +
+        '<li>' + window.PREPLINE_PREMIUM.price + ', cancel any time</li></ul>' +
+        '<div class="row"><a class="go" href="premium.html?from=' + encodeURIComponent(page) + '">Get Premium</a>' +
+        (signedIn === false ? '<button type="button" class="alt" id="pl-lock-in">I have Premium: sign in</button>' : '') +
+        '<a class="alt" href="' + hub + '">Free tests</a></div></div>';
+      document.body.appendChild(lockEl);
+      var si = document.getElementById('pl-lock-in');
+      if (si) si.onclick = function () { var p = document.getElementById('plPill'); if (p) p.click(); };
+    };
+    var hideLock = function () {
+      if (!lockEl) return;
+      clearInterval(lockTimer); lockEl.remove(); lockEl = null;
+      state.timeLeft = T0;
+    };
+    var checkPremium = function () {
+      if (!window.preplinePremium) return;
+      window.preplinePremium().then(function (p) { if (p.active) hideLock(); else showLock(p.signedIn); });
+    };
+    if (!window.preplinePremiumCached()) showLock(null);
+    checkPremium();
+    document.addEventListener('prepline:premium-changed', checkPremium);
+  }
+
   /* ---------- autosave: an unfinished attempt survives a reload, a closed tab or a dead battery ---------- */
   var DKEY = 'prepline-draft:' + page;
   var draftOn = !ROOM_CODE && !EXAM && !partial;

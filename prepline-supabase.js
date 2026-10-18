@@ -1,3 +1,17 @@
+/* Premium settings. checkout = the Lemon Squeezy checkout link of the Premium product (Share → Checkout link).
+   While it is empty, every test stays open and the Premium page says payments open soon. */
+window.PREPLINE_PREMIUM = {
+  checkout: '',
+  price: '6 990 ₸ / month',
+  free: ['mix-1', 'mix-2', 'mix-3', 'crit-1', 'crit-2', 'crit-3', 'diagnostic-math', 'diagnostic-crit']
+};
+window.preplinePremiumOn = function () { return !!window.PREPLINE_PREMIUM.checkout; };
+window.preplineIsFree = function (id) { return !window.preplinePremiumOn() || window.PREPLINE_PREMIUM.free.indexOf(id) >= 0; };
+window.preplinePremiumCached = function () {
+  try { var p = JSON.parse(localStorage.getItem('prepline:premium') || 'null'); return !!(p && p.until && Date.parse(p.until) > Date.now()); }
+  catch (e) { return false; }
+};
+
 /* Prepline x Supabase: authentication + saving results to the cloud.
    Included on every page AFTER supabase-js (CDN). */
 /* ---------- installable app (PWA): service worker + install prompt ---------- */
@@ -42,6 +56,31 @@
     } catch (e) {}
   };
   window.preplineTrack('visit');
+
+  /* ---------- Premium (stage9.sql) ---------- */
+  window.preplinePremium = function () {
+    return supa.auth.getUser().then(function (u) {
+      var user = u.data && u.data.user;
+      if (!user) { savePrem(null); return { active: false, signedIn: false }; }
+      return supa.rpc('my_premium').then(function (r) {
+        if (r.error) return { active: window.preplinePremiumCached(), signedIn: true, error: r.error.message };
+        var p = r.data || {};
+        var res = { active: !!p.active, until: p.until || null, status: p.status || null, signedIn: true, email: user.email, uid: user.id };
+        savePrem(res);
+        return res;
+      });
+    }).catch(function () { return { active: window.preplinePremiumCached(), signedIn: null }; });
+  };
+  function savePrem(p) {
+    try {
+      if (p && p.active) localStorage.setItem('prepline:premium', JSON.stringify({ until: p.until }));
+      else localStorage.removeItem('prepline:premium');
+    } catch (e) {}
+  }
+  supa.auth.onAuthStateChange(function (ev) {
+    if (ev === 'SIGNED_OUT') savePrem(null);
+    if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') document.dispatchEvent(new Event('prepline:premium-changed'));
+  });
 
   /* ---------- saving a result (called by the quiz) ---------- */
   window.preplineSaveResult = async function (mockId, score, total) {

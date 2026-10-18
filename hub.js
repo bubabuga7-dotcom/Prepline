@@ -12,6 +12,8 @@
   try { exam = localStorage.getItem('prepline:exam-mode') === '1'; } catch (e) {}
   function link(id) { return id + '.html' + (exam ? '?exam=1' : ''); }
   var results = {};           // id -> {best, total, count}
+  var prem = window.preplinePremiumCached ? window.preplinePremiumCached() : false;
+  function locked(id) { return !prem && window.preplineIsFree && !window.preplineIsFree(id); }
   var state = { group: 'All', q: '', hide: false };
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -64,6 +66,7 @@
       var cls = p >= 70 ? 'ok' : p >= 45 ? 'warn' : 'bad';
       badge = '<span class="score ' + cls + '">' + r.best + '/' + r.total + '</span>';
     }
+    if (!r && !d && locked(t.id)) badge = '<span class="lock" title="Premium">🔒 Premium</span>';
     if (d) badge = '<span class="wip" title="Unfinished attempt, saved on this device">' + d.n + '/' + d.q + ' in progress</span>';
     return '<a class="tile' + (r && !d ? ' done' : '') + '" href="' + (d ? t.id + '.html' : link(t.id)) + '">' +
       '<div class="tile-top"><span class="num mono">' + (t.group === 'Original mock exams' ? 'EXAM' : '#' + t.n) + '</span>' + badge + '</div>' +
@@ -114,7 +117,7 @@
       nx.querySelector('.next-label').textContent = 'Unfinished test';
       return;
     }
-    var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams'; })[0];
+    var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams' && !locked(t.id); })[0];
     if (next && nx) {
       nx.querySelector('.next-name').textContent = title(next);
       nx.querySelector('.next-src').textContent = (next.src ? next.src + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
@@ -159,5 +162,9 @@
       });
     };
     supa.auth.onAuthStateChange(pull); pull();
+    if (window.preplinePremium && window.preplinePremiumOn && window.preplinePremiumOn()) {
+      var refreshPrem = function () { window.preplinePremium().then(function (p) { if (p.active !== prem) { prem = p.active; render(); } }); };
+      refreshPrem(); document.addEventListener('prepline:premium-changed', refreshPrem);
+    }
   }
 })();

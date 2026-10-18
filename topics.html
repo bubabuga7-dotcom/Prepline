@@ -228,7 +228,16 @@
 
   /* ---------- a practice session ---------- */
   function start(code, all) {
-    var items = shuffle(INDEX[code].map(function (x) { return { mock: x[0], id: x[1] }; }));
+    var pool = INDEX[code];
+    // without Premium, practice uses only the questions of the free tests
+    if (window.preplineIsFree && !(window.preplinePremiumCached && window.preplinePremiumCached())) {
+      var freeOnly = pool.filter(function (x) { return window.preplineIsFree(x[0]); });
+      if (freeOnly.length < pool.length) {
+        if (!freeOnly.length) { location.href = 'premium.html?from=topics'; return; }
+        pool = freeOnly;
+      }
+    }
+    var items = shuffle(pool.map(function (x) { return { mock: x[0], id: x[1] }; }));
     if (!all) items = items.slice(0, SIZE);
     run = { topic: code, items: items, pos: 0, right: 0, wrong: [], all: !!all };
     try { history.replaceState(null, '', '?t=' + encodeURIComponent(code)); } catch (e) {}
