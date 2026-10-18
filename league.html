@@ -212,7 +212,7 @@
       if (x.rank > last + 1 && last >= 50) h += '<tr class="gap"><td colspan="6">⋯</td></tr>';
       last = x.rank;
       h += '<tr class="' + (x.me ? 'mine ' : '') + (x.rank === 1 ? 'top1' : '') + '"><td class="rk">' + x.rank + '</td>' +
-           '<td>' + esc(x.name) + (x.me ? ' <span class="muted">(you)</span>' : '') + (x.bot ? ' <span class="bot" title="Pace bot: shows how fast a steady student gains points">bot</span>' : '') + '</td><td>' + tierTag(x.tier) + '</td>' +
+           '<td>' + esc(x.name) + (x.me ? ' <span class="muted">(you)</span>' : '') + (x.bot ? ' <span class="bot" title="ИИ-соперник: показывает темп, с которым набирает очки стабильный ученик">ИИ</span>' : '') + '</td><td>' + tierTag(x.tier) + '</td>' +
            '<td class="r sm hide-m">' + x.games + '</td><td class="r sm hide-m">' + x.accuracy + '%</td><td class="r pt">' + x.points + '</td></tr>';
     });
     $('table').innerHTML = h + '</tbody></table>';
