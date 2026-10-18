@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/formulas.html">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Formula quiz — Prepline</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prepline">
+<meta property="og:title" content="Formula quiz — Prepline">
+<meta property="og:description" content="Learn every NUET Mathematics formula: areas, volumes, quadratics, coordinates, trigonometry, sequences and probability — quiz and full list.">
+<meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/formulas.html">
+<meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Learn every NUET Mathematics formula: areas, volumes, quadratics, coordinates, trigonometry, sequences and probability — quiz and full list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:860px}
+  .head h1{font-size:32px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:640px}
+  .view{display:none} .view.on{display:block}
+  .muted{color:var(--ink-3);font-size:13.5px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;gap:2px;flex-wrap:wrap}
+  .seg button{background:none;border:0;color:var(--ink-2);font:600 13px Inter,sans-serif;padding:6px 14px;border-radius:99px;cursor:pointer}
+  .seg button.on{background:var(--gold);color:#0E1A2E}
+  html[data-theme=light] .seg button.on{color:#fff}
+  .tabs{margin:22px 0 18px}
+  .setup h3{font-size:15px;margin:18px 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;padding:7px 12px;border-radius:6px;cursor:pointer}
+  .chip.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.55);color:var(--gold)}
+  html[data-theme=light] .chip.on{background:#E3ECFB;border-color:#1D5FD1;color:#1D5FD1}
+  .chip span{font:500 11.5px 'IBM Plex Mono',monospace;opacity:.7;margin-left:4px}
+  .start-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px}
+  .best{font-size:13px;color:var(--ink-3)}
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;font-size:13px;color:var(--ink-3)}
+  .card-top b{color:var(--ink);font-weight:600}
+  .prog{height:4px;background:var(--line-2);border-radius:2px;overflow:hidden;margin-bottom:18px}
+  .prog i{display:block;height:100%;background:var(--gold);transition:width .25s}
+  .gtag{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .q-text{font-size:18px;line-height:1.5;margin:6px 0 18px;font-weight:600}
+  .q-text .fx{display:block;margin-top:12px;font-size:22px;font-weight:500}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .opt{display:flex;gap:12px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--ink);
+       border-radius:7px;padding:12px 14px;font:16px Inter,sans-serif;cursor:pointer;line-height:1.45;min-height:58px}
+  .opt:hover:not(:disabled){border-color:var(--blue)}
+  .opt b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink-3);min-width:14px}
+  .opt:disabled{cursor:default}
+  .opt.c{border-color:var(--ok);background:rgba(74,222,154,.1)}
+  .opt.u{border-color:var(--bad);background:rgba(248,113,113,.1)}
+  .opt .fx{font-size:19px}
+  .opts.names .opt{font-size:15px}
+  .res{margin-top:16px;padding:12px 16px;border-radius:7px;font-size:14.5px;display:none;line-height:1.55}
+  .res.ok{display:block;background:rgba(74,222,154,.08);border:1px solid rgba(74,222,154,.35)}
+  .res.no{display:block;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35)}
+  .res .fx{font-size:18px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .keys{font:500 11.5px 'IBM Plex Mono',monospace;color:var(--ink-3)}
+  .big{font:600 44px 'IBM Plex Mono',monospace;color:var(--gold);line-height:1.1;margin:8px 0 4px}
+  .miss{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+  .miss .row{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line-2);padding:8px 0;flex-wrap:wrap}
+  .miss .row span{color:var(--ink-2);font-size:14px}
+  .sheet .grp{margin:26px 0 8px;font:600 11.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .sheet .row{display:grid;grid-template-columns:minmax(160px,1fr) 1.4fr;gap:16px;align-items:center;padding:11px 16px;
+              background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin-bottom:6px}
+  .sheet .row .nm{font-size:14.5px;color:var(--ink-2)}
+  .sheet .row .fx{font-size:17px}
+  .sheet .row small{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
+  .find{background:var(--panel);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:9px 12px;font:14px Inter,sans-serif;width:100%;max-width:340px}
+  /* maths typesetting */
+  .fx{font-family:'Cambria Math','STIX Two Math','Times New Roman',serif;letter-spacing:.01em;white-space:nowrap}
+  .fx i{font-style:italic}
+  .fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.15}
+  .fr>span:first-child{border-bottom:1px solid currentColor;padding:0 .2em .05em}
+  .fr>span:last-child{padding:.05em .2em 0}
+  .rt{white-space:nowrap}.rt>span{border-top:1px solid currentColor;padding:0 .1em}
+  @media (max-width:640px){
+    .head h1{font-size:26px}
+    .opts{grid-template-columns:1fr}
+    .q-text{font-size:17px}
+    .sheet .row{grid-template-columns:1fr;gap:4px}
+    .fx{white-space:normal}
+  }
+</style>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="light.css">
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Mathematics · formulas</span>
+    <h1>Formula quiz</h1>
+    <p>Every formula you need for NUET Mathematics. The wrong options are the usual slips: a missing ½, a wrong sign, πr² instead of 2πr. If you can tell them apart here, you will not lose marks on them in the test.</p>
+  </div>
+
+  <div class="seg tabs" id="tabs"><button data-v="setup" class="on">Quiz</button><button data-v="sheet">All formulas</button></div>
+
+  <section class="view on setup" id="v-setup">
+    <h3>Topics</h3>
+    <div class="chips" id="groups"></div>
+    <h3>Questions</h3>
+    <div class="chips" id="count">
+      <button class="chip on" data-n="10">10</button><button class="chip" data-n="20">20</button><button class="chip" data-n="0">All in the topics</button>
+    </div>
+    <div class="start-row"><button class="btn" id="start">Start quiz →</button><span class="best" id="best"></span></div>
+  </section>
+
+  <section class="view" id="v-run"><div class="panel" id="card"></div></section>
+
+  <section class="view sheet" id="v-sheet">
+    <input class="find" id="find" type="search" placeholder="Find: cone, gradient, sine…" aria-label="Find a formula">
+    <div id="sheet"></div>
+  </section>
+</div></main>
+
+<script src="nav.js"></script>
+<script>
+/* Formula data. Notation: {top|bottom} is a fraction, sqrt{…} a square root, ^{…} a power, _{…} an index.
+   n = name shown in the quiz, f = the formula, t = traps (common wrong versions), q = a custom question (identities),
+   s = short note shown after answering. */
+var G = [
+ ['Algebra', [
+  {n:'Solutions of ax² + bx + c = 0', f:'<i>x</i> = {−<i>b</i> ± sqrt{<i>b</i>² − 4<i>ac</i>}|2<i>a</i>}',
+   t:['<i>x</i> = {−<i>b</i> ± sqrt{<i>b</i>² + 4<i>ac</i>}|2<i>a</i>}','<i>x</i> = {<i>b</i> ± sqrt{<i>b</i>² − 4<i>ac</i>}|2<i>a</i>}','<i>x</i> = {−<i>b</i> ± sqrt{<i>b</i>² − 4<i>ac</i>}|<i>a</i>}'], s:'The quadratic formula. The whole numerator, −b too, is divided by 2a.'},
+  {n:'Discriminant of ax² + bx + c', f:'Δ = <i>b</i>² − 4<i>ac</i>', t:['Δ = <i>b</i>² + 4<i>ac</i>','Δ = 4<i>ac</i> − <i>b</i>²','Δ = <i>b</i> − 4<i>ac</i>'],
+   s:'Δ > 0: two real roots; Δ = 0: one repeated root; Δ < 0: no real roots.'},
+  {n:'x-coordinate of the vertex of y = ax² + bx + c', f:'<i>x</i> = −{<i>b</i>|2<i>a</i>}', t:['<i>x</i> = {<i>b</i>|2<i>a</i>}','<i>x</i> = −{<i>b</i>|<i>a</i>}','<i>x</i> = −{2<i>a</i>|<i>b</i>}'], s:'Halfway between the two roots.'},
+  {n:'Sum of the roots of ax² + bx + c = 0', f:'<i>x</i>₁ + <i>x</i>₂ = −{<i>b</i>|<i>a</i>}', t:['<i>x</i>₁ + <i>x</i>₂ = {<i>b</i>|<i>a</i>}','<i>x</i>₁ + <i>x</i>₂ = {<i>c</i>|<i>a</i>}','<i>x</i>₁ + <i>x</i>₂ = −{<i>c</i>|<i>a</i>}'], s:'Vieta: the sum is −b/a, the product is c/a.'},
+  {n:'Product of the roots of ax² + bx + c = 0', f:'<i>x</i>₁<i>x</i>₂ = {<i>c</i>|<i>a</i>}', t:['<i>x</i>₁<i>x</i>₂ = −{<i>c</i>|<i>a</i>}','<i>x</i>₁<i>x</i>₂ = −{<i>b</i>|<i>a</i>}','<i>x</i>₁<i>x</i>₂ = {<i>a</i>|<i>c</i>}']},
+  {n:'Difference of two squares', q:'<i>a</i>² − <i>b</i>² =', f:'(<i>a</i> − <i>b</i>)(<i>a</i> + <i>b</i>)', t:['(<i>a</i> − <i>b</i>)²','(<i>a</i> + <i>b</i>)²','(<i>a</i> − <i>b</i>)(<i>b</i> − <i>a</i>)']},
+  {n:'Square of a sum', q:'(<i>a</i> + <i>b</i>)² =', f:'<i>a</i>² + 2<i>ab</i> + <i>b</i>²', t:['<i>a</i>² + <i>b</i>²','<i>a</i>² + <i>ab</i> + <i>b</i>²','<i>a</i>² + 2<i>ab</i> − <i>b</i>²'], s:'The 2ab term is the one people forget.'},
+  {n:'Square of a difference', q:'(<i>a</i> − <i>b</i>)² =', f:'<i>a</i>² − 2<i>ab</i> + <i>b</i>²', t:['<i>a</i>² − <i>b</i>²','<i>a</i>² − 2<i>ab</i> − <i>b</i>²','<i>a</i>² + 2<i>ab</i> + <i>b</i>²']},
+  {n:'Cube of a sum', q:'(<i>a</i> + <i>b</i>)³ =', f:'<i>a</i>³ + 3<i>a</i>²<i>b</i> + 3<i>ab</i>² + <i>b</i>³', t:['<i>a</i>³ + <i>b</i>³','<i>a</i>³ + 3<i>ab</i> + <i>b</i>³','<i>a</i>³ + <i>a</i>²<i>b</i> + <i>ab</i>² + <i>b</i>³']},
+  {n:'Multiplying powers', q:'<i>a</i>^{<i>m</i>} × <i>a</i>^{<i>n</i>} =', f:'<i>a</i>^{<i>m</i> + <i>n</i>}', t:['<i>a</i>^{<i>mn</i>}','<i>a</i>^{<i>m</i> − <i>n</i>}','(2<i>a</i>)^{<i>m</i> + <i>n</i>}']},
+  {n:'Dividing powers', q:'<i>a</i>^{<i>m</i>} ÷ <i>a</i>^{<i>n</i>} =', f:'<i>a</i>^{<i>m</i> − <i>n</i>}', t:['<i>a</i>^{<i>m</i>/<i>n</i>}','<i>a</i>^{<i>m</i> + <i>n</i>}','<i>a</i>^{<i>n</i> − <i>m</i>}']},
+  {n:'Power of a power', q:'(<i>a</i>^{<i>m</i>})^{<i>n</i>} =', f:'<i>a</i>^{<i>mn</i>}', t:['<i>a</i>^{<i>m</i> + <i>n</i>}','<i>a</i>^{<i>m</i>^{<i>n</i>}}','<i>a</i>^{<i>m</i> − <i>n</i>}']},
+  {n:'Negative power', q:'<i>a</i>^{−<i>n</i>} =', f:'{1|<i>a</i>^{<i>n</i>}}', t:['−<i>a</i>^{<i>n</i>}','−{1|<i>a</i>^{<i>n</i>}}','<i>a</i>^{1/<i>n</i>}']},
+  {n:'Fractional power', q:'<i>a</i>^{<i>m</i>/<i>n</i>} =', f:'(ⁿ√<i>a</i>)^{<i>m</i>}', t:['(ᵐ√<i>a</i>)^{<i>n</i>}','{<i>a</i>^{<i>m</i>}|<i>n</i>}','{1|<i>a</i>^{<i>mn</i>}}'], s:'The bottom of the fraction is the root, the top is the power.'},
+  {n:'Zero power (a ≠ 0)', q:'<i>a</i>⁰ =', f:'1', t:['0','<i>a</i>','undefined']}
+ ]],
+ ['Number and ratio', [
+  {n:'Percentage change', f:'{new − old|old} × 100%', t:['{new − old|new} × 100%','{new|old} × 100%','{old − new|new} × 100%'], s:'Always divide by the original value.'},
+  {n:'Value after n years of compound growth at r% a year', f:'<i>A</i> = <i>P</i>(1 + {<i>r</i>|100})^{<i>n</i>}', t:['<i>A</i> = <i>P</i>(1 + {<i>rn</i>|100})','<i>A</i> = <i>P</i>(1 + <i>r</i>)^{<i>n</i>}','<i>A</i> = <i>P</i> + ({<i>r</i>|100})^{<i>n</i>}'], s:'For a decrease (depreciation) use 1 − r/100.'},
+  {n:'Simple interest', f:'<i>I</i> = {<i>Prt</i>|100}', t:['<i>I</i> = <i>P</i>(1 + {<i>r</i>|100})^{<i>t</i>}','<i>I</i> = {<i>Pr</i>|100<i>t</i>}','<i>I</i> = <i>Prt</i>']},
+  {n:'Original price before an increase of r%', f:'original = {new|1 + <i>r</i>/100}', t:['original = new × (1 − {<i>r</i>|100})','original = {new|1 − <i>r</i>/100}','original = new − {<i>r</i>|100}'], s:'Reverse percentage: divide, never take r% off the new value.'},
+  {n:'Speed', f:'speed = {distance|time}', t:['speed = {time|distance}','speed = distance × time','speed = {distance|time²}']},
+  {n:'Density', f:'density = {mass|volume}', t:['density = {volume|mass}','density = mass × volume','density = {mass|area}']},
+  {n:'Pressure', f:'pressure = {force|area}', t:['pressure = force × area','pressure = {area|force}','pressure = {force|volume}']},
+  {n:'y is inversely proportional to x', f:'<i>y</i> = {<i>k</i>|<i>x</i>}', t:['<i>y</i> = <i>kx</i>','<i>y</i> = <i>k</i> − <i>x</i>','<i>y</i> = {<i>x</i>|<i>k</i>}']},
+  {n:'Area scale factor of similar shapes with length scale factor k', f:'<i>k</i>²', t:['<i>k</i>','<i>k</i>³','2<i>k</i>'], s:'Lengths ×k, areas ×k², volumes ×k³.'},
+  {n:'Volume scale factor of similar solids with length scale factor k', f:'<i>k</i>³', t:['<i>k</i>²','<i>k</i>','3<i>k</i>']}
+ ]],
+ ['Areas and angles', [
+  {n:'Area of a triangle', f:'<i>A</i> = ½ × base × height', t:['<i>A</i> = base × height','<i>A</i> = ½(base + height)','<i>A</i> = ⅓ × base × height'], s:'The height is perpendicular to the base.'},
+  {n:'Area of a triangle from two sides and the angle between them', f:'<i>A</i> = ½<i>ab</i> sin <i>C</i>', t:['<i>A</i> = <i>ab</i> sin <i>C</i>','<i>A</i> = ½<i>ab</i> cos <i>C</i>','<i>A</i> = ½<i>ab</i> tan <i>C</i>']},
+  {n:'Area of a trapezium', f:'<i>A</i> = ½(<i>a</i> + <i>b</i>)<i>h</i>', t:['<i>A</i> = (<i>a</i> + <i>b</i>)<i>h</i>','<i>A</i> = ½<i>abh</i>','<i>A</i> = ½(<i>a</i> + <i>b</i> + <i>h</i>)'], s:'a and b are the parallel sides.'},
+  {n:'Area of a parallelogram', f:'<i>A</i> = base × perpendicular height', t:['<i>A</i> = base × slanted side','<i>A</i> = ½ × base × height','<i>A</i> = 2(base + height)']},
+  {n:'Area of a circle', f:'<i>A</i> = π<i>r</i>²', t:['<i>A</i> = 2π<i>r</i>','<i>A</i> = π<i>d</i>²','<i>A</i> = 2π<i>r</i>²']},
+  {n:'Circumference of a circle', f:'<i>C</i> = 2π<i>r</i>', t:['<i>C</i> = π<i>r</i>²','<i>C</i> = π<i>r</i>','<i>C</i> = 2π<i>r</i>²']},
+  {n:'Arc length (angle θ in degrees)', f:'<i>l</i> = {θ|360} × 2π<i>r</i>', t:['<i>l</i> = {θ|360} × π<i>r</i>²','<i>l</i> = {θ|360} × π<i>r</i>','<i>l</i> = {360|θ} × 2π<i>r</i>']},
+  {n:'Area of a sector (angle θ in degrees)', f:'<i>A</i> = {θ|360} × π<i>r</i>²', t:['<i>A</i> = {θ|360} × 2π<i>r</i>','<i>A</i> = {θ|180} × π<i>r</i>²','<i>A</i> = {360|θ} × π<i>r</i>²']},
+  {n:'Pythagoras’ theorem (c is the hypotenuse)', f:'<i>a</i>² + <i>b</i>² = <i>c</i>²', t:['<i>a</i> + <i>b</i> = <i>c</i>','<i>a</i>² − <i>b</i>² = <i>c</i>²','<i>a</i>² + <i>c</i>² = <i>b</i>²']},
+  {n:'Sum of the interior angles of an n-sided polygon', f:'(<i>n</i> − 2) × 180°', t:['<i>n</i> × 180°','(<i>n</i> − 1) × 180°','(<i>n</i> − 2) × 360°']},
+  {n:'Each exterior angle of a regular n-sided polygon', f:'{360°|<i>n</i>}', t:['{180°|<i>n</i>}','{(<i>n</i> − 2) × 180°|<i>n</i>}','360° × <i>n</i>'], s:'The exterior angles of any polygon add up to 360°.'},
+  {n:'Each interior angle of a regular n-sided polygon', f:'{(<i>n</i> − 2) × 180°|<i>n</i>}', t:['{360°|<i>n</i>}','{<i>n</i> × 180°|<i>n</i> − 2}','{(<i>n</i> − 2) × 360°|<i>n</i>}']}
+ ]],
+ ['Volumes and surfaces', [
+  {n:'Volume of a cylinder', f:'<i>V</i> = π<i>r</i>²<i>h</i>', t:['<i>V</i> = 2π<i>rh</i>','<i>V</i> = ⅓π<i>r</i>²<i>h</i>','<i>V</i> = π<i>rh</i>²']},
+  {n:'Volume of a cone', f:'<i>V</i> = ⅓π<i>r</i>²<i>h</i>', t:['<i>V</i> = π<i>r</i>²<i>h</i>','<i>V</i> = ½π<i>r</i>²<i>h</i>','<i>V</i> = ⅓π<i>rh</i>'], s:'A cone is one third of the cylinder around it.'},
+  {n:'Volume of a sphere', f:'<i>V</i> = {4|3}π<i>r</i>³', t:['<i>V</i> = 4π<i>r</i>²','<i>V</i> = {4|3}π<i>r</i>²','<i>V</i> = {2|3}π<i>r</i>³']},
+  {n:'Volume of a hemisphere', f:'<i>V</i> = {2|3}π<i>r</i>³', t:['<i>V</i> = {4|3}π<i>r</i>³','<i>V</i> = 2π<i>r</i>²','<i>V</i> = {1|3}π<i>r</i>³']},
+  {n:'Surface area of a sphere', f:'<i>S</i> = 4π<i>r</i>²', t:['<i>S</i> = {4|3}π<i>r</i>³','<i>S</i> = 2π<i>r</i>²','<i>S</i> = π<i>r</i>²']},
+  {n:'Volume of a pyramid', f:'<i>V</i> = ⅓ × base area × height', t:['<i>V</i> = base area × height','<i>V</i> = ½ × base area × height','<i>V</i> = ⅓ × base perimeter × height']},
+  {n:'Volume of a prism', f:'<i>V</i> = area of cross-section × length', t:['<i>V</i> = ½ × area of cross-section × length','<i>V</i> = perimeter of cross-section × length','<i>V</i> = ⅓ × area of cross-section × length']},
+  {n:'Curved surface area of a cylinder', f:'<i>S</i> = 2π<i>rh</i>', t:['<i>S</i> = π<i>r</i>²<i>h</i>','<i>S</i> = π<i>rh</i>','<i>S</i> = 2π<i>r</i>²<i>h</i>']},
+  {n:'Curved surface area of a cone (l is the slant height)', f:'<i>S</i> = π<i>rl</i>', t:['<i>S</i> = π<i>r</i>²<i>l</i>','<i>S</i> = 2π<i>rl</i>','<i>S</i> = ⅓π<i>rl</i>']}
+ ]],
+ ['Coordinates', [
+  {n:'Gradient of the line through (x₁, y₁) and (x₂, y₂)', f:'<i>m</i> = {<i>y</i>₂ − <i>y</i>₁|<i>x</i>₂ − <i>x</i>₁}', t:['<i>m</i> = {<i>x</i>₂ − <i>x</i>₁|<i>y</i>₂ − <i>y</i>₁}','<i>m</i> = {<i>y</i>₂ + <i>y</i>₁|<i>x</i>₂ + <i>x</i>₁}','<i>m</i> = {<i>y</i>₂ − <i>y</i>₁|<i>x</i>₁ − <i>x</i>₂}'], s:'Rise over run: change in y over change in x, in the same order.'},
+  {n:'Midpoint of (x₁, y₁) and (x₂, y₂)', f:'({<i>x</i>₁ + <i>x</i>₂|2}, {<i>y</i>₁ + <i>y</i>₂|2})', t:['({<i>x</i>₂ − <i>x</i>₁|2}, {<i>y</i>₂ − <i>y</i>₁|2})','(<i>x</i>₁ + <i>x</i>₂, <i>y</i>₁ + <i>y</i>₂)','({<i>x</i>₁ + <i>y</i>₁|2}, {<i>x</i>₂ + <i>y</i>₂|2})']},
+  {n:'Distance between (x₁, y₁) and (x₂, y₂)', f:'<i>d</i> = sqrt{(<i>x</i>₂ − <i>x</i>₁)² + (<i>y</i>₂ − <i>y</i>₁)²}', t:['<i>d</i> = (<i>x</i>₂ − <i>x</i>₁)² + (<i>y</i>₂ − <i>y</i>₁)²','<i>d</i> = (<i>x</i>₂ − <i>x</i>₁) + (<i>y</i>₂ − <i>y</i>₁)','<i>d</i> = sqrt{(<i>x</i>₂ + <i>x</i>₁)² + (<i>y</i>₂ + <i>y</i>₁)²}'], s:'Pythagoras on the horizontal and vertical differences.'},
+  {n:'Line with gradient m through (x₁, y₁)', f:'<i>y</i> − <i>y</i>₁ = <i>m</i>(<i>x</i> − <i>x</i>₁)', t:['<i>y</i> + <i>y</i>₁ = <i>m</i>(<i>x</i> + <i>x</i>₁)','<i>x</i> − <i>x</i>₁ = <i>m</i>(<i>y</i> − <i>y</i>₁)','<i>y</i> − <i>y</i>₁ = <i>mx</i> − <i>x</i>₁']},
+  {n:'Gradients of perpendicular lines', f:'<i>m</i>₁ × <i>m</i>₂ = −1', t:['<i>m</i>₁ = <i>m</i>₂','<i>m</i>₁ × <i>m</i>₂ = 1','<i>m</i>₁ + <i>m</i>₂ = 0'], s:'Parallel lines have equal gradients.'},
+  {n:'Circle with centre (a, b) and radius r', f:'(<i>x</i> − <i>a</i>)² + (<i>y</i> − <i>b</i>)² = <i>r</i>²', t:['(<i>x</i> + <i>a</i>)² + (<i>y</i> + <i>b</i>)² = <i>r</i>²','(<i>x</i> − <i>a</i>)² + (<i>y</i> − <i>b</i>)² = <i>r</i>','(<i>x</i> − <i>a</i>)² − (<i>y</i> − <i>b</i>)² = <i>r</i>²']}
+ ]],
+ ['Trigonometry', [
+  {n:'sin θ in a right-angled triangle', f:'sin θ = {opposite|hypotenuse}', t:['sin θ = {adjacent|hypotenuse}','sin θ = {opposite|adjacent}','sin θ = {hypotenuse|opposite}'], s:'SOH CAH TOA.'},
+  {n:'cos θ in a right-angled triangle', f:'cos θ = {adjacent|hypotenuse}', t:['cos θ = {opposite|hypotenuse}','cos θ = {adjacent|opposite}','cos θ = {hypotenuse|adjacent}']},
+  {n:'tan θ in a right-angled triangle', f:'tan θ = {opposite|adjacent}', t:['tan θ = {adjacent|opposite}','tan θ = {opposite|hypotenuse}','tan θ = {hypotenuse|adjacent}']},
+  {n:'Pythagorean identity', q:'sin²θ + cos²θ =', f:'1', t:['0','tan²θ','2']},
+  {n:'tan θ in terms of sin and cos', q:'tan θ =', f:'{sin θ|cos θ}', t:['{cos θ|sin θ}','sin θ × cos θ','1 − cos θ']},
+  {n:'Sine rule', f:'{<i>a</i>|sin <i>A</i>} = {<i>b</i>|sin <i>B</i>} = {<i>c</i>|sin <i>C</i>}', t:['{<i>a</i>|sin <i>B</i>} = {<i>b</i>|sin <i>A</i>}','<i>a</i> sin <i>A</i> = <i>b</i> sin <i>B</i>','{<i>a</i>|cos <i>A</i>} = {<i>b</i>|cos <i>B</i>}']},
+  {n:'Cosine rule', f:'<i>a</i>² = <i>b</i>² + <i>c</i>² − 2<i>bc</i> cos <i>A</i>', t:['<i>a</i>² = <i>b</i>² + <i>c</i>² + 2<i>bc</i> cos <i>A</i>','<i>a</i>² = <i>b</i>² + <i>c</i>² − 2<i>bc</i> sin <i>A</i>','<i>a</i>² = <i>b</i>² + <i>c</i>² − <i>bc</i> cos <i>A</i>'], s:'With A = 90°, cos A = 0 and it becomes Pythagoras.'},
+  {n:'Exact value', q:'sin 30° =', f:'½', t:['{sqrt{3}|2}','{sqrt{2}|2}','1']},
+  {n:'Exact value', q:'cos 30° =', f:'{sqrt{3}|2}', t:['½','{sqrt{2}|2}','sqrt{3}']},
+  {n:'Exact value', q:'tan 45° =', f:'1', t:['{sqrt{2}|2}','sqrt{3}','0']},
+  {n:'Exact value', q:'tan 60° =', f:'sqrt{3}', t:['{sqrt{3}|3}','{sqrt{3}|2}','1']}
+ ]],
+ ['Sequences', [
+  {n:'n-th term of an arithmetic sequence', f:'<i>a</i>ₙ = <i>a</i> + (<i>n</i> − 1)<i>d</i>', t:['<i>a</i>ₙ = <i>a</i> + <i>nd</i>','<i>a</i>ₙ = <i>a</i> · <i>d</i>^{<i>n</i> − 1}','<i>a</i>ₙ = (<i>a</i> + <i>n</i>)<i>d</i>']},
+  {n:'Sum of the first n terms of an arithmetic sequence', f:'<i>S</i>ₙ = {<i>n</i>|2}(2<i>a</i> + (<i>n</i> − 1)<i>d</i>)', t:['<i>S</i>ₙ = <i>n</i>(2<i>a</i> + (<i>n</i> − 1)<i>d</i>)','<i>S</i>ₙ = {<i>n</i>|2}(<i>a</i> + (<i>n</i> − 1)<i>d</i>)','<i>S</i>ₙ = {<i>n</i>|2}(2<i>a</i> + <i>nd</i>)'], s:'Same as n × (first + last) ÷ 2.'},
+  {n:'n-th term of a geometric sequence', f:'<i>a</i>ₙ = <i>a</i> · <i>r</i>^{<i>n</i> − 1}', t:['<i>a</i>ₙ = <i>a</i> · <i>r</i>^{<i>n</i>}','<i>a</i>ₙ = <i>a</i> + (<i>n</i> − 1)<i>r</i>','<i>a</i>ₙ = (<i>ar</i>)^{<i>n</i> − 1}']},
+  {n:'Sum 1 + 2 + 3 + … + n', f:'{<i>n</i>(<i>n</i> + 1)|2}', t:['<i>n</i>(<i>n</i> + 1)','{<i>n</i>(<i>n</i> − 1)|2}','{<i>n</i>²|2}']}
+ ]],
+ ['Probability and statistics', [
+  {n:'Probability that A does not happen', f:'<i>P</i>(not <i>A</i>) = 1 − <i>P</i>(<i>A</i>)', t:['<i>P</i>(not <i>A</i>) = −<i>P</i>(<i>A</i>)','<i>P</i>(not <i>A</i>) = {1|<i>P</i>(<i>A</i>)}','<i>P</i>(not <i>A</i>) = <i>P</i>(<i>A</i>) − 1']},
+  {n:'P(A and B) for independent events', f:'<i>P</i>(<i>A</i>) × <i>P</i>(<i>B</i>)', t:['<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>)','<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>) − 1','{<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>)|2}']},
+  {n:'P(A or B) for events that cannot both happen', f:'<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>)', t:['<i>P</i>(<i>A</i>) × <i>P</i>(<i>B</i>)','<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>) − 1','1 − <i>P</i>(<i>A</i>)<i>P</i>(<i>B</i>)']},
+  {n:'P(A or B) for any two events', f:'<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>) − <i>P</i>(<i>A</i> and <i>B</i>)', t:['<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>)','<i>P</i>(<i>A</i>) + <i>P</i>(<i>B</i>) + <i>P</i>(<i>A</i> and <i>B</i>)','<i>P</i>(<i>A</i>) × <i>P</i>(<i>B</i>)']},
+  {n:'Expected number of times an outcome happens in n trials', f:'<i>n</i> × <i>P</i>', t:['{<i>n</i>|<i>P</i>}','<i>n</i> + <i>P</i>','{<i>P</i>|<i>n</i>}']},
+  {n:'Mean of two groups together (sizes n₁, n₂; means x̄₁, x̄₂)', f:'{<i>n</i>₁<i>x̄</i>₁ + <i>n</i>₂<i>x̄</i>₂|<i>n</i>₁ + <i>n</i>₂}', t:['{<i>x̄</i>₁ + <i>x̄</i>₂|2}','{<i>x̄</i>₁ + <i>x̄</i>₂|<i>n</i>₁ + <i>n</i>₂}','<i>n</i>₁<i>x̄</i>₁ + <i>n</i>₂<i>x̄</i>₂'], s:'Only use the simple average when the groups are the same size.'},
+  {n:'Ways to arrange n different objects in a row', f:'<i>n</i>!', t:['<i>n</i>²','2<i>n</i>','<i>n</i>(<i>n</i> − 1)']},
+  {n:'Ways to choose r objects from n when the order does not matter', f:'{<i>n</i>!|<i>r</i>!(<i>n</i> − <i>r</i>)!}', t:['{<i>n</i>!|(<i>n</i> − <i>r</i>)!}','{<i>n</i>!|<i>r</i>!}','<i>n</i>^{<i>r</i>}'], s:'n!/(n − r)! counts ordered selections.'}
+ ]]
+];
+
+/* ---------- typesetting ---------- */
+function tex(s) {
+  var prev;
+  do { prev = s; s = s.replace(/sqrt\{([^{}]*)\}/g, '√<span class="rt"><span>$1</span></span>'); } while (s !== prev);
+  do { prev = s; s = s.replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>'); } while (s !== prev);
+  do { prev = s; s = s.replace(/\{([^{}|]*)\|([^{}]*)\}/g, '<span class="fr"><span>$1</span><span>$2</span></span>'); } while (s !== prev);
+  return '<span class="fx">' + s + '</span>';
+}
+
+var ALL = [];
+G.forEach(function (g) { g[1].forEach(function (it, i) { it.g = g[0]; it.id = g[0] + ':' + i; ALL.push(it); }); });
+
+/* ---------- views ---------- */
+function $(id) { return document.getElementById(id); }
+function view(v) {
+  ['setup', 'run', 'sheet'].forEach(function (k) { $('v-' + k).classList.toggle('on', k === v); });
+  [].forEach.call($('tabs').children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === (v === 'run' ? 'setup' : v)); });
+}
+$('tabs').onclick = function (e) { var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v')); };
+
+/* setup */
+var picked = {}; G.forEach(function (g) { picked[g[0]] = true; });
+var count = 10;
+function drawGroups() {
+  $('groups').innerHTML = G.map(function (g) {
+    return '<button class="chip' + (picked[g[0]] ? ' on' : '') + '" data-g="' + g[0] + '">' + g[0] + '<span>' + g[1].length + '</span></button>';
+  }).join('');
+}
+$('groups').onclick = function (e) {
+  var b = e.target.closest('.chip'); if (!b) return;
+  var g = b.getAttribute('data-g');
+  var on = Object.keys(picked).filter(function (k) { return picked[k]; });
+  if (on.length === G.length) { Object.keys(picked).forEach(function (k) { picked[k] = false; }); picked[g] = true; } // first tap: only this topic
+  else { picked[g] = !picked[g]; if (!Object.keys(picked).some(function (k) { return picked[k]; })) G.forEach(function (x) { picked[x[0]] = true; }); }
+  drawGroups();
+};
+$('count').onclick = function (e) {
+  var b = e.target.closest('.chip'); if (!b) return;
+  count = +b.getAttribute('data-n');
+  [].forEach.call($('count').children, function (x) { x.classList.toggle('on', x === b); });
+};
+function best() {
+  try { var b = JSON.parse(localStorage.getItem('prepline:formula-best') || 'null'); if (b) $('best').textContent = 'Your best: ' + b.s + '/' + b.n + ' (' + Math.round(100 * b.s / b.n) + '%)'; } catch (e) {}
+}
+
+/* run */
+function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+var run = null;
+function makeQ(it) {
+  var group = G.filter(function (g) { return g[0] === it.g; })[0][1];
+  // "what does this formula give?" for items with a real name and unique formula (a third of the time)
+  var canRev = !it.q && it.n !== 'Exact value' && group.filter(function (x) { return !x.q && x.n !== 'Exact value'; }).length >= 4;
+  if (canRev && Math.random() < 0.33) {
+    var others = shuffle(group.filter(function (x) { return x !== it && !x.q && x.n !== 'Exact value'; })).slice(0, 3);
+    var opts = shuffle([it].concat(others));
+    return { it: it, rev: true, opts: opts.map(function (x) { return x.n; }), ans: opts.indexOf(it) };
+  }
+  var o = shuffle([it.f].concat(shuffle(it.t.slice()).slice(0, 3)));
+  return { it: it, rev: false, opts: o, ans: o.indexOf(it.f) };
+}
+function start() {
+  var pool = ALL.filter(function (it) { return picked[it.g]; });
+  pool = shuffle(pool.slice());
+  if (count) pool = pool.slice(0, count);
+  run = { qs: pool.map(makeQ), i: 0, ok: 0, miss: [], done: false };
+  view('run'); show();
+}
+$('start').onclick = start;
+function show() {
+  var q = run.qs[run.i], it = q.it, n = run.qs.length;
+  var L = 'ABCD';
+  var prompt = q.rev ? 'What does this formula give?' + tex(it.f)
+             : it.q ? tex(it.q) : 'Which is the formula for: ' + it.n.charAt(0).toLowerCase() + it.n.slice(1) + '?';
+  $('card').innerHTML =
+    '<div class="card-top"><span>Question <b>' + (run.i + 1) + '</b> of ' + n + '</span><span><b>' + run.ok + '</b> correct</span></div>' +
+    '<div class="prog"><i style="width:' + (100 * run.i / n) + '%"></i></div>' +
+    '<span class="gtag">' + it.g + '</span>' +
+    '<div class="q-text">' + prompt + '</div>' +
+    '<div class="opts' + (q.rev ? ' names' : '') + '">' + q.opts.map(function (o, k) {
+      return '<button class="opt" data-k="' + k + '"><b>' + L[k] + '</b><span>' + (q.rev ? o : tex(o)) + '</span></button>';
+    }).join('') + '</div>' +
+    '<div class="res" id="res"></div>' +
+    '<div class="actions"><button class="btn" id="nx" style="display:none">' + (run.i + 1 < n ? 'Next →' : 'See result') + '</button>' +
+    '<span class="keys">A–D answer · Enter next</span></div>';
+  $('card').querySelector('.opts').onclick = function (e) { var b = e.target.closest('.opt'); if (b) answer(+b.getAttribute('data-k')); };
+  $('nx').onclick = next;
+}
+function answer(k) {
+  var q = run.qs[run.i];
+  if (q.picked !== undefined) return;
+  q.picked = k;
+  var btns = $('card').querySelectorAll('.opt');
+  [].forEach.call(btns, function (b, j) { b.disabled = true; if (j === q.ans) b.classList.add('c'); else if (j === k) b.classList.add('u'); });
+  var ok = k === q.ans, it = q.it;
+  if (ok) run.ok++; else run.miss.push(it);
+  var r = $('res');
+  r.className = 'res ' + (ok ? 'ok' : 'no');
+  r.innerHTML = (ok ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + (it.q ? tex(it.q) + ' ' : it.n + ': ') + tex(it.f) + (it.s ? '<br>' + it.s : '');
+  $('nx').style.display = '';
+  $('nx').focus();
+}
+function next() {
+  run.i++;
+  if (run.i < run.qs.length) { show(); return; }
+  var n = run.qs.length, p = Math.round(100 * run.ok / n);
+  try {
+    var b = JSON.parse(localStorage.getItem('prepline:formula-best') || 'null');
+    if (n >= 10 && (!b || run.ok / n > b.s / b.n)) localStorage.setItem('prepline:formula-best', JSON.stringify({ s: run.ok, n: n }));
+  } catch (e) {}
+  $('card').innerHTML =
+    '<span class="gtag">Result</span><div class="big">' + run.ok + '/' + n + '</div>' +
+    '<p class="muted">' + (p === 100 ? 'Every formula right.' : p >= 80 ? 'Strong. Learn the ones below and they are yours.' : 'Learn the formulas below, then try again.') + '</p>' +
+    (run.miss.length ? '<div class="miss">' + run.miss.map(function (it) {
+      return '<div class="row"><span>' + it.n + '</span>' + tex((it.q ? it.q + ' ' : '') + it.f) + '</div>';
+    }).join('') + '</div>' : '') +
+    '<div class="actions">' + (run.miss.length ? '<button class="btn" id="again-miss">Retry the ' + run.miss.length + ' missed</button>' : '') +
+    '<button class="btn ghost" id="again">New quiz</button><button class="btn ghost" id="to-sheet">All formulas</button></div>';
+  var m = $('again-miss');
+  if (m) m.onclick = function () { var miss = run.miss.slice(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [] }; show(); };
+  $('again').onclick = function () { best(); view('setup'); };
+  $('to-sheet').onclick = function () { view('sheet'); };
+}
+document.addEventListener('keydown', function (e) {
+  if (!$('v-run').classList.contains('on') || !run || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+  var q = run.qs[run.i];
+  var k = 'abcd'.indexOf(e.key.toLowerCase());
+  if (k < 0 && /^[1-4]$/.test(e.key)) k = +e.key - 1;
+  if (k >= 0 && q && q.picked === undefined && k < q.opts.length) { answer(k); e.preventDefault(); }
+  else if (e.key === 'Enter' && q && q.picked !== undefined && document.activeElement !== $('nx')) { next(); e.preventDefault(); }
+});
+
+/* sheet */
+function drawSheet() {
+  var f = ($('find').value || '').trim().toLowerCase(), h = '';
+  G.forEach(function (g) {
+    var rows = g[1].filter(function (it) {
+      if (!f) return true;
+      return (it.n + ' ' + (it.q || '') + ' ' + it.f).replace(/<[^>]+>/g, '').toLowerCase().indexOf(f) >= 0 || g[0].toLowerCase().indexOf(f) >= 0;
+    });
+    if (!rows.length) return;
+    h += '<div class="grp">' + g[0] + '</div>' + rows.map(function (it) {
+      return '<div class="row"><div class="nm">' + it.n + (it.s ? '<small>' + it.s + '</small>' : '') + '</div><div>' + tex((it.q ? it.q + ' ' : '') + it.f) + '</div></div>';
+    }).join('');
+  });
+  $('sheet').innerHTML = h || '<p class="muted">Nothing found.</p>';
+}
+$('find').oninput = drawSheet;
+
+drawGroups(); best(); drawSheet();
+if (location.hash === '#all') view('sheet');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+</body>
+</html>

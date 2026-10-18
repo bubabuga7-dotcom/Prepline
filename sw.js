@@ -1,12 +1,12 @@
 /* Prepline service worker: makes the site installable and keeps visited pages available offline.
    Pages, scripts and styles: network first (always the latest version when online), cache as fallback.
    Question images: cache first (their file names never change). Supabase and CDNs are not touched. */
-var VERSION = 'prepline-v2';
+var VERSION = 'prepline-v3';
 var SHELL = 'shell-' + VERSION, IMAGES = 'images-' + VERSION;
 var MAX_IMAGES = 400;
 var PRECACHE = [
-  './', 'index.html', 'dashboard.html', 'math.html', 'crit.html', 'topics.html', 'review.html',
-  'prepline.css', 'test-theme.css', 'nav.js', 'tests.js', 'hub.js', 'topics-index.js', 'test-ux.js', 'theme.js', 'light.css',
+  './', 'index.html', 'dashboard.html', 'math.html', 'crit.html', 'topics.html', 'formulas.html', 'review.html',
+  'prepline.css', 'test-theme.css', 'nav.js', 'tests.js', 'hub.js', 'topics-index.js', 'test-ux.js', 'theme.js', 'light.css', 'draw.js',
   'explain.js', 'prepline-supabase.js', 'manifest.webmanifest', 'icons/icon-192.png'
 ];
 

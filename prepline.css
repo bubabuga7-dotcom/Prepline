@@ -60,7 +60,7 @@ main{margin-left:var(--dock)}
   body{padding-bottom:72px}
   .dock{top:auto;bottom:0;right:0;width:auto;height:64px;flex-direction:row;justify-content:space-around;
         padding:0 6px;gap:0;border-right:0;border-top:1px solid var(--line)}
-  .dock-logo,.dock-sep,.dock-spacer,.dock-tip{display:none}
+  .dock-logo,.dock-sep,.dock-spacer,.dock-tip,.dock-item.dock-desk{display:none}
   .dock-item{width:auto;flex:1;height:54px;display:flex;flex-direction:column;justify-content:center;gap:2px}
   .dock-label{display:block;font-size:10.5px;font-weight:600;line-height:1}
   .wrap{padding:26px 16px 40px}

@@ -644,3 +644,9 @@
   if (typeof questions === 'undefined' || document.querySelector('script[src^="explain.js"]')) return;
   var s = document.createElement('script'); s.src = 'explain.js?v=2'; document.body.appendChild(s);
 })();
+
+/* drawing, zoom and full-screen figures (draw.js) */
+(function () {
+  if (typeof questions === 'undefined' || document.querySelector('script[src^="draw.js"]')) return;
+  var s = document.createElement('script'); s.src = 'draw.js?v=1'; document.body.appendChild(s);
+})();

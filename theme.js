@@ -113,5 +113,29 @@
       watch(); setTimeout(watch, 1500);
     }
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+  /* ---------- phones: a one-time tip that a tablet or laptop is more comfortable ---------- */
+  function deviceTip() {
+    var K = 'prepline:device-tip';
+    try { if (localStorage.getItem(K)) return; } catch (e) { return; }
+    if (Math.min(screen.width, screen.height) >= 600 || window.innerWidth >= 700) return;
+    var st = document.createElement('style');
+    st.textContent =
+      '.pl-devtip{position:relative;z-index:50;margin:34px 0 16px;display:flex;gap:12px;align-items:flex-start;' +
+      'background:#111A2E;border:1px solid rgba(132,174,236,.4);border-radius:10px;padding:12px 14px;font:14px/1.5 Inter,system-ui,sans-serif;color:#D5DDEC}' +
+      '.pl-devtip b{color:#E6ECF7}.pl-devtip .ico{font-size:20px;line-height:1.2}' +
+      '.pl-devtip button{margin-left:auto;flex-shrink:0;background:#84AEEC;color:#0B1120;border:0;border-radius:6px;font:700 13px Inter,sans-serif;padding:7px 12px;cursor:pointer}' +
+      'html[data-theme=light] .pl-devtip{background:#EEF4FE;border-color:#B9CDF1;color:#26324A}' +
+      'html[data-theme=light] .pl-devtip b{color:#0F1B33}html[data-theme=light] .pl-devtip button{background:#1D5FD1;color:#fff}' +
+      'body.exam-day .pl-devtip{display:none}';
+    document.head.appendChild(st);
+    var d = document.createElement('div');
+    d.className = 'pl-devtip';
+    d.innerHTML = '<span class="ico">💻</span><span><b>Prepline is better on a tablet or laptop.</b> Figures are bigger, there is room to draw ' +
+      'on the questions, and the timer and question map stay in view. Everything works on a phone too.</span><button type="button">Got it</button>';
+    var host = document.querySelector('main .wrap') || document.querySelector('.wrap') || document.body;
+    host.insertBefore(d, host.firstChild);
+    d.querySelector('button').onclick = function () { try { localStorage.setItem(K, '1'); } catch (e) {} d.remove(); };
+  }
+  function start() { build(); try { deviceTip(); } catch (e) {} }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
