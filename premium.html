@@ -117,7 +117,7 @@
   function off(text, note) { buy.textContent = text; buy.setAttribute('aria-disabled', 'true'); buy.removeAttribute('href'); st.innerHTML = note || ''; }
 
   function update() {
-    if (!P.checkout) return off('Payments open soon', 'Right now every test on the site is free.');
+    if (!window.preplinePremiumOn || !window.preplinePremiumOn()) return off('Payments open soon', 'Right now every test on the site is free.');
     if (!window.preplinePremium) return off('Could not connect', 'Refresh the page.');
     window.preplinePremium().then(function (p) {
       buy.removeAttribute('aria-disabled');
@@ -140,6 +140,14 @@
   }
   update();
   document.addEventListener('prepline:premium-changed', update);
+  // back from the payment (?paid=1): the webhook takes a few seconds, so check again for a minute
+  if (/[?&]paid=1/.test(location.search)) {
+    st.textContent = 'Payment received. Switching Premium on…';
+    var tries = 0, iv = setInterval(function () {
+      tries++;
+      window.preplinePremium && window.preplinePremium().then(function (p) { if (p.active || tries > 20) { clearInterval(iv); update(); } });
+    }, 3000);
+  }
   // back from the payment page: check again a few times while the webhook arrives
   window.addEventListener('focus', function () { if (P.checkout) update(); });
 })();

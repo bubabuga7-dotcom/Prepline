@@ -1,11 +1,25 @@
-/* Premium settings. checkout = the Lemon Squeezy checkout link of the Premium product (Share → Checkout link).
-   While it is empty, every test stays open and the Premium page says payments open soon. */
+/* Premium settings.
+   checkout = the Lemon Squeezy checkout link of the Premium product.
+   live     = false while the Lemon Squeezy store is in Test mode: then the Premium locks are seen only on devices
+              that opened any page with ?preview=1 (and ?preview=0 turns that off). Set live: true once the store is activated. */
 window.PREPLINE_PREMIUM = {
-  checkout: '',
-  price: '6 990 ₸ / month',
+  checkout: 'https://bubabuga7.lemonsqueezy.com/checkout/buy/5477f69c-1c92-4c17-87ca-04a239e804ee',
+  live: false,
+  price: '7 990 ₸ / month',
   free: ['mix-1', 'mix-2', 'mix-3', 'crit-1', 'crit-2', 'crit-3', 'diagnostic-math', 'diagnostic-crit']
 };
-window.preplinePremiumOn = function () { return !!window.PREPLINE_PREMIUM.checkout; };
+(function () {
+  try {
+    var pv = new URLSearchParams(location.search).get('preview');
+    if (pv === '1') localStorage.setItem('prepline:premium-preview', '1');
+    if (pv === '0') localStorage.removeItem('prepline:premium-preview');
+  } catch (e) {}
+})();
+window.preplinePremiumOn = function () {
+  var P = window.PREPLINE_PREMIUM, pv = false;
+  try { pv = localStorage.getItem('prepline:premium-preview') === '1'; } catch (e) {}
+  return !!P.checkout && (P.live || pv);
+};
 window.preplineIsFree = function (id) { return !window.preplinePremiumOn() || window.PREPLINE_PREMIUM.free.indexOf(id) >= 0; };
 window.preplinePremiumCached = function () {
   try { var p = JSON.parse(localStorage.getItem('prepline:premium') || 'null'); return !!(p && p.until && Date.parse(p.until) > Date.now()); }
