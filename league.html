@@ -65,6 +65,7 @@
          text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
   .lb th.r,.lb td.r{text-align:right}
   .lb td{padding:11px 10px;border-bottom:1px solid var(--line-2);font-size:15px}
+  .lb .bot{font:600 10.5px 'IBM Plex Mono',monospace;color:var(--ink-3);border:1px solid var(--line);border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:1px}
   .lb tr.mine td{background:rgba(201,162,39,.08)}
   .lb tr.gap td{padding:4px 10px;color:var(--ink-3);border-bottom:0}
   .lb .rk{font:600 15px 'IBM Plex Mono',monospace;color:var(--ink-3);width:44px}
@@ -141,6 +142,7 @@
 <script src="nav.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="league-bots.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
@@ -159,8 +161,16 @@
     if (r.error) throw r.error;
     var rows = r.data || [];
     var bounds = rows.find(function (x) { return x.rank == null; }) || {};
-    cache[prev] = { rows: rows.filter(function (x) { return x.rank != null; }),
-                    start: new Date(bounds.season_start), end: new Date(bounds.season_end) };
+    var real = rows.filter(function (x) { return x.rank != null; });
+    var start = new Date(bounds.season_start), end = new Date(bounds.season_end);
+    if (isNaN(start)) {   // empty season: work out the month bounds here (UTC+5)
+      var nowL = new Date(Date.now() + 5 * 3600e3), y = nowL.getUTCFullYear(), m = nowL.getUTCMonth() - (prev ? 1 : 0);
+      start = new Date(Date.UTC(y, m, 1) - 5 * 3600e3); end = new Date(Date.UTC(y, m + 1, 1) - 5 * 3600e3);
+    }
+    var all = window.preplineBotRows ? real.concat(window.preplineBotRows(real.length, start, end, prev)) : real;
+    all.sort(function (a, b) { return b.points - a.points || (a.bot ? 1 : 0) - (b.bot ? 1 : 0); });
+    all.forEach(function (x, i) { x.rank = i + 1; });
+    cache[prev] = { rows: all, start: start, end: end };
     return cache[prev];
   }
 
@@ -202,7 +212,7 @@
       if (x.rank > last + 1 && last >= 50) h += '<tr class="gap"><td colspan="6">⋯</td></tr>';
       last = x.rank;
       h += '<tr class="' + (x.me ? 'mine ' : '') + (x.rank === 1 ? 'top1' : '') + '"><td class="rk">' + x.rank + '</td>' +
-           '<td>' + esc(x.name) + (x.me ? ' <span class="muted">(you)</span>' : '') + '</td><td>' + tierTag(x.tier) + '</td>' +
+           '<td>' + esc(x.name) + (x.me ? ' <span class="muted">(you)</span>' : '') + (x.bot ? ' <span class="bot" title="Pace bot: shows how fast a steady student gains points">bot</span>' : '') + '</td><td>' + tierTag(x.tier) + '</td>' +
            '<td class="r sm hide-m">' + x.games + '</td><td class="r sm hide-m">' + x.accuracy + '%</td><td class="r pt">' + x.points + '</td></tr>';
     });
     $('table').innerHTML = h + '</tbody></table>';
