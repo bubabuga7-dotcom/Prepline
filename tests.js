@@ -1324,6 +1324,15 @@ window.PREPLINE_TESTS = [
 "src": "IMAT 2020 + IMAT 2021 + IMAT 2022 · 11 CT / 10 PS · official key · original IMAT order, most answers are A"
 },
 {
+"id": "crit-68",
+"kind": "ct",
+"n": 68,
+"group": "Prepline originals",
+"q": 30,
+"min": 60,
+"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations"
+},
+{
 "id": "test",
 "kind": "math",
 "n": 1,
