@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Prepline — NUET preparation</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Prepline">
@@ -78,6 +86,15 @@
   .countdown .edit:hover{color:var(--blue)}
 
   /* ---------- полоска цифр ---------- */
+  .streak .st-n{display:flex;align-items:baseline;gap:10px;margin:2px 0 12px}
+  .streak .st-n b{font:600 40px 'IBM Plex Mono',monospace;color:var(--gold);line-height:1}
+  .streak .st-n span{color:var(--ink-2);font-size:14px}
+  .st-week{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+  .st-week i{aspect-ratio:1;border-radius:4px;background:var(--line-2);border:1px solid var(--line-2)}
+  .st-week i.on{background:var(--gold);border-color:var(--gold)}
+  .st-week i.today{outline:1.5px solid var(--blue);outline-offset:1px}
+  .st-note{font-size:13px;color:var(--ink-3);margin-top:10px}
+  .st-note b{color:var(--ink)}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);
          border:1px solid var(--line);border-radius:8px;overflow:hidden}
   .stat{background:#0E1728;padding:16px 18px}
@@ -268,6 +285,13 @@
 
     <div class="col">
 
+      <div class="panel streak" id="streak" style="display:none">
+        <div class="panel-head"><h2>Daily streak</h2><span class="more" id="stBest"></span></div>
+        <div class="st-n"><b id="stDays">0</b><span id="stTxt">days in a row</span></div>
+        <div class="st-week" id="stWeek"></div>
+        <div class="st-note" id="stNote"></div>
+      </div>
+
       <a class="panel deck" id="deck" href="review.html" style="display:none">
         <div class="panel-head"><h2>Mistakes deck</h2><span class="more">Review &rarr;</span></div>
         <div class="deck-n"><b id="deckDue">0</b><span id="deckTxt">due now</span></div>
@@ -281,6 +305,12 @@
       <div class="panel">
         <div class="panel-head"><h2>Not attempted yet</h2></div>
         <div id="todo"><div class="empty">Loading&hellip;</div></div>
+      </div>
+
+      <div class="panel install" id="install" style="display:none">
+        <div class="panel-head"><h2>Install the app</h2></div>
+        <p class="st-note" id="installTxt" style="margin:0 0 12px">Open Prepline from your home screen like a normal app, full screen, without the browser bar.</p>
+        <button class="btn" id="installBtn">Install Prepline</button>
       </div>
 
       <div class="panel" id="cloud">
@@ -418,7 +448,7 @@ function drawWeak(rows){
     const thin = r.total < MIN_TRIES;
     return '<div class="wrow"><div>'+
       '<div class="nm">'+(NAMES[r.topic]||r.topic)+'</div>'+
-      '<div class="cd">'+r.topic+(thin?' · limited data':'')+'</div>'+
+      '<div class="cd">'+r.topic+(thin?' · limited data':'')+' · <a href="topics.html?t='+encodeURIComponent(r.topic)+'" style="color:var(--blue)">practise &rarr;</a></div>'+
       '<div class="wbar"><i style="width:'+p+'%;background:'+(thin?'rgba(255,255,255,.25)':colour(p))+'"></i></div>'+
       '</div><div class="wpct">'+p+'%</div></div>';
   }).join('');
@@ -445,8 +475,8 @@ function drawToday(rows, attempts){
   $('todayTitle').textContent = 'Your weakest topic is ' + (NAMES[w.topic] || w.topic);
   $('todayText').textContent  = 'You are getting ' + p + '% right on ' + w.topic + ' (' + w.correct + ' of ' + w.total +
                                '). That is the single change most likely to move your score.';
-  $('todayBtn').textContent    = 'Practise ' + (/^M\d/.test(w.topic) ? 'Mathematics' : 'Critical Thinking') + ' tests';
-  $('todayBtn').href           = /^M\d/.test(w.topic) ? 'math.html' : 'crit.html';
+  $('todayBtn').textContent    = 'Practise this topic';
+  $('todayBtn').href           = 'topics.html?t=' + encodeURIComponent(w.topic);
 }
 
 
@@ -558,6 +588,8 @@ async function boot(){
           : 'League: not ranked yet this month — play a live room or a duel &rarr;')+'</a>');
   });
 
+  drawStreak(supa).catch(e => console.error('[Prepline] streak:', e));
+
   // облачные результаты
   const {data:res} = await supa.from('results').select('mock_id,score,total,created_at').limit(2000);
   if(res && res.length){
@@ -591,6 +623,69 @@ async function boot(){
     $('sTopics').textContent = rows.length;
   }
 }
+
+/* ================= серия дней (streak) ================= */
+// A day counts if the student finished a test, answered a topic or live question, or reviewed a card.
+// Days are Astana days (UTC+5).
+const dayOf = t => new Date(t + 5*3600e3).toISOString().slice(0,10);
+const dayShift = (d, n) => dayOf(Date.parse(d + 'T12:00:00Z') - 5*3600e3 + n*864e5);
+
+async function drawStreak(supa){
+  const q = (table, col) => supa.from(table).select(col).order(col, {ascending:false}).limit(1000)
+    .then(r => r.error ? [] : (r.data || []).map(x => x[col]), () => []);
+  const lists = await Promise.all([
+    q('results', 'created_at'),
+    q('answer_attempts', 'created_at'),
+    supa.from('review_cards').select('reviewed_at').not('reviewed_at', 'is', null).order('reviewed_at', {ascending:false}).limit(1000)
+      .then(r => r.error ? [] : (r.data || []).map(x => x.reviewed_at), () => [])
+  ]);
+  const days = new Set();
+  lists.flat().forEach(iso => { const t = Date.parse(iso); if(t) days.add(dayOf(t)); });
+
+  const today = dayOf(Date.now());
+  const doneToday = days.has(today);
+  let cur = 0, d = doneToday ? today : dayShift(today, -1);
+  while(days.has(d)){ cur++; d = dayShift(d, -1); }
+
+  let best = 0, run = 0, prev = null;
+  [...days].sort().forEach(x => { run = prev && dayShift(prev, 1) === x ? run + 1 : 1; best = Math.max(best, run); prev = x; });
+
+  $('streak').style.display = 'block';
+  $('stDays').textContent = cur;
+  $('stTxt').textContent = cur === 1 ? 'day in a row' : 'days in a row';
+  $('stBest').textContent = best ? 'best: ' + best : '';
+  let h = '';
+  for(let i = 13; i >= 0; i--){
+    const x = dayShift(today, -i);
+    h += '<i class="'+(days.has(x)?'on':'')+(i===0?' today':'')+'" title="'+x+'"></i>';
+  }
+  $('stWeek').innerHTML = h;
+  $('stNote').innerHTML = doneToday ? '<b>Done for today.</b> Come back tomorrow to keep the streak.'
+    : cur ? '<b>Practise today</b> to keep your ' + cur + '-day streak — one topic session is enough.'
+          : 'Finish a test, a <a href="topics.html" style="color:var(--blue)">topic session</a> or a deck review to start a streak.';
+}
+
+/* ================= установка приложения (PWA) ================= */
+(function(){
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(standalone) return;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const showPrompt = () => { $('install').style.display = 'block'; $('installBtn').style.display = ''; };
+  if(window.preplineInstallPrompt) showPrompt();
+  document.addEventListener('prepline:installable', showPrompt);
+  document.addEventListener('prepline:installed', () => { $('install').style.display = 'none'; });
+  $('installBtn').onclick = async () => {
+    const p = window.preplineInstallPrompt; if(!p) return;
+    p.prompt();
+    try{ const c = await p.userChoice; if(c.outcome === 'accepted') $('install').style.display = 'none'; }catch(e){}
+    window.preplineInstallPrompt = null;
+  };
+  if(ios){
+    $('install').style.display = 'block';
+    $('installBtn').style.display = 'none';
+    $('installTxt').innerHTML = 'On iPhone: open this page in <b>Safari</b>, tap <b>Share</b>, then <b>Add to Home Screen</b>.';
+  }
+})();
 
 /* ================= мини-тест ================= */
 const MQ = [

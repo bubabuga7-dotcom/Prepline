@@ -1,5 +1,24 @@
 /* Prepline x Supabase: authentication + saving results to the cloud.
    Included on every page AFTER supabase-js (CDN). */
+/* ---------- installable app (PWA): service worker + install prompt ---------- */
+(function () {
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function (e) { console.warn('[Prepline] service worker:', e.message); });
+    });
+  }
+  window.preplineInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    window.preplineInstallPrompt = e;
+    document.dispatchEvent(new Event('prepline:installable'));
+  });
+  window.addEventListener('appinstalled', function () {
+    window.preplineInstallPrompt = null;
+    document.dispatchEvent(new Event('prepline:installed'));
+  });
+})();
+
 (function () {
   if (typeof supabase === 'undefined') { console.error('[Prepline] supabase-js failed to load'); return; }
 

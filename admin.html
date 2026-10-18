@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Prepline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:1040px}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .head h1{font-size:30px;margin:8px 0 4px}
+  .muted{color:var(--ink-3);font-size:13.5px}
+  .view{display:none} .view.on{display:block}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);
+         border-radius:var(--r);overflow:hidden;margin:20px 0 18px}
+  .tile{background:var(--bg-3);padding:14px 18px}
+  .tile b{display:block;font:600 26px 'IBM Plex Mono',monospace;color:var(--ink);line-height:1.2}
+  .tile span{font-size:12.5px;color:var(--ink-3)}
+  .tile small{display:block;font-size:12px;color:var(--ink-2);margin-top:2px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  h2{font-size:17px;margin-bottom:4px}
+  .chart{position:relative;height:180px;display:grid;grid-template-columns:repeat(14,1fr);gap:2px;align-items:end;
+         border-bottom:1px solid var(--line);margin:18px 0 6px}
+  .chart .col{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:default;position:relative}
+  .chart .col i{display:block;width:62%;max-width:26px;background:var(--gold);border-radius:4px 4px 0 0;min-height:2px}
+  .chart .col.zero i{background:var(--line)}
+  .chart .col:hover i{background:var(--gold-2)}
+  .chart .col em{font:500 11px 'IBM Plex Mono',monospace;color:var(--ink-2);font-style:normal;margin-bottom:3px}
+  .xl{display:grid;grid-template-columns:repeat(14,1fr);gap:2px;font:500 10.5px 'IBM Plex Mono',monospace;color:var(--ink-3);text-align:center}
+  .tip{position:absolute;pointer-events:none;background:#16213A;border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:12.5px;
+       color:var(--ink);white-space:nowrap;transform:translate(-50%,-100%);margin-top:-8px;display:none;z-index:2}
+  .tip b{font-family:'IBM Plex Mono',monospace}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px}
+  th{text-align:left;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+     padding:6px 8px;border-bottom:1px solid var(--line)}
+  td{padding:7px 8px;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+  td.n,th.n{text-align:right;font-family:'IBM Plex Mono',monospace}
+  td a{color:var(--blue);text-decoration:none}
+  td b{color:var(--ink);font-weight:600}
+  details{margin-top:10px} summary{cursor:pointer;color:var(--ink-3);font-size:13px}
+  @media (max-width:860px){.tiles{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <div><span class="kicker">Admin</span><h1>Site statistics</h1>
+      <p class="muted" id="when">Only accounts in the admins table can see this page.</p></div>
+    <button class="btn ghost" id="reload" style="display:none">Refresh</button>
+  </div>
+
+  <section class="view on" id="v-msg"><div class="panel" style="margin-top:20px"><p class="muted" id="msg">Loading…</p></div></section>
+
+  <section class="view" id="v-stats">
+    <div class="tiles" id="tiles"></div>
+
+    <div class="panel">
+      <h2>Active students per day</h2>
+      <p class="muted">Students who finished a test or answered a topic question, last 14 days (Astana time).</p>
+      <div class="chart" id="chart"><div class="tip" id="tip"></div></div>
+      <div class="xl" id="xl"></div>
+      <details><summary>Show as a table (with sign-ups and tests)</summary><table id="days"></table></details>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h2>Most-taken tests</h2>
+        <p class="muted">Finished attempts, all time.</p>
+        <table id="top"></table>
+      </div>
+      <div class="panel">
+        <h2>Most-missed questions</h2>
+        <p class="muted">At least 5 answers. A very high wrong rate often means a wrong answer key — worth checking.</p>
+        <table id="hard"></table>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var supa = window.preplineSupa;
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function num(n) { return n == null ? '—' : Number(n).toLocaleString('en-US'); }
+  function testName(id) {
+    var t = (window.PREPLINE_TESTS || []).find(function (x) { return x.id === id; });
+    if (!t) return id;
+    return t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Math Test ') + t.n;
+  }
+  function msg(t) { $('msg').innerHTML = t; $('v-msg').classList.add('on'); $('v-stats').classList.remove('on'); }
+
+  function draw(s) {
+    $('v-msg').classList.remove('on'); $('v-stats').classList.add('on'); $('reload').style.display = '';
+    $('when').textContent = 'Updated ' + new Date(s.generated_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    var tile = function (v, label, sub) { return '<div class="tile"><b>' + v + '</b><span>' + label + '</span>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>'; };
+    $('tiles').innerHTML =
+      tile(num(s.users_total), 'accounts', num(s.users_confirmed) + ' confirmed e-mail') +
+      tile('+' + num(s.users_7d), 'new this week', '+' + num(s.users_30d) + ' in 30 days') +
+      tile(num(s.active_today), 'active today', num(s.active_7d) + ' this week · ' + num(s.active_30d) + ' in 30 days') +
+      tile(num(s.tests_total), 'tests finished', num(s.tests_7d) + ' this week') +
+      tile(num(s.answers_total), 'questions answered', 'tests + topic practice') +
+      tile(num(s.rooms_total), 'live rooms & duels', num(s.rooms_7d) + ' this week') +
+      tile(num(s.explanations), 'student explanations', num(s.deck_cards) + ' cards in mistakes decks') +
+      tile(s.reports_open == null ? '—' : num(s.reports_open), 'open error reports',
+           'Table Editor → question_reports');
+
+    var days = s.by_day || [], max = Math.max.apply(null, days.map(function (d) { return d.active; }).concat([1]));
+    var short = function (d) { var p = d.split('-'); return +p[2] + '.' + p[1]; };
+    $('chart').innerHTML = '<div class="tip" id="tip"></div>' + days.map(function (d, i) {
+      return '<div class="col' + (d.active ? '' : ' zero') + '" data-i="' + i + '">' + (d.active ? '<em>' + d.active + '</em>' : '') +
+        '<i style="height:' + Math.max(1, d.active / max * 82) + '%"></i></div>';
+    }).join('');
+    $('xl').innerHTML = days.map(function (d, i) { return '<span>' + (i % 2 === 1 || i === days.length - 1 ? short(d.day) : '') + '</span>'; }).join('');
+    var tip = $('tip');
+    $('chart').onmousemove = function (e) {
+      var c = e.target.closest('.col'); if (!c) { tip.style.display = 'none'; return; }
+      var d = days[+c.dataset.i], r = $('chart').getBoundingClientRect(), cr = c.getBoundingClientRect();
+      tip.innerHTML = '<b>' + short(d.day) + '</b> · ' + d.active + ' active · ' + d.signups + ' sign-ups · ' + d.tests + ' tests';
+      tip.style.left = Math.min(Math.max(cr.left - r.left + cr.width / 2, 110), r.width - 110) + 'px';
+      tip.style.top = '0px'; tip.style.display = 'block';
+    };
+    $('chart').onmouseleave = function () { tip.style.display = 'none'; };
+    $('days').innerHTML = '<tr><th>Day</th><th class="n">Active</th><th class="n">Sign-ups</th><th class="n">Tests</th></tr>' +
+      days.slice().reverse().map(function (d) { return '<tr><td>' + d.day + '</td><td class="n">' + d.active + '</td><td class="n">' + d.signups + '</td><td class="n">' + d.tests + '</td></tr>'; }).join('');
+
+    var top = s.top_tests || [];
+    $('top').innerHTML = top.length ? '<tr><th>Test</th><th class="n">Attempts</th><th class="n">Students</th><th class="n">Avg</th></tr>' + top.map(function (t) {
+      return '<tr><td><a href="' + esc(t.mock_id) + '.html">' + esc(testName(t.mock_id)) + '</a></td><td class="n">' + t.attempts + '</td><td class="n">' + t.students + '</td><td class="n">' + t.avg_pct + '%</td></tr>';
+    }).join('') : '<tr><td>No finished tests yet.</td></tr>';
+
+    var hard = s.hardest || [];
+    $('hard').innerHTML = hard.length ? '<tr><th>Question</th><th class="n">Answers</th><th class="n">Wrong</th><th class="n">Skipped</th></tr>' + hard.map(function (h) {
+      return '<tr><td><a href="' + esc(h.mock_id) + '.html">' + esc(testName(h.mock_id)) + '</a>, <b>Q' + h.q_id + '</b></td><td class="n">' + h.answers + '</td><td class="n">' + h.wrong_pct + '%</td><td class="n">' + h.skipped_pct + '%</td></tr>';
+    }).join('') : '<tr><td>Not enough answers yet (a question needs 5).</td></tr>';
+  }
+
+  async function load() {
+    if (!supa) return msg('Could not connect to Supabase. Refresh the page.');
+    var u = null;
+    try { u = (await supa.auth.getUser()).data.user; } catch (e) {}
+    if (!u) return msg('Sign in with your admin account. <button class="btn" id="si" style="margin-top:12px">Sign in</button>'),
+      $('si').onclick = function () { var p = $('plPill'); if (p) p.click(); };
+    var r = await supa.rpc('admin_stats');
+    if (r.error) {
+      var m = String(r.error.message || '');
+      if (/not an admin/i.test(m)) return msg('This account (' + esc(u.email) + ') is not an admin.');
+      if (/admin_stats|schema cache|does not exist/i.test(m)) return msg('Run <b>stage7.sql</b> in Supabase → SQL Editor first.');
+      return msg('Error: ' + esc(m));
+    }
+    draw(r.data);
+  }
+  $('reload').onclick = load;
+  supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') load(); });
+  load();
+})();
+</script>
+</body>
+</html>
