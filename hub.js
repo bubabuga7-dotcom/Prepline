@@ -27,6 +27,17 @@
       } catch (e) {}
     });
   }
+  var drafts = {};            // id -> {n answered, t seconds left, at}
+  function loadDrafts() {
+    drafts = {};
+    all.forEach(function (t) {
+      try {
+        var d = JSON.parse(localStorage.getItem('prepline-draft:' + t.id) || 'null');
+        if (d && d.a && Object.keys(d.a).length && d.t > 5 && Date.now() - d.at < 30 * 864e5)
+          drafts[t.id] = { n: Object.keys(d.a).length, q: d.n, t: d.t, at: d.at };
+      } catch (e) {}
+    });
+  }
   function merge(id, best, total, count) {
     var r = results[id];
     if (!r) { results[id] = { best: best, total: total, count: count }; return; }
@@ -47,18 +58,19 @@
   }
 
   function tile(t) {
-    var r = results[t.id], badge = '';
+    var r = results[t.id], badge = '', d = drafts[t.id];
     if (r) {
       var p = Math.round(100 * r.best / r.total);
       var cls = p >= 70 ? 'ok' : p >= 45 ? 'warn' : 'bad';
       badge = '<span class="score ' + cls + '">' + r.best + '/' + r.total + '</span>';
     }
-    return '<a class="tile' + (r ? ' done' : '') + '" href="' + link(t.id) + '">' +
+    if (d) badge = '<span class="wip" title="Unfinished attempt, saved on this device">' + d.n + '/' + d.q + ' in progress</span>';
+    return '<a class="tile' + (r && !d ? ' done' : '') + '" href="' + (d ? t.id + '.html' : link(t.id)) + '">' +
       '<div class="tile-top"><span class="num mono">' + (t.group === 'Original mock exams' ? 'EXAM' : '#' + t.n) + '</span>' + badge + '</div>' +
       '<h3>' + esc(title(t)) + '</h3>' +
       '<p class="src">' + esc(t.src || '') + '</p>' +
       '<div class="tile-foot mono"><span>' + t.q + ' q</span><span>' + t.min + ' min</span>' +
-      (r ? '<span class="tries">' + r.count + (r.count === 1 ? ' attempt' : ' attempts') + '</span>' : '<span class="go">Start →</span>') +
+      (d ? '<span class="cont">Continue →</span>' : r ? '<span class="tries">' + r.count + (r.count === 1 ? ' attempt' : ' attempts') + '</span>' : '<span class="go">Start →</span>') +
       '</div></a>';
   }
 
@@ -91,8 +103,18 @@
     document.getElementById('st-avg').textContent = avg;
     var bar = document.getElementById('done-bar');
     if (bar) bar.style.width = (100 * done.length / Math.max(all.length, 1)) + '%';
-    var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams'; })[0];
     var nx = document.getElementById('next');
+    var wip = all.filter(function (t) { return drafts[t.id]; }).sort(function (a, b) { return drafts[b.id].at - drafts[a.id].at; })[0];
+    if (wip && nx) {
+      var dw = drafts[wip.id];
+      nx.querySelector('.next-name').textContent = title(wip);
+      nx.querySelector('.next-src').textContent = dw.n + ' of ' + dw.q + ' answered · ' + Math.floor(dw.t / 60) + ' min left';
+      nx.querySelector('a.btn').href = wip.id + '.html';
+      nx.querySelector('a.btn').textContent = 'Continue →';
+      nx.querySelector('.next-label').textContent = 'Unfinished test';
+      return;
+    }
+    var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams'; })[0];
     if (next && nx) {
       nx.querySelector('.next-name').textContent = title(next);
       nx.querySelector('.next-src').textContent = (next.src ? next.src + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
@@ -117,7 +139,9 @@
   }
 
   search.placeholder = kind === 'ct' ? 'Find: 24, TSA 2019, IMAT…' : 'Find: 23, Kiseki, Trial Test…';
-  loadLocal(); renderTabs(); render();
+  loadLocal(); loadDrafts(); renderTabs(); render();
+  // back from a test via the browser's Back button: the page comes from cache, refresh the cards
+  window.addEventListener('pageshow', function (e) { if (e.persisted) { loadLocal(); loadDrafts(); render(); } });
 
   // cloud results for signed-in users
   var supa = window.preplineSupa;

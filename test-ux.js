@@ -210,7 +210,7 @@
     lastSig = sig();
     var r = orig.apply(this, arguments);
     try {
-      if (state.finished) { flags = {}; saveFlags(); }
+      if (state.finished) { flags = {}; saveFlags(); enhanceResults(); }
       decorate(); updateMap();
       if (live) pushProgress();
     } catch (e) {}
@@ -386,7 +386,7 @@
   var EXAM = PARAMS.get('exam') === '1' && !ROOM_CODE;
   var T0 = state.timeLeft;                          // full time; the engine started counting at page load
   function elapsed() { return (live ? live.room.duration_sec : T0) - state.timeLeft; }
-  function tick() { try { ghostTick(); examTick(); } catch (e) {} }
+  function tick() { try { ghostTick(); examTick(); } catch (e) {} try { saveDraft(); } catch (e) {} }
 
   /* ---------- ghost ---------- */
   var GKEY = 'prepline-pace:' + page;
@@ -554,7 +554,88 @@
     });
   }
 
+  /* ---------- autosave: an unfinished attempt survives a reload, a closed tab or a dead battery ---------- */
+  var DKEY = 'prepline-draft:' + page;
+  var draftOn = !ROOM_CODE && !EXAM && !partial;
+  var lastDraft = '';
+  function saveDraft() {
+    if (!draftOn) return;
+    if (state.finished || !Object.keys(state.answers).length) {
+      if (lastDraft !== '-') { try { localStorage.removeItem(DKEY); } catch (e) {} lastDraft = '-'; }
+      return;
+    }
+    var d = JSON.stringify({ a: state.answers, i: state.idx, t: state.timeLeft, f: Object.keys(flags), n: questions.length, at: Date.now() });
+    if (d === lastDraft) return;
+    try { localStorage.setItem(DKEY, d); lastDraft = d; } catch (e) {}
+  }
+  window.addEventListener('pagehide', function () { try { saveDraft(); } catch (e) {} });
+  if (draftOn) {
+    var dr = null;
+    try { dr = JSON.parse(localStorage.getItem(DKEY) || 'null'); } catch (e) {}
+    var drN = dr && dr.a ? Object.keys(dr.a).length : 0;
+    if (dr && drN && dr.n === questions.length && dr.t > 5 && Date.now() - dr.at < 30 * 864e5) {
+      state.answers = dr.a;
+      state.idx = Math.max(0, Math.min(dr.i | 0, questions.length - 1));
+      state.timeLeft = dr.t;
+      (dr.f || []).forEach(function (id) { flags[id] = 1; }); saveFlags();
+      lastSig = null; render();
+      css.textContent += '\n.resume{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;background:rgba(132,174,236,.08);' +
+        'border:1px solid rgba(132,174,236,.35);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#E6ECF7}' +
+        '\n.resume b{font-family:"IBM Plex Mono",monospace;color:#84AEEC}' +
+        '\n.resume button{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.18);color:#B4C0D6;border-radius:5px;' +
+        'font:600 12px Inter,sans-serif;padding:5px 10px;cursor:pointer}.resume button:hover{border-color:#F87171;color:#F87171}';
+      var note = document.createElement('div'); note.className = 'resume';
+      note.innerHTML = '<span>↺ Picked up where you left off: <b>' + drN + '/' + questions.length + '</b> answered, <b>' +
+        mmss(dr.t) + '</b> left. The clock was paused.</span><button type="button">Start over</button>';
+      map.parentNode.insertBefore(note, map);
+      note.querySelector('button').onclick = function () {
+        if (!confirm('Erase your answers and start this test from the beginning?')) return;
+        draftOn = false;
+        try { localStorage.removeItem(DKEY); } catch (e) {}
+        flags = {}; saveFlags();
+        location.reload();
+      };
+    }
+  }
+
+  /* ---------- results: show only mistakes, long passages folded ---------- */
+  css.textContent += '\n.rv-filter{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}' +
+    '\n.rv-filter button{background:#111A2E;border:1px solid rgba(255,255,255,.14);color:#B4C0D6;font:600 13px Inter,sans-serif;' +
+    'padding:7px 12px;border-radius:6px;cursor:pointer}.rv-filter button.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:#C9A227}' +
+    '\n.rv-q{display:block;max-height:4.65em;overflow:hidden;cursor:pointer;line-height:1.55;' +
+    '-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}' +
+    '\n.rv-q.open{max-height:none;cursor:auto;-webkit-mask-image:none;mask-image:none}' +
+    '\n.rv-more{font-size:12px;color:#84AEEC;cursor:pointer;margin-top:4px;align-self:flex-start;background:none;border:0;padding:0;font-weight:600}';
+  function enhanceResults() {
+    var items = [].filter.call(app.querySelectorAll('.review-item'), function (it) { return it.querySelector('.mark'); });
+    items = items.filter(function (it) { return it.style.flexDirection === 'column'; });
+    var rn = document.querySelector('.resume'); if (rn) rn.remove();
+    if (!items.length || app.querySelector('.rv-filter')) return;
+    var wrong = items.filter(function (it) { return it.querySelector('.mark.no'); });
+    items.forEach(function (it) {
+      var sp = it.querySelector('div > span:first-child');
+      if (!sp) return;
+      sp.classList.add('rv-q');
+      if (sp.scrollHeight <= sp.clientHeight + 4) { sp.classList.remove('rv-q'); return; }
+      var more = document.createElement('button'); more.type = 'button'; more.className = 'rv-more'; more.textContent = 'Show full question';
+      sp.parentNode.insertAdjacentElement('afterend', more);
+      function open() { sp.classList.add('open'); more.remove(); }
+      sp.addEventListener('click', open); more.onclick = open;
+    });
+    var bar = document.createElement('div'); bar.className = 'rv-filter';
+    bar.innerHTML = '<button type="button" class="on" data-f="all">All questions ' + items.length + '</button>' +
+      '<button type="button" data-f="no">Only mistakes ' + wrong.length + '</button>';
+    items[0].parentNode.insertBefore(bar, items[0]);
+    bar.onclick = function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      [].forEach.call(bar.children, function (x) { x.classList.toggle('on', x === b); });
+      var only = b.getAttribute('data-f') === 'no';
+      items.forEach(function (it) { it.style.display = only && !it.querySelector('.mark.no') ? 'none' : ''; });
+    };
+  }
+
   decorate(); updateMap(); tick();
+  if (state.finished) enhanceResults();
   lastSig = sig();   // the engine already drew the first question before this script loaded
 })();
 

@@ -72,6 +72,8 @@
   .tile-foot{display:flex;gap:12px;font-size:11.5px;color:var(--ink-3);margin-top:10px;padding-top:9px;border-top:1px solid var(--line-2)}
   .tile-foot .go{margin-left:auto;color:var(--gold);font-weight:600}
   .tile-foot .tries{margin-left:auto}
+  .tile-foot .cont{margin-left:auto;color:#84AEEC;font-weight:600}
+  .wip{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid rgba(132,174,236,.45);color:#84AEEC;background:rgba(132,174,236,.1)}
   .score{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid}
   .score.ok{color:var(--ok);border-color:rgba(74,222,154,.4);background:rgba(74,222,154,.1)}
   .score.warn{color:var(--warn);border-color:rgba(245,196,81,.4);background:rgba(245,196,81,.1)}
@@ -84,7 +86,8 @@
   @media (max-width:780px){
     .hub-head h1{font-size:27px}
     .tools-right{margin-left:0;width:100%}
-    .search{flex:1;width:auto}
+    .tools-right{flex-wrap:wrap;gap:10px 16px}
+    .search{flex:1 1 100%;width:auto}
     .tabs{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:2px}
     .tab{white-space:nowrap}
     .tiles{grid-template-columns:1fr 1fr;gap:10px}

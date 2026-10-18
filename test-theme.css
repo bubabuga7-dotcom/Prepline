@@ -23,7 +23,9 @@ html body .progress{height:4px;border-radius:99px}
 html body .progress-fill{background:var(--gold);border-radius:99px}
 
 /* question */
-html body .question{color:var(--text-bright)}
+html body .question{color:var(--text-bright);font-weight:400;font-size:16.5px;line-height:1.7}
+html body .question b,html body .question strong{font-weight:650}
+@media (max-width:480px){html body .question{font-size:16px;line-height:1.65}}
 html body .question-img,html body .pl-scroll .pl-img{border-radius:6px;border:1px solid rgba(255,255,255,.14)}
 html body .opt,html body .pl-scroll .pl-opt{background:#111A2E;backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid rgba(255,255,255,.12);border-radius:6px;color:var(--text);transform:none}
