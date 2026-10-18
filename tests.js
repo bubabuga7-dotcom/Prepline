@@ -595,6 +595,132 @@ window.PREPLINE_TESTS = [
 "src": "Trial Test 12 · 1 not scored"
 },
 {
+"id": "mix-67",
+"kind": "math",
+"n": 67,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "NUET practice test, version 6.2 · full key"
+},
+{
+"id": "mix-68",
+"kind": "math",
+"n": 68,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #17 · full key"
+},
+{
+"id": "mix-69",
+"kind": "math",
+"n": 69,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #18 · full key"
+},
+{
+"id": "mix-70",
+"kind": "math",
+"n": 70,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #19 · full key"
+},
+{
+"id": "mix-71",
+"kind": "math",
+"n": 71,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #20 · full key"
+},
+{
+"id": "mix-72",
+"kind": "math",
+"n": 72,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #21 · full key"
+},
+{
+"id": "mix-73",
+"kind": "math",
+"n": 73,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Math tests #22 · full key"
+},
+{
+"id": "mix-74",
+"kind": "math",
+"n": 74,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #1 · full key"
+},
+{
+"id": "mix-75",
+"kind": "math",
+"n": 75,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #2 · full key"
+},
+{
+"id": "mix-76",
+"kind": "math",
+"n": 76,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #3 · full key"
+},
+{
+"id": "mix-77",
+"kind": "math",
+"n": 77,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #4 · full key"
+},
+{
+"id": "mix-78",
+"kind": "math",
+"n": 78,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #5 · full key"
+},
+{
+"id": "mix-79",
+"kind": "math",
+"n": 79,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #6 · full key"
+},
+{
+"id": "mix-80",
+"kind": "math",
+"n": 80,
+"group": "Mock collection",
+"q": 30,
+"min": 30,
+"src": "Trial SET #7 · full key"
+},
+{
 "id": "crit-1",
 "kind": "ct",
 "n": 1,
