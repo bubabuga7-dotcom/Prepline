@@ -14,6 +14,7 @@
     league: '<path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v1a3 3 0 0 0 3 3"/><path d="M17 6h3v1a3 3 0 0 1-3 3"/>',
     deck: '<rect x="4" y="6" width="13" height="15" rx="2"/><path d="M8 3h10a2 2 0 0 1 2 2v12"/><path d="m8 13 2 2 4-4"/>',
     topic: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+    admin: '<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/>'
   };
   var items = [
@@ -38,4 +39,33 @@
          '<span class="dock-tip">' + it[1] + '</span><span class="dock-label">' + it[2] + '</span></a>';
   });
   el.innerHTML = h;
+
+  // "Admin" item: only for accounts in the admins table (stage7.sql). Remembered on this device to avoid a flash.
+  function addAdmin() {
+    if (el.querySelector('.dock-admin')) return;
+    var sp = el.querySelector('.dock-spacer'); if (!sp) return;
+    var a = document.createElement('a');
+    a.href = 'admin.html'; a.className = 'dock-item dock-admin' + (page === 'admin.html' ? ' on' : ''); a.setAttribute('aria-label', 'Admin');
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + I.admin + '</svg>' +
+      '<span class="dock-tip">Admin</span><span class="dock-label">Admin</span>';
+    sp.parentNode.insertBefore(a, sp);
+  }
+  function removeAdmin() { var a = el.querySelector('.dock-admin'); if (a) a.remove(); }
+  function remember(v) { try { v ? localStorage.setItem('prepline:admin', '1') : localStorage.removeItem('prepline:admin'); } catch (e) {} }
+  try { if (localStorage.getItem('prepline:admin') === '1') addAdmin(); } catch (e) {}
+  function check() {
+    var supa = window.preplineSupa; if (!supa) return;
+    supa.auth.getSession().then(function (r) {
+      if (!r.data || !r.data.session) { removeAdmin(); remember(false); return; }
+      return supa.rpc('is_admin').then(function (x) {
+        if (x.error) return;                       // stage7.sql not run or offline: leave as is
+        if (x.data === true) { addAdmin(); remember(true); } else { removeAdmin(); remember(false); }
+      });
+    }).catch(function () {});
+  }
+  window.addEventListener('load', function () {
+    check();
+    var supa = window.preplineSupa;
+    supa && supa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') check(); });
+  });
 })();
