@@ -710,3 +710,29 @@
   if (typeof questions === 'undefined' || document.querySelector('script[src^="draw.js"]')) return;
   var s = document.createElement('script'); s.src = 'draw.js?v=1'; document.body.appendChild(s);
 })();
+
+/* where this test's questions come from, under the title (catalog from tests.js) */
+(function () {
+  if (typeof questions === 'undefined') return;
+  var page = (location.pathname.split('/').pop() || '').replace('.html', '');
+  function credit(t) {
+    var src = (t && t.src) || '';
+    if (t && t.group === 'Prepline originals') return '© Prepline · original questions';
+    if (/BMAT|TSA|IMAT/i.test(src) || /^crit-[1-5]$/.test(page)) return 'Past-paper questions © Cambridge University Press & Assessment';
+    if (/Kiseki/i.test(src)) return 'Questions © Kiseki';
+    if (/^diagnostic-/.test(page)) return '';
+    return 'Questions from publicly shared NUET practice materials · rights belong to their authors';
+  }
+  function show() {
+    var t = (window.PREPLINE_TESTS || []).filter(function (x) { return x.id === page; })[0];
+    var text = credit(t), h = document.querySelector('.wrap h2');
+    if (!text || !h || document.querySelector('.pl-credit')) return;
+    var d = document.createElement('div');
+    d.className = 'pl-credit';
+    d.style.cssText = 'margin:-12px 0 16px;font:12.5px/1.5 Inter,system-ui,sans-serif;color:var(--text,#8492AC);opacity:.75';
+    d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' · <a href="copyright.html" style="color:inherit">Rights holders</a>';
+    h.parentNode.insertBefore(d, h.nextSibling);
+  }
+  if (window.PREPLINE_TESTS) return show();
+  var s = document.createElement('script'); s.src = 'tests.js'; s.onload = show; document.body.appendChild(s);
+})();
