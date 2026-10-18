@@ -130,7 +130,14 @@
     var b = e.target.closest('.tab'); if (!b) return;
     state.group = b.getAttribute('data-g'); renderTabs(); render();
   });
-  search.addEventListener('input', function () { state.q = search.value; render(); });
+  // browsers sometimes autofill the account e-mail into this box; an e-mail is never a test name
+  function readSearch() {
+    if (/@/.test(search.value)) search.value = '';
+    state.q = search.value; render();
+  }
+  search.addEventListener('input', readSearch);
+  search.addEventListener('change', readSearch);
+  [300, 1000, 2500].forEach(function (ms) { setTimeout(function () { if (/@/.test(search.value)) readSearch(); }, ms); });
   hideDone.addEventListener('change', function () { state.hide = hideDone.checked; render(); });
   if (examBox) {
     examBox.checked = exam;
