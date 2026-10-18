@@ -1333,6 +1333,15 @@ window.PREPLINE_TESTS = [
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations"
 },
 {
+"id": "crit-69",
+"kind": "ct",
+"n": 69,
+"group": "Prepline originals",
+"q": 30,
+"min": 60,
+"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations"
+},
+{
 "id": "test",
 "kind": "math",
 "n": 1,
