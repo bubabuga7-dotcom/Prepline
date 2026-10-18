@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/crit-72.html">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>CT Test 72 — Prepline</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prepline">
+<meta property="og:title" content="CT Test 72 — Prepline">
+<meta property="og:description" content="A timed NUET Critical Thinking mock on Prepline, with answer review. Free.">
+<meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/crit-72.html">
+<meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="A timed NUET Critical Thinking mock on Prepline, with answer review. Free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1E; --card: rgba(14,20,48,0.72); --text: #C9D2F0; --text-bright: #F2F5FF;
+    --blue: #60A5FA; --violet: #A78BFA; --pink: #F472B6;
+    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
+    --glass-line: rgba(255,255,255,0.14);
+    --ok: #34D399; --ok-bg: rgba(52,211,153,0.14);
+    --danger: #F87171; --danger-bg: rgba(248,113,113,0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
+  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,30,0.78) 0%, rgba(10,14,30,0.88) 100%); }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+  a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
+  a.back:hover { opacity: 1; color: var(--violet); }
+  h2 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; font-size: 20px; margin: 16px 0 20px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; opacity: 0.85; }
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
+  }
+  .timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0.55; } }
+  .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
+  .question { font-size: 17px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+  .question-img { max-width: 100%; border: 1px solid var(--glass-line); border-radius: 10px; margin-bottom: 16px; display: block; background: #fff; padding: 6px; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .opt {
+    text-align: left; border: 1px solid var(--glass-line); border-radius: 10px; padding: 13px 16px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.12); transform: translateX(3px); }
+  .opt.selected {
+    border: 2px solid var(--blue); background: rgba(96,165,250,0.16);
+    color: var(--text-bright); font-weight: 500;
+  }
+  .nav-row { display: flex; justify-content: space-between; }
+  button.nav-btn {
+    border: 1.5px solid var(--glass-line); color: var(--text-bright); background: var(--card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  button.nav-btn:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-1px); }
+  button.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.submit-btn {
+    border: none; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s, transform .15s;
+    box-shadow: 0 8px 24px -10px rgba(244,114,182,0.5);
+  }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); transform: translateY(-1px); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 500;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .review-item {
+    border: 1px solid var(--glass-line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .mark { font-weight: 700; margin-left: 12px; flex-shrink: 0; }
+  .mark.ok { color: var(--ok); }
+  .mark.no { color: var(--danger); }
+  .restart-btn {
+    margin-top: 20px; width: 100%; padding: 13px; border-radius: 999px; border: none;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s;
+  }
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); }
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 16px; }
+    h2 { font-size: 17px; }
+    .question { font-size: 16px; }
+    .stat-grid { gap: 8px; }
+    .stat-card { padding: 10px; }
+    .stat-num { font-size: 19px; }
+    .stat-label { font-size: 11px; }
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .review-item { flex-wrap: wrap; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+<link rel="stylesheet" href="test-theme.css">
+</head>
+<body>
+<div class="page-photo"></div>
+<div class="wrap">
+  <a href="crit.html" class="back">&larr; Critical Thinking</a>
+  <h2>CT Test 72 — Prepline original mock 5 (30 questions)</h2>
+  <div id="app"></div>
+</div>
+
+<script>
+const questions = [{"id": 1, "text": "Schools should teach students how to manage money. Many young adults leave school without knowing how to make a budget, how interest on a loan works, or how to compare the real cost of different payment plans. As a result, some fall into debt in their first years of independent life, and the effects can last for decades. Parents cannot always fill this gap, since many of them were never taught these skills either. A short course in the final years of school would cost little and could prevent a great deal of hardship.<br><br><b>Which one of the following best expresses the main conclusion of the above argument?</b>", "options": ["Schools should teach students how to manage money.", "Parents cannot be relied on to teach their children about money.", "Many young adults do not know how to make a budget.", "Some young adults fall into debt because they lack knowledge about money.", "A short course on managing money would cost little."], "correct": 0, "explain": "The first sentence is what the passage argues for; the rest gives reasons. C and D describe the problem, B explains why schools rather than parents should act, and E is a further reason."}, {"id": 2, "text": "A city car park charges as follows:<table style=\"border-collapse:collapse;margin:10px 0;font-size:14px\"><tr><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Time parked</th><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Charge</th></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">Up to 1 hour</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">300 ₸</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">Up to 2 hours</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">500 ₸</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">Up to 4 hours</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">900 ₸</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">More than 4 hours</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">1,500 ₸</td></tr></table>Parking is free on Sundays. Cars that arrive after 19:00 pay a fixed charge of 200 ₸. Erlan parks on a Saturday from 17:30 until 20:15.<br><br><b>How much does he pay?</b>", "options": ["200 ₸", "500 ₸", "700 ₸", "900 ₸", "1,500 ₸"], "correct": 3, "explain": "He arrived before 19:00, so the evening charge does not apply. He parked for 2 hours 45 minutes, which falls in the 'up to 4 hours' band: 900 ₸. 700 ₸ wrongly adds the 2-hour charge and the evening charge."}, {"id": 3, "text": "Some people believe that a four-day school week, now being tried in several countries, would be popular with families here. Parents would certainly welcome an extra day with their children. But a four-day week would mean longer school days, and young children find it hard to concentrate in the late afternoon. Many working parents would also have to pay for childcare on the fifth day. A four-day school week is therefore unlikely to benefit families in this country, however popular it might be.<br><br><b>Which one of the following best expresses the main conclusion of the above argument?</b>", "options": ["Parents would welcome an extra day with their children.", "A four-day week would mean longer school days.", "Young children find it hard to concentrate in the late afternoon.", "A four-day school week is unlikely to benefit families in this country.", "A four-day school week would not be popular with families."], "correct": 3, "explain": "The last sentence, introduced by 'therefore', is the conclusion. A is a point the author accepts but sets aside. B and C are reasons. E misreads the passage, which says the week might be popular but still not beneficial."}, {"id": 4, "text": "A school needs 250 notebooks. They cost 120 ₸ each, but for every 10 notebooks bought, 1 extra notebook is given free.<br><br><b>What is the least the school can pay to receive at least 250 notebooks?</b>", "options": ["27,000 ₸", "27,240 ₸", "27,360 ₸", "27,600 ₸", "30,000 ₸"], "correct": 2, "explain": "Buying 228 notebooks gives 22 free ones: 250 in total. Buying 227 gives only 22 free, 249 in total. 228 × 120 ₸ = 27,360 ₸. 27,000 ₸ (225 notebooks) assumes one free notebook for every ten received, not every ten bought."}, {"id": 5, "text": "In a large study, people who moved from a noisy city street to a quiet one reported sleeping better, and their blood pressure fell over the following year. People who moved from one noisy street to another noisy street showed no such changes, even though they too had moved house.<br><br><b>Which one of the following conclusions is best supported by the passage above?</b>", "options": ["Nobody should live on a noisy street.", "Moving house lowers people's blood pressure.", "Everyone who lives on a noisy street has high blood pressure.", "Noise is the main cause of high blood pressure.", "The improvements are more likely to be linked to the reduction in noise than to the move itself."], "correct": 4, "explain": "Both groups moved, but only the group whose surroundings became quieter improved, so the change is linked to noise rather than to moving. B is contradicted by the second group. C, A and D go far beyond the study."}, {"id": 6, "text": "The label on a bottle of juice concentrate says: 'Mix 1 part concentrate with 4 parts water.' Aru has 600 ml of concentrate. She makes enough drink to fill a 2.5-litre jug exactly.<br><br><b>How much concentrate is left over?</b>", "options": ["0 ml", "100 ml", "120 ml", "200 ml", "500 ml"], "correct": 1, "explain": "The drink is 1 part in 5 concentrate, so 2.5 litres needs 2,500 ÷ 5 = 500 ml of concentrate. 600 − 500 = 100 ml is left. 500 ml is the amount used, not the amount left."}, {"id": 7, "text": "All the paintings in the gallery's new exhibition were painted after 1900. None of the paintings by the artist Temirov in the gallery's own collection was painted after 1900. Some of the paintings in the exhibition come from the gallery's own collection.<br><br><b>Which one of the following must be true?</b>", "options": ["None of the paintings in the exhibition is by Temirov.", "The exhibition does not include any borrowed paintings.", "None of the paintings in the exhibition is a Temirov from the gallery's own collection.", "Some paintings by Temirov were painted after 1900.", "All the paintings in the gallery's collection were painted after 1900."], "correct": 2, "explain": "Every painting in the exhibition dates from after 1900, and none of the gallery's own Temirovs does, so none of them can be in the exhibition. A goes too far: a Temirov borrowed from elsewhere, painted after 1900, might be included. E, D and B are not supported."}, {"id": 8, "text": "Madina must arrive in another city by 14:00 with one checked bag. She cannot get to the airport before 07:00. The flights are:<table style=\"border-collapse:collapse;margin:10px 0;font-size:14px\"><tr><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Flight</th><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Departs</th><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Arrives</th><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Ticket</th><th style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:700\">Checked bag</th></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">1</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">06:10</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">09:00</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£85</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£30</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">2</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">08:45</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">11:40</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£70</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£45</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">3</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">10:30</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">13:20</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£95</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">Included</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">4</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">12:15</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">15:05</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£60</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£25</td></tr><tr><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">5</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">07:30</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">10:20</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£75</td><td style=\"border:1px solid currentColor;padding:4px 10px;text-align:left;font-weight:400\">£15</td></tr></table><br><br><b>Which flight is the cheapest that meets her needs?</b>", "options": ["Flight 1", "Flight 2", "Flight 3", "Flight 4", "Flight 5"], "correct": 4, "explain": "Flight 1 leaves too early and Flight 4 arrives too late. With the bag: Flight 2 costs £115, Flight 3 £95 and Flight 5 £90. Flight 5 is cheapest. Flight 4 has the cheapest ticket but does not arrive in time."}, {"id": 9, "text": "Our football club's ticket sales fell sharply last season. The new stadium is much further from the town centre than the old one, and there is no direct bus to it. If the council introduces a bus service to the stadium on match days, ticket sales will return to their former level.<br><br><b>Which one of the following is an underlying assumption of the above argument?</b>", "options": ["Bus services are popular in the town.", "The difficulty of getting to the stadium, rather than something else such as the team's results, is the main reason ticket sales fell.", "Most of the club's fans own cars.", "The council can afford to run a bus service.", "The new stadium has more seats than the old one."], "correct": 1, "explain": "The argument expects a bus to restore sales, which only works if poor transport caused the fall. If the team had simply played badly, a bus would not bring the fans back. D is not needed because the conclusion is conditional ('if the council introduces…'); C would weaken the argument; E and A are irrelevant."}, {"id": 10, "text": "A clock gains 3 minutes every hour. It is set to the correct time at 08:00 on Monday.<br><br><b>What time will the clock show when the correct time is 18:00 on the same day?</b>", "options": ["17:30", "18:03", "18:30", "18:33", "18:50"], "correct": 2, "explain": "In 10 hours the clock gains 10 × 3 = 30 minutes, so it shows 18:30. 17:30 treats the clock as losing time."}, {"id": 11, "text": "In a study, volunteers who walked for 30 minutes every day for three months lost weight. Ainur wants to lose weight, so she should start walking for 30 minutes every day.<br><br><b>Which one of the following is an underlying assumption of the above argument?</b>", "options": ["Ainur has already tried other ways of losing weight.", "Walking is more popular than running.", "Ainur has 30 minutes free every day.", "What worked for the volunteers in the study is likely to work for Ainur.", "Walking is the best form of exercise."], "correct": 3, "explain": "The argument applies a result from a group of volunteers to one particular person; this only works if she is similar enough for the result to apply. E is stronger than needed; C concerns whether she can follow the advice, not whether it is good advice; A and B are irrelevant."}, {"id": 12, "text": "Three-digit numbers are written using the digits 0 to 9; the first digit cannot be 0.<br><br><b>How many three-digit numbers have digits that add up to 5?</b>", "options": ["12", "14", "15", "18", "21"], "correct": 2, "explain": "If the first digit is 5, the other two digits add to 0: 1 way (500). If it is 4, they add to 1: 2 ways. If 3, they add to 2: 3 ways. If 2: 4 ways. If 1: 5 ways. Total 1 + 2 + 3 + 4 + 5 = 15."}, {"id": 13, "text": "Fewer than 5% of the questions in last year's examination were about statistics. So students preparing for this year's examination need not spend much time on statistics.<br><br><b>Which one of the following is an underlying assumption of the above argument?</b>", "options": ["This year's examination will contain a similar proportion of statistics questions to last year's.", "Statistics is a difficult topic.", "Students already know a lot about statistics.", "Last year's examination was harder than usual.", "Most students dislike statistics."], "correct": 0, "explain": "The advice is based on last year's paper, so it only follows if this year's paper is similar. C would support the conclusion but is not needed; B, D and E are irrelevant."}, {"id": 14, "text": "The average of 4 test scores is 70. A fifth test scores 80, so the new average is (4 × 70 + 80) ÷ 5 = 72.<br><br><b>Which one of the following uses the same method of calculation as the example above?</b>", "options": ["4 tests with an average of 70 have a total of 4 × 70 = 280.", "The average of 70 and 80 is (70 + 80) ÷ 2 = 75.", "The average weight of 9 parcels is 3 kg. A 13 kg parcel is added, so the new average is (9 × 3 + 13) ÷ 10 = 4 kg.", "A score rose from 70 to 80, an increase of 10 ÷ 70 ≈ 14%.", "Five tests are each marked out of 20, so the maximum total is 5 × 20 = 100."], "correct": 2, "explain": "The example turns an average back into a total, adds the new value and divides by the new number of items. C does exactly this. A does only the first step; B averages two numbers directly, which gives a different answer."}, {"id": 15, "text": "Cities with more police officers per person have higher crime rates. Therefore, employing more police officers does not reduce crime.<br><br><b>Which one of the following, if true, would most weaken the above argument?</b>", "options": ["Police officers are expensive to train.", "Some crimes are never reported to the police.", "Crime rates have fallen across the country.", "Police officers in large cities work longer hours.", "Cities with high crime rates tend to employ more police officers in response to the crime."], "correct": 4, "explain": "If high crime leads cities to hire more police, the link between police numbers and crime is explained by crime causing police numbers, not by police failing to reduce crime. A, B, C and D do not affect this reasoning."}, {"id": 16, "text": "A monthly bus pass costs 4,000 ₸ and allows unlimited journeys. Without a pass, each journey costs 120 ₸. Gulnar travels to work and back on each of the 22 working days in a month, and makes 6 other journeys at weekends.<br><br><b>How much does she save in that month by buying a pass?</b>", "options": ["1,280 ₸", "2,000 ₸", "2,720 ₸", "4,000 ₸", "6,000 ₸"], "correct": 1, "explain": "She makes 22 × 2 + 6 = 50 journeys, which would cost 50 × 120 ₸ = 6,000 ₸. The pass saves 6,000 − 4,000 = 2,000 ₸. 1,280 ₸ forgets the weekend journeys; 6,000 ₸ is the cost without a pass."}, {"id": 17, "text": "A new reading programme was introduced in ten primary schools. After a year, pupils in these schools had improved their reading scores more than pupils in the other schools in the region. The education department concluded that the programme was effective.<br><br><b>Which one of the following, if true, would most strengthen the department's conclusion?</b>", "options": ["Reading scores across the region rose during the year.", "Before the programme began, the ten schools were similar to the other schools in the region in their pupils' reading scores, size and intake.", "Teachers in the ten schools liked the programme.", "The ten schools were chosen because their head teachers were keen to try new ideas.", "The programme was cheap to introduce."], "correct": 1, "explain": "If the schools were alike to begin with, the extra improvement is more likely to be due to the programme. D weakens the conclusion, because keen head teachers might have improved results anyway. E, C and A do not show that the programme caused the improvement."}, {"id": 18, "text": "Alma, Bauyrzhan, Chingiz, Dinara and Erik took a test and all got different scores.<br>• Bauyrzhan scored more than Chingiz but less than Erik.<br>• Dinara scored less than Alma.<br>• Alma scored less than Chingiz.<br><br><b>Who had the third-highest score?</b>", "options": ["Alma", "Bauyrzhan", "Chingiz", "Dinara", "Erik"], "correct": 2, "explain": "Erik > Bauyrzhan > Chingiz, and Chingiz > Alma > Dinara. Together: Erik, Bauyrzhan, Chingiz, Alma, Dinara. Chingiz is third."}, {"id": 19, "text": "A new law requires all cyclists to wear helmets. Since the law was introduced, the number of cyclists treated in hospital for head injuries has fallen by 40%. The law has clearly made cycling safer.<br><br><b>Which one of the following, if true, would most weaken the above argument?</b>", "options": ["Since the law was introduced, the number of people cycling has also fallen by about 40%.", "Helmets are uncomfortable to wear in hot weather.", "The law applies to children as well as adults.", "Some cyclists do not obey the law.", "Head injuries are the most serious injuries that cyclists suffer."], "correct": 0, "explain": "If 40% fewer people are cycling, a 40% fall in head injuries means the risk for each cyclist has not changed. D would make the fall more impressive; B, E and C do not affect whether cycling became safer."}, {"id": 20, "text": "A car's fuel tank holds 50 litres, and the car uses 8 litres of fuel per 100 km. Fuel costs 300 ₸ per litre. A driver sets off on a 1,000 km journey with a full tank. Each time the tank falls to a quarter full, he fills it up completely.<br><br><b>How many times does he stop for fuel during the journey?</b>", "options": ["1", "2", "3", "4", "5"], "correct": 1, "explain": "From full to a quarter full uses 37.5 litres, enough for 37.5 ÷ 8 × 100 = 468.75 km. He refuels at 468.75 km and at 937.5 km; the last 62.5 km need no more fuel. So 2 stops. The price of fuel is not needed."}, {"id": 21, "text": "I have taken the 08:15 train to work three times this month, and it was late each time. So the 08:15 train is almost always late.<br><br><b>Which one of the following is the best statement of the flaw in the above argument?</b>", "options": ["It draws a general conclusion from too few examples.", "It ignores other passengers' opinions.", "It assumes that it matters whether the train is late.", "It assumes that the train was late for the same reason each time.", "It does not say how late the train was."], "correct": 0, "explain": "Three journeys are far too few to show what happens 'almost always'. D is not assumed, and E, B and C do not explain why the conclusion fails to follow."}, {"id": 22, "text": "A box measures 45 cm by 30 cm by 20 cm on the inside. It is to be packed with solid cubes measuring 10 cm along each edge. The cubes cannot be cut.<br><br><b>What is the largest number of cubes that will fit in the box?</b>", "options": ["24", "27", "30", "36", "54"], "correct": 0, "explain": "Only 4 cubes fit along the 45 cm side, 3 along the 30 cm side and 2 along the 20 cm side: 4 × 3 × 2 = 24. 27 divides the volumes (27,000 ÷ 1,000), which assumes the cubes could be cut."}, {"id": 23, "text": "We have always held the school sports day in June, so we should continue to hold it in June.<br><br><b>Which one of the following is the best statement of the flaw in the above argument?</b>", "options": ["It does not say which sports are included.", "It assumes that June has the best weather.", "It ignores other events that take place in June.", "It assumes that students enjoy sports day.", "It assumes that because something has always been done, it should continue, without giving any reason why it is the best choice."], "correct": 4, "explain": "The only reason given is tradition, which does not show that June is the right month. B would be a reason, but the argument does not give it; C, A and D are irrelevant to the reasoning."}, {"id": 24, "text": "A price of £50 is reduced by 20% and then 10% tax is added, so the final price is 50 × 0.8 × 1.1 = £44.<br><br><b>Which one of the following uses the same method of calculation as the example above?</b>", "options": ["A price of £50 rises by 20% and then falls by 10%, a total change of 20% − 10% = 10%, giving £55.", "20% of £50 is 50 × 0.2 = £10.", "A price that rises from £50 to £55 has increased by 5 ÷ 50 = 10%.", "A town's population of 2,000 falls by 10% and then rises by 5%: 2,000 × 0.9 × 1.05 = 1,890.", "The total of £50 and 20% of £50 is 50 + 10 = £60."], "correct": 3, "explain": "The example applies two percentage changes one after the other by multiplying by two factors. D does the same. A simply adds and subtracts the percentages, which is a different (and wrong) method; B, C and E use one step only."}, {"id": 25, "text": "Most people who have won the lottery jackpot had been buying a ticket every week for years. So if you buy a ticket every week, you are likely to win the jackpot eventually.<br><br><b>Which one of the following is the best statement of the flaw in the above argument?</b>", "options": ["It ignores people who win smaller prizes.", "It ignores the very large number of people who have bought a ticket every week for years without winning.", "It assumes that winners spend their money wisely.", "It assumes that the lottery is fair.", "It does not say how much a lottery ticket costs."], "correct": 1, "explain": "Looking only at winners hides the millions of regular players who never win, so the chance for any one player remains tiny. D, E, C and A do not identify why the conclusion fails to follow."}, {"id": 26, "text": "A water company charges a fixed 1,500 ₸ per month plus 90 ₸ for each cubic metre of water used. A family used 18 m³ in March. Their bill for April was 3,840 ₸.<br><br><b>How much water did they use in April?</b>", "options": ["8 m³", "18 m³", "24 m³", "26 m³", "43 m³"], "correct": 3, "explain": "Subtracting the fixed charge leaves 3,840 − 1,500 = 2,340 ₸, and 2,340 ÷ 90 = 26 m³. The March figure is not needed. 43 m³ forgets the fixed charge."}, {"id": 27, "text": "Either the meeting is in Room 4 or it has been cancelled. It has not been cancelled. So it is in Room 4.<br><br><b>Which one of the following most closely parallels the reasoning in the above argument?</b>", "options": ["If Asel is at the library, she is not at home. She is at home. So she is not at the library.", "Asel is always at the library on Mondays. Today is Monday. So she is at the library.", "Asel is not at home, so she must be at the library.", "Either Asel is at the library or she is at home. She is not at home. So she is at the library.", "Either Asel is at the library or she is at home. She is at the library. So she is not at home."], "correct": 3, "explain": "The original has the form: either X or Y; not Y; so X. Only D has this form. A uses 'if…then' instead; E rules out one option because the other is true, which does not follow from 'either…or'; B is about what always happens; C leaves out the 'either…or' premise."}, {"id": 28, "text": "Saltanat's phone has 64 GB of storage. The operating system uses 12 GB and her apps use 18 GB. She also has 5,000 photos, each using 4 MB. She wants to keep at least 2 GB free. Video uses 300 MB per minute. 1 GB = 1,000 MB.<br><br><b>How many more minutes of video can she record?</b>", "options": ["40", "47", "53", "107", "113"], "correct": 0, "explain": "Free space: 64 − 12 − 18 = 34 GB; keeping 2 GB free leaves 32 GB. The photos use 5,000 × 4 MB = 20 GB, leaving 12 GB = 12,000 MB, which is 12,000 ÷ 300 = 40 minutes. 47 forgets the 2 GB to keep free; 107 forgets the photos."}, {"id": 29, "text": "People who choose to take part in dangerous sports should pay for their own rescue if they get into difficulty, because they knowingly accepted the risk.<br><br><b>Which one of the following best illustrates the principle underlying the above argument?</b>", "options": ["Smokers should not receive any medical treatment.", "A driver injured by a drunk driver should receive free treatment.", "Schools should not allow students to play rugby.", "Mountain rescue teams should be paid for by the government.", "A climber who ignores warnings and sets out in a storm should pay the cost of the mountain rescue team."], "correct": 4, "explain": "The principle is that people who knowingly take a risk should pay the cost when things go wrong. E applies this directly. B describes someone who did not choose the risk; A goes much further than the principle; C and D are about different questions."}, {"id": 30, "text": "On a standard dice, the numbers on opposite faces add up to 7. A dice is placed on a table with 1 on top and 2 facing you. It is then tipped over twice in the same direction, away from you, each time rolling onto the next face.<br><br><b>Which number is now on top?</b>", "options": ["2", "3", "4", "5", "6"], "correct": 4, "explain": "Tipping away from you twice turns the dice through half a turn about a horizontal axis, so the face that was on the bottom comes to the top. The bottom face was opposite 1, which is 6. (After the first tip, 2 is on top.)"}];
+
+let state = { idx: 0, answers: {}, timeLeft: 3600, timerId: null, finished: false };
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.finished) { renderResults(app); return; }
+
+  const q = questions[state.idx];
+  const answeredCount = Object.keys(state.answers).length;
+
+  app.innerHTML = `
+    <div class="topbar">
+      <span>Question ${state.idx+1} of ${questions.length}</span>
+      <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
+    </div>
+    <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
+    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Figure for the question">` : ''}
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Back</button>
+      ${state.idx === questions.length-1
+        ? '<button class="submit-btn" id="submit">Finish test</button>'
+        : '<button class="nav-btn" id="next">Next &rarr;</button>'}
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => { state.answers[q.id] = parseInt(btn.dataset.i); render(); };
+  });
+  const prev = document.getElementById('prev');
+  if (prev) prev.onclick = () => { state.idx = Math.max(0, state.idx-1); render(); };
+  const next = document.getElementById('next');
+  if (next) next.onclick = () => { state.idx = Math.min(questions.length-1, state.idx+1); render(); };
+  const submit = document.getElementById('submit');
+  if (submit) submit.onclick = finish;
+}
+
+function finish() {
+  clearInterval(state.timerId);
+  state.finished = true;
+  saveAttempt();
+  render();
+  appendHistory();
+}
+
+/* === Prepline: attempt history (localStorage) === */
+function mockKey() {
+  return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
+}
+function saveAttempt() {
+  try {
+    let score = 0;
+    questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    hist.push({ t: Date.now(), s: score, n: questions.length });
+    localStorage.setItem(mockKey(), JSON.stringify(hist.slice(-50)));
+  } catch (e) {}
+}
+function appendHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    if (hist.length < 2) return; // first attempt — no history yet
+    const best = Math.max.apply(null, hist.map(a => a.s));
+    const rows = hist.slice(-10).reverse().map(a => {
+      const d = new Date(a.t);
+      const ds = d.toLocaleDateString('ru-RU') + ' ' +
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const pct = Math.round(a.s / a.n * 100);
+      return '<div class="review-item"><span>' + ds + '</span>' +
+        '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
+    }).join('');
+    const div = document.createElement('div');
+    div.innerHTML = '<h2 style="margin-top:28px">Attempt history &middot; best result ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    const app = document.getElementById('app');
+    const rb = app.querySelector('.restart-btn');
+    if (rb) app.insertBefore(div, rb); else app.appendChild(div);
+  } catch (e) {}
+}
+
+function renderResults(app) {
+  let correctCount = 0;
+  questions.forEach(q => { if (state.answers[q.id] === q.correct) correctCount++; });
+  const pct = Math.round((correctCount/questions.length)*100);
+
+  app.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Result</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Percentage</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Unanswered</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+    </div>
+    ${questions.map(q => {
+      const ok = state.answers[q.id] === q.correct;
+      const userAns = q.id in state.answers ? q.options[state.answers[q.id]] : '—';
+      const correctAns = q.options[q.correct];
+      return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span>${q.id}. ${q.text}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
+        </div>
+        ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--sage); font-weight:600;">Correct: ${correctAns}</span></div>`}
+        ${q.explain ? `<details style="margin-top:8px;font-size:14px;line-height:1.55"><summary style="cursor:pointer;color:var(--gold,#C9A227);font-weight:600">Why ${'ABCDE'[q.correct]}?</summary><div style="margin-top:6px;opacity:.9">${q.explain}</div></details>` : ''}
+      </div>`;
+    }).join('')}
+    <button class="restart-btn" id="restart">Take it again</button>
+  `;
+  document.getElementById('restart').onclick = () => {
+    state = { idx: 0, answers: {}, timeLeft: 3600, timerId: null, finished: false };
+    startTimer();
+    render();
+  };
+}
+
+function startTimer() {
+  state.timerId = setInterval(() => {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) { finish(); return; }
+    render();
+  }, 1000);
+}
+
+startTimer();
+render();
+</script>
+
+<!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
+
+  if (typeof saveAttempt === 'function') {
+    /* mix-1..7: hook saveAttempt — localStorage stays, cloud is added */
+    const orig = saveAttempt;
+    saveAttempt = function () {
+      orig();
+      try {
+        let score = 0;
+        questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+        window.preplineSaveResult(mockId(), score, questions.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), questions, state.answers);
+      } catch (e) { console.error('[Prepline]', e); }
+    };
+  } else if (typeof finish === 'function') {
+    /* mix-8: no saveAttempt, wrap finish instead */
+    const origFinish = finish;
+    finish = function (reason) {
+      const was = state.finished;
+      origFinish(reason);
+      try {
+        if (!was && state.finished) {
+          const qs = (typeof QUESTIONS !== 'undefined') ? QUESTIONS : questions;
+          let score = 0;
+          qs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+          window.preplineSaveResult(mockId(), score, qs.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
+        }
+      } catch (e) { console.error('[Prepline]', e); }
+    };
+  }
+})();
+</script>
+
+<!-- ===== Prepline: scroll view ===== -->
+<style id="prepline-scroll-view-css">
+  .pl-mode {
+    display: flex; gap: 6px; align-items: center; margin: 0 0 16px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px; padding: 4px; width: fit-content;
+  }
+  .pl-mode button {
+    font: 600 12.5px 'Inter', system-ui, sans-serif; color: inherit; cursor: pointer;
+    background: none; border: 0; padding: 7px 16px; border-radius: 999px;
+    opacity: .65; transition: opacity .15s, background .15s;
+  }
+  .pl-mode button:hover { opacity: 1; }
+  .pl-mode button.on {
+    opacity: 1; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); color: #fff;
+  }
+  .pl-scroll .pl-q {
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+    padding: 20px 0 24px;
+  }
+  .pl-scroll .pl-q:last-of-type { border-bottom: 0; }
+  .pl-scroll .pl-num {
+    font: 700 12px 'Inter', system-ui, sans-serif; letter-spacing: .06em;
+    text-transform: uppercase; opacity: .5; margin-bottom: 8px;
+  }
+  .pl-scroll .pl-img {
+    max-width: 100%; border-radius: 8px; margin: 4px 0 12px;
+    background: #fff; padding: 4px; -webkit-user-drag: none; user-drag: none;
+    pointer-events: none;
+  }
+  .pl-scroll .pl-text { margin-bottom: 12px; line-height: 1.55; }
+  .pl-scroll .pl-opts { display: flex; flex-direction: column; gap: 7px; }
+  .pl-scroll .pl-opt {
+    text-align: left; font: 400 14.5px 'Inter', system-ui, sans-serif; color: inherit;
+    cursor: pointer; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px;
+    transition: border-color .15s, background .15s;
+  }
+  .pl-scroll .pl-opt:hover { border-color: rgba(167,139,250,0.55); }
+  .pl-scroll .pl-opt.sel {
+    background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.85);
+  }
+  .pl-bar {
+    position: sticky; bottom: 0; display: flex; gap: 14px; align-items: center;
+    justify-content: space-between; margin-top: 8px; padding: 12px 4px;
+    background: rgba(10,14,30,0.9); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .pl-bar .pl-count { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .75; }
+  .pl-bar .pl-submit {
+    font: 600 14px 'Inter', system-ui, sans-serif; color: #fff; cursor: pointer; border: 0;
+    background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6);
+    padding: 11px 26px; border-radius: 999px;
+  }
+  .pl-noselect, .pl-noselect * {
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  }
+  @media print { body.pl-noprint * { display: none !important; } }
+</style>
+
+<script id="prepline-scroll-view">
+(function () {
+  if (typeof questions === 'undefined' || typeof state === 'undefined') return;
+  if (typeof render !== 'function') return;
+
+  var LETTERS = 'ABCDEFGH';
+  var app = document.getElementById('app');
+  if (!app) return;
+
+  var wrap = app.parentNode;
+  var host = document.createElement('div');
+  host.id = 'pl-scroll-host';
+  host.className = 'pl-scroll pl-noselect';
+  host.style.display = 'none';
+  wrap.insertBefore(host, app.nextSibling);
+
+  var bar = document.createElement('div');
+  bar.className = 'pl-mode';
+  bar.innerHTML = '<button type="button" data-m="one" class="on">One at a time</button>' +
+                  '<button type="button" data-m="all">Scroll view</button>';
+  wrap.insertBefore(bar, app);
+
+  var mode = 'one';
+
+  function esc(s) { return String(s == null ? '' : s); }
+
+  function draw() {
+    var parts = [];
+    for (var i = 0; i < questions.length; i++) {
+      var q = questions[i];
+      var opts = '';
+      for (var k = 0; k < (q.options || []).length; k++) {
+        var on = state.answers[q.id] === k ? ' sel' : '';
+        opts += '<button type="button" class="pl-opt' + on + '" data-q="' + q.id +
+                '" data-i="' + k + '">' + (LETTERS[k] || (k + 1)) + ') ' + esc(q.options[k]) + '</button>';
+      }
+      parts.push(
+        '<div class="pl-q" id="pl-q-' + q.id + '">' +
+          '<div class="pl-num">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
+          (q.image ? '<img loading="lazy" class="pl-img" src="' + q.image + '" alt="Figure">' : '') +
+          (esc(q.text) ? '<div class="pl-text">' + esc(q.text) + '</div>' : '') +
+          '<div class="pl-opts">' + opts + '</div>' +
+        '</div>');
+    }
+    var answered = Object.keys(state.answers).length;
+    parts.push(
+      '<div class="pl-bar">' +
+        '<span class="pl-count">' + answered + ' of ' + questions.length + ' answered</span>' +
+        '<button type="button" class="pl-submit" id="pl-submit">Finish test</button>' +
+      '</div>');
+    host.innerHTML = parts.join('');
+
+    var btns = host.querySelectorAll('.pl-opt');
+    for (var b = 0; b < btns.length; b++) {
+      btns[b].onclick = function () {
+        var qid = parseInt(this.dataset.q, 10);
+        state.answers[qid] = parseInt(this.dataset.i, 10);
+        var sibs = this.parentNode.querySelectorAll('.pl-opt');
+        for (var s = 0; s < sibs.length; s++) sibs[s].classList.remove('sel');
+        this.classList.add('sel');
+        var c = host.querySelector('.pl-count');
+        if (c) c.textContent = Object.keys(state.answers).length + ' of ' + questions.length + ' answered';
+      };
+    }
+    var sub = document.getElementById('pl-submit');
+    if (sub) sub.onclick = function () {
+      var left = questions.length - Object.keys(state.answers).length;
+      if (left > 0 && !confirm('Unanswered: ' + left + ' question(s). Finish anyway?')) return;
+      setMode('one');
+      if (typeof finish === 'function') finish();
+    };
+  }
+
+  function setMode(m) {
+    if (state.finished) m = 'one';
+    mode = m;
+    var on = (m === 'all');
+    host.style.display = on ? 'block' : 'none';
+    app.style.display = on ? 'none' : '';
+    document.body.classList.toggle('pl-noprint', on);
+    var mb = bar.querySelectorAll('button');
+    for (var i = 0; i < mb.length; i++) mb[i].classList.toggle('on', mb[i].dataset.m === m);
+    if (on) { draw(); } else { render(); }
+  }
+
+  var mbtns = bar.querySelectorAll('button');
+  for (var i = 0; i < mbtns.length; i++) {
+    mbtns[i].onclick = function () { setMode(this.dataset.m); };
+  }
+
+  // в сплошном режиме мешаем самому простому копированию
+  host.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  host.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  host.addEventListener('copy', function (e) { e.preventDefault(); });
+
+  // после завершения теста режим прокрутки прячется, показываем результаты
+  var origFinish = window.finish;
+  if (typeof origFinish === 'function') {
+    window.finish = function () {
+      if (mode === 'all') setMode('one');
+      return origFinish.apply(this, arguments);
+    };
+  }
+})();
+</script>
+
+
+<!-- ===== Prepline: sign-in gate ===== -->
+<style id="prepline-gate-css">
+  #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
+           background:rgba(6,10,20,.78);backdrop-filter:blur(4px);padding:20px}
+  #pl-gate.on{display:flex}
+  #pl-gate .box{max-width:420px;width:100%;background:#111A2E;border:1px solid rgba(255,255,255,.14);
+                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#E6ECF7}
+  #pl-gate h3{font-family:Sora,Inter,sans-serif;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
+  #pl-gate p{font-size:14px;line-height:1.55;color:#B4C0D6;margin:0 0 18px}
+  #pl-gate .row{display:flex;gap:10px;flex-wrap:wrap}
+  #pl-gate button{font:600 14px Inter,sans-serif;padding:11px 22px;border-radius:5px;cursor:pointer;border:0}
+  #pl-gate .go{background:#C9A227;color:#10192C}
+  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#E6ECF7}
+</style>
+<div id="pl-gate">
+  <div class="box">
+    <h3>Sign in to start this test</h3>
+    <p>Sign in or create an account to start this test. Your results will be saved to your account.</p>
+    <div class="row">
+      <button class="go" id="plGateGo">Sign in or create an account</button>
+      <button class="back" id="plGateBack">Back to the list</button>
+    </div>
+  </div>
+</div>
+<script id="prepline-gate">
+(function () {
+  const gate = document.getElementById('pl-gate');
+  if (!gate) return;
+
+  function show(){ gate.classList.add('on'); }
+  function hide(){ gate.classList.remove('on'); }
+
+  document.getElementById('plGateGo').onclick = () => {
+    hide();
+    const pill = document.getElementById('plPill');
+    if (pill) pill.click();          // открываем штатное окно входа
+  };
+  document.getElementById('plGateBack').onclick = () => {
+    const isCT = /crit-\d/.test(location.pathname);
+    location.href = isCT ? 'crit.html' : 'math.html';
+  };
+
+  async function check(){
+    const supa = window.preplineSupa;
+    if (!supa) return;               // база не поднялась — не мешаем работать
+    try {
+      const { data: { user } } = await supa.auth.getUser();
+      if (!user) show(); else hide();
+    } catch (e) { /* молча пропускаем */ }
+  }
+
+  setTimeout(check, 500);
+  const supa = window.preplineSupa;
+  if (supa && supa.auth && supa.auth.onAuthStateChange) {
+    supa.auth.onAuthStateChange(() => check());
+  }
+})();
+</script>
+
+<script src="test-ux.js"></script>
+</body>
+</html>
