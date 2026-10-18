@@ -6,7 +6,9 @@ window.PREPLINE_PREMIUM = {
   checkout: 'https://bubabuga7.lemonsqueezy.com/checkout/buy/5477f69c-1c92-4c17-87ca-04a239e804ee',
   live: false,
   price: '7 990 ₸ / month',
-  free: ['mix-1', 'mix-2', 'mix-3', 'crit-1', 'crit-2', 'crit-3', 'diagnostic-math', 'diagnostic-crit']
+  weeklyTests: 3,          // free plan: this many different tests per week (resets on Monday, Astana time)
+  dailyTopicQs: 15,        // free plan: topic-practice questions per day
+  noLimit: ['diagnostic-math', 'diagnostic-crit']   // never counted
 };
 (function () {
   try {
@@ -20,7 +22,32 @@ window.preplinePremiumOn = function () {
   try { pv = localStorage.getItem('prepline:premium-preview') === '1'; } catch (e) {}
   return !!P.checkout && (P.live || pv);
 };
-window.preplineIsFree = function (id) { return !window.preplinePremiumOn() || window.PREPLINE_PREMIUM.free.indexOf(id) >= 0; };
+/* ---------- free plan limits (kept on this device) ---------- */
+window.preplineToday = function () { return new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10); };
+window.preplineWeekKey = function () {
+  var d = new Date(Date.now() + 5 * 3600e3); d.setUTCHours(0, 0, 0, 0);
+  d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);           // Monday
+  return d.toISOString().slice(0, 10);
+};
+window.preplineFreeUsed = function () {
+  try { var o = JSON.parse(localStorage.getItem('prepline:free-week') || '{}'); return o.w === window.preplineWeekKey() ? (o.ids || []) : []; }
+  catch (e) { return []; }
+};
+window.preplineFreeMark = function (id) {
+  if (window.PREPLINE_PREMIUM.noLimit.indexOf(id) >= 0) return;
+  var ids = window.preplineFreeUsed();
+  if (ids.indexOf(id) >= 0) return;
+  ids.push(id);
+  try { localStorage.setItem('prepline:free-week', JSON.stringify({ w: window.preplineWeekKey(), ids: ids })); } catch (e) {}
+};
+window.preplineFreeLeft = function () { return Math.max(0, window.PREPLINE_PREMIUM.weeklyTests - window.preplineFreeUsed().length); };
+// may this test be opened? (always yes while Premium is off, with Premium, for diagnostics and for tests already started this week)
+window.preplineIsFree = function (id) {
+  if (!window.preplinePremiumOn() || window.preplinePremiumCached()) return true;
+  if (window.PREPLINE_PREMIUM.noLimit.indexOf(id) >= 0) return true;
+  var used = window.preplineFreeUsed();
+  return used.indexOf(id) >= 0 || used.length < window.PREPLINE_PREMIUM.weeklyTests;
+};
 window.preplinePremiumCached = function () {
   try { var p = JSON.parse(localStorage.getItem('prepline:premium') || 'null'); return !!(p && p.until && Date.parse(p.until) > Date.now()); }
   catch (e) { return false; }

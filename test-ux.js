@@ -386,7 +386,7 @@
   var EXAM = PARAMS.get('exam') === '1' && !ROOM_CODE;
   var T0 = state.timeLeft;                          // full time; the engine started counting at page load
   function elapsed() { return (live ? live.room.duration_sec : T0) - state.timeLeft; }
-  function tick() { try { ghostTick(); examTick(); } catch (e) {} try { saveDraft(); } catch (e) {} }
+  function tick() { try { ghostTick(); examTick(); } catch (e) {} try { saveDraft(); } catch (e) {} try { countFreeTest(); } catch (e) {} }
 
   /* ---------- ghost ---------- */
   var GKEY = 'prepline-pace:' + page;
@@ -555,7 +555,7 @@
     });
   }
 
-  /* ---------- Premium lock: tests outside the free set need Premium (live rooms and the weekly challenge stay open) ---------- */
+  /* ---------- free plan: a few tests a week (live rooms, the weekly challenge and diagnostics are not counted) ---------- */
   var IS_CHALLENGE = PARAMS.get('challenge') === '1';
   if (!ROOM_CODE && !IS_CHALLENGE && window.preplineIsFree && !window.preplineIsFree(page)) {
     var lockTimer = null, lockEl = null;
@@ -581,13 +581,14 @@
         '\nhtml[data-theme=light] .pl-lock a.alt,html[data-theme=light] .pl-lock button.alt{border-color:#CBD5E4;color:#0F1B33}';
       var hub = page.indexOf('crit-') === 0 ? 'crit.html' : 'math.html';
       lockEl = document.createElement('div'); lockEl.className = 'pl-lock';
-      lockEl.innerHTML = '<div class="box"><span class="tag">PREMIUM</span><h3>This test is in Premium</h3><ul>' +
-        '<li>All ' + ((window.PREPLINE_TESTS || []).length || 158) + ' timed tests in Mathematics and Critical Thinking</li>' +
-        '<li>Topic practice with questions from every test</li>' +
-        '<li>' + window.PREPLINE_PREMIUM.price + ', cancel any time</li></ul>' +
+      var P = window.PREPLINE_PREMIUM, used = window.preplineFreeUsed ? window.preplineFreeUsed().length : P.weeklyTests;
+      lockEl.innerHTML = '<div class="box"><span class="tag">FREE PLAN</span><h3>You have used your ' + P.weeklyTests + ' free tests this week</h3><ul>' +
+        '<li>New free tests on <b>Monday</b>. The tests you started this week stay open.</li>' +
+        '<li>Premium: unlimited tests, all ' + ((window.PREPLINE_TESTS || []).length || 158) + ' of them, and unlimited topic practice</li>' +
+        '<li>' + P.price + ', cancel any time</li></ul>' +
         '<div class="row"><a class="go" href="premium.html?from=' + encodeURIComponent(page) + '">Get Premium</a>' +
         (signedIn === false ? '<button type="button" class="alt" id="pl-lock-in">I have Premium: sign in</button>' : '') +
-        '<a class="alt" href="' + hub + '">Free tests</a></div></div>';
+        '<a class="alt" href="' + hub + '">Back to tests</a></div></div>';
       document.body.appendChild(lockEl);
       var si = document.getElementById('pl-lock-in');
       if (si) si.onclick = function () { var p = document.getElementById('plPill'); if (p) p.click(); };
@@ -604,6 +605,13 @@
     if (!window.preplinePremiumCached()) showLock(null);
     checkPremium();
     document.addEventListener('prepline:premium-changed', checkPremium);
+  }
+  // the first answer in a test uses one of this week's free tests
+  var counted = false;
+  function countFreeTest() {
+    if (counted || ROOM_CODE || IS_CHALLENGE || partial || !window.preplineFreeMark || !Object.keys(state.answers).length) return;
+    counted = true;
+    if (window.preplinePremiumOn() && !window.preplinePremiumCached()) window.preplineFreeMark(page);
   }
 
   /* ---------- autosave: an unfinished attempt survives a reload, a closed tab or a dead battery ---------- */

@@ -229,14 +229,6 @@
   /* ---------- a practice session ---------- */
   function start(code, all) {
     var pool = INDEX[code];
-    // without Premium, practice uses only the questions of the free tests
-    if (window.preplineIsFree && !(window.preplinePremiumCached && window.preplinePremiumCached())) {
-      var freeOnly = pool.filter(function (x) { return window.preplineIsFree(x[0]); });
-      if (freeOnly.length < pool.length) {
-        if (!freeOnly.length) { location.href = 'premium.html?from=topics'; return; }
-        pool = freeOnly;
-      }
-    }
     var items = shuffle(pool.map(function (x) { return { mock: x[0], id: x[1] }; }));
     if (!all) items = items.slice(0, SIZE);
     run = { topic: code, items: items, pos: 0, right: 0, wrong: [], all: !!all };
@@ -245,7 +237,23 @@
     next();
   }
 
+  // free plan: a number of topic questions per day (kept on this device)
+  function topicQuota() {
+    if (!window.preplinePremiumOn || !window.preplinePremiumOn() || window.preplinePremiumCached()) return null;
+    var o = {}; try { o = JSON.parse(localStorage.getItem('prepline:topic-day') || '{}'); } catch (e) {}
+    if (o.d !== window.preplineToday()) o = { d: window.preplineToday(), n: 0 };
+    return o;
+  }
   async function next() {
+    var qt = topicQuota(), cap = window.PREPLINE_PREMIUM ? window.PREPLINE_PREMIUM.dailyTopicQs : 0;
+    if (qt && qt.n >= cap) {
+      $('card').innerHTML = '<h2 style="font-size:19px;margin-bottom:6px">That was today\'s ' + cap + ' free questions</h2>' +
+        '<p class="muted" style="margin-bottom:14px">Topic practice opens again tomorrow. With Premium it has no limit, and every test is unlimited too.</p>' +
+        '<div class="actions"><a class="btn" href="premium.html?from=topics">Get Premium</a><button class="btn ghost" type="button" id="tq-back">Back to topics</button></div>';
+      var bk = $('tq-back'); if (bk) bk.onclick = function () { show('v-list'); };
+      return;
+    }
+    if (qt) { qt.n++; try { localStorage.setItem('prepline:topic-day', JSON.stringify(qt)); } catch (e) {} }
     $('card').innerHTML = '<p class="muted">Loading…</p>';
     while (run.pos < run.items.length) {
       var it = run.items[run.pos], q = null;

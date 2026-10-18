@@ -106,6 +106,17 @@
     document.getElementById('st-avg').textContent = avg;
     var bar = document.getElementById('done-bar');
     if (bar) bar.style.width = (100 * done.length / Math.max(all.length, 1)) + '%';
+    // free plan: tests left this week
+    var fp = document.getElementById('free-plan');
+    if (window.preplinePremiumOn && window.preplinePremiumOn() && !prem) {
+      if (!fp) {
+        fp = document.createElement('div'); fp.id = 'free-plan'; fp.className = 'free-plan';
+        var st = document.querySelector('.stats'); if (st) st.parentNode.insertBefore(fp, st.nextSibling);
+      }
+      var left = window.preplineFreeLeft(), W = window.PREPLINE_PREMIUM.weeklyTests;
+      fp.innerHTML = '<span><b>Free plan:</b> ' + (left ? left + ' of ' + W + ' tests left this week' : 'this week\'s ' + W + ' free tests are used, new ones on Monday') +
+        '. Tests you started stay open.</span><a href="premium.html?from=' + kind + '">Unlimited with Premium →</a>';
+    } else if (fp) fp.remove();
     var nx = document.getElementById('next');
     var wip = all.filter(function (t) { return drafts[t.id]; }).sort(function (a, b) { return drafts[b.id].at - drafts[a.id].at; })[0];
     if (wip && nx) {
