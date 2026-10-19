@@ -16,13 +16,13 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Prepline">
 <meta property="og:title" content="League — Prepline">
-<meta property="og:description" content="Monthly Prepline league: points from live rooms and duels. Bronze, Silver, Gold and the 210+ Club.">
+<meta property="og:description" content="Monthly Prepline league: points from tests, topic practice, live rooms and duels. Bronze, Silver, Gold and the 210+ Club.">
 <meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/league.html">
 <meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="description" content="Monthly Prepline league: points from live rooms and duels. Bronze, Silver, Gold and the 210+ Club.">
+<meta name="description" content="Monthly Prepline league: points from tests, topic practice, live rooms and duels. Bronze, Silver, Gold and the 210+ Club.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="prepline.css">
@@ -97,7 +97,7 @@
   <div class="head">
     <span class="kicker">Monthly league</span>
     <h1>Season standings</h1>
-    <p>Every correct answer in a live room or a duel earns a point. Points reset on the 1st of each month — a new season, a fresh start.</p>
+    <p>Every correct answer in a test, Train by topic, a live room or a duel earns a point. Points reset on the 1st of each month — a new season, a fresh start.</p>
   </div>
 
   <section class="view" id="v-signin">
@@ -122,6 +122,7 @@
     <div class="panel rules">
       <h2>How points work</h2>
       <ol>
+        <li><b>1 point</b> for every question you get right in a test or in Train by topic. Each question counts once a month, so retaking a test adds only the questions you missed before.</li>
         <li><b>1 point</b> for every correct answer in a live room or a duel.</li>
         <li><b>+5 points</b> for winning a duel (more correct answers than your opponent).</li>
         <li>Normal practice tests do not count — only games played together, where everyone starts at once.</li>
@@ -182,8 +183,8 @@
     var me = s.rows.find(function (x) { return x.me; });
     if (!me) {
       $('me').innerHTML = '<div class="badge t-Bronze">—</div><div><h2>Not ranked yet this season</h2>' +
-        '<p class="next">Play one live room or duel — every correct answer is a point.</p>' +
-        '<div style="margin-top:12px"><a class="btn" href="live.html">Join or create a room →</a></div></div>';
+        '<p class="next">Finish any test or practise a topic — every correct answer is a point.</p>' +
+        '<div style="margin-top:12px"><a class="btn" href="math.html">Start a test →</a></div></div>';
       return;
     }
     var next = '', pct = 100;
@@ -200,7 +201,7 @@
 
   function drawTable(s, prev) {
     if (!s.rows.length) {
-      $('table').innerHTML = '<div class="empty">' + (prev ? 'Nobody played last season.' : 'No games yet this season. The first live room puts you at the top.') + '</div>';
+      $('table').innerHTML = '<div class="empty">' + (prev ? 'Nobody played last season.' : 'Nobody has scored yet this season. Finish one test and you are at the top.') + '</div>';
       return;
     }
     var h = '<table class="lb"><thead><tr><th>#</th><th>Name</th><th>Tier</th><th class="r hide-m">Games</th><th class="r hide-m">Accuracy</th><th class="r">Points</th></tr></thead><tbody>';

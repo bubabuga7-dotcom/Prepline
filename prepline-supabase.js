@@ -262,7 +262,7 @@ window.preplinePremiumCached = function () {
     }
     .pl-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     @media (max-width: 780px) {
-      .pl-auth { top: 10px; right: 10px; }
+      .pl-auth { position: absolute; top: 10px; right: 10px; }
       .pl-pill.on { padding: 0; width: 36px; height: 36px; justify-content: center; gap: 0; position: relative; }
       .pl-pill.on #plPillText { display: none; }
       .pl-pill.on::after { content: attr(data-ini); font-size: 15px; font-weight: 700; }
