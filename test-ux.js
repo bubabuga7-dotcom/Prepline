@@ -666,10 +666,58 @@
     '-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}' +
     '\n.rv-q.open{max-height:none;cursor:auto;-webkit-mask-image:none;mask-image:none}' +
     '\n.rv-more{font-size:12px;color:#84AEEC;cursor:pointer;margin-top:4px;align-self:flex-start;background:none;border:0;padding:0;font-weight:600}';
+  /* ---------- results: weak spots by topic ---------- */
+  var TNAMES = { MC:'Main conclusion', CON:'Drawing conclusions', ASM:'Assumptions', FLAW:'Flaws in reasoning',
+    WKN:'Weakening arguments', STR:'Strengthening arguments', EF:'External factors', PRIN:'Applying principles',
+    PAR:'Parallel reasoning', PS:'Problem solving',
+    M1:'Units', M2:'Number', M3:'Ratio and proportion', M4:'Algebra', M5:'Geometry and measures' };
+  css.textContent += '\n.ws{border:1px solid var(--glass-line,rgba(255,255,255,.14));border-radius:10px;padding:14px 16px;margin:0 0 18px;background:var(--card,rgba(17,26,46,.6))}' +
+    '\n.ws h3{margin:0 0 4px;font:700 16px Inter,sans-serif;color:var(--text-bright,#F2F5FF)}' +
+    '\n.ws p{margin:0 0 12px;font-size:13px;opacity:.75}' +
+    '\n.ws-row{display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:4px 10px;align-items:center;margin:0 0 10px;font-size:14px}' +
+    '\n.ws-row b{font:600 13px "IBM Plex Mono",monospace;text-align:right}' +
+    '\n.ws-bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--glass-line,rgba(255,255,255,.12));overflow:hidden}' +
+    '\n.ws-bar i{display:block;height:100%;border-radius:3px}' +
+    '\n.ws-go{display:inline-block;margin-top:2px;font:600 13px Inter,sans-serif;color:var(--blue,#84AEEC);text-decoration:none}' +
+    '\n.ws-go:hover{text-decoration:underline}';
+  function weakSpots() {
+    if (app.querySelector('.ws')) return;
+    var by = {};
+    questions.forEach(function (q) {
+      if (!q.topic || q.verified === false) return;
+      var t = q.topic, name = TNAMES[t];
+      if (!name && /^M\d/.test(t)) { t = t.split('.')[0]; name = TNAMES[t]; }
+      if (!name) return;
+      var b = by[t] || (by[t] = { code: q.topic, name: name, n: 0, ok: 0, miss: {} });
+      b.n++;
+      if (state.answers[q.id] === q.correct) b.ok++;
+      else { b.miss[q.topic] = (b.miss[q.topic] || 0) + 1; if (b.miss[q.topic] >= (b.miss[b.code] || 0)) b.code = q.topic; }
+    });
+    var list = Object.keys(by).map(function (k) { return by[k]; });
+    if (list.length < 2) return;
+    list.forEach(function (b) { b.p = Math.round(100 * b.ok / b.n); });
+    list.sort(function (a, b) { return a.p - b.p || b.n - a.n; });
+    var weak = list.filter(function (b) { return b.p < 100; });
+    function col(p) { return p < 50 ? 'var(--danger,#F87171)' : p < 75 ? '#E0A82E' : 'var(--ok,#4ADE9A)'; }
+    var box = document.createElement('div'); box.className = 'ws';
+    var h = '<h3>Your weak spots in this test</h3>';
+    if (!weak.length) h += '<p>No mistakes in any topic. Try a harder test.</p>';
+    else h += '<p>Topics sorted from weakest. Train the first one with similar questions.</p>';
+    h += list.map(function (b, i) {
+      var link = i < 3 && b.p < 100 && /^(MC|CON|ASM|FLAW|WKN|STR|EF|PRIN|PAR|PS)$|^M\d+\.\d+$/.test(b.code)
+        ? '<a class="ws-go" href="topics.html?t=' + encodeURIComponent(b.code) + '">Train this topic →</a>' : '';
+      return '<div class="ws-row"><span>' + b.name + '</span><b>' + b.ok + '/' + b.n + '</b>' +
+        '<div class="ws-bar"><i style="width:' + Math.max(b.p, 3) + '%;background:' + col(b.p) + '"></i></div>' + link + '</div>';
+    }).join('');
+    box.innerHTML = h;
+    var grid = app.querySelector('.stat-grid');
+    if (grid) grid.insertAdjacentElement('afterend', box); else app.insertBefore(box, app.firstChild);
+  }
   function enhanceResults() {
     var items = [].filter.call(app.querySelectorAll('.review-item'), function (it) { return it.querySelector('.mark'); });
     items = items.filter(function (it) { return it.style.flexDirection === 'column'; });
     var rn = document.querySelector('.resume'); if (rn) rn.remove();
+    try { weakSpots(); } catch (e) {}
     if (!items.length || app.querySelector('.rv-filter')) return;
     var wrong = items.filter(function (it) { return it.querySelector('.mark.no'); });
     items.forEach(function (it) {

@@ -121,7 +121,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var supa = window.preplineSupa, L = 'ABCDEFGH', INDEX = window.PREPLINE_TOPIC_INDEX || {};
   var NAMES = {
-    ASM:'Assumptions', CON:'Conclusions', EF:'External factors', MC:'Main conclusion', FLAW:'Flaws in reasoning',
+    ASM:'Assumptions', CON:'Conclusions', EF:'External factors', MC:'Main conclusion', FLAW:'Flaws in reasoning', WKN:'Weakening arguments', STR:'Strengthening arguments', PRIN:'Applying principles', PAR:'Parallel reasoning', PS:'Problem solving',
     'M1.1':'Standard and compound units','M1.2':'Converting between units',
     'M2.1':'Ordering numbers and symbols','M2.2':'The four operations','M2.3':'Primes, factors, multiples, HCF and LCM',
     'M2.4':'Inverse operations and priority','M2.5':'Systematic listing','M2.6':'Squares, cubes and roots',
@@ -145,8 +145,8 @@
     'M5.14':'Areas and volumes of prisms','M5.15':'Circle and solid formulae','M5.16':'Arcs and sectors',
     'M5.17':'Similarity: lengths, areas, volumes','M5.18':'Trigonometric ratios','M5.19':'Vectors'
   };
-  var GROUPS = { M1: 'Units', M2: 'Number', M3: 'Ratio and proportion', M4: 'Algebra', M5: 'Geometry and measures', CT: 'Critical Thinking' };
-  var CT_ORDER = ['MC', 'CON', 'ASM', 'EF', 'FLAW'];
+  var GROUPS = { M1: 'Units', M2: 'Number', M3: 'Ratio and proportion', M4: 'Algebra', M5: 'Geometry and measures', CT: 'Critical Thinking', PS: 'Problem Solving' };
+  var CT_ORDER = ['MC', 'CON', 'ASM', 'FLAW', 'WKN', 'STR', 'EF', 'PRIN', 'PAR', 'PS'];
   var SIZE = 10;
   var kind = 'math', sort = 'spec', stats = {}, user = null, pages = {};
   var run = null;   // {topic, items:[{mock,q}], pos, right, wrong:[]}
@@ -192,7 +192,7 @@
       codes.sort(cmpSpec);
       var last = '';
       codes.forEach(function (c) {
-        var g = isCT(c) ? 'CT' : c.split('.')[0];
+        var g = c === 'PS' ? 'PS' : isCT(c) ? 'CT' : c.split('.')[0];
         if (g !== last) { h += (last ? '</div>' : '') + '<div class="group">' + esc(GROUPS[g] || g) + '</div><div class="topics">'; last = g; }
         h += row(c);
       });
