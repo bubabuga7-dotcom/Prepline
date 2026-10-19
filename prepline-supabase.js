@@ -205,7 +205,7 @@ window.preplinePremiumCached = function () {
     }
     .pl-pill:hover { border-color: rgba(201,162,39,0.6); background: rgba(201,162,39,0.12); }
     .pl-pill .pl-dot { width: 8px; height: 8px; border-radius: 50%; background: #64748B; }
-    .pl-pill.on .pl-dot { background: #34D399; box-shadow: 0 0 8px rgba(52,211,153,0.8); }
+    .pl-pill.on .pl-dot { background: #22C55E; }
     .pl-modal-bg {
       position: fixed; inset: 0; z-index: 500; display: none;
       align-items: center; justify-content: center;
@@ -267,6 +267,7 @@ window.preplinePremiumCached = function () {
       .pl-pill.on #plPillText { display: none; }
       .pl-pill.on::after { content: attr(data-ini); font-size: 15px; font-weight: 700; }
       .pl-pill.on .pl-dot { position: absolute; right: 0; bottom: 1px; width: 9px; height: 9px; border: 2px solid #111A2E; }
+      html[data-theme=light] .pl-pill.on .pl-dot { border-color: #fff; }
     }
   `;
   document.head.appendChild(css);

@@ -68,6 +68,8 @@
       'background:#111A2E;color:#B4C0D6;border:1px solid rgba(255,255,255,.16);cursor:pointer;padding:0;transition:color .15s,border-color .15s}' +
       '.pl-theme:hover{color:#C9A227;border-color:rgba(201,162,39,.6)}' +
       '@media (max-width:780px){.pl-theme,.pl-theme-menu{position:absolute}}' +
+      '*{-webkit-tap-highlight-color:transparent}' +
+      'a:active,button:active,.pl-pill:active,.pl-theme:active{opacity:.7}' +
       '.pl-theme-menu{position:fixed;z-index:402;display:none;min-width:150px;background:#111A2E;border:1px solid rgba(255,255,255,.16);' +
       'border-radius:8px;padding:5px;box-shadow:0 12px 32px rgba(0,0,0,.45);font:600 13px Inter,system-ui,sans-serif}' +
       '.pl-theme-menu.open{display:block}' +
