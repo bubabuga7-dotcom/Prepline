@@ -261,7 +261,13 @@ window.preplinePremiumCached = function () {
       max-width: calc(100vw - 40px); overflow: hidden; text-overflow: ellipsis;
     }
     .pl-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    @media (max-width: 780px) { .pl-auth { top: 10px; right: 10px; } }
+    @media (max-width: 780px) {
+      .pl-auth { top: 10px; right: 10px; }
+      .pl-pill.on { padding: 0; width: 36px; height: 36px; justify-content: center; gap: 0; position: relative; }
+      .pl-pill.on #plPillText { display: none; }
+      .pl-pill.on::after { content: attr(data-ini); font-size: 15px; font-weight: 700; }
+      .pl-pill.on .pl-dot { position: absolute; right: 0; bottom: 1px; width: 9px; height: 9px; border: 2px solid #111A2E; }
+    }
   `;
   document.head.appendChild(css);
 
@@ -315,6 +321,7 @@ window.preplinePremiumCached = function () {
     if (user) {
       pill.classList.add('on');
       pillText.textContent = user.email;
+      pill.setAttribute('data-ini', (user.email || '?').charAt(0).toUpperCase());
       $('plTitle').textContent = user.email;
       $('plForm').style.display = 'none';
       $('plLogged').style.display = 'block';

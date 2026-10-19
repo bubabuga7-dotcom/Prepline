@@ -25,22 +25,43 @@
     ['math.html', 'Mathematics', 'Math', I.math],
     ['crit.html', 'Critical Thinking', 'CT', I.ct],
     ['topics.html', 'Train by topic', 'Topics', I.topic],
-    ['formulas.html', 'Formula quiz', 'Formulas', I.fx, 'desk'],
-    ['review.html', 'Mistakes deck', 'Review', I.deck],
-    ['live.html', 'Live room', 'Live', I.live],
-    ['league.html', 'League', 'League', I.league],
+    ['formulas.html', 'Formula quiz', 'Formulas', I.fx, 'more'],
+    ['review.html', 'Mistakes deck', 'Review', I.deck, 'more'],
+    ['live.html', 'Live room', 'Live', I.live, 'more'],
+    ['league.html', 'League', 'League', I.league, 'more'],
     'spacer',
-    ['intro.html', 'What is NUET', 'NUET', I.info]
+    ['intro.html', 'What is NUET', 'NUET', I.info, 'more']
   ];
   var h = '<a href="index.html" class="dock-logo" aria-label="Prepline home">P</a>';
   items.forEach(function (it) {
     if (it === 'sep') { h += '<div class="dock-sep"></div>'; return; }
     if (it === 'spacer') { h += '<div class="dock-spacer"></div>'; return; }
-    h += '<a href="' + it[0] + '" class="dock-item' + (it[0] === kind ? ' on' : '') + (it[4] === 'desk' ? ' dock-desk' : '') + '" aria-label="' + it[1] + '">' +
+    h += '<a href="' + it[0] + '" class="dock-item' + (it[0] === kind ? ' on' : '') + (it[4] === 'more' ? ' dock-more' : '') + '" aria-label="' + it[1] + '">' +
          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + it[3] + '</svg>' +
          '<span class="dock-tip">' + it[1] + '</span><span class="dock-label">' + it[2] + '</span></a>';
   });
+  var moreOn = items.some(function (it) { return it[4] === 'more' && it[0] === kind; }) || page === 'admin.html';
+  h += '<button type="button" class="dock-item dock-morebtn' + (moreOn ? ' on' : '') + '" aria-label="More" aria-expanded="false">' +
+       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>' +
+       '<span class="dock-label">More</span></button>';
   el.innerHTML = h;
+
+  /* phone: secondary pages live in a sheet behind "More" */
+  var dst = document.createElement('style');
+  dst.textContent = '.dock-morebtn{display:none;background:none;font:inherit;cursor:pointer;padding:0}.dock-sheet{display:none}@media (max-width:780px){main{padding-top:56px}.dock-logo,.dock-sep,.dock-spacer,.dock-tip,.dock-item.dock-more,.dock-item.dock-admin{display:none!important}  .dock{padding-bottom:env(safe-area-inset-bottom);height:calc(64px + env(safe-area-inset-bottom))}.dock-item{width:auto;flex:1;min-width:0;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.dock-item svg{width:22px;height:22px}.dock-label{display:block;font-size:11.5px;font-weight:600;line-height:1}.dock-morebtn{display:flex;color:var(--ink-3);border:1px solid transparent}.dock-sheet{position:fixed;inset:0;z-index:99;background:rgba(5,8,20,.45)}.dock-sheet.open{display:block}.dock-sheet-box{position:absolute;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));background:var(--bg-2,#111A2E);border:1px solid var(--line);border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;box-shadow:0 14px 40px rgba(0,0,0,.35)}.dock-sheet-box a{display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:10px;color:var(--ink-2,#D5DDEC);text-decoration:none;font-size:15px;font-weight:600}.dock-sheet-box a.on{background:rgba(201,162,39,.14);color:var(--gold)}.dock-sheet-box svg{width:22px;height:22px;flex:none}}html[data-theme=light] .dock-sheet-box{background:#fff;border-color:#DCE3EE;box-shadow:0 14px 40px rgba(15,27,51,.18)}html[data-theme=light] .dock-sheet-box a{color:#26324A}html[data-theme=light] .dock-sheet-box a.on{background:#E3ECFB;color:#1D5FD1}html[data-theme=light] .dock-morebtn{color:#66748C}';
+  document.head.appendChild(dst);
+  var sheet = document.createElement('div'); sheet.className = 'dock-sheet';
+  function fillSheet() {
+    sheet.innerHTML = '<div class="dock-sheet-box">' + [].map.call(el.querySelectorAll('.dock-more, .dock-admin'), function (a) {
+      return '<a href="' + a.getAttribute('href') + '" class="' + (a.classList.contains('on') ? 'on' : '') + '">' +
+        a.querySelector('svg').outerHTML + '<span>' + a.getAttribute('aria-label') + '</span></a>';
+    }).join('') + '</div>';
+  }
+  document.body.appendChild(sheet);
+  var mb = el.querySelector('.dock-morebtn');
+  function toggle(open) { fillSheet(); sheet.classList.toggle('open', open); mb.setAttribute('aria-expanded', open); }
+  mb.onclick = function (e) { e.stopPropagation(); toggle(!sheet.classList.contains('open')); };
+  sheet.onclick = function (e) { if (e.target === sheet) toggle(false); };
 
   // "Admin" item: only for accounts in the admins table (stage7.sql). Remembered on this device to avoid a flash.
   function addAdmin() {
