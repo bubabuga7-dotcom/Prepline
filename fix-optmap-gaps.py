@@ -24,6 +24,8 @@ def fix(path, boxes):
     tops = [b[1] for b in boxes]
     if len(set(round(t, 3) for t in tops)) == 1:
         return boxes                       # a row of options: nothing to do
+    if len(set(round(b[0], 3) for b in boxes)) > 1:
+        return fix_grid(path, boxes)
     im = np.asarray(Image.open(path).convert('L'))
     H, W = im.shape
     x0 = int(boxes[0][0] * W)
@@ -77,14 +79,76 @@ def fix(path, boxes):
     return out
 
 
+def fix_grid(path, boxes):
+    """Options in a grid: move each split between rows to the widest blank strip between them,
+    so a figure that reaches above its label still belongs to its own option."""
+    im = np.asarray(Image.open(path).convert('L'))
+    H, W = im.shape
+    rows = []                                   # [top_px, [box indexes]]
+    for i, b in enumerate(boxes):
+        t = int(b[1] * H)
+        for r in rows:
+            if abs(r[0] - t) < 4:
+                r[1].append(i); break
+        else:
+            rows.append([t, [i]])
+    rows.sort()
+    if len(rows) < 2:
+        return boxes
+    x1 = int(min(b[0] for b in boxes) * W); x2 = int(max(b[0] + b[2] for b in boxes) * W)
+    ink = (im[:, x1:x2] < 150).sum(axis=1) > 0
+    R = runs(ink)
+    pad = 6
+    rowh = rows[1][0] - rows[0][0]
+    if rowh < 90:
+        return boxes            # rows of text or formulas: the label split is already right
+    cen = [r[0] + pad + 8 for r in rows]        # just under each row's label top
+    cuts, gaps = [], []
+    for k in range(len(rows) - 1):
+        a, b = cen[k], cen[k + 1]
+        blank = [(max(s, a), min(e, b)) for s, e, inked in R if not inked and e > a and s < b]
+        blank = [g for g in blank if g[1] - g[0] > 0]
+        if not blank:
+            return boxes
+        g = max(blank, key=lambda g: g[1] - g[0])
+        cuts.append((g[0] + g[1]) // 2); gaps.append(g[1] - g[0])
+    thr = max(4, int(0.6 * min(gaps)))
+    # first row: up to the blank strip above it, never more than half a row above its label
+    y = cen[0]; top0 = rows[0][0]
+    while y > 0 and y > rows[0][0] - rowh // 2:
+        if not ink[y]:
+            z = y
+            while z > 0 and not ink[z]:
+                z -= 1
+            if y - z >= thr:
+                top0 = min(top0, y - pad); break
+            y = z
+        else:
+            y -= 1
+    top0 = max(0, top0)
+    edges = [top0] + cuts
+    out = [list(b) for b in boxes]
+    for k, r in enumerate(rows):
+        y1 = edges[k]
+        y2 = cuts[k] if k < len(cuts) else int((boxes[r[1][0]][1] + boxes[r[1][0]][3]) * H)
+        if y2 - y1 < 10:
+            return boxes
+        for i in r[1]:
+            out[i][1] = round(y1 / H, 4); out[i][3] = round((y2 - y1) / H, 4)
+    return out
+
+
 def main():
     m = json.load(open('option-map.json'))
     changed = 0
     # with --new: only images added by the last `build-optmap.py --missing` run, and only column layouts
     todo = m
-    if '--new' in sys.argv:
+    if '--grids' in sys.argv:
         kinds = json.load(open('option-map-new.json'))
-        todo = {p: m[p] for p, k in kinds.items() if k == 'col'}
+        todo = {p: m[p] for p, k in kinds.items() if k == 'grid'}
+    elif '--new' in sys.argv:
+        kinds = json.load(open('option-map-new.json'))
+        todo = {p: m[p] for p, k in kinds.items() if k in ('col', 'grid')}
     for p, bb in todo.items():
         nb = fix(p, bb)
         if nb != bb:
