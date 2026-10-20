@@ -762,7 +762,7 @@
 /* answer image questions by tapping the option on the picture (tapmap.js + option-map.json) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="tapmap.js"]')) return;
-  var s = document.createElement('script'); s.src = 'tapmap.js?v=1'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'tapmap.js?v=2'; document.body.appendChild(s);
 })();
 
 /* where this test's questions come from, under the title (catalog from tests.js) */
