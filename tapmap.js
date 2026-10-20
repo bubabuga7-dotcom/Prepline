@@ -30,6 +30,14 @@
     '.pl-tap-hint{position:absolute;left:50%;top:-30px;transform:translateX(-50%);white-space:nowrap;pointer-events:none;' +
       'background:#1D5FD1;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:7px 10px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}' +
     '.pl-tap-off{display:none!important}' +
+    '.pl-tap.small .pl-tap-b{pointer-events:none}.pl-tap.small+.x{}' +
+    '.pl-zoom{position:fixed;inset:0;z-index:9500;background:rgba(5,8,20,.94);display:flex;flex-direction:column}' +
+    '.pl-zoom-h{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#E6ECF7;font:600 15px Inter,system-ui,sans-serif}' +
+    '.pl-zoom-h span{flex:1}.pl-zoom-h button{background:#1D2A44;color:#fff;border:0;border-radius:10px;font:700 15px Inter,sans-serif;padding:10px 14px}' +
+    '.pl-zoom-s{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:24px 8px 40px}' +
+    '.pl-zoom-in{position:relative;margin:0 auto}.pl-zoom-in img{display:block;width:100%;background:#fff;border-radius:6px}' +
+    '.pl-zoom .pl-tap-b{border-color:rgba(29,95,209,.55);background:rgba(29,95,209,.05)}.pl-zoom .pl-tap-b i{display:block;background:#1D5FD1}' +
+    '.pl-zoom .pl-tap-b.sel{border-color:#C9A227;background:rgba(201,162,39,.18)}.pl-zoom .pl-tap-b.sel i{background:#C9A227;color:#0B1120}' +
     'html[data-theme=light] .pl-tap-b.sel{border-color:#1D5FD1;background:rgba(29,95,209,.1)}html[data-theme=light] .pl-tap-b.sel i{background:#1D5FD1;color:#fff}';
   document.head.appendChild(st);
 
@@ -60,6 +68,9 @@
       if (ih) {
         var minH = Math.min.apply(null, e.b.map(function (b) { return b[3] * ih; }));
         t.cont.classList.toggle('pl-tap-off', minH >= 24);
+        ov.classList.toggle('small', minH < 24);   // too small to hit: tap the picture to answer in a zoomed view
+        var hint = ov.querySelector('.pl-tap-hint');
+        if (hint) hint.textContent = minH < 24 ? 'Tap the picture to answer on it' : 'Tap your answer on the picture';
       }
     }
   }
@@ -111,6 +122,49 @@
     });
   }
 
+  /* phones: the options on the picture are too small to hit, so a tap on the picture opens it large with answer areas */
+  function zoom(img) {
+    var t = img.__plTap, e = entry(img);
+    if (!t || t === 'none' || !e || !e.w) return false;
+    var real = t.cont.querySelectorAll(t.K.btn);
+    if (!real.length || real[0].disabled) return false;
+    var minF = Math.min.apply(null, e.b.map(function (b) { return b[3]; }));
+    var vw = window.innerWidth - 16;
+    // big enough to hit (about 40 px a row) but at most 1.7 screens wide, so a line of text needs little sideways scrolling
+    var fitZ = vw / e.w, z = Math.min(Math.max(fitZ, 40 / (minF * e.h)), fitZ * 1.7);
+    var W = Math.round(e.w * z), H = e.h * z;
+    var d = document.createElement('div'); d.className = 'pl-zoom';
+    d.innerHTML = '<div class="pl-zoom-h"><span>Tap your answer</span><button type="button" class="x">Close</button></div>' +
+      '<div class="pl-zoom-s"><div class="pl-zoom-in" style="width:' + W + 'px"><img alt="Question" src="' + img.getAttribute('src') + '">' +
+      e.b.map(function (b, i) {
+        var on = real[i] && (real[i].classList.contains('selected') || real[i].classList.contains('sel')) ? ' sel' : '';
+        return '<button type="button" class="pl-tap-b' + on + '" data-n="' + i + '" aria-label="Answer ' + LET[i] + '" style="left:' + (b[0] * 100) + '%;top:' +
+          (b[1] * 100) + '%;width:' + (b[2] * 100) + '%;height:' + (b[3] * 100) + '%"><i>' + LET[i] + '</i></button>';
+      }).join('') + '</div></div>';
+    document.body.appendChild(d);
+    var sc = d.querySelector('.pl-zoom-s'), b0 = e.b[0];
+    sc.scrollTop = Math.max(0, b0[1] * H - 70); sc.scrollLeft = Math.max(0, b0[0] * W - 12);
+    function close() { d.remove(); document.removeEventListener('keydown', esc); }
+    function esc(ev) { if (ev.key === 'Escape') close(); }
+    document.addEventListener('keydown', esc);
+    d.querySelector('.x').onclick = close;
+    d.querySelector('.pl-zoom-in').addEventListener('click', function (ev) {
+      var b = ev.target.closest('.pl-tap-b'); if (!b) return;
+      [].forEach.call(d.querySelectorAll('.pl-tap-b'), function (x) { x.classList.toggle('sel', x === b); });
+      var r = t.cont.querySelectorAll(t.K.btn)[+b.dataset.n];
+      if (r && !r.disabled) r.click();
+      if (!hintSeen) { hintSeen = true; try { localStorage.setItem('prepline:tap-hint', '1'); } catch (x) {} [].forEach.call(document.querySelectorAll('.pl-tap-hint'), function (h) { h.remove(); }); }
+      setTimeout(function () { close(); sync(); }, 220);
+    });
+    return true;
+  }
+  document.addEventListener('click', function (ev) {
+    var img = ev.target;
+    if (!img || img.tagName !== 'IMG' || !img.__plTap || img.__plTap === 'none') return;
+    if (!img.__plTap.ov.classList.contains('small')) return;
+    if (zoom(img)) { ev.stopPropagation(); ev.preventDefault(); }
+  }, true);
+
   var queued = false;
   function scan() {
     queued = false;
@@ -124,7 +178,7 @@
   }
   function later() { if (!queued) { queued = true; requestAnimationFrame(scan); } }
 
-  fetch('option-map.json?v=3').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
+  fetch('option-map.json?v=4').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
     if (!m) return;
     MAP = m; scan();
     new MutationObserver(later).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'disabled'] });

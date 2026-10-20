@@ -1,7 +1,7 @@
 /* Prepline service worker: makes the site installable and keeps visited pages available offline.
    Pages, scripts and styles: network first (always the latest version when online), cache as fallback.
    Question images: cache first (their file names never change). Supabase and CDNs are not touched. */
-var VERSION = 'prepline-v8';
+var VERSION = 'prepline-v9';
 var SHELL = 'shell-' + VERSION, IMAGES = 'images-' + VERSION;
 var MAX_IMAGES = 400;
 var PRECACHE = [
