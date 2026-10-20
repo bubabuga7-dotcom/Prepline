@@ -53,12 +53,12 @@ def analyse_big(path_n):
     path, n = path_n
     im = Image.open(path).convert('L'); W, H = im.size
     for scale in (3, 4):
-        for thr in (None, 170, 200):
+        for thr in (None, 170):
             big = im.resize((W * scale, H * scale), Image.LANCZOS)
             if thr:
                 big = big.point(lambda v, t=thr: 0 if v < t else 255)
             buf = io.BytesIO(); big.save(buf, 'PNG'); data = buf.getvalue()
-            for psm in (11, 6, 4, 3):
+            for psm in (11, 6, 4):
                 words = B.ocr(data, psm)
                 for w in words:
                     for k in ('l', 't', 'w', 'h'):
@@ -137,10 +137,22 @@ def main():
         keep = set(json.load(open(sys.argv[sys.argv.index('--only') + 1])))
         items = [x for x in items if x[0] in keep]
     res = {}
+    # progress file: a stopped run picks up where it left off
+    prog = 'option-map-progress.jsonl' if '--wide' in sys.argv else None
+    done = set()
+    if prog and os.path.exists(prog):
+        for line in open(prog):
+            d = json.loads(line); done.add(d['p'])
+            if d['r']:
+                res[d['p']] = d['r']
+        items = [x for x in items if x[0] not in done]
     with ProcessPoolExecutor(os.cpu_count()) as ex:
-        for p, r in ex.map(run, items, chunksize=4):
+        for p, r in ex.map(run, items, chunksize=1):
             if r:
                 res[p] = r
+            if prog:
+                with open(prog, 'a') as f:
+                    f.write(json.dumps({'p': p, 'r': r}) + '\n')
     kinds = {}
     for r in res.values():
         kinds[r['kind']] = kinds.get(r['kind'], 0) + 1
