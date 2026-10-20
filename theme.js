@@ -121,6 +121,7 @@
     var K = 'prepline:device-tip';
     try { if (localStorage.getItem(K)) return; } catch (e) { return; }
     if (Math.min(screen.width, screen.height) >= 600 || window.innerWidth >= 700) return;
+    if (!/^(mix-|crit-|diagnostic-)/.test(location.pathname.split('/').pop() || '')) return;   // tests only: figures matter there
     var st = document.createElement('style');
     st.textContent =
       '.pl-devtip{position:relative;z-index:50;margin:0 0 14px;display:flex;gap:10px;align-items:center;' +

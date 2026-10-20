@@ -81,6 +81,39 @@
 
   @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:26px} .tracks{grid-template-columns:1fr} .steps{grid-template-columns:1fr 1fr} }
   @media (max-width:780px){ .hero{padding:10px 0 10px} .hero h1{font-size:33px} .hero .row .btn{flex:1;justify-content:center} }
+
+  /* ---------- phone: the home page is the menu ---------- */
+  .m-home{display:none}
+  @media (max-width:780px){
+    .hero,.stats,#tracks,.tracks,#how,.steps,.foot{display:none!important}
+    .wrap{padding-top:18px}
+    .m-home{display:block}
+    .m-cont{display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:12px;border-radius:14px;
+            background:linear-gradient(135deg,rgba(201,162,39,.22),rgba(201,162,39,.08));border:1px solid rgba(201,162,39,.55)}
+    .m-cont .t{flex:1;min-width:0}
+    .m-cont small{display:block;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+    .m-cont b{display:block;font:700 16px Sora,sans-serif;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .m-cont span{font-size:12.5px;color:var(--ink-3)}
+    .m-cont .arr{font:700 22px Inter,sans-serif;color:var(--gold)}
+    .m-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .m-tile{display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-height:96px;padding:14px;border-radius:14px;
+            background:var(--panel);border:1px solid var(--line);color:var(--ink);-webkit-tap-highlight-color:transparent}
+    .m-tile:active{transform:scale(.97);border-color:var(--gold)}
+    .m-tile svg{width:26px;height:26px;color:var(--blue)}
+    .m-tile b{font:700 15.5px Sora,sans-serif;line-height:1.2}
+    .m-tile em{display:block;font:500 12px 'IBM Plex Mono',monospace;font-style:normal;color:var(--ink-3);margin-top:3px}
+    .m-tile.big{min-height:128px;background:linear-gradient(160deg,rgba(20,59,107,.75),rgba(255,255,255,.04));border-color:rgba(132,174,236,.35)}
+    .m-tile.big svg{width:30px;height:30px;color:var(--gold)}
+    .m-tile.big b{font-size:19px}
+    .m-new{display:block;margin-top:12px;padding:14px 16px;border-radius:14px;border:1px dashed var(--line);color:var(--ink-2);font-size:14px;text-align:center}
+    .m-new a{color:var(--gold);font-weight:700}
+    .challenge{margin-top:12px}
+  }
+  html[data-theme=light] .m-tile.big{background:#EEF4FE;border-color:#B9CDF1}
+  html[data-theme=light] .m-tile.big svg{color:#1D5FD1}
+  html[data-theme=light] .m-cont{background:#E3ECFB;border-color:#B9CDF1}
+  html[data-theme=light] .m-cont small,html[data-theme=light] .m-cont .arr{color:#1D5FD1}
+  html[data-theme=light] .m-new a{color:#1D5FD1}
 </style>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="light.css">
@@ -88,6 +121,12 @@
 <body>
 <aside class="dock" id="dock"></aside>
 <main><div class="wrap">
+
+  <section class="m-home" aria-label="Menu">
+    <a class="m-cont" id="m-cont" href="#" style="display:none"><span class="t"><small>Continue</small><b id="m-cont-t"></b><span id="m-cont-s"></span></span><span class="arr">→</span></a>
+    <nav class="m-grid" id="m-grid"></nav>
+    <p class="m-new" id="m-new" style="display:none">New here? <a href="diagnostic-math.html">10-question diagnostic →</a></p>
+  </section>
 
   <section class="hero">
     <div>
@@ -165,6 +204,46 @@
   var set = function (id, v) { var e = document.getElementById(id); if (e) e.textContent = v; };
   set('n-tests', f(T.length)); set('n-q', f(q(T))); set('n-math', m.length); set('n-ct', c.length);
   set('m-tests', m.length); set('m-q', f(q(m))); set('c-tests', c.length); set('c-q', f(q(c)));
+})();
+</script>
+<script>
+/* phone menu: big tiles in the middle of the screen, an in-progress test first */
+(function () {
+  var N = window.PL_NAV, box = document.getElementById('m-grid'); if (!N || !box) return;
+  var T = window.PREPLINE_TESTS || [];
+  var cnt = function (k) { return T.filter(function (t) { return t.kind === k; }).length + ' tests'; };
+  var sub = { 'math.html': cnt('math'), 'crit.html': cnt('ct'), 'topics.html': 'short drills', 'dashboard.html': 'scores & weak topics',
+              'review.html': 'your wrong answers', 'formulas.html': 'quick quiz', 'live.html': 'with friends', 'league.html': 'monthly table',
+              'intro.html': 'exam guide', 'premium.html': 'unlimited tests' };
+  var short = { 'Mathematics': 'Mathematics', 'Critical Thinking': 'Critical Thinking', 'Dashboard': 'Progress', 'What is NUET': 'What is NUET' };
+  var order = ['math.html', 'crit.html', 'topics.html', 'dashboard.html', 'review.html', 'formulas.html', 'live.html', 'league.html', 'intro.html'];
+  var by = {}; N.items.forEach(function (it) { by[it[0]] = it; });
+  var star = '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>';
+  by['premium.html'] = ['premium.html', 'Premium', 'Premium', star];
+  order.push('premium.html');
+  box.innerHTML = order.map(function (h) {
+    var it = by[h]; if (!it) return '';
+    return '<a class="m-tile' + (h === 'math.html' || h === 'crit.html' ? ' big' : '') + '" href="' + h + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + it[3] + '</svg>' +
+      '<span><b>' + (short[it[1]] || it[1]) + '</b><em>' + (sub[h] || '') + '</em></span></a>';
+  }).join('');
+
+  var best = null, any = false;
+  T.forEach(function (t) {
+    try {
+      if (!any && (JSON.parse(localStorage.getItem('prepline:' + t.id) || '[]')).length) any = true;
+      var d = JSON.parse(localStorage.getItem('prepline-draft:' + t.id) || 'null');
+      if (d && d.a && Object.keys(d.a).length && d.t > 5 && Date.now() - d.at < 30 * 864e5 && (!best || d.at > best.d.at)) best = { t: t, d: d };
+    } catch (e) {}
+  });
+  if (best) {
+    var t = best.t, nm = t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Test ') + t.n;
+    document.getElementById('m-cont-t').textContent = nm;
+    document.getElementById('m-cont-s').textContent = Object.keys(best.d.a).length + ' of ' + (best.d.n || t.q) + ' answered · ' + Math.ceil(best.d.t / 60) + ' min left';
+    var c = document.getElementById('m-cont'); c.href = t.id + '.html'; c.style.display = '';
+    any = true;
+  }
+  if (!any) document.getElementById('m-new').style.display = '';
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

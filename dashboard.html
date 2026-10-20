@@ -205,6 +205,13 @@
                    font:600 15px 'IBM Plex Mono',monospace;padding:5px 6px;text-align:center;display:block;margin:4px 0 0 auto}
   .up{color:var(--ok)} .down{color:var(--bad)}
   @media (max-width:780px){.nu{grid-template-columns:1fr;gap:16px}.nu-target{text-align:left}.nu-target input{margin:4px 0 0}.nu-sec{grid-template-columns:96px 1fr 84px}}
+  /* phone: actions first ("Today", weak topics), numbers after */
+  @media (max-width:780px){
+    body>main{display:flex;flex-direction:column;padding-top:20px!important}
+    main>.panel:last-child{display:none}
+    main>.grid{order:1;margin-top:14px} main>#stats{order:2;margin-top:18px} main>#nuPanel{order:3;margin-top:18px}
+    main>div[style*="height:18px"]{display:none}
+  }
 </style>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="light.css">

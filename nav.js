@@ -40,28 +40,37 @@
          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + it[3] + '</svg>' +
          '<span class="dock-tip">' + it[1] + '</span><span class="dock-label">' + it[2] + '</span></a>';
   });
-  var moreOn = items.some(function (it) { return it[4] === 'more' && it[0] === kind; }) || page === 'admin.html';
-  h += '<button type="button" class="dock-item dock-morebtn' + (moreOn ? ' on' : '') + '" aria-label="More" aria-expanded="false">' +
-       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>' +
-       '<span class="dock-label">More</span></button>';
   el.innerHTML = h;
 
-  /* phone: secondary pages live in a sheet behind "More" */
+  /* phone: no bottom bar. The home page is the menu (big buttons in the middle of the screen);
+     every other page gets a sticky top bar with one "Menu" button back to it. */
+  window.PL_NAV = { items: items.filter(function (it) { return Array.isArray(it); }), icons: I };
   var dst = document.createElement('style');
-  dst.textContent = '.dock-morebtn{display:none;background:none;font:inherit;cursor:pointer;padding:0}.dock-sheet{display:none}@media (max-width:780px){main{padding-top:56px}.dock-logo,.dock-sep,.dock-spacer,.dock-tip,.dock-item.dock-more,.dock-item.dock-admin{display:none!important}  .dock{padding-bottom:env(safe-area-inset-bottom);height:calc(64px + env(safe-area-inset-bottom))}.dock-item{width:auto;flex:1;min-width:0;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.dock-item svg{width:22px;height:22px}.dock-label{display:block;font-size:11.5px;font-weight:600;line-height:1}.dock-morebtn{display:flex;color:var(--ink-3);border:1px solid transparent}.dock-sheet{position:fixed;inset:0;z-index:99;background:rgba(5,8,20,.45)}.dock-sheet.open{display:block}.dock-sheet-box{position:absolute;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));background:var(--bg-2,#111A2E);border:1px solid var(--line);border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;box-shadow:0 14px 40px rgba(0,0,0,.35)}.dock-sheet-box a{display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:10px;color:var(--ink-2,#D5DDEC);text-decoration:none;font-size:15px;font-weight:600}.dock-sheet-box a.on{background:rgba(201,162,39,.14);color:var(--gold)}.dock-sheet-box svg{width:22px;height:22px;flex:none}}html[data-theme=light] .dock-sheet-box{background:#fff;border-color:#DCE3EE;box-shadow:0 14px 40px rgba(15,27,51,.18)}html[data-theme=light] .dock-sheet-box a{color:#26324A}html[data-theme=light] .dock-sheet-box a.on{background:#E3ECFB;color:#1D5FD1}html[data-theme=light] .dock-morebtn{color:#66748C}';
+  dst.textContent =
+    '.pl-top{display:none}' +
+    '@media (max-width:780px){' +
+      '.dock{display:none!important}body{padding-bottom:0!important}main{margin-left:0!important;padding-top:0!important}' +
+      '.pl-top{display:flex;position:sticky;top:0;z-index:90;height:64px;align-items:center;gap:10px;padding:0 112px 0 14px;' +
+        'background:var(--bg,#0B1120);border-bottom:1px solid var(--line,rgba(255,255,255,.12))}' +
+      '.pl-menu{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border-radius:12px;' +
+        'background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.45);color:var(--gold,#C9A227);font:700 15px Inter,system-ui,sans-serif;text-decoration:none}' +
+      '.pl-menu svg{width:20px;height:20px}' +
+      '.pl-brand{font:700 19px Sora,sans-serif;color:var(--ink,#E6ECF7);text-decoration:none;letter-spacing:-.02em}' +
+      '.pl-brand i{font-style:normal;color:var(--gold,#C9A227)}' +
+      /* less reading on hubs */
+      'body[data-kind] .hub-head>div:first-child>p,body[data-kind] .hub-head>div:first-child>.kicker,' +
+      'body[data-kind] .stats,body[data-kind] .progress,.foot-note{display:none!important}' +
+      '#tagline,.panel.about,.wrap>.head>.kicker,.wrap>.head>p{display:none!important}' +
+    '}' +
+    'html[data-theme=light] .pl-top{background:#fff;border-color:#DCE3EE}' +
+    'html[data-theme=light] .pl-menu{background:#E3ECFB;border-color:#B9CDF1;color:#1D5FD1}' +
+    'html[data-theme=light] .pl-brand i{color:#1D5FD1}';
   document.head.appendChild(dst);
-  var sheet = document.createElement('div'); sheet.className = 'dock-sheet';
-  function fillSheet() {
-    sheet.innerHTML = '<div class="dock-sheet-box">' + [].map.call(el.querySelectorAll('.dock-more, .dock-admin'), function (a) {
-      return '<a href="' + a.getAttribute('href') + '" class="' + (a.classList.contains('on') ? 'on' : '') + '">' +
-        a.querySelector('svg').outerHTML + '<span>' + a.getAttribute('aria-label') + '</span></a>';
-    }).join('') + '</div>';
-  }
-  document.body.appendChild(sheet);
-  var mb = el.querySelector('.dock-morebtn');
-  function toggle(open) { fillSheet(); sheet.classList.toggle('open', open); mb.setAttribute('aria-expanded', open); }
-  mb.onclick = function (e) { e.stopPropagation(); toggle(!sheet.classList.contains('open')); };
-  sheet.onclick = function (e) { if (e.target === sheet) toggle(false); };
+  var bar = document.createElement('div'); bar.className = 'pl-top';
+  bar.innerHTML = page === 'index.html'
+    ? '<a href="index.html" class="pl-brand">Prep<i>line</i></a>'
+    : '<a href="index.html" class="pl-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Menu</a>';
+  document.body.insertBefore(bar, document.body.firstChild);
 
   // "Admin" item: only for accounts in the admins table (stage7.sql). Remembered on this device to avoid a flash.
   function addAdmin() {
