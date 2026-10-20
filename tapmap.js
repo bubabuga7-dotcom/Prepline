@@ -178,7 +178,7 @@
   }
   function later() { if (!queued) { queued = true; requestAnimationFrame(scan); } }
 
-  fetch('option-map.json?v=5').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
+  fetch('option-map.json?v=6').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
     if (!m) return;
     MAP = m; scan();
     new MutationObserver(later).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'disabled'] });

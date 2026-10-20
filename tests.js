@@ -88,7 +88,7 @@ window.PREPLINE_TESTS = [
 "q": 28,
 "min": 28,
 "src": "geometry only, fully worked",
-"tap": 0
+"tap": 4
 },
 {
 "id": "mix-10",
@@ -228,7 +228,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 1.2 · 1 not scored",
-"tap": 90
+"tap": 93
 },
 {
 "id": "mix-24",
@@ -238,7 +238,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 2.2 · full key",
-"tap": 80
+"tap": 87
 },
 {
 "id": "mix-25",
@@ -248,7 +248,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 3.2 · 1 not scored",
-"tap": 47
+"tap": 63
 },
 {
 "id": "mix-26",
@@ -258,7 +258,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 4.2 · full key",
-"tap": 73
+"tap": 77
 },
 {
 "id": "mix-27",
@@ -268,7 +268,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 5.2 · full key",
-"tap": 80
+"tap": 93
 },
 {
 "id": "mix-28",
@@ -288,7 +288,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 11.3 · full key",
-"tap": 70
+"tap": 80
 },
 {
 "id": "mix-30",
@@ -298,7 +298,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 12.3 · full key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "mix-31",
@@ -308,7 +308,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 13.3 · full key",
-"tap": 80
+"tap": 87
 },
 {
 "id": "mix-32",
@@ -338,7 +338,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 16.3 · full key",
-"tap": 77
+"tap": 87
 },
 {
 "id": "mix-35",
@@ -348,7 +348,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 17.1 · 1 not scored",
-"tap": 73
+"tap": 80
 },
 {
 "id": "mix-36",
@@ -358,7 +358,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 18.1 · full key",
-"tap": 87
+"tap": 90
 },
 {
 "id": "mix-37",
@@ -368,7 +368,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Practice Version 19.1 · full key",
-"tap": 90
+"tap": 97
 },
 {
 "id": "mix-38",
@@ -388,7 +388,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 1 · full key",
-"tap": 90
+"tap": 97
 },
 {
 "id": "mix-40",
@@ -398,7 +398,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 2 · full key",
-"tap": 87
+"tap": 97
 },
 {
 "id": "mix-41",
@@ -408,7 +408,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 3 · full key",
-"tap": 83
+"tap": 97
 },
 {
 "id": "mix-42",
@@ -418,7 +418,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 4 · full key",
-"tap": 87
+"tap": 97
 },
 {
 "id": "mix-43",
@@ -428,7 +428,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 5 · full key",
-"tap": 90
+"tap": 93
 },
 {
 "id": "mix-44",
@@ -438,7 +438,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 6 · full key",
-"tap": 87
+"tap": 93
 },
 {
 "id": "mix-45",
@@ -458,7 +458,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 8 · full key",
-"tap": 90
+"tap": 100
 },
 {
 "id": "mix-47",
@@ -478,7 +478,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Kiseki Mock 10 · full key",
-"tap": 97
+"tap": 100
 },
 {
 "id": "mix-49",
@@ -488,7 +488,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "math 7 · full key",
-"tap": 77
+"tap": 90
 },
 {
 "id": "mix-50",
@@ -498,7 +498,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "math 9 · full key",
-"tap": 77
+"tap": 87
 },
 {
 "id": "mix-51",
@@ -508,7 +508,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "math 10 · full key",
-"tap": 77
+"tap": 80
 },
 {
 "id": "mix-52",
@@ -518,7 +518,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Mock Exam 10 · full key",
-"tap": 80
+"tap": 83
 },
 {
 "id": "mix-53",
@@ -558,7 +558,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 2 · full key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "mix-57",
@@ -568,7 +568,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 3 · 2 not scored",
-"tap": 87
+"tap": 90
 },
 {
 "id": "mix-58",
@@ -578,7 +578,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 4 · full key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "mix-59",
@@ -588,7 +588,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 5 · full key",
-"tap": 87
+"tap": 93
 },
 {
 "id": "mix-60",
@@ -598,7 +598,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 6 · full key",
-"tap": 97
+"tap": 100
 },
 {
 "id": "mix-61",
@@ -628,7 +628,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 9 · full key",
-"tap": 90
+"tap": 93
 },
 {
 "id": "mix-64",
@@ -648,7 +648,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 11 · 2 not scored",
-"tap": 90
+"tap": 93
 },
 {
 "id": "mix-66",
@@ -658,7 +658,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial Test 12 · 1 not scored",
-"tap": 90
+"tap": 97
 },
 {
 "id": "mix-67",
@@ -668,7 +668,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "NUET practice test, version 6.2 · full key",
-"tap": 73
+"tap": 83
 },
 {
 "id": "mix-68",
@@ -678,7 +678,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Math tests #17 · full key",
-"tap": 77
+"tap": 90
 },
 {
 "id": "mix-69",
@@ -688,7 +688,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Math tests #18 · full key",
-"tap": 80
+"tap": 93
 },
 {
 "id": "mix-70",
@@ -698,7 +698,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Math tests #19 · full key",
-"tap": 83
+"tap": 90
 },
 {
 "id": "mix-71",
@@ -708,7 +708,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Math tests #20 · full key",
-"tap": 90
+"tap": 97
 },
 {
 "id": "mix-72",
@@ -718,7 +718,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Math tests #21 · full key",
-"tap": 80
+"tap": 87
 },
 {
 "id": "mix-73",
@@ -748,7 +748,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial SET #2 · full key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "mix-76",
@@ -758,7 +758,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial SET #3 · full key",
-"tap": 93
+"tap": 100
 },
 {
 "id": "mix-77",
@@ -778,7 +778,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial SET #5 · full key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "mix-79",
@@ -788,7 +788,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "Trial SET #6 · full key",
-"tap": 97
+"tap": 100
 },
 {
 "id": "mix-80",
@@ -1018,7 +1018,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "BMAT 2013 + BMAT 2014 · 13 CT / 17 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-23",
@@ -1078,7 +1078,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "BMAT 2018 + BMAT 2019 · 10 CT / 20 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-29",
@@ -1098,7 +1098,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "BMAT 2020 + BMAT 2021 · 14 CT / 16 PS · official key",
-"tap": 90
+"tap": 93
 },
 {
 "id": "crit-31",
@@ -1108,7 +1108,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "BMAT 2021 + BMAT 2022 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-32",
@@ -1178,7 +1178,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "TSA 2010 + TSA 2011 · 16 CT / 14 PS · official key",
-"tap": 90
+"tap": 93
 },
 {
 "id": "crit-39",
@@ -1188,7 +1188,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "TSA 2011 + TSA 2012 · 15 CT / 15 PS · official key",
-"tap": 90
+"tap": 93
 },
 {
 "id": "crit-40",
@@ -1338,7 +1338,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "TSA 2020 + TSA 2021 · 14 CT / 16 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-55",
@@ -1388,7 +1388,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "TSA Specimen + IMAT 2011 · 12 CT / 18 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-60",
@@ -1428,7 +1428,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "IMAT 2014 + IMAT 2015 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 97
 },
 {
 "id": "crit-64",
@@ -1448,7 +1448,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "IMAT 2016 + IMAT 2017 + IMAT 2018 · 17 CT / 13 PS · official key",
-"tap": 87
+"tap": 90
 },
 {
 "id": "crit-66",
@@ -1458,7 +1458,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 30,
 "src": "IMAT 2018 + IMAT 2019 + IMAT 2020 · 15 CT / 15 PS · official key",
-"tap": 90
+"tap": 97
 },
 {
 "id": "crit-67",
