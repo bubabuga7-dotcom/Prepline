@@ -3,6 +3,18 @@
 (function () {
   var kind = document.body.getAttribute('data-kind');
   var all = (window.PREPLINE_TESTS || []).filter(function (t) { return t.kind === kind; });
+  /* tests answered by tapping the picture come first: groups by their average share of such questions,
+     then inside a group 90%+ first, 70-89% next, the rest after, each in number order (tap: set-tap-order.py) */
+  (function () {
+    var avg = {}, cnt = {};
+    all.forEach(function (t) { avg[t.group] = (avg[t.group] || 0) + (t.tap || 0); cnt[t.group] = (cnt[t.group] || 0) + 1; });
+    Object.keys(avg).forEach(function (g) { avg[g] /= cnt[g]; });
+    var band = function (t) { var v = t.tap || 0; return v >= 90 ? 0 : v >= 70 ? 1 : 2; };
+    var pos = {}; all.forEach(function (t, i) { pos[t.id] = i; });
+    all.sort(function (a, b) {
+      return (avg[b.group] - avg[a.group]) || (band(a) - band(b)) || (pos[a.id] - pos[b.id]);
+    });
+  })();
   var grid = document.getElementById('groups');
   var tabs = document.getElementById('tabs');
   var search = document.getElementById('search');
