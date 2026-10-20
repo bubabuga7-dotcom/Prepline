@@ -5,7 +5,7 @@ which build-optmap.py does not accept as a label. Here such words also count as 
 same layout checks (a full A..E chain in a row, column or grid with sane spacing) and the column fix
 (fix-optmap-gaps.py) run, and only images that were not mapped before are added, as {w, h, b}.
 
-    python3 build-optmap-glued.py [--draw DIR] [--dry]
+    python3 build-optmap-glued.py [--draw DIR] [--dry] [--only LIST.json]
 """
 import importlib.util, json, os, re, sys
 from concurrent.futures import ProcessPoolExecutor
@@ -25,7 +25,6 @@ GLUED = re.compile(r'^[\(\[]?([A-Ha-h©])[\)\].:]?(?=[0-9−\-+√π(½¼¾∞<>
 
 def candidates(words):
     c = base(words)
-    seen = {id(w) for w in c}
     for w in words:
         if any(w is x for x in c):
             continue
@@ -57,13 +56,56 @@ def run(item):
         except Exception:
             pass
     W, H = Image.open(path).size
+    if r['kind'] == 'row':
+        bb = clamp_top(path, bb)
     return path, dict(kind=r['kind'], e={'w': W, 'h': H, 'b': bb})
+
+
+def clamp_top(path, bb):
+    """Row of options: the shared top edge may reach into the question line just above.
+    Look only at the thin strip where each label letter sits (question text crosses it, fractions in the
+    answers do not), take the boldest ink run there as the label line and start the boxes just above it."""
+    import numpy as np
+    im = np.asarray(Image.open(path).convert('L'))
+    H, W = im.shape
+    top, bot = int(bb[0][1] * H), int((bb[0][1] + bb[0][3]) * H)
+    sw = max(6, int(0.035 * W))
+    cols = np.zeros(H, dtype=int)
+    for b in bb:
+        x = int(b[0] * W)
+        cols += (im[:, x:min(W, x + sw)] < 150).sum(axis=1)
+    runs, y = [], top
+    while y < bot:
+        if cols[y]:
+            z = y
+            while z < bot and cols[z]:
+                z += 1
+            runs.append((y, z, int(cols[y:z].sum())))
+            y = z
+        else:
+            y += 1
+    if not runs:
+        return bb
+    lab = max(runs, key=lambda r: r[2])
+    lh = lab[1] - lab[0]
+    new = max(top, lab[0] - lh)                # up to a line of blank space above the labels, for an easier tap
+    above = [r for r in runs if r[1] <= lab[0]]
+    if above:
+        new = max(new, min(lab[0] - 2, above[-1][1] + 2))   # never into the run above (question text)
+    end = min(H, max(bot, lab[1] + lh))       # and a line below, inside the picture
+    if new <= top and end <= bot:
+        return bb
+    new = max(top, new)
+    return [[b[0], round(new / H, 4), b[2], round((end - new) / H, 4)] for b in bb]
 
 
 def main():
     m = json.load(open('option-map.json'))
     need = B.used_images()
     items = [(p, n) for p, n in sorted(need.items()) if os.path.exists(p) and p not in m]
+    if '--only' in sys.argv:                  # a list from an earlier run (option-map-glued.json)
+        keep = set(json.load(open(sys.argv[sys.argv.index('--only') + 1])))
+        items = [x for x in items if x[0] in keep]
     res = {}
     with ProcessPoolExecutor(os.cpu_count()) as ex:
         for p, r in ex.map(run, items, chunksize=4):
