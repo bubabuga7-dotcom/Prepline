@@ -390,7 +390,7 @@
 
   /* ---------- ghost ---------- */
   var GKEY = 'prepline-pace:' + page;
-  var pace = [], lastCount = -1, ghost = null, ghostEl = null;
+  var pace = [], lastCount = -1, ghost = null, ghostEl = null, startTracked = false;
   try {
     var hist = JSON.parse(localStorage.getItem(GKEY) || '[]');
     ghost = hist.length ? hist[hist.length - 1] : null;  // the most recent finished attempt
@@ -416,6 +416,8 @@
     if (state.finished) return;
     var n = Object.keys(state.answers).length;
     if (n !== lastCount) { lastCount = n; pace.push([Math.max(0, elapsed()), n]); }
+    // funnel: count devices that START a test (first answer), not only those who finish (stage12.sql)
+    if (n > 0 && !startTracked && !partial && window.preplineTrack) { startTracked = true; window.preplineTrack('start'); }
     if (!ghost || EXAM || partial) return;
     if (!ghostEl) {
       ghostEl = document.createElement('div');

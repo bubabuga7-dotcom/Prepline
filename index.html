@@ -75,6 +75,27 @@
   .challenge #ch-sub{grid-column:1;font-size:13px;color:var(--ink-3)}
   .challenge .go{grid-column:2;grid-row:2/4;color:var(--gold);font-weight:700;font-size:14px;white-space:nowrap}
   @media (max-width:780px){.challenge{grid-template-columns:1fr}.challenge .go{grid-column:1;grid-row:auto;margin-top:8px}}
+  /* Quick 10 + day streak (Premium) */
+  .quick{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:center;padding:16px 20px;border-radius:var(--r);
+         background:linear-gradient(135deg,rgba(201,162,39,.2),rgba(201,162,39,.06));border:1px solid rgba(201,162,39,.5)}
+  .quick .q-t small{display:flex;gap:8px;align-items:center;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  .quick .q-t small i{font-style:normal;padding:1px 7px;border-radius:99px;background:var(--gold);color:#0E1A2E;letter-spacing:.06em}
+  .quick .q-t b{display:block;font:700 19px Sora,sans-serif;color:var(--ink);margin:3px 0 2px}
+  .quick .q-t span{font-size:13px;color:var(--ink-3)}
+  .quick .q-go{display:flex;gap:8px}
+  .quick .q-go a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:10px;
+                 font:700 14px Inter,sans-serif;background:var(--gold);color:#0E1A2E;white-space:nowrap}
+  .quick .q-go a+a{background:transparent;color:var(--gold);border:1px solid rgba(201,162,39,.6)}
+  .quick .q-st{grid-column:1/-1;font-size:13px;color:var(--ink-2);padding-top:8px;border-top:1px solid rgba(201,162,39,.25)}
+  .quick .q-st b{color:var(--gold)}
+  .quick-d{margin:4px 0 30px}
+  @media (max-width:780px){
+    .quick{grid-template-columns:1fr;padding:14px 16px;margin-bottom:12px;border-radius:14px}
+    .quick .q-go a{flex:1}
+    .quick .q-t span{display:none}
+    .quick-d{display:none}
+  }
+  html[data-theme=light] .quick{background:#FBF6E6;border-color:#E6D49A}
   .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink-3);
         display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .foot a{color:var(--ink-2)} .foot a:hover{color:var(--gold)}
@@ -123,6 +144,7 @@
 <main><div class="wrap">
 
   <section class="m-home" aria-label="Menu">
+    <div class="quick" id="quick-m"></div>
     <a class="m-cont" id="m-cont" href="#" style="display:none"><span class="t"><small>Continue</small><b id="m-cont-t"></b><span id="m-cont-s"></span></span><span class="arr">→</span></a>
     <nav class="m-grid" id="m-grid"></nav>
     <p class="m-new" id="m-new" style="display:none">New here? <a href="diagnostic-math.html">10-question diagnostic →</a></p>
@@ -147,6 +169,8 @@
       <div class="exam-row"><span class="nm">Competitive score</span><span class="val">210+ / 240</span><span class="ds">Each section is marked out of 120</span></div>
     </div>
   </section>
+
+  <div class="quick quick-d" id="quick-d"></div>
 
   <div class="stats">
     <div class="stat"><b id="n-tests" class="gold">—</b><span>timed tests</span></div>
@@ -248,6 +272,34 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script>
+/* Quick 10 + day streak. Both are Premium: free users see the card with a PREMIUM tag and land on the Premium offer. */
+(function () {
+  var boxes = [document.getElementById('quick-m'), document.getElementById('quick-d')];
+  function locked() { return !!(window.preplinePremiumOn && window.preplinePremiumOn() && !window.preplinePremiumCached()); }
+  function draw(st) {
+    var lk = locked(), line = '';
+    if (!lk && st) line = st.streak
+      ? '<div class="q-st"><b>' + st.streak + '-day streak</b> · ' + st.today + ' questions today' + (st.active_today ? '' : ' — answer one to keep it') + '</div>'
+      : '<div class="q-st">Answer a question today to start your day streak.</div>';
+    var h = '<div class="q-t"><small>Quick 10' + (lk ? ' <i>PREMIUM</i>' : '') + '</small><b>10 questions, instant answers</b>' +
+      '<span>About 15 minutes. You see the right answer after every question.</span></div>' +
+      '<div class="q-go"><a href="topics.html?quick=math">Math</a><a href="topics.html?quick=ct">Critical Thinking</a></div>' + line;
+    boxes.forEach(function (b) { if (b) b.innerHTML = h; });
+  }
+  function load() {
+    draw(null);
+    var supa = window.preplineSupa; if (!supa || locked()) return;
+    supa.auth.getSession().then(function (r) {
+      if (!r.data || !r.data.session) return;
+      return supa.rpc('my_streak').then(function (x) { if (!x.error && x.data) draw(x.data); });
+    }).catch(function () {});
+  }
+  load();
+  document.addEventListener('prepline:premium-changed', load);
+  window.preplineSupa && window.preplineSupa.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') load(); });
+})();
+</script>
 <script>
 /* challenge of the week: the question most students in live rooms got wrong */
 (function () {

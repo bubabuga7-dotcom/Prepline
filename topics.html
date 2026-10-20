@@ -74,6 +74,8 @@
   .miss a{color:var(--ink-2);font-size:14px;text-decoration:none;border-bottom:1px dashed var(--line);padding:6px 0}
   .miss a:hover{color:var(--blue)}
   .note{margin-top:10px;font-size:13px;color:var(--warn)}
+  .streak-note{display:inline-block;margin:4px 0 8px;padding:5px 12px;border-radius:99px;font-size:13.5px;color:var(--ink-2);
+               background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.4)} .streak-note b{color:var(--gold)}
   @media (max-width:640px){
     .head h1{font-size:26px}
     .t{grid-template-columns:1fr auto;gap:10px}
@@ -146,6 +148,7 @@
     'M5.14':'Areas and volumes of prisms','M5.15':'Circle and solid formulae','M5.16':'Arcs and sectors',
     'M5.17':'Similarity: lengths, areas, volumes','M5.18':'Trigonometric ratios','M5.19':'Vectors'
   };
+  NAMES['Q:math'] = 'Quick 10 · Mathematics'; NAMES['Q:ct'] = 'Quick 10 · Critical Thinking';
   var GROUPS = { M1: 'Units', M2: 'Number', M3: 'Ratio and proportion', M4: 'Algebra', M5: 'Geometry and measures', CT: 'Critical Thinking', PS: 'Problem Solving' };
   var CT_ORDER = ['MC', 'CON', 'ASM', 'FLAW', 'WKN', 'STR', 'EF', 'PRIN', 'PAR', 'PS'];
   var SIZE = 10;
@@ -238,6 +241,34 @@
     next();
   }
 
+  /* ---------- Quick 10: ten random questions from every topic of one section, instant answers (Premium) ---------- */
+  function quickLocked() { return !!(window.preplinePremiumOn && window.preplinePremiumOn() && !window.preplinePremiumCached()); }
+  function startQuick(k) {
+    k = k === 'ct' ? 'ct' : 'math';
+    try { history.replaceState(null, '', '?quick=' + k); } catch (e) {}
+    show('v-run');
+    var hd = document.querySelector('.head'); if (hd) hd.style.display = 'none';
+    document.title = 'Quick 10 — Prepline';
+    if (quickLocked()) {
+      $('card').innerHTML = '<span class="kicker">Premium</span><h2 style="font-size:21px;margin:6px 0">Quick 10</h2>' +
+        '<p class="muted" style="margin-bottom:14px">Ten random questions, about 15 minutes, and you see the right answer after every question. ' +
+        'Quick 10 and your day streak are part of Premium.</p>' +
+        '<div class="actions"><a class="btn" href="premium.html?from=quick">Get Premium</a><a class="btn ghost" href="index.html">Back</a></div>';
+      document.addEventListener('prepline:premium-changed', function again() {
+        document.removeEventListener('prepline:premium-changed', again);
+        if (!quickLocked()) startQuick(k);
+      });
+      return;
+    }
+    var pool = [];
+    Object.keys(INDEX).forEach(function (c) {
+      if ((k === 'ct') === isCT(c)) INDEX[c].forEach(function (x) { pool.push({ mock: x[0], id: x[1] }); });
+    });
+    run = { topic: 'Q:' + k, quick: k, items: shuffle(pool).slice(0, SIZE + 5), pos: 0, right: 0, wrong: [], all: false };
+    run.want = SIZE;                                       // a few spares in case a question was removed from the site
+    next();
+  }
+
   // free plan: a number of topic questions per day (kept on this device)
   function topicQuota() {
     if (!window.preplinePremiumOn || !window.preplinePremiumOn() || window.preplinePremiumCached()) return null;
@@ -246,7 +277,7 @@
     return o;
   }
   async function next() {
-    var qt = topicQuota(), cap = window.PREPLINE_PREMIUM ? window.PREPLINE_PREMIUM.dailyTopicQs : 0;
+    var qt = run.quick ? null : topicQuota(), cap = window.PREPLINE_PREMIUM ? window.PREPLINE_PREMIUM.dailyTopicQs : 0;
     if (qt && qt.n >= cap) {
       $('card').innerHTML = '<h2 style="font-size:19px;margin-bottom:6px">That was today\'s ' + cap + ' free questions</h2>' +
         '<p class="muted" style="margin-bottom:14px">Topic practice opens again tomorrow. With Premium it has no limit, and every test is unlimited too.</p>' +
@@ -256,6 +287,7 @@
     }
     if (qt) { qt.n++; try { localStorage.setItem('prepline:topic-day', JSON.stringify(qt)); } catch (e) {} }
     $('card').innerHTML = '<p class="muted">Loading…</p>';
+    if (run.want && run.pos >= run.want) { run.items = run.items.slice(0, run.want); return finish(); }
     while (run.pos < run.items.length) {
       var it = run.items[run.pos], q = null;
       try { q = (await questionsOf(it.mock))[it.id]; } catch (e) {}
@@ -266,7 +298,7 @@
   }
 
   function draw(it, q) {
-    var img = q.image || q.img, n = run.items.length;
+    var img = q.image || q.img, n = run.want ? Math.min(run.want, run.items.length) : run.items.length;
     var letters = q.options.every(function (o, k) { return o === L[k]; });
     $('card').innerHTML =
       '<div class="card-top"><span><b>' + esc(NAMES[run.topic] || run.topic) + '</b> · ' + (run.pos + 1) + ' of ' + n + '</span>' +
@@ -301,7 +333,8 @@
     if (!user || !supa) return;
     supa.from('answer_attempts').insert({ mock_id: it.mock, q_ids: [it.id], marks: ok ? 'c' : 'w' }).then(function (r) {
       if (r.error) { console.error('[Prepline] topic practice:', r.error.message); return; }
-      var s = stats[run.topic] = stats[run.topic] || { total: 0, correct: 0 };
+      var tp = run.quick ? q.topic : run.topic; if (!tp) return;
+      var s = stats[tp] = stats[tp] || { total: 0, correct: 0 };
       s.total++; if (ok) s.correct++;
     });
     if (q.topic) supa.from('question_topics').upsert({ mock_id: it.mock, q_id: it.id, topic: q.topic }, { onConflict: 'mock_id,q_id', ignoreDuplicates: true }).then(function () {});
@@ -311,7 +344,7 @@
     var n = run.items.length, code = run.topic;
     try { history.replaceState(null, '', location.pathname); } catch (e) {}
     if (!n) { show('v-list'); drawList(); return; }
-    var p = Math.round(run.right / n * 100), more = INDEX[code].length > SIZE;
+    var p = Math.round(run.right / n * 100), more = !run.quick && INDEX[code].length > SIZE;
     var h = '<span class="kicker">' + esc(NAMES[code] || code) + '</span>' +
       '<div class="big">' + run.right + ' / ' + n + '</div>' +
       '<p class="muted">' + p + '% correct' + (user ? '. Saved to your topic statistics.' : '.') + '</p>' +
@@ -325,9 +358,20 @@
       (more && !run.all ? '<button class="btn ghost" id="all">All ' + INDEX[code].length + ' questions</button>' : '') +
       '<button class="btn ghost" id="back">All topics</button></div>';
     $('card').innerHTML = h;
-    $('again').onclick = function () { start(code, run.all); };
+    var qk = run.quick;
+    $('again').onclick = function () { qk ? startQuick(qk) : start(code, run.all); };
+    if (qk) {
+      $('again').textContent = 'Next 10 →';
+      $('back').textContent = 'Home';
+      if (user && supa) supa.rpc('my_streak').then(function (r) {
+        var st = r.data; if (r.error || !st || !st.streak) return;
+        var e = document.createElement('p'); e.className = 'streak-note';
+        e.innerHTML = '<b>' + st.streak + '-day streak</b> · ' + st.today + ' questions today';
+        var big = $('card').querySelector('.big'); big && big.parentNode.insertBefore(e, big.nextSibling);
+      });
+    }
     if ($('all')) $('all').onclick = function () { start(code, true); };
-    $('back').onclick = function () { show('v-list'); drawList(); };
+    $('back').onclick = function () { if (qk) { location.href = 'index.html'; return; } show('v-list'); drawList(); };
   }
 
   /* ---------- wiring ---------- */
@@ -365,7 +409,8 @@
     [].forEach.call($('kind').children, function (x) { x.classList.toggle('on', x.dataset.k === kind); });
     drawList();
     await loadStats();
-    if (t && INDEX[t]) start(t); else drawList();
+    var qk = new URLSearchParams(location.search).get('quick');
+    if (qk) startQuick(qk); else if (t && INDEX[t]) start(t); else drawList();
     supa && supa.auth.onAuthStateChange(function (ev) {
       if (ev !== 'SIGNED_IN' && ev !== 'SIGNED_OUT') return;
       loadStats().then(function () { if ($('v-list').classList.contains('on')) drawList(); });
