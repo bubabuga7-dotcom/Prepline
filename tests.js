@@ -135,9 +135,9 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 14,
 "group": "Mixed tests",
-"q": 30,
+"q": 29,
 "min": 30,
-"src": "27 with key · 3 questions without an answer, for practice",
+"src": "26 with key · 3 questions without an answer, for practice",
 "tap": 0
 },
 {
@@ -157,7 +157,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 30,
-"src": "29 with key · 1 question without an answer, for practice",
+"src": "full key",
 "tap": 0
 },
 {
@@ -165,9 +165,9 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 17,
 "group": "Mixed tests",
-"q": 30,
+"q": 29,
 "min": 30,
-"src": "28 with key · 2 questions without an answer, for practice",
+"src": "28 with key · 1 question without an answer, for practice",
 "tap": 0
 },
 {
@@ -1555,7 +1555,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 1,
 "group": "Original mock exams",
-"q": 30,
+"q": 26,
 "min": 60,
 "src": "Mock Exam #1",
 "tap": 0
@@ -1565,7 +1565,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 2,
 "group": "Original mock exams",
-"q": 30,
+"q": 26,
 "min": 60,
 "src": "Mock Exam #2",
 "tap": 0
@@ -1575,7 +1575,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 3,
 "group": "Original mock exams",
-"q": 30,
+"q": 20,
 "min": 60,
 "src": "Mock Exam #3",
 "tap": 0

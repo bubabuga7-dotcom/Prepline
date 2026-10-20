@@ -36,6 +36,7 @@
   var hintSeen = false;
   try { hintSeen = !!localStorage.getItem('prepline:tap-hint'); } catch (e) {}
 
+  function entry(img) { var e = MAP[img.getAttribute('src')]; return !e ? null : Array.isArray(e) ? { b: e } : e; }
   function place(img, ov) {
     if (!img.isConnected) return;
     var cs = getComputedStyle(img);
@@ -46,16 +47,25 @@
     ov.style.width = Math.max(0, img.offsetWidth - bl - br) + 'px';
     var h = Math.max(0, img.offsetHeight - bt - bb);
     ov.style.height = h + 'px';
-    // too small to hit with a finger (a long passage on a phone): keep the answer buttons as well
-    var t = img.__plTap;
-    if (t && t.cont && h) {
-      var minH = Math.min.apply(null, MAP[img.getAttribute('src')].map(function (b) { return b[3] * h; }));
-      t.cont.classList.toggle('pl-tap-off', minH >= 24);
+    // too small to hit with a finger (a long passage on a phone): keep the answer buttons as well.
+    // Decided from the picture's known size, so the buttons do not jump when the picture finishes loading.
+    var t = img.__plTap, e = entry(img);
+    if (t && t.cont && e) {
+      var ih = h;
+      if (e.w && e.h) {
+        var avail = t.cont.getBoundingClientRect().width || img.parentNode.getBoundingClientRect().width;
+        var iw = Math.min(e.w, Math.max(0, avail - bl - br));
+        ih = iw * e.h / e.w;
+      }
+      if (ih) {
+        var minH = Math.min.apply(null, e.b.map(function (b) { return b[3] * ih; }));
+        t.cont.classList.toggle('pl-tap-off', minH >= 24);
+      }
     }
   }
 
   function enhance(img, K) {
-    var boxes = MAP[img.getAttribute('src')];
+    var en = entry(img), boxes = en && en.b;
     if (!boxes) { img.__plTap = 'none'; return; }
     var par = img.parentNode, cont = par.querySelector(K.box);
     if (!cont) return;
@@ -114,7 +124,7 @@
   }
   function later() { if (!queued) { queued = true; requestAnimationFrame(scan); } }
 
-  fetch('option-map.json?v=2').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
+  fetch('option-map.json?v=3').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
     if (!m) return;
     MAP = m; scan();
     new MutationObserver(later).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'disabled'] });

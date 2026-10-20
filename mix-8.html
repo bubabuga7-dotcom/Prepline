@@ -30,83 +30,97 @@
     --bg: #0A0E1E; --card: rgba(14,20,48,0.72); --text: #C9D2F0; --text-bright: #F2F5FF;
     --blue: #60A5FA; --violet: #A78BFA; --pink: #F472B6;
     --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
-    --glass-line: rgba(255,255,255,0.12);
+    --glass-line: rgba(255,255,255,0.14);
     --ok: #34D399; --ok-bg: rgba(52,211,153,0.14);
-    --no: #F87171; --no-bg: rgba(248,113,113,0.12);
+    --danger: #F87171; --danger-bg: rgba(248,113,113,0.13);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
   .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
   .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,30,0.78) 0%, rgba(10,14,30,0.88) 100%); }
-  h1, h2, h3 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 18px 80px; position: relative; z-index: 1; }
-  a.back { color: var(--text); opacity: 0.7; text-decoration: none; font-size: 14px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+  a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
   a.back:hover { opacity: 1; color: var(--violet); }
-
-  .topbar {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(10,14,30,0.9); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-line);
+  h2 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; font-size: 20px; margin: 16px 0 20px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; opacity: 0.85; }
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
   }
-  .topbar-inner { max-width: 760px; margin: 0 auto; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
-  .topbar h1 { font-size: 17px; }
-  #timer {
-    font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500;
-    color: var(--text-bright); background: rgba(255,255,255,0.06);
-    border: 1px solid var(--glass-line); padding: 4px 14px; border-radius: 999px;
-  }
-  #timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
+  .timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0.55; } }
-
-  .q-card {
-    background: var(--card); border: 1px solid var(--glass-line); border-radius: 14px;
-    padding: 20px; margin-bottom: 16px;
+  .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
+  .question { font-size: 17px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+  .question-img { max-width: 100%; border: 1px solid var(--glass-line); border-radius: 10px; margin-bottom: 16px; display: block; background: #fff; padding: 6px; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .opt {
+    text-align: left; border: 1px solid var(--glass-line); border-radius: 10px; padding: 13px 16px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.12); transform: translateX(3px); }
+  .opt.selected {
+    border: 2px solid var(--blue); background: rgba(96,165,250,0.16);
+    color: var(--text-bright); font-weight: 500;
+  }
+  .nav-row { display: flex; justify-content: space-between; }
+  button.nav-btn {
+    border: 1.5px solid var(--glass-line); color: var(--text-bright); background: var(--card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  button.nav-btn:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-1px); }
+  button.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.submit-btn {
+    border: none; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s, transform .15s;
+    box-shadow: 0 8px 24px -10px rgba(244,114,182,0.5);
+  }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); transform: translateY(-1px); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
-  .q-num {
-    font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 500;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-    font-weight: 500; margin-bottom: 8px; display: inline-block;
   }
-  .q-text { font-size: 15px; color: var(--text-bright); font-weight: 500; margin-bottom: 14px; }
-  .q-img { max-width: 100%; height: auto; border-radius: 10px; background: #fff; padding: 8px; margin: 0 0 14px; display: block; }
-  .opt {
-    display: flex; gap: 10px; align-items: baseline; width: 100%; text-align: left;
-    border: 1px solid var(--glass-line); background: rgba(255,255,255,0.03);
-    color: var(--text); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
-    font-size: 14px; font-family: inherit; cursor: pointer;
-    transition: border-color .15s, background .15s;
+  .review-item {
+    border: 1px solid var(--glass-line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
-  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.09); }
-  .opt .letter { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--violet); flex-shrink: 0; }
-  .opt.selected { border-color: var(--blue); background: rgba(96,165,250,0.14); color: var(--text-bright); }
-  .opt.correct { border-color: var(--ok); background: var(--ok-bg); color: #D1FAE5; }
-  .opt.wrong { border-color: var(--no); background: var(--no-bg); color: #FECACA; }
-  .opt:disabled { cursor: default; }
-
-  .submit-row { text-align: center; margin-top: 28px; }
-  .btn {
-    display: inline-block; border: none; cursor: pointer;
-    background: var(--grad); background-size: 200% 100%;
-    color: #fff; font-weight: 600; font-size: 15px; font-family: inherit;
-    padding: 14px 30px; border-radius: 999px;
+  .mark { font-weight: 700; margin-left: 12px; flex-shrink: 0; }
+  .mark.ok { color: var(--ok); }
+  .mark.no { color: var(--danger); }
+  .restart-btn {
+    margin-top: 20px; width: 100%; padding: 13px; border-radius: 999px; border: none;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
     transition: background-position .4s, box-shadow .3s;
   }
-  .btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.5); }
-
-  #result {
-    display: none; background: var(--card); border: 1px solid var(--glass-line);
-    border-radius: 14px; padding: 24px; margin-bottom: 20px; text-align: center;
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); }
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 16px; }
+    h2 { font-size: 17px; }
+    .question { font-size: 16px; }
+    .stat-grid { gap: 8px; }
+    .stat-card { padding: 10px; }
+    .stat-num { font-size: 19px; }
+    .stat-label { font-size: 11px; }
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .review-item { flex-wrap: wrap; gap: 6px; }
   }
-  #result .score {
-    font-family: 'IBM Plex Mono', monospace; font-size: 42px; font-weight: 500;
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: 0.01ms !important; }
   }
-  #result p { margin-top: 4px; opacity: 0.85; }
-  .review-answer { font-size: 13px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--glass-line); }
-  .review-answer .ok { color: var(--ok); font-weight: 600; }
-  .review-answer .no { color: var(--no); font-weight: 600; }
-  .progress { font-size: 13px; opacity: 0.7; margin: 14px 0 18px; font-family: 'IBM Plex Mono', monospace; }
 </style>
 <link rel="stylesheet" href="test-theme.css">
 <script src="theme.js"></script>
@@ -114,125 +128,143 @@
 </head>
 <body>
 <div class="page-photo"></div>
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <h1>Mixed Mock #8 · Mathematics</h1>
-    <div id="timer">30:00</div>
-  </div>
-</div>
-
 <div class="wrap">
-  <a href="math.html" class="back">&larr; Back to the mock list</a>
-  <p class="progress">30 questions · 30 minutes · source: Mock 6 (answers checked against the solutions)</p>
-  <div id="result">
-    <div class="score" id="score-num"></div>
-    <p id="score-text"></p>
-  </div>
-  <div id="quiz"></div>
-  <div class="submit-row"><button class="btn" id="submit-btn">Finish test</button></div>
+  <a href="math.html" class="back">&larr; Mathematics</a>
+  <h2>Test 8 — NUET Mathematics (30 questions)</h2>
+  <div id="app"></div>
 </div>
 
 <script>
-const QUESTIONS = [{"id":1,"text":"A right-angled triangle has a horizontal side of (4 + √2) cm and a vertical side of (2 − √2) cm. Calculate the area of the triangle.","img":"images/q-51f54129d5.png","options":["(3 − 3√2) cm²","(3 + 3√2) cm²","(3 − √2) cm²","(5 − √2) cm²","(5 − 3√2) cm²","(5 + 3√2) cm²"],"correct":2,"topic":"M2.11"},{"id":2,"text":"Simplify: ( 2x3/2y³ / √z )²","img":null,"options":["4x⁶y⁵ / z²","4x³y⁶ / z","4x³y⁵ / z","4x<sup>5/2</sup>y⁵ / z","4x<sup>5/2</sup>y⁵ / z²"],"correct":1,"topic":"M4.2"},{"id":3,"text":"Spearman's rank correlation coefficient is given by r = 1 − 6Σd² / (n(n² − 1)). Make Σd² the subject.","img":null,"options":["Σd² = 1 − r(n³ − n)/6","Σd² = ((1 − r)(n³ − n)/6)²","Σd² = (1 − r)(n³ − 1)/6","Σd² = (1 + r)(n³ − n)/6","Σd² = (1 − r)(n³ − n)/6"],"correct":4,"topic":"M4.7"},{"id":4,"text":"These graphs are drawn: 1) y = 3x − 2;  2) y = x²;  3) y = 1 − x²;  4) y = x + 6. Which pair of graphs does not intersect?","img":null,"options":["1 and 2","1 and 3","2 and 3","2 and 4","3 and 4"],"correct":4,"topic":"M4.15"},{"id":5,"text":"A solid sphere of radius r fits inside a hollow cylinder whose internal diameter and length are both equal to the diameter of the sphere. What fraction of the volume of the cylinder does the sphere occupy?","img":null,"options":["1/4","1/3","1/2","2/3","3/4"],"correct":3,"topic":"M5.15"},{"id":6,"text":"PQR is an isosceles triangle with PQ = PR = 6 cm and QR = 8 cm. What is the tangent of angle PQR?","img":null,"options":["2/√13","2/√5","2/3","3/2","√5/2","√13/2"],"correct":4,"topic":"M5.18"},{"id":7,"text":"a = 3/(5 + X), b = (3 + X)/5 and c = (3 + X)/(5 + X), where X is an integer greater than zero. Which is true?","img":null,"options":["a &lt; b &lt; c for all X","a &lt; c &lt; b for all X","b &lt; a &lt; c for all X","b &lt; c &lt; a for all X","c &lt; a &lt; b for all X","c &lt; b &lt; a for all X","The order depends on X"],"correct":1,"topic":"M2.1"},{"id":8,"text":"A town football club raised money for charity. The total was shared between funds A, B and C in the ratio 1 : 2/3 : 4/5. Fund C received £3 000. How much was raised in total during the year?","img":null,"options":["£3 750","£7 000","£8 250","£9 000","£9 250","£12 375"],"correct":4,"topic":"M3.4"},{"id":9,"text":"Simplify: (2x+3)/(2x−3) + (2x−3)/(2x+3) − 2","img":null,"options":["0","2(2x−1) / ((2x−3)(2x+3))","18 / ((2x−3)(2x+3))","36 / ((2x−3)(2x+3))","8(x²−2) / ((2x−3)(2x+3))","12 / (2x−3)"],"correct":3,"topic":"M4.6"},{"id":10,"text":"Given 4p × 8q = 2n, express n in terms of p and q.","img":null,"options":["n = p + q","n = 2p + 3q","n = 2p + 4q","n = p + q + 5","n = 6pq"],"correct":1,"topic":"M4.2"},{"id":11,"text":"The diagram shows part of a glass structure. PQRS is a horizontal square of side 1 m, and the point X is 4 m vertically above P. What is the cosine of the angle between XR and the horizontal?","img":"images/q-1aa803f952.png","options":["1/3","√2/4","√2/(2√3)","4/(3√2)","2/√3","1/√17","1/17"],"correct":0,"topic":"M5.18"},{"id":12,"text":"Given x = 4.6 × 10⁷ and y = 2 × 10⁶, what is (x + 7y)/(x − 2y)?","img":null,"options":["10/7","1 2/3","3.1","7","10","31"],"correct":0,"topic":"M2.8"},{"id":13,"text":"Square ABCD, with vertices (1,1), (−1,1), (−1,−1) and (1,−1), is rotated 90° clockwise about the origin and then reflected in the line y = x. Which transformation returns the square to its original orientation?","img":null,"options":["Reflection in the x-axis","Reflection in the y-axis","Reflection in the line y = −x","Rotation of 90° clockwise about the origin","Rotation of 90° anticlockwise about the origin"],"correct":1,"topic":"M5.6"},{"id":14,"text":"The variables x, y and z are related as follows: x is directly proportional to the square of z, and y is inversely proportional to the cube of z. Which correctly describes the relationship between x and y?","img":null,"options":["The square of x is directly proportional to the cube of y","The square of x is inversely proportional to the cube of y","The cube of x is directly proportional to the square of y","The cube of x is inversely proportional to the square of y","x is directly proportional to y⁶"],"correct":3,"topic":"M3.9"},{"id":15,"text":"A shape is made from three cubes, the largest at the bottom and the smallest on top. At each join, the corners of the smaller cube lie at the midpoints of the sides of a face of the larger cube. The side of the smallest cube is 1 cm. What is the total surface area of the shape?","img":"images/q-9ab1ea4c2e.png","options":["30 cm²","32 cm²","33 cm²","36 cm²","39 cm²","42 cm²"],"correct":3,"topic":"M5.15"},{"id":16,"text":"A pattern is formed by four circles that touch at the top point (diagram not to scale). The diameters are d, 2d, 3d and 4d. Find the area of the shaded part of the pattern.","img":"images/q-6247ad2579.png","options":["(5/2)πd²","4πd²","(1/4)πd²","10πd²","(3/2)πd²"],"correct":0,"topic":"M5.15"},{"id":17,"text":"Evaluate: ∛( 2×10⁵ / (5×10⁻³)² ) − √( 4×10³ − 4×10² )","img":null,"options":["−6.2","160 − 20√5","140","240 − 20√5","1940"],"correct":4,"topic":"M2.8"},{"id":18,"text":"In triangle ABC (not to scale), tan A = 1/6 and tan B = 2/3. M is the midpoint of AB. What is tan θ?","img":"images/q-fc1365cd5c.png","options":["1/9","5/12","4/9","1/2","5/6"],"correct":2,"topic":"M5.18"},{"id":19,"text":"A new sign for a local business is made of two parts, wood and metal. The metal costs 3 times as much as the wood per unit. The cost of the metal is proportional to the diameter of the sign, and the cost of the wood is proportional to the square of the diameter. If the diameter is doubled, the total cost of the materials triples. What percentage of the cost of the sign, to the nearest 1%, is metal?","img":null,"options":["25%","33%","50%","67%","75%"],"correct":2,"topic":"M3.9"},{"id":20,"text":"w, x, y and z are integers with w &lt; x², x &gt; y², y² &lt; z² and x &gt; z. Which inequality must be true?","img":null,"options":["w &lt; x","w &gt; y","w &lt; z","x &gt; y","y &lt; z"],"correct":3,"topic":"M2.1"},{"id":21,"text":"There are two containers of different capacity. The larger is full of water and the smaller is empty. Water is poured from the larger into the smaller until the volumes of water in them are equal. The water in the larger container is now a fraction p of its capacity, and the water in the smaller is a fraction q of its capacity. Which must be true?","img":null,"options":["p + q = 1 (but p and q are not necessarily 0.5 each)","p = 0.5 and q = 0.5","p = 0.5 and q &gt; 0.5","p &gt; 0.5 and q = 0.5","p &gt; 0.5 and q &gt; 0.5"],"correct":2,"topic":"M3.8"},{"id":22,"text":"The total surface area of a cylinder is numerically equal to its volume. The radius is r cm and the height is h cm. Express h in terms of r.","img":null,"options":["h = 2r/(r − 2)","h = 2r/(r + 2)","h = r + 2","h = r − 2","h = 2r(r − 2)"],"correct":0,"topic":"M4.7"},{"id":23,"text":"A pattern is built by joining points one third of the way along the sides of a square, forming a second square. The process is then repeated. Find the area of the fourth square as a fraction of the area of the original square.","img":null,"options":["1/27","5√5/81","125/729","25/81","5√5/27"],"correct":2,"topic":"M3.10"},{"id":24,"text":"The binary operation © is defined by x © y = √(x/y). What is (24 © 6) © 2?","img":null,"options":["√2","6√3","2","2√2","1"],"correct":4,"topic":"M4.3"},{"id":25,"text":"Solve the inequality: x² + 5x − 14 ≤ 0","img":null,"options":["[−2, 7]","[−7, 2]","(−7, 2)","[2, 7)","(−2, 7]"],"correct":1,"topic":"M4.16"},{"id":26,"text":"The equation 2x(ax − 4) − x² + 6 = 0 has no real roots. What is the smallest possible integer value of a?","img":null,"options":["−1","2","3","4","5"],"correct":1,"topic":"M4.16"},{"id":27,"text":"Given x − y = 4 and x² − y² = 24, find xy.","img":null,"options":["96","48","32","5","Cannot be determined"],"correct":3,"topic":"M4.5"},{"id":28,"text":"The line ax − by = −9 passes through A(−1, 3) and B(−3, 0). Find a + b.","img":null,"options":["5","6","8","10","12"],"correct":0,"topic":"M4.15"},{"id":29,"text":"The point A(a, b) lies in the fourth quadrant of the coordinate plane. In which quadrant does the point B(−a, −b) lie?","img":null,"options":["I","II","III","IV"],"correct":1,"topic":"M4.10"},{"id":30,"text":"47 is split into three numbers. The second is 8 more than the first and 10 less than the third. Find the first number.","img":null,"options":["3","5","7","9","12"],"correct":2,"topic":"M4.15"}];
-const DURATION = 30 * 60;
+const questions = [{"id":1,"text":"<p>A right-angled triangle has a horizontal side of (4 + √2) cm and a vertical side of (2 − √2) cm. Calculate the area of the triangle.</p>","image":"images/q-51f54129d5.png","options":["(3 − 3√2) cm²","(3 + 3√2) cm²","(3 − √2) cm²","(5 − √2) cm²","(5 − 3√2) cm²","(5 + 3√2) cm²"],"correct":2,"topic":"M2.11"},{"id":2,"text":"<p>Simplify: ( 2x3/2y³ / √z )²</p>","image":"","options":["4x⁶y⁵ / z²","4x³y⁶ / z","4x³y⁵ / z","4x<sup>5/2</sup>y⁵ / z","4x<sup>5/2</sup>y⁵ / z²"],"correct":1,"topic":"M4.2"},{"id":3,"text":"<p>Spearman's rank correlation coefficient is given by r = 1 − 6Σd² / (n(n² − 1)). Make Σd² the subject.</p>","image":"","options":["Σd² = 1 − r(n³ − n)/6","Σd² = ((1 − r)(n³ − n)/6)²","Σd² = (1 − r)(n³ − 1)/6","Σd² = (1 + r)(n³ − n)/6","Σd² = (1 − r)(n³ − n)/6"],"correct":4,"topic":"M4.7"},{"id":4,"text":"<p>These graphs are drawn: 1) y = 3x − 2;  2) y = x²;  3) y = 1 − x²;  4) y = x + 6. Which pair of graphs does not intersect?</p>","image":"","options":["1 and 2","1 and 3","2 and 3","2 and 4","3 and 4"],"correct":4,"topic":"M4.15"},{"id":5,"text":"<p>A solid sphere of radius r fits inside a hollow cylinder whose internal diameter and length are both equal to the diameter of the sphere. What fraction of the volume of the cylinder does the sphere occupy?</p>","image":"","options":["1/4","1/3","1/2","2/3","3/4"],"correct":3,"topic":"M5.15"},{"id":6,"text":"<p>PQR is an isosceles triangle with PQ = PR = 6 cm and QR = 8 cm. What is the tangent of angle PQR?</p>","image":"","options":["2/√13","2/√5","2/3","3/2","√5/2","√13/2"],"correct":4,"topic":"M5.18"},{"id":7,"text":"<p>a = 3/(5 + X), b = (3 + X)/5 and c = (3 + X)/(5 + X), where X is an integer greater than zero. Which is true?</p>","image":"","options":["a &lt; b &lt; c for all X","a &lt; c &lt; b for all X","b &lt; a &lt; c for all X","b &lt; c &lt; a for all X","c &lt; a &lt; b for all X","c &lt; b &lt; a for all X","The order depends on X"],"correct":1,"topic":"M2.1"},{"id":8,"text":"<p>A town football club raised money for charity. The total was shared between funds A, B and C in the ratio 1 : 2/3 : 4/5. Fund C received £3 000. How much was raised in total during the year?</p>","image":"","options":["£3 750","£7 000","£8 250","£9 000","£9 250","£12 375"],"correct":4,"topic":"M3.4"},{"id":9,"text":"<p>Simplify: (2x+3)/(2x−3) + (2x−3)/(2x+3) − 2</p>","image":"","options":["0","2(2x−1) / ((2x−3)(2x+3))","18 / ((2x−3)(2x+3))","36 / ((2x−3)(2x+3))","8(x²−2) / ((2x−3)(2x+3))","12 / (2x−3)"],"correct":3,"topic":"M4.6"},{"id":10,"text":"<p>Given 4p × 8q = 2n, express n in terms of p and q.</p>","image":"","options":["n = p + q","n = 2p + 3q","n = 2p + 4q","n = p + q + 5","n = 6pq"],"correct":1,"topic":"M4.2"},{"id":11,"text":"<p>The diagram shows part of a glass structure. PQRS is a horizontal square of side 1 m, and the point X is 4 m vertically above P. What is the cosine of the angle between XR and the horizontal?</p>","image":"images/q-1aa803f952.png","options":["1/3","√2/4","√2/(2√3)","4/(3√2)","2/√3","1/√17","1/17"],"correct":0,"topic":"M5.18"},{"id":12,"text":"<p>Given x = 4.6 × 10⁷ and y = 2 × 10⁶, what is (x + 7y)/(x − 2y)?</p>","image":"","options":["10/7","1 2/3","3.1","7","10","31"],"correct":0,"topic":"M2.8"},{"id":13,"text":"<p>Square ABCD, with vertices (1,1), (−1,1), (−1,−1) and (1,−1), is rotated 90° clockwise about the origin and then reflected in the line y = x. Which transformation returns the square to its original orientation?</p>","image":"","options":["Reflection in the x-axis","Reflection in the y-axis","Reflection in the line y = −x","Rotation of 90° clockwise about the origin","Rotation of 90° anticlockwise about the origin"],"correct":1,"topic":"M5.6"},{"id":14,"text":"<p>The variables x, y and z are related as follows: x is directly proportional to the square of z, and y is inversely proportional to the cube of z. Which correctly describes the relationship between x and y?</p>","image":"","options":["The square of x is directly proportional to the cube of y","The square of x is inversely proportional to the cube of y","The cube of x is directly proportional to the square of y","The cube of x is inversely proportional to the square of y","x is directly proportional to y⁶"],"correct":3,"topic":"M3.9"},{"id":15,"text":"<p>A shape is made from three cubes, the largest at the bottom and the smallest on top. At each join, the corners of the smaller cube lie at the midpoints of the sides of a face of the larger cube. The side of the smallest cube is 1 cm. What is the total surface area of the shape?</p>","image":"images/q-9ab1ea4c2e.png","options":["30 cm²","32 cm²","33 cm²","36 cm²","39 cm²","42 cm²"],"correct":3,"topic":"M5.15"},{"id":16,"text":"<p>A pattern is formed by four circles that touch at the top point (diagram not to scale). The diameters are d, 2d, 3d and 4d. Find the area of the shaded part of the pattern.</p>","image":"images/q-6247ad2579.png","options":["(5/2)πd²","4πd²","(1/4)πd²","10πd²","(3/2)πd²"],"correct":0,"topic":"M5.15"},{"id":17,"text":"<p>Evaluate: ∛( 2×10⁵ / (5×10⁻³)² ) − √( 4×10³ − 4×10² )</p>","image":"","options":["−6.2","160 − 20√5","140","240 − 20√5","1940"],"correct":4,"topic":"M2.8"},{"id":18,"text":"<p>In triangle ABC (not to scale), tan A = 1/6 and tan B = 2/3. M is the midpoint of AB. What is tan θ?</p>","image":"images/q-fc1365cd5c.png","options":["1/9","5/12","4/9","1/2","5/6"],"correct":2,"topic":"M5.18"},{"id":19,"text":"<p>A new sign for a local business is made of two parts, wood and metal. The metal costs 3 times as much as the wood per unit. The cost of the metal is proportional to the diameter of the sign, and the cost of the wood is proportional to the square of the diameter. If the diameter is doubled, the total cost of the materials triples. What percentage of the cost of the sign, to the nearest 1%, is metal?</p>","image":"","options":["25%","33%","50%","67%","75%"],"correct":2,"topic":"M3.9"},{"id":20,"text":"<p>w, x, y and z are integers with w &lt; x², x &gt; y², y² &lt; z² and x &gt; z. Which inequality must be true?</p>","image":"","options":["w &lt; x","w &gt; y","w &lt; z","x &gt; y","y &lt; z"],"correct":3,"topic":"M2.1"},{"id":21,"text":"<p>There are two containers of different capacity. The larger is full of water and the smaller is empty. Water is poured from the larger into the smaller until the volumes of water in them are equal. The water in the larger container is now a fraction p of its capacity, and the water in the smaller is a fraction q of its capacity. Which must be true?</p>","image":"","options":["p + q = 1 (but p and q are not necessarily 0.5 each)","p = 0.5 and q = 0.5","p = 0.5 and q &gt; 0.5","p &gt; 0.5 and q = 0.5","p &gt; 0.5 and q &gt; 0.5"],"correct":2,"topic":"M3.8"},{"id":22,"text":"<p>The total surface area of a cylinder is numerically equal to its volume. The radius is r cm and the height is h cm. Express h in terms of r.</p>","image":"","options":["h = 2r/(r − 2)","h = 2r/(r + 2)","h = r + 2","h = r − 2","h = 2r(r − 2)"],"correct":0,"topic":"M4.7"},{"id":23,"text":"<p>A pattern is built by joining points one third of the way along the sides of a square, forming a second square. The process is then repeated. Find the area of the fourth square as a fraction of the area of the original square.</p>","image":"","options":["1/27","5√5/81","125/729","25/81","5√5/27"],"correct":2,"topic":"M3.10"},{"id":24,"text":"<p>The binary operation © is defined by x © y = √(x/y). What is (24 © 6) © 2?</p>","image":"","options":["√2","6√3","2","2√2","1"],"correct":4,"topic":"M4.3"},{"id":25,"text":"<p>Solve the inequality: x² + 5x − 14 ≤ 0</p>","image":"","options":["[−2, 7]","[−7, 2]","(−7, 2)","[2, 7)","(−2, 7]"],"correct":1,"topic":"M4.16"},{"id":26,"text":"<p>The equation 2x(ax − 4) − x² + 6 = 0 has no real roots. What is the smallest possible integer value of a?</p>","image":"","options":["−1","2","3","4","5"],"correct":1,"topic":"M4.16"},{"id":27,"text":"<p>Given x − y = 4 and x² − y² = 24, find xy.</p>","image":"","options":["96","48","32","5","Cannot be determined"],"correct":3,"topic":"M4.5"},{"id":28,"text":"<p>The line ax − by = −9 passes through A(−1, 3) and B(−3, 0). Find a + b.</p>","image":"","options":["5","6","8","10","12"],"correct":0,"topic":"M4.15"},{"id":29,"text":"<p>The point A(a, b) lies in the fourth quadrant of the coordinate plane. In which quadrant does the point B(−a, −b) lie?</p>","image":"","options":["I","II","III","IV"],"correct":1,"topic":"M4.10"},{"id":30,"text":"<p>47 is split into three numbers. The second is 8 more than the first and 10 less than the third. Find the first number.</p>","image":"","options":["3","5","7","9","12"],"correct":2,"topic":"M4.15"}];
 
-const state = { answers: {}, finished: false, timeLeft: DURATION };
-const LETTERS = ['A','B','C','D','E','F','G'];
+let state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
 
 function render() {
-  const root = document.getElementById('quiz');
-  root.innerHTML = QUESTIONS.map(q => `
-    <div class="q-card" id="qc-${q.id}">
-      <span class="q-num">Question ${q.id} / 30</span>
-      <div class="q-text">${q.text}</div>
-      ${q.img ? `<img loading="lazy" class="q-img" src="${q.img}" alt="Diagram for question ${q.id}">` : ''}
-      ${q.options.map((o,i) => `
-        <button class="opt" data-q="${q.id}" data-i="${i}">
-          <span class="letter">${LETTERS[i]}.</span><span>${o}</span>
-        </button>`).join('')}
-    </div>`).join('');
+  const app = document.getElementById('app');
+  if (state.finished) { renderResults(app); return; }
 
-  root.querySelectorAll('.opt').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (state.finished) return;
-      const qid = +btn.dataset.q, idx = +btn.dataset.i;
-      state.answers[qid] = idx;
-      document.querySelectorAll(`.opt[data-q="${qid}"]`).forEach(o => o.classList.remove('selected'));
-      btn.classList.add('selected');
-    });
+  const q = questions[state.idx];
+  const answeredCount = Object.keys(state.answers).length;
+
+  app.innerHTML = `
+    <div class="topbar">
+      <span>Question ${state.idx+1} of ${questions.length}</span>
+      <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
+    </div>
+    <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
+    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Figure for the question">` : ''}
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Back</button>
+      ${state.idx === questions.length-1
+        ? '<button class="submit-btn" id="submit">Finish test</button>'
+        : '<button class="nav-btn" id="next">Next &rarr;</button>'}
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => { state.answers[q.id] = parseInt(btn.dataset.i); render(); };
   });
+  const prev = document.getElementById('prev');
+  if (prev) prev.onclick = () => { state.idx = Math.max(0, state.idx-1); render(); };
+  const next = document.getElementById('next');
+  if (next) next.onclick = () => { state.idx = Math.min(questions.length-1, state.idx+1); render(); };
+  const submit = document.getElementById('submit');
+  if (submit) submit.onclick = finish;
 }
 
-function finish(reason) {
-  if (state.finished) return;
+function finish() {
+  clearInterval(state.timerId);
   state.finished = true;
-  clearInterval(timerInt);
-
-  let score = 0;
-  QUESTIONS.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
-
-  /* Prepline: save the result */
-  let hist = [];
-  try {
-    const key = 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
-    hist = JSON.parse(localStorage.getItem(key) || '[]');
-    hist.push({ t: Date.now(), s: score, n: QUESTIONS.length });
-    localStorage.setItem(key, JSON.stringify(hist.slice(-50)));
-  } catch (e) {}
-
-  QUESTIONS.forEach(q => {
-    const card = document.getElementById('qc-' + q.id);
-    const user = state.answers[q.id];
-    card.querySelectorAll('.opt').forEach((btn, i) => {
-      btn.disabled = true;
-      if (i === q.correct) btn.classList.add('correct');
-      else if (i === user) btn.classList.add('wrong');
-    });
-    const ok = user === q.correct;
-    const div = document.createElement('div');
-    div.className = 'review-answer';
-    div.innerHTML = ok
-      ? `<span class="ok">&#10003; Correct.</span> Correct answer: ${LETTERS[q.correct]}`
-      : `<span class="no">&#10007; ${user === undefined ? 'No answer' : 'Incorrect'}.</span> Correct answer: <b>${LETTERS[q.correct]}</b> — ${q.options[q.correct]}`;
-    card.appendChild(div);
-  });
-
-  const res = document.getElementById('result');
-  res.style.display = 'block';
-  document.getElementById('score-num').textContent = score + ' / 30';
-  const pct = Math.round(score / 30 * 100);
-  document.getElementById('score-text').textContent =
-    (reason === 'time' ? 'Time is up. ' : '') + pct + '% — the breakdown is under each question.';
-  if (hist.length >= 2) {
-    const best = Math.max.apply(null, hist.map(a => a.s));
-    const prev = hist.slice(-6, -1).reverse().map(a => {
-      const d = new Date(a.t);
-      return d.toLocaleDateString('ru-RU') + ' — ' + a.s + '/' + a.n;
-    }).join(' &middot; ');
-    const el = document.createElement('p');
-    el.style.cssText = 'margin-top:10px;font-size:13px;opacity:0.75;';
-    el.innerHTML = 'Best: <b>' + best + '/30</b>. Previous: ' + prev;
-    document.getElementById('result').appendChild(el);
-  }
-  document.getElementById('submit-btn').style.display = 'none';
-  res.scrollIntoView({ behavior: 'smooth' });
+  saveAttempt();
+  render();
+  appendHistory();
 }
 
-const timerEl = document.getElementById('timer');
-const timerInt = setInterval(() => {
-  state.timeLeft--;
-  const m = Math.floor(state.timeLeft / 60), s = state.timeLeft % 60;
-  timerEl.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-  if (state.timeLeft <= 300) timerEl.classList.add('low');
-  if (state.timeLeft <= 0) finish('time');
-}, 1000);
+/* === Prepline: attempt history (localStorage) === */
+function mockKey() {
+  return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
+}
+function saveAttempt() {
+  try {
+    let score = 0;
+    questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    hist.push({ t: Date.now(), s: score, n: questions.length });
+    localStorage.setItem(mockKey(), JSON.stringify(hist.slice(-50)));
+  } catch (e) {}
+}
+function appendHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    if (hist.length < 2) return; // first attempt — no history yet
+    const best = Math.max.apply(null, hist.map(a => a.s));
+    const rows = hist.slice(-10).reverse().map(a => {
+      const d = new Date(a.t);
+      const ds = d.toLocaleDateString('ru-RU') + ' ' +
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const pct = Math.round(a.s / a.n * 100);
+      return '<div class="review-item"><span>' + ds + '</span>' +
+        '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
+    }).join('');
+    const div = document.createElement('div');
+    div.innerHTML = '<h2 style="margin-top:28px">Attempt history &middot; best result ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    const app = document.getElementById('app');
+    const rb = app.querySelector('.restart-btn');
+    if (rb) app.insertBefore(div, rb); else app.appendChild(div);
+  } catch (e) {}
+}
 
-document.getElementById('submit-btn').addEventListener('click', () => {
-  const unanswered = QUESTIONS.filter(q => !(q.id in state.answers)).length;
-  if (unanswered > 0 && !confirm('Unanswered: ' + unanswered + ' question(s). Finish anyway?')) return;
-  finish('manual');
-});
+function renderResults(app) {
+  let correctCount = 0;
+  questions.forEach(q => { if (state.answers[q.id] === q.correct) correctCount++; });
+  const pct = Math.round((correctCount/questions.length)*100);
+
+  app.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Result</div><div class="stat-num">${correctCount}/${questions.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Percentage</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Unanswered</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+    </div>
+    ${questions.map(q => {
+      const ok = state.answers[q.id] === q.correct;
+      const userAns = q.id in state.answers ? q.options[state.answers[q.id]] : '—';
+      const correctAns = q.options[q.correct];
+      return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span>Question ${q.id}${q.text ? ': ' + q.text : ''}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
+        </div>
+        ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Question ${q.id}">` : ''}
+        ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Correct: ${correctAns}</span></div>`}
+      </div>`;
+    }).join('')}
+    <button class="restart-btn" id="restart">Take it again</button>
+  `;
+  document.getElementById('restart').onclick = () => {
+    state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+    startTimer();
+    render();
+  };
+}
+
+function startTimer() {
+  state.timerId = setInterval(() => {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) { finish(); return; }
+    render();
+  }, 1000);
+}
+
+startTimer();
+render();
 </script>
 
 <!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
@@ -274,10 +306,10 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 })();
 </script>
 
-<!-- ===== Prepline: fix + view modes for Test 8 ===== -->
-<style id="prepline-mix8-fix-css">
+<!-- ===== Prepline: scroll view ===== -->
+<style id="prepline-scroll-view-css">
   .pl-mode {
-    display: flex; gap: 6px; align-items: center; margin: 0 auto 18px;
+    display: flex; gap: 6px; align-items: center; margin: 0 0 16px;
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
     border-radius: 999px; padding: 4px; width: fit-content;
   }
@@ -290,101 +322,152 @@ document.getElementById('submit-btn').addEventListener('click', () => {
   .pl-mode button.on {
     opacity: 1; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); color: #fff;
   }
-  .pl-nav {
-    display: flex; gap: 12px; align-items: center; justify-content: center;
-    margin: 16px 0 4px;
+  .pl-scroll .pl-q {
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+    padding: 20px 0 24px;
   }
-  .pl-nav button {
-    font: 600 13.5px 'Inter', system-ui, sans-serif; color: inherit; cursor: pointer;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px; padding: 9px 20px;
+  .pl-scroll .pl-q:last-of-type { border-bottom: 0; }
+  .pl-scroll .pl-num {
+    font: 700 12px 'Inter', system-ui, sans-serif; letter-spacing: .06em;
+    text-transform: uppercase; opacity: .5; margin-bottom: 8px;
   }
-  .pl-nav button:disabled { opacity: .35; cursor: default; }
-  .pl-nav span { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .7; }
+  .pl-scroll .pl-img {
+    max-width: 100%; border-radius: 8px; margin: 4px 0 12px;
+    background: #fff; padding: 4px; -webkit-user-drag: none; user-drag: none;
+    pointer-events: none;
+  }
+  .pl-scroll .pl-text { margin-bottom: 12px; line-height: 1.55; }
+  .pl-scroll .pl-opts { display: flex; flex-direction: column; gap: 7px; }
+  .pl-scroll .pl-opt {
+    text-align: left; font: 400 14.5px 'Inter', system-ui, sans-serif; color: inherit;
+    cursor: pointer; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px;
+    transition: border-color .15s, background .15s;
+  }
+  .pl-scroll .pl-opt:hover { border-color: rgba(167,139,250,0.55); }
+  .pl-scroll .pl-opt.sel {
+    background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.85);
+  }
+  .pl-bar {
+    position: sticky; bottom: 0; display: flex; gap: 14px; align-items: center;
+    justify-content: space-between; margin-top: 8px; padding: 12px 4px;
+    background: rgba(10,14,30,0.9); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .pl-bar .pl-count { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .75; }
+  .pl-bar .pl-submit {
+    font: 600 14px 'Inter', system-ui, sans-serif; color: #fff; cursor: pointer; border: 0;
+    background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6);
+    padding: 11px 26px; border-radius: 999px;
+  }
+  .pl-noselect, .pl-noselect * {
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  }
+  @media print { body.pl-noprint * { display: none !important; } }
 </style>
 
-<script id="prepline-mix8-fix">
+<script id="prepline-scroll-view">
 (function () {
-  function boot() {
-    if (typeof render !== 'function' || typeof QUESTIONS === 'undefined') return;
+  if (typeof questions === 'undefined' || typeof state === 'undefined') return;
+  if (typeof render !== 'function') return;
 
-    var quiz = document.getElementById('quiz');
-    if (!quiz) return;
+  var LETTERS = 'ABCDEFGH';
+  var app = document.getElementById('app');
+  if (!app) return;
 
-    // 1. главное: нарисовать вопросы
-    if (!quiz.querySelector('.q-card')) {
-      try { render(); } catch (e) { console.error('[Prepline] render:', e); return; }
-    }
+  var wrap = app.parentNode;
+  var host = document.createElement('div');
+  host.id = 'pl-scroll-host';
+  host.className = 'pl-scroll pl-noselect';
+  host.style.display = 'none';
+  wrap.insertBefore(host, app.nextSibling);
 
-    var cards = [].slice.call(quiz.querySelectorAll('.q-card'));
-    if (!cards.length) return;
+  var bar = document.createElement('div');
+  bar.className = 'pl-mode';
+  bar.innerHTML = '<button type="button" data-m="one" class="on">One at a time</button>' +
+                  '<button type="button" data-m="all">Scroll view</button>';
+  wrap.insertBefore(bar, app);
 
-    // 2. переключатель режимов
-    var bar = document.createElement('div');
-    bar.className = 'pl-mode';
-    bar.innerHTML = '<button type="button" data-m="all" class="on">Scroll view</button>' +
-                    '<button type="button" data-m="one">One at a time</button>';
-    quiz.parentNode.insertBefore(bar, quiz);
+  var mode = 'one';
 
-    var nav = document.createElement('div');
-    nav.className = 'pl-nav';
-    nav.style.display = 'none';
-    nav.innerHTML = '<button type="button" id="pl-prev">&larr; Back</button>' +
-                    '<span id="pl-pos"></span>' +
-                    '<button type="button" id="pl-next">Next &rarr;</button>';
-    quiz.parentNode.insertBefore(nav, quiz.nextSibling);
+  function esc(s) { return String(s == null ? '' : s); }
 
-    var idx = 0;
-    var mode = 'all';
-
-    function paint() {
-      if (mode === 'all') {
-        for (var i = 0; i < cards.length; i++) cards[i].style.display = '';
-        nav.style.display = 'none';
-        return;
+  function draw() {
+    var parts = [];
+    for (var i = 0; i < questions.length; i++) {
+      var q = questions[i];
+      var opts = '';
+      for (var k = 0; k < (q.options || []).length; k++) {
+        var on = state.answers[q.id] === k ? ' sel' : '';
+        opts += '<button type="button" class="pl-opt' + on + '" data-q="' + q.id +
+                '" data-i="' + k + '">' + (LETTERS[k] || (k + 1)) + ') ' + (q.options[k]) + '</button>';
       }
-      for (var j = 0; j < cards.length; j++) cards[j].style.display = (j === idx ? '' : 'none');
-      nav.style.display = 'flex';
-      document.getElementById('pl-pos').textContent = 'Question ' + (idx + 1) + ' of ' + cards.length;
-      document.getElementById('pl-prev').disabled = (idx === 0);
-      document.getElementById('pl-next').disabled = (idx === cards.length - 1);
+      parts.push(
+        '<div class="pl-q" id="pl-q-' + q.id + '">' +
+          '<div class="pl-num">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
+          (q.image ? '<img loading="lazy" class="pl-img" src="' + q.image + '" alt="Figure">' : '') +
+          (q.text ? '<div class="pl-text">' + q.text + '</div>' : '') +
+          '<div class="pl-opts">' + opts + '</div>' +
+        '</div>');
     }
+    var answered = Object.keys(state.answers).length;
+    parts.push(
+      '<div class="pl-bar">' +
+        '<span class="pl-count">' + answered + ' of ' + questions.length + ' answered</span>' +
+        '<button type="button" class="pl-submit" id="pl-submit">Finish test</button>' +
+      '</div>');
+    host.innerHTML = parts.join('');
 
-    var mb = bar.querySelectorAll('button');
-    for (var k = 0; k < mb.length; k++) {
-      mb[k].onclick = function () {
-        mode = this.dataset.m;
-        for (var n = 0; n < mb.length; n++) mb[n].classList.toggle('on', mb[n].dataset.m === mode);
-        paint();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    var btns = host.querySelectorAll('.pl-opt');
+    for (var b = 0; b < btns.length; b++) {
+      btns[b].onclick = function () {
+        var qid = parseInt(this.dataset.q, 10);
+        state.answers[qid] = parseInt(this.dataset.i, 10);
+        var sibs = this.parentNode.querySelectorAll('.pl-opt');
+        for (var s = 0; s < sibs.length; s++) sibs[s].classList.remove('sel');
+        this.classList.add('sel');
+        var c = host.querySelector('.pl-count');
+        if (c) c.textContent = Object.keys(state.answers).length + ' of ' + questions.length + ' answered';
       };
     }
-    document.getElementById('pl-prev').onclick = function () {
-      idx = Math.max(0, idx - 1); paint(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    var sub = document.getElementById('pl-submit');
+    if (sub) sub.onclick = function () {
+      var left = questions.length - Object.keys(state.answers).length;
+      if (left > 0 && !confirm('Unanswered: ' + left + ' question(s). Finish anyway?')) return;
+      setMode('one');
+      if (typeof finish === 'function') finish();
     };
-    document.getElementById('pl-next').onclick = function () {
-      idx = Math.min(cards.length - 1, idx + 1); paint(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    // при показе результатов возвращаем ленту, чтобы был виден весь разбор
-    var res = document.getElementById('result');
-    if (res && window.MutationObserver) {
-      new MutationObserver(function () {
-        if (res.style.display === 'block' && mode !== 'all') {
-          mode = 'all';
-          for (var n = 0; n < mb.length; n++) mb[n].classList.toggle('on', mb[n].dataset.m === 'all');
-          paint();
-        }
-      }).observe(res, { attributes: true, attributeFilter: ['style'] });
-    }
-
-    paint();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
+  function setMode(m) {
+    if (state.finished) m = 'one';
+    mode = m;
+    var on = (m === 'all');
+    host.style.display = on ? 'block' : 'none';
+    app.style.display = on ? 'none' : '';
+    document.body.classList.toggle('pl-noprint', on);
+    var mb = bar.querySelectorAll('button');
+    for (var i = 0; i < mb.length; i++) mb[i].classList.toggle('on', mb[i].dataset.m === m);
+    if (on) { draw(); } else { render(); }
+  }
+
+  var mbtns = bar.querySelectorAll('button');
+  for (var i = 0; i < mbtns.length; i++) {
+    mbtns[i].onclick = function () { setMode(this.dataset.m); };
+  }
+
+  // в сплошном режиме мешаем самому простому копированию
+  host.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  host.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  host.addEventListener('copy', function (e) { e.preventDefault(); });
+
+  // после завершения теста режим прокрутки прячется, показываем результаты
+  var origFinish = window.finish;
+  if (typeof origFinish === 'function') {
+    window.finish = function () {
+      if (mode === 'all') setMode('one');
+      return origFinish.apply(this, arguments);
+    };
   }
 })();
 </script>
@@ -449,6 +532,33 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 })();
 </script>
 
+
+<style>
+.q-table{border-collapse:collapse;margin:10px 0;font-size:.95em}
+.q-table th,.q-table td{border:1px solid rgba(128,150,200,.45);padding:4px 10px;text-align:left}
+.q-table th{font-weight:600}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  var pending = null;
+  function draw(){
+    if(!window.renderMathInElement) return;
+    renderMathInElement(document.body, {
+      delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],
+      throwOnError: false
+    });
+  }
+  function schedule(){ clearTimeout(pending); pending = setTimeout(draw, 60); }
+  window.addEventListener("load", function(){
+    schedule();
+    new MutationObserver(schedule).observe(document.body, {childList:true, subtree:true});
+  });
+})();
+</script>
 <script src="test-ux.js"></script>
 </body>
 </html>

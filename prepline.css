@@ -65,3 +65,7 @@ main{margin-left:var(--dock)}
   .stats{grid-template-columns:repeat(2,1fr)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation:none!important}}
+
+/* hubs: long test names wrap instead of widening the page on phones */
+.hub-head>*{min-width:0}
+.hub-head .next-src{overflow-wrap:anywhere}

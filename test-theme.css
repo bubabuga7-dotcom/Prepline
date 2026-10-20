@@ -56,3 +56,6 @@ html body .stat-label{color:#8492AC;opacity:1}
 /* report button, sign-in modal, toasts (from prepline-supabase.js) */
 html body .pl-pill:hover{border-color:rgba(201,162,39,.6);background:rgba(201,162,39,.12)}
 html body .pl-rep-box .send{background:var(--gold);color:#0E1A2E}
+
+/* wide data tables in questions scroll sideways instead of widening the page */
+.q-table{display:block;max-width:100%;overflow-x:auto}
