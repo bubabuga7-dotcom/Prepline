@@ -21,6 +21,9 @@ B = load('optmap', 'build-optmap.py')
 G = load('optgaps', 'fix-optmap-gaps.py')
 base = B.candidates
 GLUED = re.compile(r'^[\(\[]?([A-Ha-h©])[\)\].:]?(?=[0-9−\-+√π(½¼¾∞<>≤≥=])')
+if '--wide' in sys.argv:
+    # second round: a capital label glued to anything that is not a lowercase letter ("AI only", "B√3", "C.")
+    GLUED = re.compile(r'^[\(\[]?([A-H])[\)\].:]?(?=[^a-z\s])')
 
 
 def candidates(words):
@@ -44,9 +47,36 @@ def candidates(words):
 B.candidates = candidates
 
 
+def analyse_big(path_n):
+    """Bigger scales and more page modes than the first pass, for small or faint pictures."""
+    import io
+    path, n = path_n
+    im = Image.open(path).convert('L'); W, H = im.size
+    for scale in (3, 4):
+        for thr in (None, 170, 200):
+            big = im.resize((W * scale, H * scale), Image.LANCZOS)
+            if thr:
+                big = big.point(lambda v, t=thr: 0 if v < t else 255)
+            buf = io.BytesIO(); big.save(buf, 'PNG'); data = buf.getvalue()
+            for psm in (11, 6, 4, 3):
+                words = B.ocr(data, psm)
+                for w in words:
+                    for k in ('l', 't', 'w', 'h'):
+                        w[k] = w[k] / scale
+                kind, labels = B.find_set(B.candidates(words), n, W, H)
+                if labels:
+                    flat = [c for r in labels for c in r] if kind == 'grid' else labels
+                    if any(l.get('text') == '?' for l in flat):
+                        continue
+                    bx = B.boxes(kind, labels, words, W, H)
+                    if bx:
+                        return path, dict(kind=kind, boxes=[[round(v / d, 4) for v, d in zip(bb, (W, H, W, H))] for bb in bx])
+    return path, None
+
+
 def run(item):
     path, n = item
-    p, r = B.analyse((path, n))
+    p, r = (analyse_big if '--wide' in sys.argv else B.analyse)((path, n))
     if not r:
         return path, None
     bb = r['boxes']
@@ -119,7 +149,7 @@ def main():
         for p, r in res.items():
             m[p] = r['e']
         json.dump(m, open('option-map.json', 'w'), separators=(',', ':'))
-    json.dump(sorted(res), open('option-map-glued.json', 'w'))
+    json.dump(sorted(res), open('option-map-glued2.json' if '--wide' in sys.argv else 'option-map-glued.json', 'w'))
     if '--draw' in sys.argv:
         d = sys.argv[sys.argv.index('--draw') + 1]; os.makedirs(d, exist_ok=True)
         for p, r in res.items():
