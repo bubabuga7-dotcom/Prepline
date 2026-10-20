@@ -53,6 +53,11 @@
     'html body .opt .k{display:inline-block;width:22px;font:600 12px "IBM Plex Mono",monospace;color:#8492AC}',
     'html body .opt.selected .k{color:#C9A227}',
     '.q-flagnote{display:inline-block;margin-left:8px;color:#C9A227;font-size:12px;font-weight:600}',
+    /* phones: the first question should be on the first screen */
+    '@media (max-width:780px){html body .wrap{padding-top:14px}html body .wrap>a.back{font-size:13px}' +
+      'html body .wrap>h2{font-size:17px;line-height:1.3;margin:6px 52px 10px 0}' +
+      'html body .pl-mode{margin:0 0 10px;padding:3px}html body .pl-mode button{padding:5px 12px;font-size:12px}' +
+      '.qmap.closed .qmap-legend{display:none}.qmap{margin-bottom:10px}}',
     '@media (max-width:640px){.qmap-keys{display:none}.qmap-grid{grid-template-columns:repeat(10,1fr);gap:4px}.qm{height:28px;font-size:11px}}'
   ].join('\n');
   document.head.appendChild(css);
@@ -787,7 +792,8 @@
     d.className = 'pl-credit';
     d.style.cssText = 'margin:-12px 0 16px;font:12.5px/1.5 Inter,system-ui,sans-serif;color:var(--text,#8492AC);opacity:.75';
     d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' · <a href="copyright.html" style="color:inherit">Rights holders</a>';
-    h.parentNode.insertBefore(d, h.nextSibling);
+    if (window.innerWidth <= 780) { d.style.margin = '22px 0 0'; h.parentNode.appendChild(d); }
+    else h.parentNode.insertBefore(d, h.nextSibling);
   }
   if (window.PREPLINE_TESTS) return show();
   var s = document.createElement('script'); s.src = 'tests.js'; s.onload = show; document.body.appendChild(s);

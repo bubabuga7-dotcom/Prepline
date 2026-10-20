@@ -139,6 +139,6 @@
     host.insertBefore(d, host.firstChild);
     d.querySelector('button').onclick = function () { try { localStorage.setItem(K, '1'); } catch (e) {} d.remove(); };
   }
-  function start() { build(); try { deviceTip(); } catch (e) {} }
+  function start() { build(); }   // the phone tip (deviceTip) is off: it pushed the first question down
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
