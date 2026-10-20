@@ -80,7 +80,12 @@ def fix(path, boxes):
 def main():
     m = json.load(open('option-map.json'))
     changed = 0
-    for p, bb in m.items():
+    # with --new: only images added by the last `build-optmap.py --missing` run, and only column layouts
+    todo = m
+    if '--new' in sys.argv:
+        kinds = json.load(open('option-map-new.json'))
+        todo = {p: m[p] for p, k in kinds.items() if k == 'col'}
+    for p, bb in todo.items():
         nb = fix(p, bb)
         if nb != bb:
             changed += 1

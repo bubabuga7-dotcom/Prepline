@@ -90,15 +90,12 @@ def find_set(cands, n, W, H):
                 if not pick:
                     miss += 1
                 chain.append(pick)
-            if chain[-1] is None or miss > 1 or (miss and n < 4):
+            if chain[-1] is None or miss > (2 if n >= 5 else 1) or (miss and n < 4):
                 continue
-            for i, x in enumerate(chain):          # fill a gap from its neighbours
-                if x is None:
-                    p, q = chain[i - 1], chain[i + 1]
-                    if p is None or q is None:
-                        chain = None
-                        break
-                    chain[i] = dict(p, l=(p['l'] + q['l']) / 2, t=(p['t'] + q['t']) / 2, text='?')
+            # a missing letter that does exist elsewhere in the picture means a different layout (a grid): no guessing
+            if any(x is None and by[L] for x, L in zip(chain, want)):
+                continue
+            chain = interpolate(chain)
             if not chain:
                 continue
             pos = [x['t'] for x in chain] if kind == 'col' else [x['l'] for x in chain]
@@ -109,11 +106,62 @@ def find_set(cands, n, W, H):
             if not best or score > best[0]:
                 best = (score, kind, chain)
     if not best:
+        g = find_grid(by, want, W, H)
+        if g:
+            return 'grid', g
         return None, None
     return best[1], best[2]
 
 
+def interpolate(chain):
+    """Fill missing labels evenly between the nearest found ones."""
+    found = [i for i, x in enumerate(chain) if x]
+    if found[0] != 0:
+        return None
+    out = list(chain)
+    for i, x in enumerate(chain):
+        if x is None:
+            p = max(j for j in found if j < i); q = min(j for j in found if j > i)
+            f = (i - p) / (q - p); P, Q = chain[p], chain[q]
+            out[i] = dict(P, l=P['l'] + f * (Q['l'] - P['l']), t=P['t'] + f * (Q['t'] - P['t']), text='?')
+    return out
+
+
+def find_grid(by, want, W, H):
+    """Labels in reading order over several rows: 'A B / C D / E', or 'A B C D / E'.
+    Every label must be found, each new row must start under A, and at least one row holds two labels."""
+    best = None
+    for a in by['A']:
+        rows, chain = [[a]], [a]
+        for L in want[1:]:
+            prev = chain[-1]
+            pcy = prev['t'] + prev['h'] / 2
+            same = [c for c in by[L] if abs(c['t'] + c['h'] / 2 - pcy) < 0.9 * a['h'] and c['l'] > prev['l'] + prev['w'] + a['h']]
+            if same:
+                pick = min(same, key=lambda c: c['l']); rows[-1].append(pick)
+            else:
+                below = [c for c in by[L] if c['t'] > prev['t'] + 1.2 * prev['h'] and abs(c['l'] - a['l']) < max(0.04 * W, 2 * a['h'])]
+                if not below:
+                    chain = None; break
+                pick = min(below, key=lambda c: c['t']); rows.append([pick])
+            chain.append(pick)
+        if not chain or len(rows) < 2 or max(len(r) for r in rows) < 2:
+            continue
+        # columns line up: a label in row k sits under some label of row 0 (or past its right end)
+        xs = [c['l'] for c in rows[0]]
+        if not all(any(abs(c['l'] - x) < max(0.05 * W, 3 * a['h']) for x in xs) for r in rows[1:] for c in r):
+            continue
+        score = a['t']
+        if best is None or score > best[0]:
+            best = (score, rows)
+    if not best:
+        return None
+    return best[1]
+
+
 def boxes(kind, labels, words, W, H):
+    if kind == 'grid':
+        return grid_boxes(labels, W, H)
     n = len(labels)
     lh = sorted(l['h'] for l in labels)[n // 2]
     pad = max(4, int(0.35 * lh))
@@ -143,11 +191,40 @@ def boxes(kind, labels, words, W, H):
             wc = w['t'] + w['h'] / 2
             if abs(wc - cy) < 2.2 * lh and w['l'] >= labels[0]['l'] - pad:
                 top, bot = min(top, w['t'] - pad / 2), max(bot, w['t'] + w['h'] + pad / 2)
+        # never more than about a line above or below the labels: keeps the question text and figures out
+        top, bot = max(top, cy - 2.0 * lh), min(bot, cy + 2.0 * lh)
         for i, l in enumerate(labels):
             x = l['l'] - pad
             x2 = labels[i + 1]['l'] - pad if i < n - 1 else W
             out.append([max(0, x), max(0, top), min(W, x2) - max(0, x), min(H, bot) - max(0, top)])
     # sanity: boxes must not overlap and must be big enough to tap
+    for b in out:
+        if b[2] < 12 or b[3] < 10:
+            return None
+    return out
+
+
+def grid_boxes(rows, W, H):
+    """Each label owns the area to its right (up to the next label in its row) and down to the next row."""
+    lh = sorted(c['h'] for r in rows for c in r)[0]
+    pad = max(4, int(0.5 * lh))
+    xs0 = rows[0][0]['l']
+    out = []
+    for k, r in enumerate(rows):
+        top = min(c['t'] for c in r) - pad
+        bot = (min(c['t'] for c in rows[k + 1]) - pad) if k + 1 < len(rows) else None
+        for i, c in enumerate(r):
+            x1 = c['l'] - pad
+            # the next label to the right in this row, or in the first row when this one ends early
+            nxt = r[i + 1]['l'] if i + 1 < len(r) else next((d['l'] for d in rows[0] if d['l'] > c['l'] + c['w'] + lh), W)
+            x2 = nxt - pad if nxt < W else W
+            if bot is None:
+                # last row: as tall as the row above it, within the picture
+                hgt = min(d['t'] for d in rows[k]) - min(d['t'] for d in rows[k - 1])
+                b = min(H, top + hgt)
+            else:
+                b = bot
+            out.append([max(0, x1), max(0, top), min(W, x2) - max(0, x1), b - max(0, top)])
     for b in out:
         if b[2] < 12 or b[3] < 10:
             return None
@@ -161,24 +238,30 @@ def analyse(path_n):
     except Exception:
         return path, None
     W, H = im.size
-    scale = 2 if W < 900 else 1
-    big = im.resize((W * scale, H * scale), Image.LANCZOS) if scale > 1 else im
     import io
-    buf = io.BytesIO(); big.save(buf, 'PNG'); data = buf.getvalue()
     found = None
-    for psm in (3, 11, 6):
-        words = ocr(data, psm)
-        for w in words:
-            for k in ('l', 't', 'w', 'h'):
-                w[k] = w[k] / scale
-        kind, labels = find_set(candidates(words), n, W, H)
-        if labels:
-            b = boxes(kind, labels, words, W, H)
-            if b:
-                r = dict(kind=kind, boxes=[[round(v / d, 4) for v, d in zip(bb, (W, H, W, H))] for bb in b])
-                if all(l.get('text') != '?' for l in labels):
-                    return path, r
-                found = found or r
+    passes = [(2 if W < 900 else 1, False, (3, 11, 6)), (3 if W < 900 else 2, True, (3, 11, 4))]
+    for scale, binar, psms in passes:
+        big = im.resize((W * scale, H * scale), Image.LANCZOS) if scale > 1 else im
+        if binar:
+            big = big.point(lambda v: 0 if v < 170 else 255)
+        buf = io.BytesIO(); big.save(buf, 'PNG'); data = buf.getvalue()
+        for psm in psms:
+            words = ocr(data, psm)
+            for w in words:
+                for k in ('l', 't', 'w', 'h'):
+                    w[k] = w[k] / scale
+            kind, labels = find_set(candidates(words), n, W, H)
+            if labels:
+                b = boxes(kind, labels, words, W, H)
+                if b:
+                    flat = [c for r in labels for c in r] if kind == 'grid' else labels
+                    r = dict(kind=kind, boxes=[[round(v / d, 4) for v, d in zip(bb, (W, H, W, H))] for bb in b])
+                    if all(l.get('text') != '?' for l in flat):
+                        return path, r
+                    found = found or r
+        if found:
+            break
     return path, found
 
 
@@ -187,6 +270,13 @@ def main():
     need = used_images()
     only = [a for a in sys.argv[1:] if a.startswith('images/')]
     items = [(p, n) for p, n in sorted(need.items()) if os.path.exists(p) and (not only or p in only)]
+    old = {}
+    if '--missing' in sys.argv:
+        old = json.load(open('option-map.json'))
+        redo = set(json.load(open(sys.argv[sys.argv.index('--redo') + 1]))) if '--redo' in sys.argv else set()
+        items = [(p, n) for p, n in items if p not in old or p in redo]
+        for p in redo:
+            old.pop(p, None)
     res = {}
     with ProcessPoolExecutor(os.cpu_count()) as ex:
         for i, (p, r) in enumerate(ex.map(analyse, items, chunksize=8)):
@@ -195,9 +285,10 @@ def main():
             if i % 200 == 0:
                 print(i, '/', len(items), 'found', len(res), flush=True)
     out = {p: r['boxes'] for p, r in res.items()}
-    json.dump(out, open('option-map.json', 'w'), separators=(',', ':'))
+    json.dump(dict(old, **out), open('option-map.json', 'w'), separators=(',', ':'))
+    json.dump({p: r['kind'] for p, r in res.items()}, open('option-map-new.json', 'w'))
     print('done:', len(out), 'of', len(items), 'images mapped;',
-          sum(1 for r in res.values() if r['kind'] == 'col'), 'columns,', sum(1 for r in res.values() if r['kind'] == 'row'), 'rows')
+          sum(1 for r in res.values() if r['kind'] == 'col'), 'columns,', sum(1 for r in res.values() if r['kind'] == 'row'), 'rows,', sum(1 for r in res.values() if r['kind'] == 'grid'), 'grids')
     if draw_dir:
         os.makedirs(draw_dir, exist_ok=True)
         for p, bb in out.items():
