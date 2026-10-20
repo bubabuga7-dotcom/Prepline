@@ -27,7 +27,7 @@
     "y ≤ −1 or y > 1/2",
     "y < −1 or y < 1/2",
     "−1 < y < 1/2",
-    "y  1/2"
+    "y ≥ 1/2"
    ]
   },
   "4": {
@@ -269,7 +269,7 @@
    ]
   },
   "28": {
-   "text": "At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?",
+   "text": "At which positive value of x does the parabola y = (x − 1)² − 4 cross the x-axis?",
    "options": [
     "−2",
     "3",
@@ -1764,7 +1764,7 @@
     "y ≤ −1 or y > 1/2",
     "y < −1 or y < 1/2",
     "−1 < y < 1/2",
-    "y  1/2"
+    "y ≥ 1/2"
    ]
   }
  },
@@ -1829,7 +1829,7 @@
    ]
   },
   "9": {
-   "text": "At which value of x does the parabola y = (x − 1)² − 4 cross the x-axis?",
+   "text": "At which positive value of x does the parabola y = (x − 1)² − 4 cross the x-axis?",
    "options": [
     "−2",
     "3",
