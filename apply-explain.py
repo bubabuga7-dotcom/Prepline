@@ -19,7 +19,8 @@ for jf in sorted(glob.glob('explanations/[!_]*.json')):
         if e and q.get('explain') != e: q['explain'] = e; n += 1
         fx = FIX.get(page[:-5], {}).get(str(q['id']))
         if fx is not None and q.get('correct') != fx:
-            print('  answer key fixed: %s q%s %s -> %s' % (page, q['id'], 'ABCDEFGH'[q['correct']], 'ABCDEFGH'[fx])); q['correct'] = fx; n += 1
+            print('  answer key fixed: %s q%s %s -> %s' % (page, q['id'], 'ABCDEFGH'[q['correct']] if q['correct'] >= 0 else 'none', 'ABCDEFGH'[fx])); q['correct'] = fx; n += 1
+        if fx is not None and q.get('verified') is False: q['verified'] = True; n += 1
     if n:
         body = json.dumps(qs, ensure_ascii=False, separators=(',', ':') if compact else None)
         s = s[:m.start(2)] + body + s[m.end(2):]
