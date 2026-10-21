@@ -38,3 +38,4 @@ crit-7 q14: none of the options gives 15 min (A gives 0); question flawed
 crit-7 q30: image has no answer drawings
 crit-9 q30: image has no answer options
 crit-10 q30: image has table only, no question/options
+crit-11 q30: image has no tiles/options
