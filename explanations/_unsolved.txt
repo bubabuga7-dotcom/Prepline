@@ -6,3 +6,4 @@ crit-7 q14: none of the options gives exactly 15 min late
 crit-7 q30: drawings missing from the image
 crit-8 q11: box table garbled
 crit-9 q30, crit-10 q30: options missing in image
+crit-11 q14 rings, q30 tiles (options missing); crit-12 q20 golf logic: not explained yet
