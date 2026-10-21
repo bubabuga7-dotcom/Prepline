@@ -14,3 +14,4 @@ crit-18 q24: options missing in image (domestic passenger correction; answer ≈
 crit-28 q15: key B (2 only) looks doubtful — statement 2 strengthens; 1 arguably weakens; verify
 crit-37 q30: key E (22) unclear from scrap '8011'; verify
 crit-42 q18: key B(80) doubtful — 10+15+15=40s gives 90 (C); verify
+crit-50 q22: key B (£1) doesn't match — period-only requirement gives £5 (E), illustrated gives £2; verify
