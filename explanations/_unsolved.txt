@@ -23,3 +23,4 @@ mix-28 q26: answer options missing from scan
 mix-30 q5: computed answer 5/77 (2 oranges from A, apple+lemon from B) is not among options; key D 5/176
 mix-34 q13: exact 17/45 not among options; key B 19/50 approximate
 mix-34 q26: operation definition garbled in scan
+mix-35 q27: answer options missing from scan
