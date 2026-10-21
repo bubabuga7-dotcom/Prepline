@@ -98,6 +98,35 @@ window.preplinePremiumCached = function () {
     } catch (e) {}
   };
   window.preplineTrack('visit');
+  /* ---------- error log: script errors real visitors hit, stored in client_errors (log_error rpc) ---------- */
+  (function () {
+    var sent = {}, n = 0;
+    function report(msg, src) {
+      try {
+        msg = String(msg || '').slice(0, 500);
+        if (!msg || n >= 5 || sent[msg]) return;          // 5 per page view, no repeats
+        if (/ResizeObserver loop|Script error\.?$|extension:\/\//i.test(msg + ' ' + (src || ''))) return;
+        sent[msg] = 1; n++;
+        supa.rpc('log_error', {
+          p_device: localStorage.getItem('prepline:device') || '', p_page: location.pathname.split('/').pop() + location.search,
+          p_msg: msg, p_src: String(src || '').slice(0, 300), p_ua: navigator.userAgent.slice(0, 200)
+        }).then(function () {}, function () {});
+      } catch (e) {}
+    }
+    window.addEventListener('error', function (e) {
+      if (e.target && e.target !== window && (e.target.src || e.target.href)) {     // a file that failed to load
+        var u = e.target.src || e.target.href;
+        if (/\/images\//.test(u) || /\.(js|css)(\?|$)/.test(u)) report('load failed: ' + u.split('/').slice(-2).join('/'), e.target.tagName);
+        return;
+      }
+      report(e.message, (e.filename || '').split('/').pop() + ':' + (e.lineno || 0) + ':' + (e.colno || 0));
+    }, true);
+    window.addEventListener('unhandledrejection', function (e) {
+      var r = e.reason; report('promise: ' + (r && (r.message || r)), r && r.stack ? String(r.stack).split('\n')[1] : '');
+    });
+    window.preplineReportError = report;
+  })();
+
 
   /* ---------- Premium (stage9.sql) ---------- */
   window.preplinePremium = function () {
