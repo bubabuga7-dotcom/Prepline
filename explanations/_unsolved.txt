@@ -33,3 +33,4 @@ mix-42 q29: options A (34/90) and E (17/45) are equal
 mix-43 q9: figure cropped
 mix-43 q13: exact answer 22/3 not among options
 mix-44 q9: correct AB = 16 km (equilateral) not among options
+mix-46 q17: question text incomplete (asks nothing); key = d - c
