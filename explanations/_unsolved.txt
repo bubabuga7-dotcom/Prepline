@@ -20,3 +20,4 @@ mix-23 q16: f(t) unclear in scan (t^2 + 3/2 t gives D, key E); q21: operation ga
 mix-24 q7: options in scan are broken (copied from q6); true answer £5400
 mix-27 q28: inequality garbled in scan; key E
 mix-28 q26: answer options missing from scan
+mix-30 q5: computed answer 5/77 (2 oranges from A, apple+lemon from B) is not among options; key D 5/176
