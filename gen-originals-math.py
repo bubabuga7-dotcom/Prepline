@@ -423,7 +423,7 @@ for n, qs in enumerate(tests):
     s = shell.replace('mix-10.html', 'mix-%d.html' % tid).replace('Test 10 — Prepline', 'Test %d — Prepline' % tid)
     s = s.replace('<h2>Test 10 — NUET Mathematics (30 questions)</h2>', '<h2>Test %d — Prepline original maths %d (30 questions)</h2>' % (tid, n + 1))
     s = QRE.sub(lambda m: 'const questions = ' + json.dumps(qs, ensure_ascii=False) + ';', s, count=1)
-    if '${q.explain' not in s:
+    if False:
         s = s.replace("${ok ? '' : `<div style=\"font-size:13px; margin-top:6px;\"><span style=\"color:var(--danger);\">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style=\"color:var(--ok); font-weight:600;\">Correct: ${correctAns}</span></div>`}",
                       "${ok ? '' : `<div style=\"font-size:13px; margin-top:6px;\"><span style=\"color:var(--danger);\">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style=\"color:var(--ok); font-weight:600;\">Correct: ${correctAns}</span></div>`}" + explain_line, 1)
     open('mix-%d.html' % tid, 'w', encoding='utf-8').write(s)

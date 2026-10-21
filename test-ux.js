@@ -754,6 +754,12 @@
   lastSig = sig();   // the engine already drew the first question before this script loaded
 })();
 
+/* official explanations under each answer on the results screen (answers.js) */
+(function () {
+  if (typeof questions === 'undefined' || document.querySelector('script[src^="answers.js"]')) return;
+  var s = document.createElement('script'); s.src = 'answers.js?v=1'; document.body.appendChild(s);
+})();
+
 /* explanations written by students on the results screen (explain.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="explain.js"]')) return;

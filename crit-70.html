@@ -243,7 +243,6 @@ function renderResults(app) {
           <span>${q.id}. ${q.text}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
         </div>
         ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--sage); font-weight:600;">Correct: ${correctAns}</span></div>`}
-        ${q.explain ? `<details style="margin-top:8px;font-size:14px;line-height:1.55"><summary style="cursor:pointer;color:var(--gold,#C9AA6A);font-weight:600">Why ${'ABCDE'[q.correct]}?</summary><div style="margin-top:6px;opacity:.9">${q.explain}</div></details>` : ''}
       </div>`;
     }).join('')}
     <button class="restart-btn" id="restart">Take it again</button>

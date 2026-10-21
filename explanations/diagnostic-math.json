@@ -1,0 +1,12 @@
+{
+"1": "The diagonal of the rectangle is a diameter of the circle (an angle in a semicircle is 90°). Diagonal = √(3² + 4²) = 5, so circumference = π × 5 = 5π.",
+"2": "For 1 ≤ x &lt; 19, x − 7 runs from −6 up to (but not including) 12, and x ≠ 7.<br>• If −6 ≤ x − 7 &lt; 0: y = 6/(x − 7) goes from −1 down to −∞, so y ≤ −1.<br>• If 0 &lt; x − 7 &lt; 12: y goes from +∞ down towards 6/12 = ½ but never reaches it, so y &gt; ½.<br>Together: y ≤ −1 or y &gt; ½.",
+"3": "AB = BC and ∠B = 30°, so ∠A = ∠C = (180° − 30°) ÷ 2 = 75°.<br>DEF is equilateral, so ∠EDF = 60°. D lies on AB, so ∠BDE + ∠EDF + ∠FDA = 180°, giving ∠FDA = 180° − 50° − 60° = 70°.<br>In triangle ADF: ∠DFA = 180° − 75° − 70° = 35°.",
+"4": "The three lines make a triangle; z = 30° is one of its angles, so the other two interior angles add up to 150°.<br>x and y are each on a straight line next to one of those interior angles, so x = 180° − (interior) and y = 180° − (interior).<br>x + y = 360° − 150° = 210°.",
+"5": "Multiply the three equations: (ab)(bc)(ac) = (abc)² = \\(\\tfrac83 \\times 12 \\times 2 = 64\\). So abc = 8 (or −8), and \\(\\sqrt[3]{8} = 2\\).",
+"6": "I: f(2x) = 2kx = 2·f(x) — always true.<br>II: f(x + 2) = kx + 2k, which equals kx + 2 only if k = 1 — not always.<br>III: f(g(x)) = k(x + k) = kx + k², g(f(x)) = kx + k; equal only if k = 1 — not always.<br>So only I must be true.",
+"7": "159 cm is 106% of last year's height. 159 ÷ 1.06 = 150 cm. (Taking 6% off 159 is wrong: the 6% was of the smaller, earlier height.)",
+"8": "Square every part: 5² = 25, \\((a^{1/4})^2 = a^{1/2} = a^{0.5}\\), \\((b^5)^2 = b^{10}\\), \\((\\sqrt c)^2 = c\\). Result: \\(\\dfrac{25a^{0.5}b^{10}}{c}\\).",
+"9": "Subtract component by component: (5 − 1, −2 − 3) = (4, −5).",
+"10": "Surface area = 6s², volume = s³. Set 6s² = s³ and divide by s² (s ≠ 0): s = 6."
+}

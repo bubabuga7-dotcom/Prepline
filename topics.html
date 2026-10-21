@@ -118,6 +118,7 @@
 <script src="topics-index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="answers.js?v=1"></script>
 <script src="explain.js?v=2"></script>
 <script>
 (function () {
@@ -235,6 +236,7 @@
     var pool = INDEX[code];
     var items = shuffle(pool.map(function (x) { return { mock: x[0], id: x[1] }; }));
     if (!all) items = items.slice(0, SIZE);
+    if (window.preplineWhyReset) window.preplineWhyReset();
     run = { topic: code, items: items, pos: 0, right: 0, wrong: [], all: !!all };
     try { history.replaceState(null, '', '?t=' + encodeURIComponent(code)); } catch (e) {}
     show('v-run');
@@ -264,6 +266,7 @@
     Object.keys(INDEX).forEach(function (c) {
       if ((k === 'ct') === isCT(c)) INDEX[c].forEach(function (x) { pool.push({ mock: x[0], id: x[1] }); });
     });
+    if (window.preplineWhyReset) window.preplineWhyReset();
     run = { topic: 'Q:' + k, quick: k, items: shuffle(pool).slice(0, SIZE + 5), pos: 0, right: 0, wrong: [], all: false };
     run.want = SIZE;                                       // a few spares in case a question was removed from the site
     next();
@@ -321,6 +324,7 @@
       var res = $('res');
       if (ok) { run.right++; res.className = 'res ok'; res.innerHTML = '<b>Correct.</b>'; }
       else { run.wrong.push(it); res.className = 'res no'; res.innerHTML = '<b>Not quite.</b> The answer is ' + L[q.correct] + '. Wrong answers go to your mistakes deck.'; }
+      if (window.preplineWhy) window.preplineWhy(q, res, it.mock + ':' + it.id);
       save(it, q, ok);
       $('next').style.display = ''; $('next').focus();
     };

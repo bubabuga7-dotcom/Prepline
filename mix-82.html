@@ -243,7 +243,6 @@ function renderResults(app) {
         </div>
         ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Question ${q.id}">` : ''}
         ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Correct: ${correctAns}</span></div>`}
-        ${q.explain ? `<details style="margin-top:8px;font-size:14px;line-height:1.55"><summary style="cursor:pointer;color:var(--gold,#C9AA6A);font-weight:600">Why ${'ABCDE'[q.correct]}?</summary><div style="margin-top:6px;opacity:.9">${q.explain}</div></details>` : ''}
       </div>`;
     }).join('')}
     <button class="restart-btn" id="restart">Take it again</button>
