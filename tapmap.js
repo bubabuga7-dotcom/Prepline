@@ -18,27 +18,27 @@
     '.pl-tap{position:absolute;z-index:3;pointer-events:none}' +
     '.pl-tap-b{position:absolute;pointer-events:auto;margin:0;padding:0;background:transparent;border:2px solid transparent;border-radius:7px;' +
       'cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,border-color .12s}' +
-    '.pl-tap-b:hover{border-color:rgba(29,95,209,.45);background:rgba(29,95,209,.06)}' +
-    '.pl-tap-b:active{background:rgba(29,95,209,.14)}' +
+    '.pl-tap-b:hover{border-color:rgba(61,99,163,.45);background:rgba(61,99,163,.06)}' +
+    '.pl-tap-b:active{background:rgba(61,99,163,.14)}' +
     '.pl-tap-b i{position:absolute;top:-12px;left:-6px;display:none;min-width:20px;height:20px;padding:0 5px;border-radius:999px;' +
       'box-shadow:0 2px 6px rgba(0,0,0,.3);font:700 12px/20px Inter,system-ui,sans-serif;font-style:normal;color:#fff;text-align:center}' +
-    '.pl-tap-b.sel{border:3px solid #C9A227;background:rgba(201,162,39,.16)}.pl-tap-b.sel i{display:block;background:#C9A227;color:#0B1120}' +
-    '.pl-tap-b.ok{border:3px solid #12965C;background:rgba(18,150,92,.14)}.pl-tap-b.ok i{display:block;background:#12965C}' +
-    '.pl-tap-b.bad{border:3px solid #D93C3C;background:rgba(217,60,60,.12)}.pl-tap-b.bad i{display:block;background:#D93C3C}' +
+    '.pl-tap-b.sel{border:3px solid #C9AA6A;background:rgba(201,170,106,.16)}.pl-tap-b.sel i{display:block;background:#C9AA6A;color:#15181D}' +
+    '.pl-tap-b.ok{border:3px solid #2F8A63;background:rgba(18,150,92,.14)}.pl-tap-b.ok i{display:block;background:#2F8A63}' +
+    '.pl-tap-b.bad{border:3px solid #B95050;background:rgba(217,60,60,.12)}.pl-tap-b.bad i{display:block;background:#B95050}' +
     '.pl-tap-b[disabled]{cursor:default}.pl-tap-b[disabled]:hover{background:transparent;border-color:transparent}' +
     '.pl-tap-b[disabled].ok:hover,.pl-tap-b[disabled].bad:hover,.pl-tap-b[disabled].sel:hover{border-color:inherit}' +
     '.pl-tap-hint{position:absolute;left:50%;top:-30px;transform:translateX(-50%);white-space:nowrap;pointer-events:none;' +
-      'background:#1D5FD1;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:7px 10px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}' +
+      'background:#3D63A3;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:7px 10px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}' +
     '.pl-tap-off{display:none!important}' +
     '.pl-tap.small .pl-tap-b{pointer-events:none}.pl-tap.small+.x{}' +
     '.pl-zoom{position:fixed;inset:0;z-index:9500;background:rgba(5,8,20,.94);display:flex;flex-direction:column}' +
-    '.pl-zoom-h{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#E6ECF7;font:600 15px Inter,system-ui,sans-serif}' +
+    '.pl-zoom-h{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#DADDE2;font:600 15px Inter,system-ui,sans-serif}' +
     '.pl-zoom-h span{flex:1}.pl-zoom-h button{background:#1D2A44;color:#fff;border:0;border-radius:10px;font:700 15px Inter,sans-serif;padding:10px 14px}' +
     '.pl-zoom-s{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:24px 8px 40px}' +
     '.pl-zoom-in{position:relative;margin:0 auto}.pl-zoom-in img{display:block;width:100%;background:#fff;border-radius:6px}' +
-    '.pl-zoom .pl-tap-b{border-color:rgba(29,95,209,.55);background:rgba(29,95,209,.05)}.pl-zoom .pl-tap-b i{display:block;background:#1D5FD1}' +
-    '.pl-zoom .pl-tap-b.sel{border-color:#C9A227;background:rgba(201,162,39,.18)}.pl-zoom .pl-tap-b.sel i{background:#C9A227;color:#0B1120}' +
-    'html[data-theme=light] .pl-tap-b.sel{border-color:#1D5FD1;background:rgba(29,95,209,.1)}html[data-theme=light] .pl-tap-b.sel i{background:#1D5FD1;color:#fff}';
+    '.pl-zoom .pl-tap-b{border-color:rgba(61,99,163,.55);background:rgba(61,99,163,.05)}.pl-zoom .pl-tap-b i{display:block;background:#3D63A3}' +
+    '.pl-zoom .pl-tap-b.sel{border-color:#C9AA6A;background:rgba(201,170,106,.18)}.pl-zoom .pl-tap-b.sel i{background:#C9AA6A;color:#15181D}' +
+    'html[data-theme=light] .pl-tap-b.sel{border-color:#3D63A3;background:rgba(61,99,163,.1)}html[data-theme=light] .pl-tap-b.sel i{background:#3D63A3;color:#fff}';
   document.head.appendChild(st);
 
   var hintSeen = false;

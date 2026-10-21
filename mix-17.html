@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/mix-17.html">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0B1120">
+<meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -27,17 +27,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A0E1E; --card: rgba(14,20,48,0.72); --text: #C9D2F0; --text-bright: #F2F5FF;
-    --blue: #60A5FA; --violet: #A78BFA; --pink: #F472B6;
-    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
+    --bg: #15181D; --card: rgba(14,20,48,0.72); --text: #C8CDD4; --text-bright: #DADDE2;
+    --blue: #8EADD2; --violet: #8EADD2; --pink: #C9AA6A;
+    --grad: linear-gradient(90deg, #8EADD2 0%, #8EADD2 50%, #C9AA6A 100%);
     --glass-line: rgba(255,255,255,0.14);
-    --ok: #34D399; --ok-bg: rgba(52,211,153,0.14);
-    --danger: #F87171; --danger-bg: rgba(248,113,113,0.13);
+    --ok: #7DC3A0; --ok-bg: rgba(125,195,160,0.14);
+    --danger: #DE8B8B; --danger-bg: rgba(222,139,139,0.13);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
   .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
-  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,30,0.78) 0%, rgba(10,14,30,0.88) 100%); }
+  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,24,29,0.78) 0%, rgba(21,24,29,0.88) 100%); }
   .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
   a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
   a.back:hover { opacity: 1; color: var(--violet); }
@@ -47,7 +47,7 @@
     font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
     background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
   }
-  .timer.low { color: #FCA5A5; border-color: rgba(248,113,113,0.5); animation: blink 1s step-end infinite; }
+  .timer.low { color: #E3A1A1; border-color: rgba(222,139,139,0.5); animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0.55; } }
   .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
@@ -60,9 +60,9 @@
     font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
     transition: border-color .15s, background .15s, transform .15s;
   }
-  .opt:hover { border-color: var(--violet); background: rgba(167,139,250,0.12); transform: translateX(3px); }
+  .opt:hover { border-color: var(--violet); background: rgba(142,173,210,0.12); transform: translateX(3px); }
   .opt.selected {
-    border: 2px solid var(--blue); background: rgba(96,165,250,0.16);
+    border: 2px solid var(--blue); background: rgba(142,173,210,0.16);
     color: var(--text-bright); font-weight: 500;
   }
   .nav-row { display: flex; justify-content: space-between; }
@@ -79,9 +79,9 @@
     background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
     padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
     transition: background-position .4s, box-shadow .3s, transform .15s;
-    box-shadow: 0 8px 24px -10px rgba(244,114,182,0.5);
+    box-shadow: 0 8px 24px -10px rgba(201,170,106,0.5);
   }
-  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); transform: translateY(-1px); }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(142,173,210,0.55); transform: translateY(-1px); }
   .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
   .stat-card {
     background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
@@ -106,7 +106,7 @@
     color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
     transition: background-position .4s, box-shadow .3s;
   }
-  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(167,139,250,0.55); }
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(142,173,210,0.55); }
   @media (max-width: 480px) {
     .wrap { padding: 24px 16px; }
     h2 { font-size: 17px; }
@@ -326,7 +326,7 @@ render();
   }
   .pl-mode button:hover { opacity: 1; }
   .pl-mode button.on {
-    opacity: 1; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); color: #fff;
+    opacity: 1; background: linear-gradient(90deg,#8EADD2,#8EADD2,#C9AA6A); color: #fff;
   }
   .pl-scroll .pl-q {
     border-bottom: 1px solid rgba(255,255,255,0.09);
@@ -350,20 +350,20 @@ render();
     border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px;
     transition: border-color .15s, background .15s;
   }
-  .pl-scroll .pl-opt:hover { border-color: rgba(167,139,250,0.55); }
+  .pl-scroll .pl-opt:hover { border-color: rgba(142,173,210,0.55); }
   .pl-scroll .pl-opt.sel {
-    background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.85);
+    background: rgba(142,173,210,0.18); border-color: rgba(142,173,210,0.85);
   }
   .pl-bar {
     position: sticky; bottom: 0; display: flex; gap: 14px; align-items: center;
     justify-content: space-between; margin-top: 8px; padding: 12px 4px;
-    background: rgba(10,14,30,0.9); backdrop-filter: blur(10px);
+    background: rgba(21,24,29,0.9); backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255,255,255,0.12);
   }
   .pl-bar .pl-count { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .75; }
   .pl-bar .pl-submit {
     font: 600 14px 'Inter', system-ui, sans-serif; color: #fff; cursor: pointer; border: 0;
-    background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6);
+    background: linear-gradient(90deg,#8EADD2,#8EADD2,#C9AA6A);
     padding: 11px 26px; border-radius: 999px;
   }
   .pl-noselect, .pl-noselect * {
@@ -482,16 +482,16 @@ render();
 <!-- ===== Prepline: sign-in gate ===== -->
 <style id="prepline-gate-css">
   #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
-           background:rgba(6,10,20,.78);backdrop-filter:blur(4px);padding:20px}
+           background:rgba(12,14,17,.78);backdrop-filter:blur(4px);padding:20px}
   #pl-gate.on{display:flex}
-  #pl-gate .box{max-width:420px;width:100%;background:#111A2E;border:1px solid rgba(255,255,255,.14);
-                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#E6ECF7}
+  #pl-gate .box{max-width:420px;width:100%;background:#1D2127;border:1px solid rgba(255,255,255,.14);
+                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#DADDE2}
   #pl-gate h3{font-family:Sora,Inter,sans-serif;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
-  #pl-gate p{font-size:14px;line-height:1.55;color:#B4C0D6;margin:0 0 18px}
+  #pl-gate p{font-size:14px;line-height:1.55;color:#A6ADB8;margin:0 0 18px}
   #pl-gate .row{display:flex;gap:10px;flex-wrap:wrap}
   #pl-gate button{font:600 14px Inter,sans-serif;padding:11px 22px;border-radius:5px;cursor:pointer;border:0}
-  #pl-gate .go{background:#C9A227;color:#10192C}
-  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#E6ECF7}
+  #pl-gate .go{background:#C9AA6A;color:#1A1D21}
+  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#DADDE2}
 </style>
 <div id="pl-gate">
   <div class="box">

@@ -2,129 +2,134 @@
    Every rule starts with html[data-theme=light] so it beats the inline page styles and scripts' injected styles. */
 
 html[data-theme=light]{
-  --bg:#FFFFFF; --bg-2:#F4F7FC; --bg-3:#F7F9FD;
-  --panel:#FFFFFF; --panel-2:#F4F7FC;
-  --line:#DCE3EE; --line-2:#E9EEF6;
-  --ink:#0F1B33; --ink-2:#3C4A63; --ink-3:#66748C;
-  --blue:#1D5FD1; --blue-deep:#1D5FD1; --gold:#1D5FD1; --gold-2:#174FB0;
-  --ok:#12965C; --warn:#B7791F; --bad:#D93C3C;
+  --bg:#F4F2ED; --bg-2:#EFEDE7; --bg-3:#F3F1EC;
+  --panel:#FBFAF7; --panel-2:#EFEDE7;
+  --line:#E1DED7; --line-2:#ECE9E3;
+  --ink:#2B2F36; --ink-2:#4E545E; --ink-3:#6E7480;
+  --blue:#3D63A3; --blue-deep:#3D63A3; --gold:#3D63A3; --gold-2:#33568F;
+  --ok:#2F8A63; --warn:#9A7330; --bad:#B95050;
   /* test pages */
-  --card:#FFFFFF; --text:#26324A; --text-bright:#0F1B33; --violet:#1D5FD1; --pink:#1D5FD1;
-  --grad:linear-gradient(90deg,#1D5FD1,#1D5FD1); --glass-line:#DCE3EE;
-  --ok-bg:rgba(18,150,92,.1); --danger:#D93C3C; --danger-bg:rgba(217,60,60,.08); --sage:#12965C;
+  --card:#FBFAF7; --text:#3A3F48; --text-bright:#2B2F36; --violet:#3D63A3; --pink:#3D63A3;
+  --grad:linear-gradient(90deg,#3D63A3,#3D63A3); --glass-line:#E1DED7;
+  --ok-bg:rgba(18,150,92,.1); --danger:#B95050; --danger-bg:rgba(217,60,60,.08); --sage:#2F8A63;
   color-scheme:light;
 }
-html[data-theme=light] body{background:#FFFFFF!important;background-image:none!important;color:var(--ink)}
+html[data-theme=light] body{background:#F4F2ED!important;background-image:none!important;color:var(--ink)}
 html[data-theme=light] body h1,html[data-theme=light] body h2,html[data-theme=light] body h3{color:var(--ink)}
 
 /* ---------- side menu / bottom bar ---------- */
-html[data-theme=light] .dock{background:#F4F7FC;border-color:#DCE3EE}
-html[data-theme=light] .dock-logo{background:#1D5FD1;color:#fff;border-color:#1D5FD1}
-html[data-theme=light] .dock-item{color:#66748C}
-html[data-theme=light] .dock-item:hover{background:#E6EEFB;color:#1D5FD1;border-color:#C9D8F2}
-html[data-theme=light] .dock-item.on{background:#E3ECFB;color:#1D5FD1;border-color:#B9CDF1}
-html[data-theme=light] .dock-tip{background:#0F1B33;color:#fff}
+html[data-theme=light] .dock{background:#EFEDE7;border-color:#E1DED7}
+html[data-theme=light] .dock-logo{background:#3D63A3;color:#fff;border-color:#3D63A3}
+html[data-theme=light] .dock-item{color:#6E7480}
+html[data-theme=light] .dock-item:hover{background:#E4E9F1;color:#3D63A3;border-color:#C3CEDF}
+html[data-theme=light] .dock-item.on{background:#E4E9F1;color:#3D63A3;border-color:#C3CEDF}
+html[data-theme=light] .dock-tip{background:#2B2F36;color:#fff}
 
 /* ---------- buttons: blue with white text ---------- */
 html[data-theme=light] .btn,html[data-theme=light] .btn-primary,html[data-theme=light] a.btn,
 html[data-theme=light] button.submit-btn,html[data-theme=light] .restart-btn,html[data-theme=light] .pl-bar .pl-submit,
 html[data-theme=light] .ex-post,html[data-theme=light] .pl-rep-box .send,html[data-theme=light] #pl-gate .go,
 html[data-theme=light] .seg button.on,html[data-theme=light] .exam-intro button{
-  background:#1D5FD1!important;color:#FFFFFF!important;border-color:#1D5FD1}
+  background:#3D63A3!important;color:#FFFFFF!important;border-color:#3D63A3}
 html[data-theme=light] .btn:hover,html[data-theme=light] .btn-primary:hover,html[data-theme=light] button.submit-btn:hover,
-html[data-theme=light] .restart-btn:hover,html[data-theme=light] .pl-bar .pl-submit:hover,html[data-theme=light] .ex-post:hover{background:#174FB0!important}
-html[data-theme=light] .btn.ghost{background:#FFFFFF!important;color:var(--ink)!important;border:1px solid #CBD5E4}
-html[data-theme=light] .btn.ghost:hover{border-color:#1D5FD1;color:#1D5FD1!important}
+html[data-theme=light] .restart-btn:hover,html[data-theme=light] .pl-bar .pl-submit:hover,html[data-theme=light] .ex-post:hover{background:#33568F!important}
+html[data-theme=light] .btn.ghost{background:#FBFAF7!important;color:var(--ink)!important;border:1px solid #D3D0C8}
+html[data-theme=light] .btn.ghost:hover{border-color:#3D63A3;color:#3D63A3!important}
 
 /* ---------- hub pages ---------- */
-html[data-theme=light] .stats{background:#DCE3EE}
-html[data-theme=light] .stat{background:#F7F9FD}
-html[data-theme=light] .toolbar{background:linear-gradient(#FFFFFF 75%,rgba(255,255,255,0))!important}
-html[data-theme=light] .search{background:#FFFFFF;color:var(--ink);border-color:#CBD5E4}
-html[data-theme=light] .tab{background:#FFFFFF}
-html[data-theme=light] .tab.on{background:#E3ECFB;border-color:#1D5FD1;color:#1D5FD1}
-html[data-theme=light] .tile{background:#FFFFFF;box-shadow:0 1px 2px rgba(15,27,51,.05)}
-html[data-theme=light] .tile:hover{background:#F7FAFF;border-color:#1D5FD1}
-html[data-theme=light] .tile.done{background:#F7F9FD;border-color:#E3E9F2}
-html[data-theme=light] .next{background:linear-gradient(135deg,#EAF1FD,#F7FAFF)!important;border-color:#C9D8F2!important}
-html[data-theme=light] .progress,html[data-theme=light] .prog,html[data-theme=light] .bar{background:#E6ECF5}
-html[data-theme=light] .wip{color:#1D5FD1;border-color:#9DB9EC;background:#EAF1FD}
-html[data-theme=light] .tile-foot .cont{color:#1D5FD1}
+html[data-theme=light] .stats{background:#E1DED7}
+html[data-theme=light] .stat{background:#F3F1EC}
+html[data-theme=light] .toolbar{background:linear-gradient(#F4F2ED 75%,rgba(244,242,237,0))!important}
+html[data-theme=light] .search{background:#FBFAF7;color:var(--ink);border-color:#D3D0C8}
+html[data-theme=light] .tab{background:#FBFAF7}
+html[data-theme=light] .tab.on{background:#E4E9F1;border-color:#3D63A3;color:#3D63A3}
+html[data-theme=light] .tile{background:#FBFAF7;box-shadow:0 1px 2px rgba(43,47,54,.05)}
+html[data-theme=light] .tile:hover{background:#F1F0EB;border-color:#3D63A3}
+html[data-theme=light] .tile.done{background:#F3F1EC;border-color:#E3E0D9}
+html[data-theme=light] .next{background:linear-gradient(135deg,#E4E9F1,#F1F0EB)!important;border-color:#C3CEDF!important}
+html[data-theme=light] .progress,html[data-theme=light] .prog,html[data-theme=light] .bar{background:#E3E0D9}
+html[data-theme=light] .wip{color:#3D63A3;border-color:#AFBFD6;background:#E4E9F1}
+html[data-theme=light] .tile-foot .cont{color:#3D63A3}
 
 /* ---------- test pages ---------- */
-html[data-theme=light] body .opt,html[data-theme=light] body .pl-scroll .pl-opt{background:#FFFFFF;border-color:#D5DEEB;color:#26324A}
-html[data-theme=light] body .opt:hover,html[data-theme=light] body .pl-scroll .pl-opt:hover{background:#F2F6FD;border-color:#1D5FD1}
-html[data-theme=light] body .opt.selected,html[data-theme=light] body .pl-scroll .pl-opt.sel{background:#E8F0FD;border-color:#1D5FD1;
-  box-shadow:inset 3px 0 0 #1D5FD1;color:#0F1B33}
-html[data-theme=light] body .timer{background:#FFFFFF;border-color:#D5DEEB;color:#1D5FD1}
-html[data-theme=light] body .timer.low{color:#D93C3C;border-color:#F0B4B4}
-html[data-theme=light] body .progress{background:#E6ECF5}
-html[data-theme=light] body .topbar,html[data-theme=light] body a.back{color:#66748C}
-html[data-theme=light] body button.nav-btn{background:#FFFFFF;border-color:#CBD5E4;color:#0F1B33}
-html[data-theme=light] body button.nav-btn:hover:not(:disabled){border-color:#1D5FD1;color:#1D5FD1}
-html[data-theme=light] body .pl-mode{background:#F4F7FC;border-color:#DCE3EE}
-html[data-theme=light] body .pl-mode button{color:#3C4A63}
-html[data-theme=light] body .pl-mode button.on{background:#1D5FD1;color:#fff}
-html[data-theme=light] body .pl-bar{background:rgba(255,255,255,.95);border-color:#DCE3EE}
-html[data-theme=light] body .pl-scroll .pl-q{border-color:#E6ECF5}
-html[data-theme=light] body .stat-card,html[data-theme=light] body .review-item{background:#FFFFFF;border-color:#DCE3EE}
-html[data-theme=light] body .stat-label{color:#66748C}
-html[data-theme=light] body .stat-num{color:#1D5FD1}
-html[data-theme=light] body .question-img,html[data-theme=light] body .pl-scroll .pl-img{border-color:#DCE3EE}
-html[data-theme=light] body details summary{color:#1D5FD1!important}
+html[data-theme=light] body .opt,html[data-theme=light] body .pl-scroll .pl-opt{background:#FBFAF7;border-color:#D9D6CF;color:#3A3F48}
+html[data-theme=light] body .opt:hover,html[data-theme=light] body .pl-scroll .pl-opt:hover{background:#ECEEF1;border-color:#3D63A3}
+html[data-theme=light] body .opt.selected,html[data-theme=light] body .pl-scroll .pl-opt.sel{background:#E4E9F1;border-color:#3D63A3;
+  box-shadow:inset 3px 0 0 #3D63A3;color:#2B2F36}
+html[data-theme=light] body .timer{background:#FBFAF7;border-color:#D9D6CF;color:#3D63A3}
+html[data-theme=light] body .timer.low{color:#B95050;border-color:#E2BCBC}
+html[data-theme=light] body .progress{background:#E3E0D9}
+html[data-theme=light] body .topbar,html[data-theme=light] body a.back{color:#6E7480}
+html[data-theme=light] body button.nav-btn{background:#FBFAF7;border-color:#D3D0C8;color:#2B2F36}
+html[data-theme=light] body button.nav-btn:hover:not(:disabled){border-color:#3D63A3;color:#3D63A3}
+html[data-theme=light] body .pl-mode{background:#EFEDE7;border-color:#E1DED7}
+html[data-theme=light] body .pl-mode button{color:#4E545E}
+html[data-theme=light] body .pl-mode button.on{background:#3D63A3;color:#fff}
+html[data-theme=light] body .pl-bar{background:rgba(244,242,237,.95);border-color:#E1DED7}
+html[data-theme=light] body .pl-scroll .pl-q{border-color:#E3E0D9}
+html[data-theme=light] body .stat-card,html[data-theme=light] body .review-item{background:#FBFAF7;border-color:#E1DED7}
+html[data-theme=light] body .stat-label{color:#6E7480}
+html[data-theme=light] body .stat-num{color:#3D63A3}
+html[data-theme=light] body .question-img,html[data-theme=light] body .pl-scroll .pl-img{border-color:#E1DED7}
+html[data-theme=light] body details summary{color:#3D63A3!important}
 
 /* question map, flags, resume note, results filter (test-ux.js) */
-html[data-theme=light] .qmap{background:#F7F9FD;border-color:#DCE3EE}
-html[data-theme=light] .qmap-head,html[data-theme=light] .qmap-legend,html[data-theme=light] .qmap-diff{color:#66748C}
-html[data-theme=light] .qmap-head b{color:#0F1B33}
-html[data-theme=light] .qmap-flag{border-color:#CBD5E4;color:#3C4A63;background:#FFFFFF}
-html[data-theme=light] .qmap-flag:hover,html[data-theme=light] .qmap-flag.on{border-color:#B7791F;color:#B7791F;background:#FFF7E6}
-html[data-theme=light] .qm{background:#FFFFFF;border-color:#D5DEEB;color:#66748C}
-html[data-theme=light] .qm:hover{border-color:#1D5FD1;color:#1D5FD1}
-html[data-theme=light] .qm.ans{background:#DCE8FC;border-color:#9DB9EC;color:#0F1B33}
-html[data-theme=light] .qm.cur{border-color:#1D5FD1;color:#1D5FD1;box-shadow:0 0 0 1px #1D5FD1 inset}
+html[data-theme=light] .qmap{background:#F3F1EC;border-color:#E1DED7}
+html[data-theme=light] .qmap-head,html[data-theme=light] .qmap-legend,html[data-theme=light] .qmap-diff{color:#6E7480}
+html[data-theme=light] .qmap-head b{color:#2B2F36}
+html[data-theme=light] .qmap-flag{border-color:#D3D0C8;color:#4E545E;background:#FBFAF7}
+html[data-theme=light] .qmap-flag:hover,html[data-theme=light] .qmap-flag.on{border-color:#9A7330;color:#9A7330;background:#FFF7E6}
+html[data-theme=light] .qm{background:#FBFAF7;border-color:#D9D6CF;color:#6E7480}
+html[data-theme=light] .qm:hover{border-color:#3D63A3;color:#3D63A3}
+html[data-theme=light] .qm.ans{background:#E4E9F1;border-color:#AFBFD6;color:#2B2F36}
+html[data-theme=light] .qm.cur{border-color:#3D63A3;color:#3D63A3;box-shadow:0 0 0 1px #3D63A3 inset}
 html[data-theme=light] .qm.flag::after,html[data-theme=light] .qmap-legend .l-flag::before{background:#D69E2E}
-html[data-theme=light] .qmap-legend span::before{border-color:#B8C4D6}
-html[data-theme=light] .qmap-legend .l-ans::before{background:#DCE8FC;border-color:#9DB9EC}
-html[data-theme=light] .qmap-legend .l-cur::before{border-color:#1D5FD1}
-html[data-theme=light] .q-flagnote{color:#B7791F}
-html[data-theme=light] body .opt .k{color:#66748C}
-html[data-theme=light] body .opt.selected .k{color:#1D5FD1}
-html[data-theme=light] .resume{background:#EEF4FE;border-color:#B9CDF1;color:#0F1B33}
-html[data-theme=light] .resume b{color:#1D5FD1}
-html[data-theme=light] .resume button{background:#fff;border-color:#CBD5E4;color:#3C4A63}
-html[data-theme=light] .rv-filter button{background:#FFFFFF;border-color:#CBD5E4;color:#3C4A63}
-html[data-theme=light] .rv-filter button.on{background:#E3ECFB;border-color:#1D5FD1;color:#1D5FD1}
-html[data-theme=light] .rv-more{color:#1D5FD1}
-html[data-theme=light] .ghost{color:#66748C}
-html[data-theme=light] .ghost .gl b{color:#0F1B33}
-html[data-theme=light] .ghost .gt{background:#E6ECF5}
-html[data-theme=light] .ghost .gt .g{background:#B8C4D6}
-html[data-theme=light] .ghost .gt .y{background:#1D5FD1}
-html[data-theme=light] .ghost .gd.ahead{color:#12965C}
-html[data-theme=light] .ghost .gd.behind{color:#B7791F}
-html[data-theme=light] .lroom{background:#EEF4FE;border-color:#B9CDF1;color:#0F1B33}
-html[data-theme=light] .lroom b{color:#1D5FD1}
-html[data-theme=light] .lcover{background:rgba(255,255,255,.94);color:#0F1B33}
+html[data-theme=light] .qmap-legend span::before{border-color:#A6ADB8}
+html[data-theme=light] .qmap-legend .l-ans::before{background:#E4E9F1;border-color:#AFBFD6}
+html[data-theme=light] .qmap-legend .l-cur::before{border-color:#3D63A3}
+html[data-theme=light] .q-flagnote{color:#9A7330}
+html[data-theme=light] body .opt .k{color:#6E7480}
+html[data-theme=light] body .opt.selected .k{color:#3D63A3}
+html[data-theme=light] .resume{background:#E8ECF2;border-color:#C3CEDF;color:#2B2F36}
+html[data-theme=light] .resume b{color:#3D63A3}
+html[data-theme=light] .resume button{background:#FBFAF7;border-color:#D3D0C8;color:#4E545E}
+html[data-theme=light] .rv-filter button{background:#FBFAF7;border-color:#D3D0C8;color:#4E545E}
+html[data-theme=light] .rv-filter button.on{background:#E4E9F1;border-color:#3D63A3;color:#3D63A3}
+html[data-theme=light] .rv-more{color:#3D63A3}
+html[data-theme=light] .ghost{color:#6E7480}
+html[data-theme=light] .ghost .gl b{color:#2B2F36}
+html[data-theme=light] .ghost .gt{background:#E3E0D9}
+html[data-theme=light] .ghost .gt .g{background:#A6ADB8}
+html[data-theme=light] .ghost .gt .y{background:#3D63A3}
+html[data-theme=light] .ghost .gd.ahead{color:#2F8A63}
+html[data-theme=light] .ghost .gd.behind{color:#9A7330}
+html[data-theme=light] .lroom{background:#E8ECF2;border-color:#C3CEDF;color:#2B2F36}
+html[data-theme=light] .lroom b{color:#3D63A3}
+html[data-theme=light] .lcover{background:rgba(244,242,237,.94);color:#2B2F36}
 
 /* ---------- account button, sign-in window, error report (prepline-supabase.js) ---------- */
 html[data-theme=light] .pl-auth button,html[data-theme=light] .pl-auth a,html[data-theme=light] .pl-pill{
-  background:#FFFFFF;color:#0F1B33;border-color:#D5DEEB}
-html[data-theme=light] .pl-pill:hover{background:#F2F6FD;border-color:#1D5FD1}
-html[data-theme=light] .pl-modal-bg,html[data-theme=light] .pl-rep-bg{background:rgba(15,27,51,.45)}
-html[data-theme=light] .pl-modal,html[data-theme=light] .pl-rep-box{background:#FFFFFF;color:#0F1B33;border-color:#DCE3EE}
+  background:#FBFAF7;color:#2B2F36;border-color:#D9D6CF}
+html[data-theme=light] .pl-pill:hover{background:#ECEEF1;border-color:#3D63A3}
+html[data-theme=light] .pl-modal-bg,html[data-theme=light] .pl-rep-bg{background:rgba(43,47,54,.45)}
+html[data-theme=light] .pl-modal,html[data-theme=light] .pl-rep-box{background:#FBFAF7;color:#2B2F36;border-color:#E1DED7}
 html[data-theme=light] .pl-modal input,html[data-theme=light] .pl-rep-box textarea,html[data-theme=light] .pl-rep-box select,
-html[data-theme=light] .pl-rep-box input{background:#FFFFFF;color:#0F1B33;border-color:#CBD5E4}
+html[data-theme=light] .pl-rep-box input{background:#FBFAF7;color:#2B2F36;border-color:#D3D0C8}
 
 /* ---------- dashboard and other pages: surfaces drawn with white-on-dark transparency ---------- */
-html[data-theme=light] .today{background:linear-gradient(135deg,#EAF1FD,#F7FAFF)!important;border-color:#C9D8F2!important}
+html[data-theme=light] .today{background:linear-gradient(135deg,#E4E9F1,#F1F0EB)!important;border-color:#C3CEDF!important}
 html[data-theme=light] .countdown input,html[data-theme=light] input[type=date],html[data-theme=light] input[type=text],
 html[data-theme=light] input[type=email],html[data-theme=light] input[type=search],html[data-theme=light] textarea,html[data-theme=light] select{
-  background:#FFFFFF;color:#0F1B33;border-color:#CBD5E4}
-html[data-theme=light] .countdown button{background:#1D5FD1}
-html[data-theme=light] .wbar,html[data-theme=light] .nu-bar{background:#E6ECF5}
-html[data-theme=light] .mq-opt{background:#FFFFFF}
-html[data-theme=light] .mq-opt:hover{border-color:#1D5FD1}
-html[data-theme=light] .seg{background:#EEF3FA}
-html[data-theme=light] .seg button{color:#3C4A63}
+  background:#FBFAF7;color:#2B2F36;border-color:#D3D0C8}
+html[data-theme=light] .countdown button{background:#3D63A3}
+html[data-theme=light] .wbar,html[data-theme=light] .nu-bar{background:#E3E0D9}
+html[data-theme=light] .mq-opt{background:#FBFAF7}
+html[data-theme=light] .mq-opt:hover{border-color:#3D63A3}
+html[data-theme=light] .seg{background:#ECEEF1}
+html[data-theme=light] .seg button{color:#4E545E}
 
+
+/* eye comfort in the dark theme: white question scans are dimmed so they don't glare against the dark page */
+html[data-theme=dark] body .question-img,html[data-theme=dark] body .pl-scroll .pl-img,html[data-theme=dark] .q-img,
+html[data-theme=dark] .rv-img,html[data-theme=dark] .pl-zoom-in img,html[data-theme=dark] .pl-lb img,
+html[data-theme=dark] .mq-img{filter:brightness(.86) contrast(.96)}

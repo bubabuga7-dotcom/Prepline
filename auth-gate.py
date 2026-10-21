@@ -79,16 +79,16 @@ GATE = r"""
 <!-- ===== Prepline: sign-in gate ===== -->
 <style id="prepline-gate-css">
   #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
-           background:rgba(6,10,20,.78);backdrop-filter:blur(4px);padding:20px}
+           background:rgba(12,14,17,.78);backdrop-filter:blur(4px);padding:20px}
   #pl-gate.on{display:flex}
-  #pl-gate .box{max-width:420px;width:100%;background:#111A2E;border:1px solid rgba(255,255,255,.14);
-                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#E6ECF7}
+  #pl-gate .box{max-width:420px;width:100%;background:#1D2127;border:1px solid rgba(255,255,255,.14);
+                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#DADDE2}
   #pl-gate h3{font-family:Sora,Inter,sans-serif;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
-  #pl-gate p{font-size:14px;line-height:1.55;color:#B4C0D6;margin:0 0 18px}
+  #pl-gate p{font-size:14px;line-height:1.55;color:#A6ADB8;margin:0 0 18px}
   #pl-gate .row{display:flex;gap:10px;flex-wrap:wrap}
   #pl-gate button{font:600 14px Inter,sans-serif;padding:11px 22px;border-radius:5px;cursor:pointer;border:0}
-  #pl-gate .go{background:#C9A227;color:#10192C}
-  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#E6ECF7}
+  #pl-gate .go{background:#C9AA6A;color:#1A1D21}
+  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#DADDE2}
 </style>
 <div id="pl-gate">
   <div class="box">

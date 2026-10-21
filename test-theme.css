@@ -1,24 +1,24 @@
 /* Prepline test pages: navy + gold theme. Loaded last in <head>, overrides the old space theme.
    "html body" prefixes give these rules priority over the inline <style> blocks further down the page. */
 :root{
-  --bg:#0B1120; --card:#111A2E; --text:#D5DDEC; --text-bright:#E6ECF7;
-  --blue:#84AEEC; --violet:#84AEEC; --pink:#C9A227; --gold:#C9A227; --gold-2:#E0BC45;
-  --grad:linear-gradient(90deg,#C9A227,#C9A227);
+  --bg:#15181D; --card:#1D2127; --text:#C8CDD4; --text-bright:#DADDE2;
+  --blue:#8EADD2; --violet:#8EADD2; --pink:#C9AA6A; --gold:#C9AA6A; --gold-2:#D5B97E;
+  --grad:linear-gradient(90deg,#C9AA6A,#C9AA6A);
   --glass-line:rgba(255,255,255,.12);
-  --ok:#4ADE9A; --ok-bg:rgba(74,222,154,.12); --danger:#F87171; --danger-bg:rgba(248,113,113,.12);
+  --ok:#7DC3A0; --ok-bg:rgba(125,195,160,.12); --danger:#DE8B8B; --danger-bg:rgba(222,139,139,.12);
 }
-html body{background:#0B1120;color:var(--text);
-  background-image:radial-gradient(900px 360px at 50% -140px,rgba(20,59,107,.5),transparent 70%);background-attachment:fixed}
+html body{background:#15181D;color:var(--text);
+  background-image:radial-gradient(900px 360px at 50% -140px,rgba(40,48,60,.5),transparent 70%);background-attachment:fixed}
 html body .page-photo{display:none}
 html body .wrap{max-width:720px}
 
 /* top area */
-html body a.back{opacity:1;color:#8492AC;font-size:13.5px}
+html body a.back{opacity:1;color:#858C97;font-size:13.5px}
 html body a.back:hover{color:var(--gold)}
 html body h2{font-size:21px;line-height:1.3}
-html body .topbar{opacity:1;color:#8492AC}
-html body .timer{background:#111A2E;border-color:rgba(255,255,255,.14);border-radius:6px;color:var(--gold);font-weight:600}
-html body .timer.low{color:#FCA5A5;border-color:rgba(248,113,113,.6)}
+html body .topbar{opacity:1;color:#858C97}
+html body .timer{background:#1D2127;border-color:rgba(255,255,255,.14);border-radius:6px;color:var(--gold);font-weight:600}
+html body .timer.low{color:#E3A1A1;border-color:rgba(222,139,139,.6)}
 html body .progress{height:4px;border-radius:99px}
 html body .progress-fill{background:var(--gold);border-radius:99px}
 
@@ -27,35 +27,36 @@ html body .question{color:var(--text-bright);font-weight:400;font-size:16.5px;li
 html body .question b,html body .question strong{font-weight:650}
 @media (max-width:480px){html body .question{font-size:16px;line-height:1.65}}
 html body .question-img,html body .pl-scroll .pl-img{border-radius:6px;border:1px solid rgba(255,255,255,.14)}
-html body .opt,html body .pl-scroll .pl-opt{background:#111A2E;backdrop-filter:none;-webkit-backdrop-filter:none;
+html body .opt,html body .pl-scroll .pl-opt{background:#1D2127;backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid rgba(255,255,255,.12);border-radius:6px;color:var(--text);transform:none}
-html body .opt:hover,html body .pl-scroll .pl-opt:hover{border-color:#84AEEC;background:#15213A;transform:none}
+html body .opt:hover,html body .pl-scroll .pl-opt:hover{border-color:#8EADD2;background:#252A31;transform:none}
 html body .opt.selected,html body .pl-scroll .pl-opt.sel{border:1px solid var(--gold);box-shadow:inset 3px 0 0 var(--gold);
-  background:#16243F;color:var(--text-bright)}
+  background:#282E37;color:var(--text-bright)}
 
 /* buttons */
 html body button.nav-btn{background:transparent;border:1px solid rgba(255,255,255,.16);border-radius:6px;
   backdrop-filter:none;-webkit-backdrop-filter:none}
-html body button.nav-btn:hover:not(:disabled){border-color:#84AEEC;color:#84AEEC}
-html body button.submit-btn,html body .restart-btn,html body .pl-bar .pl-submit{background:var(--gold);color:#0E1A2E;
+html body button.nav-btn:hover:not(:disabled){border-color:#8EADD2;color:#8EADD2}
+html body button.submit-btn,html body .restart-btn,html body .pl-bar .pl-submit{background:var(--gold);color:#1A1D21;
   border-radius:6px;box-shadow:none;font-weight:700}
 html body button.submit-btn:hover,html body .restart-btn:hover,html body .pl-bar .pl-submit:hover{background:var(--gold-2);box-shadow:none}
 
 /* one-at-a-time / scroll switch */
-html body .pl-mode{border-radius:7px;background:#111A2E}
+html body .pl-mode{border-radius:7px;background:#1D2127}
 html body .pl-mode button{border-radius:5px}
-html body .pl-mode button.on{background:rgba(201,162,39,.16);color:var(--gold)}
+html body .pl-mode button.on{background:rgba(201,170,106,.16);color:var(--gold)}
 html body .pl-scroll .pl-num{color:var(--gold);opacity:.9;font-family:'IBM Plex Mono',monospace;font-weight:600}
-html body .pl-bar{background:rgba(11,17,32,.94)}
+html body .pl-bar{background:rgba(21,24,29,.94)}
 
 /* results */
-html body .stat-card,html body .review-item{background:#111A2E;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:8px}
+html body .stat-card,html body .review-item{background:#1D2127;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:8px}
 html body .stat-num{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--gold);font-weight:600}
-html body .stat-label{color:#8492AC;opacity:1}
+html body .stat-label{color:#858C97;opacity:1}
 
 /* report button, sign-in modal, toasts (from prepline-supabase.js) */
-html body .pl-pill:hover{border-color:rgba(201,162,39,.6);background:rgba(201,162,39,.12)}
-html body .pl-rep-box .send{background:var(--gold);color:#0E1A2E}
+html body .pl-pill:hover{border-color:rgba(201,170,106,.6);background:rgba(201,170,106,.12)}
+html body .pl-rep-box .send{background:var(--gold);color:#1A1D21}
 
 /* wide data tables in questions scroll sideways instead of widening the page */
 .q-table{display:block;max-width:100%;overflow-x:auto}
+

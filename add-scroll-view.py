@@ -49,7 +49,7 @@ BLOCK = r"""
   }
   .pl-mode button:hover { opacity: 1; }
   .pl-mode button.on {
-    opacity: 1; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); color: #fff;
+    opacity: 1; background: linear-gradient(90deg,#8EADD2,#8EADD2,#C9AA6A); color: #fff;
   }
   .pl-scroll .pl-q {
     border-bottom: 1px solid rgba(255,255,255,0.09);
@@ -73,20 +73,20 @@ BLOCK = r"""
     border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px;
     transition: border-color .15s, background .15s;
   }
-  .pl-scroll .pl-opt:hover { border-color: rgba(167,139,250,0.55); }
+  .pl-scroll .pl-opt:hover { border-color: rgba(142,173,210,0.55); }
   .pl-scroll .pl-opt.sel {
-    background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.85);
+    background: rgba(142,173,210,0.18); border-color: rgba(142,173,210,0.85);
   }
   .pl-bar {
     position: sticky; bottom: 0; display: flex; gap: 14px; align-items: center;
     justify-content: space-between; margin-top: 8px; padding: 12px 4px;
-    background: rgba(10,14,30,0.9); backdrop-filter: blur(10px);
+    background: rgba(21,24,29,0.9); backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255,255,255,0.12);
   }
   .pl-bar .pl-count { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .75; }
   .pl-bar .pl-submit {
     font: 600 14px 'Inter', system-ui, sans-serif; color: #fff; cursor: pointer; border: 0;
-    background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6);
+    background: linear-gradient(90deg,#8EADD2,#8EADD2,#C9AA6A);
     padding: 11px 26px; border-radius: 999px;
   }
   .pl-noselect, .pl-noselect * {

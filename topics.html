@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/topics.html">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0B1120">
+<meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -35,13 +35,13 @@
   .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 12px}
   .seg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;gap:2px}
   .seg button{background:none;border:0;color:var(--ink-2);font:600 13px Inter,sans-serif;padding:6px 14px;border-radius:99px;cursor:pointer}
-  .seg button.on{background:var(--gold);color:#0E1A2E}
+  .seg button.on{background:var(--gold);color:#1A1D21}
   .seg button:disabled{opacity:.4;cursor:default}
   .group{margin:18px 0 6px;font:600 11.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
   .topics{display:flex;flex-direction:column;gap:6px}
   .t{display:grid;grid-template-columns:1fr 150px auto;gap:16px;align-items:center;background:var(--panel);border:1px solid var(--line);
      border-radius:var(--r);padding:12px 16px}
-  .t:hover{border-color:rgba(132,174,236,.45)}
+  .t:hover{border-color:rgba(142,173,210,.45)}
   .t .nm{font-weight:600;font-size:15px;line-height:1.3}
   .t .nm small{display:block;font:500 12px 'IBM Plex Mono',monospace;color:var(--ink-3);margin-top:3px;font-weight:500}
   .acc{font-size:12px;color:var(--ink-3)}
@@ -61,13 +61,13 @@
   .opt:hover:not(:disabled){border-color:var(--blue)}
   .opt b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink-3);min-width:16px;padding-top:2px}
   .opt:disabled{cursor:default}
-  .opt.c{border-color:var(--ok);background:rgba(74,222,154,.08)}
-  .opt.u{border-color:var(--bad);background:rgba(248,113,113,.08)}
+  .opt.c{border-color:var(--ok);background:rgba(125,195,160,.08)}
+  .opt.u{border-color:var(--bad);background:rgba(222,139,139,.08)}
   .opts.row{flex-direction:row;flex-wrap:wrap}
   .opts.row .opt{flex:1;min-width:56px;justify-content:center}
   .res{margin-top:16px;padding:12px 16px;border-radius:7px;font-size:14.5px;display:none}
-  .res.ok{display:block;background:rgba(74,222,154,.08);border:1px solid rgba(74,222,154,.35)}
-  .res.no{display:block;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35)}
+  .res.ok{display:block;background:rgba(125,195,160,.08);border:1px solid rgba(125,195,160,.35)}
+  .res.no{display:block;background:rgba(222,139,139,.08);border:1px solid rgba(222,139,139,.35)}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
   .big{font:600 44px 'IBM Plex Mono',monospace;color:var(--gold);line-height:1.1;margin:8px 0 4px}
   .miss{margin-top:14px;display:flex;flex-direction:column;gap:6px}
@@ -75,7 +75,7 @@
   .miss a:hover{color:var(--blue)}
   .note{margin-top:10px;font-size:13px;color:var(--warn)}
   .streak-note{display:inline-block;margin:4px 0 8px;padding:5px 12px;border-radius:99px;font-size:13.5px;color:var(--ink-2);
-               background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.4)} .streak-note b{color:var(--gold)}
+               background:rgba(201,170,106,.12);border:1px solid rgba(201,170,106,.4)} .streak-note b{color:var(--gold)}
   @media (max-width:640px){
     .head h1{font-size:26px}
     .t{grid-template-columns:1fr auto;gap:10px}
@@ -163,7 +163,7 @@
   }
   function cmpSpec(a, b) { var x = specKey(a), y = specKey(b); return x[0] - y[0] || x[1] - y[1]; }
   function accOf(code) { var s = stats[code]; return s && s.total ? Math.round(s.correct / s.total * 100) : null; }
-  function colour(p) { return p < 50 ? '#F87171' : p < 70 ? '#F5C451' : p < 85 ? '#84AEEC' : '#4ADE9A'; }
+  function colour(p) { return p < 50 ? '#DE8B8B' : p < 70 ? '#D6B672' : p < 85 ? '#8EADD2' : '#7DC3A0'; }
   function testName(id) {
     var t = (window.PREPLINE_TESTS || []).find(function (x) { return x.id === id; });
     if (!t) return id;

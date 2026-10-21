@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0B1120">
+<meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -16,17 +16,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A0E1E;
-    --text: #C9D2F0;
-    --text-bright: #F2F5FF;
-    --blue: #60A5FA;
-    --violet: #A78BFA;
-    --pink: #F472B6;
-    --grad: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
-    --grad-135: linear-gradient(135deg, #60A5FA 0%, #A78BFA 55%, #F472B6 100%);
+    --bg: #15181D;
+    --text: #C8CDD4;
+    --text-bright: #DADDE2;
+    --blue: #8EADD2;
+    --violet: #8EADD2;
+    --pink: #C9AA6A;
+    --grad: linear-gradient(90deg, #8EADD2 0%, #8EADD2 50%, #C9AA6A 100%);
+    --grad-135: linear-gradient(135deg, #8EADD2 0%, #8EADD2 55%, #C9AA6A 100%);
     --glass: rgba(255,255,255,0.05);
     --glass-line: rgba(255,255,255,0.12);
-    --shadow-glow: 0 12px 40px -10px rgba(167,139,250,0.45);
+    --shadow-glow: 0 12px 40px -10px rgba(142,173,210,0.45);
     --dock-w: 84px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,7 +46,7 @@
   }
   .page-photo::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10,14,30,0.72) 0%, rgba(10,14,30,0.82) 100%);
+    background: linear-gradient(180deg, rgba(21,24,29,0.72) 0%, rgba(21,24,29,0.82) 100%);
   }
 
   /* ---------- left taskbar (dock) ---------- */
@@ -80,7 +80,7 @@
   }
   .dock-item.active {
     color: #fff; background: var(--grad-135);
-    box-shadow: 0 8px 24px -8px rgba(244,114,182,0.5);
+    box-shadow: 0 8px 24px -8px rgba(201,170,106,0.5);
   }
   .dock-tip {
     position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%) translateX(-6px);
@@ -116,8 +116,8 @@
   .mock-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-glow);
-    border-color: rgba(167,139,250,0.5);
-    background: rgba(167,139,250,0.1);
+    border-color: rgba(142,173,210,0.5);
+    background: rgba(142,173,210,0.1);
   }
   .mock-card h3 { font-size: 19px; margin-bottom: 6px; }
   .mock-meta { font-size: 13px; opacity: 0.8; }
@@ -136,8 +136,8 @@
   .mock-progress {
     display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600;
     font-family: 'IBM Plex Mono', monospace;
-    background: rgba(52,211,153,0.14); color: #A7F3D0;
-    border: 1px solid rgba(52,211,153,0.4);
+    background: rgba(125,195,160,0.14); color: #A9D6BE;
+    border: 1px solid rgba(125,195,160,0.4);
     padding: 3px 10px; border-radius: 999px;
   }
   .empty-note {
@@ -569,9 +569,9 @@
       const span = document.createElement('span');
       span.className = 'mock-progress cloud';
       span.style.marginLeft = '8px';
-      span.style.background = 'rgba(96,165,250,0.14)';
+      span.style.background = 'rgba(142,173,210,0.14)';
       span.style.color = '#BFDBFE';
-      span.style.borderColor = 'rgba(96,165,250,0.4)';
+      span.style.borderColor = 'rgba(142,173,210,0.4)';
       span.textContent = '\u2601 Best: ' + a.best + '/' + a.total + ' \u00B7 attempts: ' + a.count;
       card.querySelector('div').appendChild(span);
     });

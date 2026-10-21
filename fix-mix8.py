@@ -44,7 +44,7 @@ BLOCK = r"""
   }
   .pl-mode button:hover { opacity: 1; }
   .pl-mode button.on {
-    opacity: 1; background: linear-gradient(90deg,#60A5FA,#A78BFA,#F472B6); color: #fff;
+    opacity: 1; background: linear-gradient(90deg,#8EADD2,#8EADD2,#C9AA6A); color: #fff;
   }
   .pl-nav {
     display: flex; gap: 12px; align-items: center; justify-content: center;

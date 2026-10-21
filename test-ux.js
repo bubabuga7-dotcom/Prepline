@@ -19,40 +19,40 @@
   /* ---------- styles ---------- */
   var css = document.createElement('style');
   css.textContent = [
-    '.qmap{background:#111A2E;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px 12px;margin:0 0 18px}',
-    '.qmap-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:#8492AC}',
-    '.qmap-head b{color:#E6ECF7;font-weight:600}',
+    '.qmap{background:#1D2127;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px 12px;margin:0 0 18px}',
+    '.qmap-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:#858C97}',
+    '.qmap-head b{color:#DADDE2;font-weight:600}',
     '.qmap-toggle{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0;display:flex;gap:6px;align-items:center}',
     '.qmap-toggle i{font-style:normal;transition:transform .15s;display:inline-block}',
     '.qmap.closed .qmap-toggle i{transform:rotate(-90deg)}',
     '.qmap-keys{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:11px;opacity:.75}',
-    '.qmap-flag{margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.16);color:#B4C0D6;border-radius:5px;',
+    '.qmap-flag{margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.16);color:#A6ADB8;border-radius:5px;',
     '  font:600 12px Inter,sans-serif;padding:5px 10px;cursor:pointer}',
     '.qmap-keys+.qmap-flag{margin-left:0}',
-    '.qmap-flag:hover{border-color:#C9A227;color:#C9A227}',
-    '.qmap-flag.on{background:rgba(201,162,39,.16);border-color:#C9A227;color:#C9A227}',
+    '.qmap-flag:hover{border-color:#C9AA6A;color:#C9AA6A}',
+    '.qmap-flag.on{background:rgba(201,170,106,.16);border-color:#C9AA6A;color:#C9AA6A}',
     '.qmap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(32px,1fr));gap:5px;margin-top:10px}',
     '.qmap.closed .qmap-grid{display:none}',
     '.qm{position:relative;height:30px;border-radius:5px;border:1px solid rgba(255,255,255,.12);background:transparent;',
-    '  color:#8492AC;font:600 12px "IBM Plex Mono",monospace;cursor:pointer;padding:0}',
-    '.qm:hover{border-color:#84AEEC;color:#E6ECF7}',
-    '.qm.ans{background:#1B3358;border-color:#2A4A78;color:#E6ECF7}',
-    '.qm.cur{border-color:#C9A227;color:#C9A227;box-shadow:0 0 0 1px #C9A227 inset}',
-    '.qm.flag::after{content:"";position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:#C9A227}',
+    '  color:#858C97;font:600 12px "IBM Plex Mono",monospace;cursor:pointer;padding:0}',
+    '.qm:hover{border-color:#8EADD2;color:#DADDE2}',
+    '.qm.ans{background:#2C3A4C;border-color:#3A4A5E;color:#DADDE2}',
+    '.qm.cur{border-color:#C9AA6A;color:#C9AA6A;box-shadow:0 0 0 1px #C9AA6A inset}',
+    '.qm.flag::after{content:"";position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:#C9AA6A}',
     '.qm.nokey{opacity:.45}',
-    '.qmap-legend{display:flex;gap:14px;font-size:11px;color:#8492AC;margin-top:9px;flex-wrap:wrap}',
+    '.qmap-legend{display:flex;gap:14px;font-size:11px;color:#858C97;margin-top:9px;flex-wrap:wrap}',
     '.qmap-legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px;border:1px solid rgba(255,255,255,.2)}',
-    '.qmap-legend .l-ans::before{background:#1B3358;border-color:#2A4A78}',
-    '.qmap-legend .l-flag::before{background:#C9A227;border-radius:50%;border:0}',
-    '.qmap-legend .l-cur::before{border-color:#C9A227}',
+    '.qmap-legend .l-ans::before{background:#2C3A4C;border-color:#3A4A5E}',
+    '.qmap-legend .l-flag::before{background:#C9AA6A;border-radius:50%;border:0}',
+    '.qmap-legend .l-cur::before{border-color:#C9AA6A}',
     /* compact answer row for picture questions */
     'html body .options.compact,html body .pl-opts.compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(52px,1fr));gap:8px}',
     'html body .options.compact .opt,html body .pl-opts.compact .pl-opt{text-align:center;padding:12px 0;font:700 16px "IBM Plex Mono",monospace;letter-spacing:.02em}',
     'html body .options.compact .opt .k{display:none}',
     /* key hint letters on text options */
-    'html body .opt .k{display:inline-block;width:22px;font:600 12px "IBM Plex Mono",monospace;color:#8492AC}',
-    'html body .opt.selected .k{color:#C9A227}',
-    '.q-flagnote{display:inline-block;margin-left:8px;color:#C9A227;font-size:12px;font-weight:600}',
+    'html body .opt .k{display:inline-block;width:22px;font:600 12px "IBM Plex Mono",monospace;color:#858C97}',
+    'html body .opt.selected .k{color:#C9AA6A}',
+    '.q-flagnote{display:inline-block;margin-left:8px;color:#C9AA6A;font-size:12px;font-weight:600}',
     /* phones: the first question should be on the first screen */
     '@media (max-width:780px){html body .wrap{padding-top:14px}html body .wrap>a.back{font-size:13px}' +
       'html body .wrap>h2{font-size:17px;line-height:1.3;margin:6px 52px 10px 0}' +
@@ -237,11 +237,11 @@
     var supa = window.preplineSupa;
     var back = function () { location.replace('live.html?room=' + ROOM_CODE); };
     if (!supa) return;
-    css.textContent += '\n.lroom{display:flex;gap:12px;align-items:center;justify-content:space-between;background:rgba(201,162,39,.1);' +
-      'border:1px solid rgba(201,162,39,.45);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#E6ECF7}' +
-      '\n.lroom b{font-family:"IBM Plex Mono",monospace;color:#C9A227;letter-spacing:.12em}' +
-      '\n.lcover{position:fixed;inset:0;z-index:8000;background:rgba(11,17,32,.92);display:flex;align-items:center;justify-content:center;' +
-      'font:600 16px Inter,sans-serif;color:#E6ECF7}' +
+    css.textContent += '\n.lroom{display:flex;gap:12px;align-items:center;justify-content:space-between;background:rgba(201,170,106,.1);' +
+      'border:1px solid rgba(201,170,106,.45);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#DADDE2}' +
+      '\n.lroom b{font-family:"IBM Plex Mono",monospace;color:#C9AA6A;letter-spacing:.12em}' +
+      '\n.lcover{position:fixed;inset:0;z-index:8000;background:rgba(21,24,29,.92);display:flex;align-items:center;justify-content:center;' +
+      'font:600 16px Inter,sans-serif;color:#DADDE2}' +
       '\nhtml body #restart{display:none}';
     var cover = document.createElement('div');
     cover.className = 'lcover'; cover.textContent = 'Connecting to room ' + ROOM_CODE + '…';
@@ -318,7 +318,7 @@
   // duel: both scores, refreshed every 2 seconds
   function duelScores(el) {
     css.textContent += '\n.lroom .dscore{font:600 13px "IBM Plex Mono",monospace;white-space:nowrap}' +
-      '\n.lroom .dscore .me{color:#C9A227}.lroom .dscore .lead{color:#4ADE9A}';
+      '\n.lroom .dscore .me{color:#C9AA6A}.lroom .dscore .lead{color:#7DC3A0}';
     function pull() {
       if (state.finished) return;
       window.preplineSupa.from('room_players').select('user_id,name,correct_live,answered,finished').eq('room_id', live.room.id)
@@ -401,15 +401,15 @@
     ghost = hist.length ? hist[hist.length - 1] : null;  // the most recent finished attempt
   } catch (e) {}
   css.textContent += [
-    '.ghost{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:12.5px;color:#8492AC}',
+    '.ghost{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:12.5px;color:#858C97}',
     '.ghost .gl{white-space:nowrap}',
-    '.ghost .gl b{color:#E6ECF7;font-family:"IBM Plex Mono",monospace}',
+    '.ghost .gl b{color:#DADDE2;font-family:"IBM Plex Mono",monospace}',
     '.ghost .gt{flex:1;position:relative;height:6px;border-radius:99px;background:rgba(255,255,255,.07);min-width:60px}',
     '.ghost .gt i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}',
     '.ghost .gt .g{background:rgba(180,192,214,.35)}',
-    '.ghost .gt .y{background:#C9A227;height:3px;top:1.5px}',
+    '.ghost .gt .y{background:#C9AA6A;height:3px;top:1.5px}',
     '.ghost .gd{font:600 12px "IBM Plex Mono",monospace;white-space:nowrap}',
-    '.ghost .gd.ahead{color:#4ADE9A} .ghost .gd.behind{color:#F5C451}',
+    '.ghost .gd.ahead{color:#7DC3A0} .ghost .gd.behind{color:#D6B672}',
     '@media (max-width:640px){.ghost{flex-wrap:wrap;gap:6px 10px}.ghost .gt{order:3;flex-basis:100%}}'
   ].join('\n');
   function ghostAt(sec) {                            // how many the ghost had answered by this second
@@ -463,16 +463,16 @@
       'body.exam-day #timer{visibility:hidden}',
       'body.exam-day [class*="pl-rep"],body.exam-day .pl-report{display:none!important}',
       'body.exam-day .opt .k{display:none}',
-      '.exam-tag{display:inline-block;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.12em;color:#C9A227;border:1px solid rgba(201,162,39,.45);border-radius:4px;padding:2px 8px;margin-bottom:10px}',
-      '.exam-alert{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);z-index:7000;background:#C9A227;color:#0E1A2E;',
+      '.exam-tag{display:inline-block;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.12em;color:#C9AA6A;border:1px solid rgba(201,170,106,.45);border-radius:4px;padding:2px 8px;margin-bottom:10px}',
+      '.exam-alert{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);z-index:7000;background:#C9AA6A;color:#1A1D21;',
       '  font:700 15px Inter,sans-serif;padding:12px 22px;border-radius:6px;transition:transform .3s;box-shadow:0 8px 30px rgba(0,0,0,.6)}',
       '.exam-alert.on{transform:translate(-50%,0)}',
       '.exam-intro{position:fixed;inset:0;z-index:8500;background:#000;display:flex;align-items:center;justify-content:center;padding:20px}',
-      '.exam-intro .box{max-width:460px;color:#E6ECF7;font:15px/1.6 Inter,sans-serif}',
+      '.exam-intro .box{max-width:460px;color:#DADDE2;font:15px/1.6 Inter,sans-serif}',
       '.exam-intro h3{font:700 24px Sora,Inter,sans-serif;margin:10px 0 14px}',
-      '.exam-intro ul{margin:0 0 22px 18px;color:#B4C0D6} .exam-intro li{margin:6px 0}',
-      '.exam-intro button{background:#C9A227;color:#0E1A2E;border:0;font:700 15px Inter,sans-serif;padding:13px 26px;border-radius:6px;cursor:pointer}',
-      '.exam-intro a{color:#8492AC;font-size:13px;margin-left:16px}'
+      '.exam-intro ul{margin:0 0 22px 18px;color:#A6ADB8} .exam-intro li{margin:6px 0}',
+      '.exam-intro button{background:#C9AA6A;color:#1A1D21;border:0;font:700 15px Inter,sans-serif;padding:13px 26px;border-radius:6px;cursor:pointer}',
+      '.exam-intro a{color:#858C97;font-size:13px;margin-left:16px}'
     ].join('\n');
     examBox = document.createElement('div'); examBox.className = 'exam-alert'; document.body.appendChild(examBox);
     var tag = document.createElement('div'); tag.className = 'exam-tag'; tag.textContent = 'EXAM DAY MODE';
@@ -525,9 +525,9 @@
         var cb = document.createElement('div'); cb.className = 'lroom';
         cb.innerHTML = '<span><b>' + cw + ' of ' + cp + '</b> students in live rooms got this one wrong. 3 minutes. Can you?</span>';
         map.parentNode.insertBefore(cb, map.previousElementSibling || map);
-        css.textContent += '\n.lroom{display:flex;gap:12px;align-items:center;justify-content:space-between;background:rgba(201,162,39,.1);' +
-          'border:1px solid rgba(201,162,39,.45);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#E6ECF7}' +
-          '\n.lroom b{font-family:"IBM Plex Mono",monospace;color:#C9A227}';
+        css.textContent += '\n.lroom{display:flex;gap:12px;align-items:center;justify-content:space-between;background:rgba(201,170,106,.1);' +
+          'border:1px solid rgba(201,170,106,.45);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#DADDE2}' +
+          '\n.lroom b{font-family:"IBM Plex Mono",monospace;color:#C9AA6A}';
       }
       map.style.display = 'none';
       render();
@@ -538,10 +538,10 @@
   if (!ROOM_CODE && !EXAM && !partial && window.preplineSupa) {
     window.preplineSupa.rpc('mock_difficulty', { p_mock: page }).then(function (res) {
       if (res.error || !res.data || !res.data.length) return;
-      css.textContent += '\n.qm.d-hard{box-shadow:inset 0 -3px 0 #F87171}.qm.d-med{box-shadow:inset 0 -3px 0 #F5C451}' +
-        '\n.qm.cur.d-hard{box-shadow:0 0 0 1px #C9A227 inset,inset 0 -3px 0 #F87171}.qm.cur.d-med{box-shadow:0 0 0 1px #C9A227 inset,inset 0 -3px 0 #F5C451}' +
-        '\n.qmap-diff{font-size:12px;color:#8492AC;margin-top:9px}.qmap-diff b{color:#F87171;font-family:"IBM Plex Mono",monospace}' +
-        '\n.qmap-legend .l-hard::before{background:#F87171;border:0;height:3px;vertical-align:2px}';
+      css.textContent += '\n.qm.d-hard{box-shadow:inset 0 -3px 0 #DE8B8B}.qm.d-med{box-shadow:inset 0 -3px 0 #D6B672}' +
+        '\n.qm.cur.d-hard{box-shadow:0 0 0 1px #C9AA6A inset,inset 0 -3px 0 #DE8B8B}.qm.cur.d-med{box-shadow:0 0 0 1px #C9AA6A inset,inset 0 -3px 0 #D6B672}' +
+        '\n.qmap-diff{font-size:12px;color:#858C97;margin-top:9px}.qmap-diff b{color:#DE8B8B;font-family:"IBM Plex Mono",monospace}' +
+        '\n.qmap-legend .l-hard::before{background:#DE8B8B;border:0;height:3px;vertical-align:2px}';
       var maxN = 0, hard = [];
       var byId = {}; questions.forEach(function (q, i) { byId[q.id] = i; });
       res.data.forEach(function (d) {
@@ -570,22 +570,22 @@
       if (lockEl) return;
       lockTimer = setInterval(function () { state.timeLeft = T0; }, 200);
       css.textContent += '\n.pl-lock{position:fixed;inset:0;z-index:7500;display:flex;align-items:center;justify-content:center;padding:20px;' +
-        'background:rgba(11,17,32,.82);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}' +
-        '\n.pl-lock .box{max-width:440px;width:100%;background:#111A2E;border:1px solid rgba(201,162,39,.45);border-radius:12px;padding:26px 24px;' +
-        'color:#D5DDEC;font:15px/1.55 Inter,system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.5)}' +
-        '\n.pl-lock .tag{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.14em;color:#C9A227}' +
-        '\n.pl-lock h3{font:700 22px Sora,Inter,sans-serif;color:#E6ECF7;margin:8px 0 10px}' +
-        '\n.pl-lock ul{margin:0 0 18px 18px;color:#B4C0D6}.pl-lock li{margin:4px 0}' +
+        'background:rgba(21,24,29,.82);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}' +
+        '\n.pl-lock .box{max-width:440px;width:100%;background:#1D2127;border:1px solid rgba(201,170,106,.45);border-radius:12px;padding:26px 24px;' +
+        'color:#C8CDD4;font:15px/1.55 Inter,system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.5)}' +
+        '\n.pl-lock .tag{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.14em;color:#C9AA6A}' +
+        '\n.pl-lock h3{font:700 22px Sora,Inter,sans-serif;color:#DADDE2;margin:8px 0 10px}' +
+        '\n.pl-lock ul{margin:0 0 18px 18px;color:#A6ADB8}.pl-lock li{margin:4px 0}' +
         '\n.pl-lock .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}' +
-        '\n.pl-lock a.go{background:#C9A227;color:#0E1A2E;font-weight:700;padding:11px 18px;border-radius:6px;text-decoration:none}' +
-        '\n.pl-lock a.alt,.pl-lock button.alt{background:none;border:1px solid rgba(255,255,255,.2);color:#D5DDEC;font:600 14px Inter,sans-serif;' +
+        '\n.pl-lock a.go{background:#C9AA6A;color:#1A1D21;font-weight:700;padding:11px 18px;border-radius:6px;text-decoration:none}' +
+        '\n.pl-lock a.alt,.pl-lock button.alt{background:none;border:1px solid rgba(255,255,255,.2);color:#C8CDD4;font:600 14px Inter,sans-serif;' +
         'padding:10px 14px;border-radius:6px;text-decoration:none;cursor:pointer}' +
         '\n.pl-modal-bg{z-index:8000!important}' +
         '\nhtml[data-theme=light] .pl-lock{background:rgba(255,255,255,.8)}' +
-        '\nhtml[data-theme=light] .pl-lock .box{background:#fff;border-color:#B9CDF1;color:#26324A;box-shadow:0 20px 60px rgba(15,27,51,.15)}' +
-        '\nhtml[data-theme=light] .pl-lock h3{color:#0F1B33}html[data-theme=light] .pl-lock ul{color:#3C4A63}' +
-        '\nhtml[data-theme=light] .pl-lock .tag{color:#1D5FD1}html[data-theme=light] .pl-lock a.go{background:#1D5FD1;color:#fff}' +
-        '\nhtml[data-theme=light] .pl-lock a.alt,html[data-theme=light] .pl-lock button.alt{border-color:#CBD5E4;color:#0F1B33}';
+        '\nhtml[data-theme=light] .pl-lock .box{background:#FBFAF7;border-color:#C3CEDF;color:#3A3F48;box-shadow:0 20px 60px rgba(15,27,51,.15)}' +
+        '\nhtml[data-theme=light] .pl-lock h3{color:#2B2F36}html[data-theme=light] .pl-lock ul{color:#4E545E}' +
+        '\nhtml[data-theme=light] .pl-lock .tag{color:#3D63A3}html[data-theme=light] .pl-lock a.go{background:#3D63A3;color:#fff}' +
+        '\nhtml[data-theme=light] .pl-lock a.alt,html[data-theme=light] .pl-lock button.alt{border-color:#D3D0C8;color:#2B2F36}';
       var hub = page.indexOf('crit-') === 0 ? 'crit.html' : 'math.html';
       lockEl = document.createElement('div'); lockEl.className = 'pl-lock';
       var P = window.PREPLINE_PREMIUM, used = window.preplineFreeUsed ? window.preplineFreeUsed().length : P.weeklyTests;
@@ -646,11 +646,11 @@
       state.timeLeft = dr.t;
       (dr.f || []).forEach(function (id) { flags[id] = 1; }); saveFlags();
       lastSig = null; render();
-      css.textContent += '\n.resume{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;background:rgba(132,174,236,.08);' +
-        'border:1px solid rgba(132,174,236,.35);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#E6ECF7}' +
-        '\n.resume b{font-family:"IBM Plex Mono",monospace;color:#84AEEC}' +
-        '\n.resume button{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.18);color:#B4C0D6;border-radius:5px;' +
-        'font:600 12px Inter,sans-serif;padding:5px 10px;cursor:pointer}.resume button:hover{border-color:#F87171;color:#F87171}';
+      css.textContent += '\n.resume{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;background:rgba(142,173,210,.08);' +
+        'border:1px solid rgba(142,173,210,.35);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#DADDE2}' +
+        '\n.resume b{font-family:"IBM Plex Mono",monospace;color:#8EADD2}' +
+        '\n.resume button{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.18);color:#A6ADB8;border-radius:5px;' +
+        'font:600 12px Inter,sans-serif;padding:5px 10px;cursor:pointer}.resume button:hover{border-color:#DE8B8B;color:#DE8B8B}';
       var note = document.createElement('div'); note.className = 'resume';
       note.innerHTML = '<span>↺ Picked up where you left off: <b>' + drN + '/' + questions.length + '</b> answered, <b>' +
         mmss(dr.t) + '</b> left. The clock was paused.</span><button type="button">Start over</button>';
@@ -667,25 +667,25 @@
 
   /* ---------- results: show only mistakes, long passages folded ---------- */
   css.textContent += '\n.rv-filter{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}' +
-    '\n.rv-filter button{background:#111A2E;border:1px solid rgba(255,255,255,.14);color:#B4C0D6;font:600 13px Inter,sans-serif;' +
-    'padding:7px 12px;border-radius:6px;cursor:pointer}.rv-filter button.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:#C9A227}' +
+    '\n.rv-filter button{background:#1D2127;border:1px solid rgba(255,255,255,.14);color:#A6ADB8;font:600 13px Inter,sans-serif;' +
+    'padding:7px 12px;border-radius:6px;cursor:pointer}.rv-filter button.on{background:rgba(201,170,106,.14);border-color:rgba(201,170,106,.5);color:#C9AA6A}' +
     '\n.rv-q{display:block;max-height:4.65em;overflow:hidden;cursor:pointer;line-height:1.55;' +
     '-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}' +
     '\n.rv-q.open{max-height:none;cursor:auto;-webkit-mask-image:none;mask-image:none}' +
-    '\n.rv-more{font-size:12px;color:#84AEEC;cursor:pointer;margin-top:4px;align-self:flex-start;background:none;border:0;padding:0;font-weight:600}';
+    '\n.rv-more{font-size:12px;color:#8EADD2;cursor:pointer;margin-top:4px;align-self:flex-start;background:none;border:0;padding:0;font-weight:600}';
   /* ---------- results: weak spots by topic ---------- */
   var TNAMES = { MC:'Main conclusion', CON:'Drawing conclusions', ASM:'Assumptions', FLAW:'Flaws in reasoning',
     WKN:'Weakening arguments', STR:'Strengthening arguments', EF:'External factors', PRIN:'Applying principles',
     PAR:'Parallel reasoning', PS:'Problem solving',
     M1:'Units', M2:'Number', M3:'Ratio and proportion', M4:'Algebra', M5:'Geometry and measures' };
   css.textContent += '\n.ws{border:1px solid var(--glass-line,rgba(255,255,255,.14));border-radius:10px;padding:14px 16px;margin:0 0 18px;background:var(--card,rgba(17,26,46,.6))}' +
-    '\n.ws h3{margin:0 0 4px;font:700 16px Inter,sans-serif;color:var(--text-bright,#F2F5FF)}' +
+    '\n.ws h3{margin:0 0 4px;font:700 16px Inter,sans-serif;color:var(--text-bright,#DADDE2)}' +
     '\n.ws p{margin:0 0 12px;font-size:13px;opacity:.75}' +
     '\n.ws-row{display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:4px 10px;align-items:center;margin:0 0 10px;font-size:14px}' +
     '\n.ws-row b{font:600 13px "IBM Plex Mono",monospace;text-align:right}' +
     '\n.ws-bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--glass-line,rgba(255,255,255,.12));overflow:hidden}' +
     '\n.ws-bar i{display:block;height:100%;border-radius:3px}' +
-    '\n.ws-go{display:inline-block;margin-top:2px;font:600 13px Inter,sans-serif;color:var(--blue,#84AEEC);text-decoration:none}' +
+    '\n.ws-go{display:inline-block;margin-top:2px;font:600 13px Inter,sans-serif;color:var(--blue,#8EADD2);text-decoration:none}' +
     '\n.ws-go:hover{text-decoration:underline}';
   function weakSpots() {
     if (app.querySelector('.ws')) return;
@@ -705,7 +705,7 @@
     list.forEach(function (b) { b.p = Math.round(100 * b.ok / b.n); });
     list.sort(function (a, b) { return a.p - b.p || b.n - a.n; });
     var weak = list.filter(function (b) { return b.p < 100; });
-    function col(p) { return p < 50 ? 'var(--danger,#F87171)' : p < 75 ? '#E0A82E' : 'var(--ok,#4ADE9A)'; }
+    function col(p) { return p < 50 ? 'var(--danger,#DE8B8B)' : p < 75 ? '#E0A82E' : 'var(--ok,#7DC3A0)'; }
     var box = document.createElement('div'); box.className = 'ws';
     var h = '<h3>Your weak spots in this test</h3>';
     if (!weak.length) h += '<p>No mistakes in any topic. Try a harder test.</p>';
@@ -790,7 +790,7 @@
     if (!text || !h || document.querySelector('.pl-credit')) return;
     var d = document.createElement('div');
     d.className = 'pl-credit';
-    d.style.cssText = 'margin:-12px 0 16px;font:12.5px/1.5 Inter,system-ui,sans-serif;color:var(--text,#8492AC);opacity:.75';
+    d.style.cssText = 'margin:-12px 0 16px;font:12.5px/1.5 Inter,system-ui,sans-serif;color:var(--text,#858C97);opacity:.75';
     d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' · <a href="copyright.html" style="color:inherit">Rights holders</a>';
     if (window.innerWidth <= 780) { d.style.margin = '22px 0 0'; h.parentNode.appendChild(d); }
     else h.parentNode.insertBefore(d, h.nextSibling);

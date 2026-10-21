@@ -51,20 +51,20 @@
     '@media (max-width:780px){' +
       '.dock{display:none!important}body{padding-bottom:0!important}main{margin-left:0!important;padding-top:0!important}' +
       '.pl-top{display:flex;position:sticky;top:0;z-index:90;height:64px;align-items:center;gap:10px;padding:0 112px 0 14px;' +
-        'background:var(--bg,#0B1120);border-bottom:1px solid var(--line,rgba(255,255,255,.12))}' +
+        'background:var(--bg,#15181D);border-bottom:1px solid var(--line,rgba(255,255,255,.12))}' +
       '.pl-menu{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border-radius:12px;' +
-        'background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.45);color:var(--gold,#C9A227);font:700 15px Inter,system-ui,sans-serif;text-decoration:none}' +
+        'background:rgba(201,170,106,.14);border:1px solid rgba(201,170,106,.45);color:var(--gold,#C9AA6A);font:700 15px Inter,system-ui,sans-serif;text-decoration:none}' +
       '.pl-menu svg{width:20px;height:20px}' +
-      '.pl-brand{font:700 19px Sora,sans-serif;color:var(--ink,#E6ECF7);text-decoration:none;letter-spacing:-.02em}' +
-      '.pl-brand i{font-style:normal;color:var(--gold,#C9A227)}' +
+      '.pl-brand{font:700 19px Sora,sans-serif;color:var(--ink,#DADDE2);text-decoration:none;letter-spacing:-.02em}' +
+      '.pl-brand i{font-style:normal;color:var(--gold,#C9AA6A)}' +
       /* less reading on hubs */
       'body[data-kind] .hub-head>div:first-child>p,body[data-kind] .hub-head>div:first-child>.kicker,' +
       'body[data-kind] .stats,body[data-kind] .progress,.foot-note{display:none!important}' +
       '#tagline,.panel.about,.wrap>.head>.kicker,.wrap>.head>p{display:none!important}' +
     '}' +
-    'html[data-theme=light] .pl-top{background:#fff;border-color:#DCE3EE}' +
-    'html[data-theme=light] .pl-menu{background:#E3ECFB;border-color:#B9CDF1;color:#1D5FD1}' +
-    'html[data-theme=light] .pl-brand i{color:#1D5FD1}';
+    'html[data-theme=light] .pl-top{background:#FBFAF7;border-color:#E1DED7}' +
+    'html[data-theme=light] .pl-menu{background:#E4E9F1;border-color:#C3CEDF;color:#3D63A3}' +
+    'html[data-theme=light] .pl-brand i{color:#3D63A3}';
   document.head.appendChild(dst);
   var bar = document.createElement('div'); bar.className = 'pl-top';
   bar.innerHTML = page === 'index.html'

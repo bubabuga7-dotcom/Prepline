@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/live.html">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0B1120">
+<meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -43,13 +43,13 @@
   .seg{display:flex;gap:6px;margin-bottom:4px}
   .seg button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;
       padding:9px;border-radius:6px;cursor:pointer}
-  .seg button.on{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.5);color:var(--gold)}
+  .seg button.on{background:rgba(201,170,106,.14);border-color:rgba(201,170,106,.5);color:var(--gold)}
   .actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
   .err{color:var(--bad);font-size:13px;min-height:18px;margin-top:10px}
   .muted{color:var(--ink-3);font-size:13px}
 
   .room-top{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;margin-bottom:16px}
-  .codebox{background:var(--bg-3);border:1px solid rgba(201,162,39,.45);border-radius:8px;padding:12px 20px;text-align:center}
+  .codebox{background:var(--bg-3);border:1px solid rgba(201,170,106,.45);border-radius:8px;padding:12px 20px;text-align:center}
   .codebox small{display:block;font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--ink-3)}
   .codebox b{font:600 34px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--gold)}
   .room-info h2{font-size:20px}
@@ -72,7 +72,7 @@
   .lb{width:100%;border-collapse:collapse}
   .lb th{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
   .lb td{padding:12px 10px;border-bottom:1px solid var(--line-2);font-size:15px}
-  .lb tr.me td{background:rgba(201,162,39,.08)}
+  .lb tr.me td{background:rgba(201,170,106,.08)}
   .lb .rk{font:600 15px 'IBM Plex Mono',monospace;color:var(--ink-3);width:44px}
   .lb tr:nth-child(1) .rk{color:var(--gold)}
   .lb .sc{font:600 20px 'IBM Plex Mono',monospace;text-align:right}
@@ -83,7 +83,7 @@
   .qc b{display:block;font:600 12px 'IBM Plex Mono',monospace;color:var(--ink-2)}
   .qc span{font:600 11px 'IBM Plex Mono',monospace}
   .qc.easy span{color:var(--ok)} .qc.medium span{color:var(--warn)} .qc.hard span{color:var(--bad)}
-  .qc.hard{border-color:rgba(248,113,113,.4)}
+  .qc.hard{border-color:rgba(222,139,139,.4)}
   .how{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.55}
   @media (max-width:780px){
     .two{grid-template-columns:1fr}
@@ -94,8 +94,8 @@
   }
   #rv-filter button{flex:none;white-space:nowrap;padding:7px 14px}
   .duel-card{margin-top:16px;display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:center;
-             border-color:rgba(201,162,39,.4);background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(255,255,255,.03))}
-  .winner{background:linear-gradient(135deg,rgba(201,162,39,.2),rgba(201,162,39,.05));border:1px solid rgba(201,162,39,.5);
+             border-color:rgba(201,170,106,.4);background:linear-gradient(135deg,rgba(201,170,106,.08),rgba(255,255,255,.03))}
+  .winner{background:linear-gradient(135deg,rgba(201,170,106,.2),rgba(201,170,106,.05));border:1px solid rgba(201,170,106,.5);
           border-radius:8px;padding:14px 18px;margin-bottom:14px;font:700 18px Sora,Inter,sans-serif;color:var(--ink)}
   .winner small{display:block;font:500 13px Inter,sans-serif;color:var(--ink-2);margin-top:2px}
   @media (max-width:780px){.duel-card{grid-template-columns:1fr}}
@@ -104,15 +104,15 @@
   .rv-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:13px}
   .rv-head b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink)}
   .rv-tag{font:600 11px 'IBM Plex Mono',monospace;padding:2px 8px;border-radius:99px;border:1px solid}
-  .rv-tag.ok{color:var(--ok);border-color:rgba(74,222,154,.4)} .rv-tag.no{color:var(--bad);border-color:rgba(248,113,113,.4)}
+  .rv-tag.ok{color:var(--ok);border-color:rgba(125,195,160,.4)} .rv-tag.no{color:var(--bad);border-color:rgba(222,139,139,.4)}
   .rv-tag.skip{color:var(--ink-3);border-color:var(--line)}
   .rv-meta{color:var(--ink-3);font-size:12px;margin-left:auto}
   .rv-img{max-width:100%;background:#fff;border-radius:6px;padding:4px;display:block;margin-bottom:10px}
   .rv-text{font-size:14.5px;color:var(--ink);margin-bottom:10px;line-height:1.55}
   .rv-opts{display:flex;flex-wrap:wrap;gap:6px}
   .rv-opt{border:1px solid var(--line);border-radius:6px;padding:7px 12px;font-size:13.5px;color:var(--ink-2)}
-  .rv-opt.c{border-color:var(--ok);color:var(--ok);background:rgba(74,222,154,.08)}
-  .rv-opt.u{border-color:var(--bad);color:var(--bad);background:rgba(248,113,113,.08)}
+  .rv-opt.c{border-color:var(--ok);color:var(--ok);background:rgba(125,195,160,.08)}
+  .rv-opt.u{border-color:var(--bad);color:var(--bad);background:rgba(222,139,139,.08)}
   .rv-opt i{font-style:normal;font:600 11px 'IBM Plex Mono',monospace;margin-left:6px;opacity:.85}
 </style>
 <script src="theme.js"></script>
