@@ -16,3 +16,4 @@ crit-37 q30: key E (22) unclear from scrap '8011'; verify
 crit-42 q18: key B(80) doubtful — 10+15+15=40s gives 90 (C); verify
 crit-50 q22: key B (£1) doesn't match — period-only requirement gives £5 (E), illustrated gives £2; verify
 crit-52 q6: key C (€140) not reproduced (best found €145 Palace Thu–Sun 50%); verify
+mix-23 q16: f(t) unclear in scan (t^2 + 3/2 t gives D, key E); q21: operation garbled, III also possible; verify
