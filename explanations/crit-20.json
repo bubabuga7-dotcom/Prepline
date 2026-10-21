@@ -27,6 +27,6 @@
 "26": "The table mixes hospital types within each organisation and doesn't give cases by type. None of A–D can be reliably concluded — E.",
 "27": "The first Thursday bus leaves the airport at 09:15 and arrives at 10:05. To arrive before 17:00 she must leave the centre by 16:10, so she takes the 15:20 (arriving 16:10). From 10:05 to 15:20 is 5 h 15 min — B.",
 "28": "The weather matches what melting ice would cause, but other causes aren't ruled out. All we can say is it could have been the cause — D.",
-"29": "Fold the net: the circle is opposite the triangle face, the cross opposite the vertical bar, and the black dot opposite the horizontal bar. Check each cube for opposite faces shown together and for the direction of the bars. Only D is consistent.",
+"29": "Fold the net with the triangle at the front: the horizontal bar and the vertical bar are opposite, the triangle is opposite the circle, and the cross is opposite the black dot. Rule out cubes that show an opposite pair together or a bar facing the wrong way. Only D is consistent.",
 "30": "The argument says the sprays damage children's health. If the dose is too low to have any effect, they can't be damaging health — C."
 }
