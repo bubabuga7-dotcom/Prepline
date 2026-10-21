@@ -1,0 +1,2 @@
+mix-14 q13: correct value 169/85 not among options; mix-14 q20: statement ambiguous, options don't fit
+mix-20 q17, q19, q22: answer options missing (A–E placeholders)
