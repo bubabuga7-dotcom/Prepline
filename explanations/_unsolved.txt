@@ -11,3 +11,4 @@ crit-13 q28 sandwiches puzzle: not explained
 crit-15 q15 text garbled; q16 quiz, q18 tiles, q19 folding, q25 replicator: not explained
 crit-16 q12 net, q14 paths, q17 (no valid option), q22 trapezium, q27 table garbled: unkeyed
 crit-18 q24: options missing in image (domestic passenger correction; answer ≈217m)
+crit-28 q15: key B (2 only) looks doubtful — statement 2 strengthens; 1 arguably weakens; verify
