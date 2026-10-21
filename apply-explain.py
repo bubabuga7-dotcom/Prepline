@@ -7,7 +7,10 @@ tot = 0
 import os
 FIX = json.load(open('explanations/_keyfix.json')) if os.path.exists('explanations/_keyfix.json') else {}
 import html as H
+from mathfmt import fmt
 def render(o, letter):
+    if isinstance(o, dict):
+        o = {k: ([fmt(x) for x in v] if isinstance(v, list) else fmt(v)) for k, v in o.items()}
     """o = {"i": idea, "s": [steps], "n": why-not (str or [str]), "t": trap/tip} -> html (Russian explanation)"""
     if isinstance(o, str): return o
     p = ['<div class="ex">']
