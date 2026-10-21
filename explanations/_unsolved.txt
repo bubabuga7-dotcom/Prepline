@@ -5,3 +5,4 @@ crit-7 q7 robot path, q27 block puzzle: not verified
 crit-7 q14: none of the options gives exactly 15 min late
 crit-7 q30: drawings missing from the image
 crit-8 q11: box table garbled
+crit-9 q30, crit-10 q30: options missing in image
