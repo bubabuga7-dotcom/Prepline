@@ -785,7 +785,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 79,
 "group": "Mock collection",
-"q": 30,
+"q": 27,
 "min": 30,
 "src": "Trial SET #6 · full key",
 "tap": 100
