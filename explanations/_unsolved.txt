@@ -45,3 +45,4 @@ mix-53 q25: image cropped, options missing (height = 2√14)
 mix-54 q1: line through (2,1),(0,3) is y=-x+3, not among options; key B kept
 mix-56 q7: rhombus sides equal (~9.01); key A=10 is the shorter diagonal
 mix-56 q27: expression missing from image
+mix-58 q17: L-prism TSA is 110 (not among options); key D kept
