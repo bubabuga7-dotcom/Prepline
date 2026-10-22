@@ -9,7 +9,7 @@ crit-9 q30, crit-10 q30: options missing in image
 crit-11 q14 rings, q30 tiles (options missing); crit-12 q20 golf logic: not explained yet
 crit-13 q28 sandwiches puzzle: not explained
 crit-15 q15 text garbled; q16 quiz, q18 tiles, q19 folding, q25 replicator: not explained
-crit-16 q12 net, q14 paths, q17 (no valid option), q22 trapezium, q27 table garbled: unkeyed
+crit-16 q12 net: unkeyed
 crit-18 q24: options missing in image (domestic passenger correction; answer ≈217m)
 crit-28 q15: key B (2 only) looks doubtful — statement 2 strengthens; 1 arguably weakens; verify
 crit-37 q30: key E (22) unclear from scrap '8011'; verify
