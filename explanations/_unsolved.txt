@@ -40,3 +40,4 @@ crit-9 q30: image has no answer options
 crit-10 q30: image has table only, no question/options
 crit-11 q30: image has no tiles/options
 crit-67 q21 sensors: exact optimum is 18 (not among options); key A=20 kept as smallest feasible option
+mix-52 q15: text says 4 Δ 1 (=1/17, not an option); key C=17/4 corresponds to 4 ■ 1
