@@ -84,6 +84,8 @@
 </style>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="light.css">
+<script>if(/[?&]quick=/.test(location.search))document.documentElement.classList.add('pl-quick')</script>
+<style>.pl-quick #v-list,.pl-quick .head{display:none!important}</style>
 </head>
 <body>
 <aside class="dock" id="dock"></aside>
@@ -411,10 +413,15 @@
     var t = new URLSearchParams(location.search).get('t');
     if (t && INDEX[t]) kind = isCT(t) ? 'ct' : 'math';
     [].forEach.call($('kind').children, function (x) { x.classList.toggle('on', x.dataset.k === kind); });
-    drawList();
-    await loadStats();
     var qk = new URLSearchParams(location.search).get('quick');
-    if (qk) startQuick(qk); else if (t && INDEX[t]) start(t); else drawList();
+    if (qk) {                                            // Quick 10: go straight to the questions, no topic list flash
+      startQuick(qk); document.documentElement.classList.remove('pl-quick');
+      loadStats();
+    } else {
+      drawList();
+      await loadStats();
+      if (t && INDEX[t]) start(t); else drawList();
+    }
     supa && supa.auth.onAuthStateChange(function (ev) {
       if (ev !== 'SIGNED_IN' && ev !== 'SIGNED_OUT') return;
       loadStats().then(function () { if ($('v-list').classList.contains('on')) drawList(); });
