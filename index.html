@@ -252,6 +252,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + it[3] + '</svg>' +
       '<span><b>' + (short[it[1]] || it[1]) + '</b><em>' + (sub[h] || '') + '</em></span></a>';
   }).join('');
+  window.PL_NAV_ADMIN_TILE && window.PL_NAV_ADMIN_TILE();
 
   var best = null, any = false;
   T.forEach(function (t) {

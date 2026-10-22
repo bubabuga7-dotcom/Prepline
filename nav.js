@@ -81,8 +81,19 @@
     a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + I.admin + '</svg>' +
       '<span class="dock-tip">Admin</span><span class="dock-label">Admin</span>';
     sp.parentNode.insertBefore(a, sp);
+    addTile();
   }
-  function removeAdmin() { var a = el.querySelector('.dock-admin'); if (a) a.remove(); }
+  // phone: the dock is hidden, so admins get an "Admin" tile in the home-page menu grid
+  function addTile() {
+    var g = document.getElementById('m-grid');
+    if (!g || !g.children.length || g.querySelector('.m-admin')) return;
+    var t = document.createElement('a'); t.className = 'm-tile m-admin'; t.href = 'admin.html';
+    t.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + I.admin + '</svg>' +
+      '<span><b>Admin</b><em>site panel</em></span>';
+    g.appendChild(t);
+  }
+  window.PL_NAV_ADMIN_TILE = function () { try { if (localStorage.getItem('prepline:admin') === '1') addTile(); } catch (e) {} };
+  function removeAdmin() { var a = el.querySelector('.dock-admin'); if (a) a.remove(); var t = document.querySelector('#m-grid .m-admin'); if (t) t.remove(); }
   function remember(v) { try { v ? localStorage.setItem('prepline:admin', '1') : localStorage.removeItem('prepline:admin'); } catch (e) {} }
   try { if (localStorage.getItem('prepline:admin') === '1') addAdmin(); } catch (e) {}
   function check() {
