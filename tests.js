@@ -5,7 +5,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 1,
 "group": "Mixed tests",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "questions from mocks 1–7",
 "tap": 0
@@ -25,7 +25,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 3,
 "group": "Mixed tests",
-"q": 29,
+"q": 27,
 "min": 30,
 "src": "questions from mocks 1–7",
 "tap": 0
@@ -45,7 +45,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 5,
 "group": "Mixed tests",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "questions from mocks 8–12",
 "tap": 0
@@ -65,7 +65,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 7,
 "group": "Mixed tests",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "questions from mocks 8–14",
 "tap": 0
@@ -95,7 +95,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 10,
 "group": "Mixed tests",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "all answers worked and verified",
 "tap": 0
@@ -115,7 +115,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 12,
 "group": "Mixed tests",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "29 with key · 1 question without an answer, for practice",
 "tap": 0
@@ -125,7 +125,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 13,
 "group": "Mixed tests",
-"q": 30,
+"q": 24,
 "min": 30,
 "src": "28 with key · solved independently, without the original key",
 "tap": 0
@@ -145,7 +145,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 15,
 "group": "Mixed tests",
-"q": 29,
+"q": 25,
 "min": 30,
 "src": "29 with key · 1 question without an answer, for practice",
 "tap": 0
@@ -165,7 +165,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 17,
 "group": "Mixed tests",
-"q": 28,
+"q": 25,
 "min": 30,
 "src": "28 with key · 1 question without an answer, for practice",
 "tap": 0
@@ -175,7 +175,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 18,
 "group": "Mixed tests",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "all answers worked and verified",
 "tap": 0
@@ -185,7 +185,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 19,
 "group": "Mixed tests",
-"q": 29,
+"q": 26,
 "min": 30,
 "src": "29 with key · 1 question without an answer, for practice",
 "tap": 0
@@ -205,7 +205,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 21,
 "group": "Mixed tests",
-"q": 27,
+"q": 26,
 "min": 27,
 "src": "all answers verified",
 "tap": 0
@@ -215,7 +215,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 22,
 "group": "Mixed tests",
-"q": 27,
+"q": 26,
 "min": 27,
 "src": "26 with key · 1 question unanswered even in the original",
 "tap": 0
@@ -225,7 +225,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 23,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Practice Version 1.2 · 1 not scored",
 "tap": 93
@@ -235,7 +235,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 24,
 "group": "Mock collection",
-"q": 30,
+"q": 25,
 "min": 30,
 "src": "Practice Version 2.2 · full key",
 "tap": 87
@@ -245,7 +245,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 25,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Practice Version 3.2 · 1 not scored",
 "tap": 63
@@ -255,7 +255,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 26,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Practice Version 4.2 · full key",
 "tap": 77
@@ -265,7 +265,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 27,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Practice Version 5.2 · full key",
 "tap": 93
@@ -275,7 +275,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 28,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Practice Version 8.2 · full key",
 "tap": 87
@@ -285,7 +285,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 29,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Practice Version 11.3 · full key",
 "tap": 80
@@ -295,7 +295,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 30,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Practice Version 12.3 · full key",
 "tap": 97
@@ -305,7 +305,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 31,
 "group": "Mock collection",
-"q": 30,
+"q": 26,
 "min": 30,
 "src": "Practice Version 13.3 · full key",
 "tap": 87
@@ -315,7 +315,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 32,
 "group": "Mock collection",
-"q": 28,
+"q": 26,
 "min": 30,
 "src": "Practice Version 14.3 · full key",
 "tap": 90
@@ -345,7 +345,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 35,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Practice Version 17.1 · 1 not scored",
 "tap": 80
@@ -355,7 +355,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 36,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Practice Version 18.1 · full key",
 "tap": 90
@@ -365,7 +365,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 37,
 "group": "Mock collection",
-"q": 30,
+"q": 27,
 "min": 30,
 "src": "Practice Version 19.1 · full key",
 "tap": 97
@@ -375,7 +375,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 38,
 "group": "Mock collection",
-"q": 30,
+"q": 26,
 "min": 30,
 "src": "Practice Version 20.1 · full key",
 "tap": 93
@@ -385,7 +385,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 39,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Kiseki Mock 1 · full key",
 "tap": 97
@@ -405,7 +405,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 41,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Kiseki Mock 3 · full key",
 "tap": 97
@@ -415,7 +415,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 42,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Kiseki Mock 4 · full key",
 "tap": 97
@@ -445,7 +445,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 45,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Kiseki Mock 7 · full key",
 "tap": 97
@@ -455,7 +455,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 46,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Kiseki Mock 8 · full key",
 "tap": 100
@@ -465,7 +465,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 47,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Kiseki Mock 9 · full key",
 "tap": 93
@@ -485,7 +485,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 49,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "math 7 · full key",
 "tap": 90
@@ -495,7 +495,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 50,
 "group": "Mock collection",
-"q": 30,
+"q": 27,
 "min": 30,
 "src": "math 9 · full key",
 "tap": 87
@@ -505,7 +505,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 51,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "math 10 · full key",
 "tap": 80
@@ -515,7 +515,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 52,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Mock Exam 10 · full key",
 "tap": 83
@@ -565,7 +565,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 57,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Trial Test 3 · 2 not scored",
 "tap": 90
@@ -575,7 +575,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 58,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Trial Test 4 · full key",
 "tap": 97
@@ -585,7 +585,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 59,
 "group": "Mock collection",
-"q": 30,
+"q": 27,
 "min": 30,
 "src": "Trial Test 5 · full key",
 "tap": 93
@@ -595,7 +595,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 60,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Trial Test 6 · full key",
 "tap": 100
@@ -605,7 +605,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 61,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "Trial Test 7 · full key",
 "tap": 97
@@ -615,7 +615,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 62,
 "group": "Mock collection",
-"q": 30,
+"q": 27,
 "min": 30,
 "src": "Trial Test 8 · full key",
 "tap": 100
@@ -635,7 +635,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 64,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Trial Test 10 · full key",
 "tap": 93
@@ -645,7 +645,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 65,
 "group": "Mock collection",
-"q": 30,
+"q": 28,
 "min": 30,
 "src": "Trial Test 11 · 2 not scored",
 "tap": 93
@@ -665,7 +665,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 67,
 "group": "Mock collection",
-"q": 30,
+"q": 29,
 "min": 30,
 "src": "NUET practice test, version 6.2 · full key",
 "tap": 83
@@ -675,7 +675,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 68,
 "group": "Mock collection",
-"q": 29,
+"q": 16,
 "min": 30,
 "src": "Math tests #17 · full key",
 "tap": 90
@@ -685,7 +685,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 69,
 "group": "Mock collection",
-"q": 28,
+"q": 15,
 "min": 30,
 "src": "Math tests #18 · full key",
 "tap": 93
@@ -695,7 +695,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 70,
 "group": "Mock collection",
-"q": 28,
+"q": 14,
 "min": 30,
 "src": "Math tests #19 · full key",
 "tap": 90
@@ -705,7 +705,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 71,
 "group": "Mock collection",
-"q": 28,
+"q": 13,
 "min": 30,
 "src": "Math tests #20 · full key",
 "tap": 97
@@ -715,7 +715,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 72,
 "group": "Mock collection",
-"q": 27,
+"q": 14,
 "min": 30,
 "src": "Math tests #21 · full key",
 "tap": 87
@@ -725,7 +725,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 73,
 "group": "Mock collection",
-"q": 28,
+"q": 18,
 "min": 30,
 "src": "Math tests #22 · full key",
 "tap": 100
@@ -735,7 +735,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 74,
 "group": "Mock collection",
-"q": 28,
+"q": 22,
 "min": 30,
 "src": "Trial SET #1 · full key",
 "tap": 90
@@ -745,7 +745,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 75,
 "group": "Mock collection",
-"q": 24,
+"q": 20,
 "min": 30,
 "src": "Trial SET #2 · full key",
 "tap": 97
@@ -755,7 +755,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 76,
 "group": "Mock collection",
-"q": 23,
+"q": 20,
 "min": 30,
 "src": "Trial SET #3 · full key",
 "tap": 100
@@ -765,7 +765,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 77,
 "group": "Mock collection",
-"q": 25,
+"q": 23,
 "min": 30,
 "src": "Trial SET #4 · full key",
 "tap": 100
@@ -775,7 +775,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 78,
 "group": "Mock collection",
-"q": 25,
+"q": 21,
 "min": 30,
 "src": "Trial SET #5 · full key",
 "tap": 97
@@ -785,7 +785,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 79,
 "group": "Mock collection",
-"q": 27,
+"q": 25,
 "min": 30,
 "src": "Trial SET #6 · full key",
 "tap": 100
@@ -795,7 +795,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 80,
 "group": "Mock collection",
-"q": 27,
+"q": 20,
 "min": 30,
 "src": "Trial SET #7 · full key",
 "tap": 93
@@ -1595,7 +1595,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 1,
 "group": "Original mock exams",
-"q": 26,
+"q": 25,
 "min": 60,
 "src": "Mock Exam #1",
 "tap": 0
@@ -1605,7 +1605,7 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 2,
 "group": "Original mock exams",
-"q": 26,
+"q": 25,
 "min": 60,
 "src": "Mock Exam #2",
 "tap": 0
