@@ -31,7 +31,7 @@
       'background:#3D63A3;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:7px 10px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}' +
     '.pl-tap-off{display:none!important}' +
     '.pl-tap.small .pl-tap-b{pointer-events:none}.pl-tap.small+.x{}' +
-    '.pl-zoom{position:fixed;inset:0;z-index:9500;background:rgba(5,8,20,.94);display:flex;flex-direction:column}' +
+    '.pl-zoom{position:fixed;inset:0;z-index:9500;background:rgba(5,8,20,.985);display:flex;flex-direction:column}' +
     '.pl-zoom-h{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#DADDE2;font:600 15px Inter,system-ui,sans-serif}' +
     '.pl-zoom-h span{flex:1}.pl-zoom-h button{background:#1D2A44;color:#fff;border:0;border-radius:10px;font:700 15px Inter,sans-serif;padding:10px 14px}' +
     '.pl-zoom-s{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:24px 8px 40px}' +
