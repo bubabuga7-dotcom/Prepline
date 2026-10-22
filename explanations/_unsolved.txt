@@ -47,4 +47,4 @@ mix-56 q7: rhombus sides equal (~9.01); key A=10 is the shorter diagonal
 mix-56 q27: expression missing from image
 mix-58 q17: L-prism TSA is 110 (not among options); key D kept
 mix-59 q6: answer is 60 L (not among options); key B kept
-mix-61 q13: prism SA is 660 (not among options); key B kept
+mix-61 q13: prism SA is 660 (not among options); key A kept
