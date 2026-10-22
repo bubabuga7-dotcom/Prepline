@@ -48,3 +48,4 @@ mix-56 q27: expression missing from image
 mix-58 q17: L-prism TSA is 110 (not among options); key D kept
 mix-59 q6: answer is 60 L (not among options); key B kept
 mix-61 q13: prism SA is 660 (not among options); key A kept
+mix-63 q20: a² = 189 → 3√21, нет в вариантах; ключ A оставлен
