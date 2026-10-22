@@ -1,13 +1,13 @@
 /* Prepline service worker: makes the site installable and keeps visited pages available offline.
    Pages, scripts and styles: network first (always the latest version when online), cache as fallback.
    Question images: cache first (their file names never change). Supabase and CDNs are not touched. */
-var VERSION = 'prepline-v17';
+var VERSION = 'prepline-v18';
 var SHELL = 'shell-' + VERSION, IMAGES = 'images-' + VERSION;
 var MAX_IMAGES = 400;
 var PRECACHE = [
-  './', 'index.html', 'dashboard.html', 'math.html', 'crit.html', 'topics.html', 'formulas.html', 'premium.html', 'copyright.html', 'review.html',
+  './', 'index.html', 'dashboard.html', 'math.html', 'crit.html', 'topics.html', 'formulas.html', 'premium.html', 'copyright.html', 'review.html', 'saved.html',
   'prepline.css', 'test-theme.css', 'nav.js', 'tests.js', 'hub.js', 'topics-index.js', 'test-ux.js', 'theme.js', 'light.css', 'draw.js', 'tapmap.js', 'option-map.json',
-  'explain.js', 'answers.js', 'prepline-supabase.js', 'manifest.webmanifest', 'icons/icon-192.png'
+  'explain.js', 'answers.js', 'prepline-supabase.js', 'growth.js', 'gate.js', 'manifest.webmanifest', 'icons/icon-192.png'
 ];
 
 self.addEventListener('install', function (e) {
@@ -67,5 +67,23 @@ self.addEventListener('fetch', function (e) {
       if (req.mode === 'navigate') return new Response(OFFLINE, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
       return Response.error();
     });
+  }));
+});
+
+/* push reminders (sent by the push-send function) */
+self.addEventListener('push', function (e) {
+  var d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (err) { d = { title: 'Prepline', body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Prepline', {
+    body: d.body || '', tag: d.tag || 'prepline', renotify: false,
+    icon: 'icons/icon-192.png', badge: 'icons/favicon-48.png', data: { url: d.url || './dashboard.html' }
+  }));
+});
+self.addEventListener('notificationclick', function (e) {
+  e.notification.close();
+  var url = (e.notification.data && e.notification.data.url) || './dashboard.html';
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (list) {
+    for (var i = 0; i < list.length; i++) if ('focus' in list[i]) { list[i].navigate(url).catch(function () {}); return list[i].focus(); }
+    return self.clients.openWindow(url);
   }));
 });

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://bubabuga7-dotcom.github.io/Prepline/saved.html">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#15181D">
+<link rel="icon" href="icons/favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Saved questions — Prepline</title>
+<meta name="description" content="Questions you starred in tests, in one place to solve again.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prepline.css">
+<style>
+  .wrap{max-width:820px}
+  .head h1{font-size:32px;margin:8px 0 6px}
+  .head p{color:var(--ink-2);max-width:620px}
+  .view{display:none} .view.on{display:block}
+  .muted{color:var(--ink-3);font-size:13.5px}
+  .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);
+       border-radius:var(--r);overflow:hidden;margin:20px 0 16px}
+  .sum div{background:var(--bg-3);padding:14px 18px;font-size:12px;color:var(--ink-3)}
+  .sum b{display:block;font:600 24px 'IBM Plex Mono',monospace;color:var(--ink)}
+  .sum b.gold{color:var(--gold)}
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-size:13px;color:var(--ink-3)}
+  .card-top b{color:var(--ink);font-weight:600}
+  .boxes{display:inline-flex;gap:4px;vertical-align:middle;margin-left:6px}
+  .boxes i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--gold)}
+  .boxes i.on{background:var(--gold)}
+  .q-img{max-width:100%;background:#fff;border-radius:6px;padding:6px;display:block;margin:0 0 14px}
+  .q-text{font-size:16px;line-height:1.6;margin-bottom:16px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--ink);
+       border-radius:7px;padding:11px 14px;font:15px Inter,sans-serif;cursor:pointer;line-height:1.45}
+  .opt:hover:not(:disabled){border-color:var(--blue)}
+  .opt b{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink-3);min-width:16px;padding-top:2px}
+  .opt:disabled{cursor:default}
+  .opt.c{border-color:var(--ok);background:rgba(125,195,160,.08)}
+  .opt.u{border-color:var(--bad);background:rgba(222,139,139,.08)}
+  .opts.row{flex-direction:row;flex-wrap:wrap}
+  .opts.row .opt{flex:1;min-width:56px;justify-content:center}
+  .res{margin-top:16px;padding:12px 16px;border-radius:7px;font-size:14.5px;display:none}
+  .res.ok{display:block;background:rgba(125,195,160,.08);border:1px solid rgba(125,195,160,.35)}
+  .res.no{display:block;background:rgba(222,139,139,.08);border:1px solid rgba(222,139,139,.35)}
+  .res.gold{display:block;background:rgba(201,170,106,.12);border:1px solid rgba(201,170,106,.45)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .how{margin-top:16px}
+  .how ol{padding-left:20px;color:var(--ink-2);font-size:14px}
+  .how li{margin:3px 0}
+  @media (max-width:780px){.head h1{font-size:26px}.sum b{font-size:20px}}
+  .sv{margin:0 0 14px}
+  .sv-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .sv-actions a,.sv-actions button{font:600 13px Inter,sans-serif}
+  .sv-rm{background:none;border:1px solid var(--line);color:var(--ink-3);border-radius:6px;padding:7px 12px;cursor:pointer}
+  .sv-rm:hover{border-color:var(--bad);color:var(--bad)}
+  .sv-open{color:var(--blue);text-decoration:none;padding:7px 0}
+  .sv-filter{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px}
+  .sv-filter button{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;padding:7px 12px;border-radius:6px;cursor:pointer}
+  .sv-filter button.on{background:rgba(201,170,106,.14);border-color:rgba(201,170,106,.5);color:var(--gold)}
+</style>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="light.css">
+</head>
+<body>
+<aside class="dock" id="dock"></aside>
+<main><div class="wrap">
+  <div class="head">
+    <span class="kicker">Saved questions</span>
+    <h1>Questions you starred</h1>
+    <p>Tap <b>☆ Save</b> on any question in a test. It lands here so you can solve it again.</p>
+  </div>
+  <div class="sv-filter" id="filter" style="display:none"></div>
+  <div id="list"><p class="muted">Loading…</p></div>
+</div></main>
+
+<script src="nav.js"></script>
+<script src="tests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="prepline-supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var L = 'ABCDEFGH', pages = {}, filter = 'all';
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function test(id) { return (window.PREPLINE_TESTS || []).find(function (x) { return x.id === id; }); }
+  function testName(id) {
+    var t = test(id); if (!t) return id;
+    return t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Math Test ') + t.n;
+  }
+  function kind(id) { var t = test(id); return t && t.kind === 'ct' || /^crit-/.test(id) ? 'ct' : 'math'; }
+  async function questionsOf(mock) {
+    if (pages[mock]) return pages[mock];
+    var html = await (await fetch(mock + '.html')).text();
+    var m = html.match(/^const (?:questions|QUESTIONS)\s*=\s*(\[.*\]);\s*$/m);
+    var by = {}; (m ? JSON.parse(m[1]) : []).forEach(function (q) { by[q.id] = q; });
+    return (pages[mock] = by);
+  }
+  function renderMath(el) {
+    var go = function () { window.renderMathInElement && renderMathInElement(el, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }], throwOnError: false }); };
+    if (window.renderMathInElement) return go();
+    if (!/\\\(|\\\[/.test(el.textContent) || document.getElementById('katex-js')) return;
+    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css'; document.head.appendChild(l);
+    var a = document.createElement('script'); a.id = 'katex-js'; a.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+    a.onload = function () { var b = document.createElement('script'); b.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js'; b.onload = go; document.head.appendChild(b); };
+    document.head.appendChild(a);
+  }
+
+  function card(b, q) {
+    var img = q.image || q.img, letters = q.options.every(function (o, k) { return o === L[k]; });
+    var el = document.createElement('div'); el.className = 'panel sv'; el.dataset.kind = kind(b.mock_id);
+    el.innerHTML = '<div class="card-top"><span><b>' + esc(testName(b.mock_id)) + '</b>, question ' + b.q_id + '</span></div>' +
+      (img ? '<img class="q-img" loading="lazy" src="' + esc(img) + '" alt="Question">' : '') +
+      (q.text ? '<div class="q-text">' + q.text + '</div>' : '') +
+      '<div class="opts' + (letters ? ' row' : '') + '">' + q.options.map(function (o, k) {
+        return '<button type="button" class="opt" data-k="' + k + '"><b>' + L[k] + '</b><span>' + (letters ? '' : o) + '</span></button>';
+      }).join('') + '</div><div class="res"></div>' +
+      '<div class="sv-actions"><a class="sv-open" href="' + esc(b.mock_id) + '.html">Open the test →</a>' +
+      '<button type="button" class="sv-rm">Remove from saved</button></div>';
+    el.querySelector('.opts').onclick = function (e) {
+      var x = e.target.closest('.opt'); if (!x || x.disabled) return;
+      var k = +x.dataset.k, ok = k === q.correct;
+      [].forEach.call(this.children, function (o) { o.disabled = true; if (+o.dataset.k === q.correct) o.classList.add('c'); });
+      if (!ok) x.classList.add('u');
+      var res = el.querySelector('.res');
+      res.className = 'res ' + (ok ? 'ok' : 'no');
+      res.innerHTML = ok ? '<b>Correct.</b> You can remove it from saved if you are sure now.' : '<b>Not yet.</b> The answer is ' + L[q.correct] + '.';
+    };
+    el.querySelector('.sv-rm').onclick = function () {
+      window.preplineBookmarks.toggle(b.mock_id, b.q_id);
+      el.remove(); counts();
+    };
+    renderMath(el);
+    return el;
+  }
+
+  function counts() {
+    var all = $('list').querySelectorAll('.sv'), m = 0, c = 0;
+    [].forEach.call(all, function (x) { if (x.dataset.kind === 'ct') c++; else m++; });
+    if (!all.length) { $('filter').style.display = 'none'; empty(); return; }
+    $('filter').style.display = '';
+    $('filter').innerHTML = [['all', 'All ' + all.length], ['math', 'Math ' + m], ['ct', 'Critical Thinking ' + c]].map(function (f) {
+      return '<button type="button" data-f="' + f[0] + '" class="' + (f[0] === filter ? 'on' : '') + '">' + f[1] + '</button>';
+    }).join('');
+    [].forEach.call(all, function (x) { x.style.display = filter === 'all' || x.dataset.kind === filter ? '' : 'none'; });
+  }
+  $('filter').onclick = function (e) { var b = e.target.closest('button'); if (!b) return; filter = b.dataset.f; counts(); };
+  function empty() {
+    $('list').innerHTML = '<div class="panel"><h2 style="font-size:19px">Nothing saved yet</h2>' +
+      '<p class="muted" style="margin:6px 0 14px">In any test, tap <b>☆ Save</b> above the answers. Saved questions appear here.</p>' +
+      '<div class="actions"><a class="btn" href="math.html">Mathematics tests</a><a class="btn ghost" href="crit.html">Critical Thinking tests</a></div></div>';
+  }
+
+  async function draw() {
+    var list = window.preplineBookmarks.list().reverse();
+    if (!list.length) return empty();
+    $('list').innerHTML = '';
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < list.length; i++) {
+      var b = list[i], qs = {};
+      try { qs = await questionsOf(b.mock_id); } catch (e) {}
+      var q = qs[b.q_id];
+      if (q && (q.options || []).length) frag.appendChild(card(b, q));
+    }
+    $('list').appendChild(frag);
+    counts();
+  }
+
+  (function wait(n) {
+    if (window.preplineBookmarks) return window.preplineBookmarks.ready().then(draw, draw);
+    if (n > 60) { $('list').innerHTML = '<p class="muted">Could not load. Refresh the page.</p>'; return; }
+    setTimeout(function () { wait(n + 1); }, 100);
+  })(0);
+})();
+</script>
+</body>
+</html>

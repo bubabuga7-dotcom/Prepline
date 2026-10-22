@@ -532,3 +532,9 @@ window.preplinePremiumCached = function () {
   }).observe(document.body, { childList: true, subtree: true });
   decorate();
 })();
+
+/* saved questions, invite-a-friend and push reminders (growth.js) */
+(function () {
+  if (!window.preplineSupa || document.querySelector('script[src^="growth.js"]')) return;
+  var s = document.createElement('script'); s.src = 'growth.js?v=1'; document.body.appendChild(s);
+})();

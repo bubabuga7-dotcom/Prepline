@@ -1,0 +1,9 @@
+-- stage14: saved questions (bookmarks), invite-a-friend referrals, push reminders.
+-- Already applied to the Supabase project. Secrets (VAPID keys, cron secret) live in public.app_secrets, not in this file.
+-- Tables: bookmarks (RLS: own rows), ref_codes, referrals, push_subs, app_secrets (RLS on, no policies: functions only).
+-- RPC: my_referral(), claim_referral(code), save_push(...), delete_push(endpoint).
+-- Internal: reward_referral(referee) — +7 days Premium to the referrer once the friend has a row in results
+--           (called from claim_referral and from the results_reward_referral trigger);
+--           push_targets(kind) — used by the push-send edge function (service role only).
+-- Cron (pg_cron + pg_net): push-streak 14:30 UTC daily (19:30 Astana), push-challenge 04:00 UTC Mondays (09:00 Astana),
+--           both POST to /functions/v1/push-send with the x-cron-secret header.

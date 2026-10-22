@@ -212,6 +212,10 @@
     main>.grid{order:1;margin-top:14px} main>#stats{order:2;margin-top:18px} main>#nuPanel{order:3;margin-top:18px}
     main>div[style*="height:18px"]{display:none}
   }
+  .grow .g-txt{color:var(--ink-2);font-size:14px;line-height:1.55;margin:0 0 12px}
+  .g-link{display:flex;gap:8px}
+  .g-link input{flex:1;min-width:0;background:var(--bg-3,#15181D);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:0 10px;font:13px 'IBM Plex Mono',monospace}
+  #remBtn.off{background:transparent;border:1px solid var(--line);color:var(--ink-2)}
 </style>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="light.css">
@@ -300,6 +304,18 @@
         <div class="st-n"><b id="stDays">0</b><span id="stTxt">days in a row</span></div>
         <div class="st-week" id="stWeek"></div>
         <div class="st-note" id="stNote"></div>
+      </div>
+
+      <div class="panel grow" id="invite" style="display:none">
+        <div class="panel-head"><h2>Invite a friend</h2><span class="more" id="invCount"></span></div>
+        <p class="g-txt">A friend signs up with your link and finishes one test — you get <b>a week of Premium</b>. No limit on friends.</p>
+        <div class="g-link"><input id="invLink" readonly aria-label="Your invite link"><button type="button" class="btn" id="invShare">Share</button></div>
+      </div>
+
+      <div class="panel grow" id="remind" style="display:none">
+        <div class="panel-head"><h2>Reminders</h2></div>
+        <p class="g-txt" id="remTxt"></p>
+        <button type="button" class="btn" id="remBtn"></button>
       </div>
 
       <a class="panel deck" id="deck" href="review.html" style="display:none">
@@ -743,6 +759,55 @@ $('mqN').onclick = mqDraw;
 mqDraw();
 
 setTimeout(boot, 300);
+</script>
+<script>
+/* ================= invite a friend + reminders (growth.js) ================= */
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  function when(fn, n){ n = n || 0; if (window.preplineReferral && window.preplinePush) return fn(); if (n < 80) setTimeout(function(){ when(fn, n + 1); }, 100); }
+  function invite(){
+    window.preplineReferral().then(function(r){
+      if (!r) { $('invite').style.display = 'none'; return; }
+      $('invite').style.display = 'block';
+      $('invLink').value = r.link;
+      $('invCount').textContent = r.joined ? r.joined + ' joined · ' + r.rewarded + ' week' + (r.rewarded === 1 ? '' : 's') + ' earned' : '';
+      $('invShare').onclick = function(){
+        var text = 'I prepare for NUET on Prepline — free mocks with answers. Join with my link:';
+        if (navigator.share) navigator.share({ title: 'Prepline', text: text, url: r.link }).catch(function(){});
+        else { $('invLink').select(); (navigator.clipboard ? navigator.clipboard.writeText(r.link) : Promise.reject()).then(function(){ window.preplineToast && window.preplineToast('Link copied'); }, function(){ document.execCommand('copy'); }); }
+      };
+    }, function(){});
+  }
+  var T = {
+    on: ['On. We remind you in the evening if your streak is about to end, and on Mondays when a new challenge is up.', 'Turn off', true],
+    off: ['Get a reminder in the evening if your streak is about to end, and on Mondays when a new challenge is up. Two short messages at most.', 'Turn on reminders', false],
+    blocked: ['Notifications are blocked for this site. Allow them in your browser settings, then refresh the page.', '', null],
+    install: ['On iPhone, reminders work only in the app: tap Share → Add to Home Screen, then open Prepline from the home screen.', '', null],
+    unsupported: ['This browser does not support reminders. Try Chrome, or install Prepline as an app.', '', null]
+  };
+  function paint(st){
+    var t = T[st] || T.unsupported;
+    $('remind').style.display = 'block';
+    $('remTxt').textContent = t[0];
+    $('remBtn').style.display = t[1] ? '' : 'none';
+    $('remBtn').textContent = t[1];
+    $('remBtn').classList.toggle('off', t[2] === true);
+    $('remBtn').disabled = false;
+    $('remBtn').onclick = function(){
+      $('remBtn').disabled = true;
+      (st === 'on' ? window.preplinePush.disable() : window.preplinePush.enable()).then(paint, function(e){
+        var m = String(e && e.message || e);
+        paint(m === 'blocked' ? 'blocked' : st);
+        if (m !== 'dismissed' && m !== 'blocked' && window.preplineToast) window.preplineToast('Could not turn on reminders: ' + m);
+      });
+    };
+  }
+  when(function(){
+    window.preplinePush.state().then(paint);
+    invite();
+    window.preplineSupa && window.preplineSupa.auth.onAuthStateChange(function(ev){ if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') invite(); });
+  });
+})();
 </script>
 </body>
 </html>

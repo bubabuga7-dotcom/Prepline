@@ -502,40 +502,7 @@ render();
     </div>
   </div>
 </div>
-<script id="prepline-gate">
-(function () {
-  const gate = document.getElementById('pl-gate');
-  if (!gate) return;
-
-  function show(){ gate.classList.add('on'); }
-  function hide(){ gate.classList.remove('on'); }
-
-  document.getElementById('plGateGo').onclick = () => {
-    hide();
-    const pill = document.getElementById('plPill');
-    if (pill) pill.click();          // открываем штатное окно входа
-  };
-  document.getElementById('plGateBack').onclick = () => {
-    const isCT = /crit-\d/.test(location.pathname);
-    location.href = isCT ? 'crit.html' : 'math.html';
-  };
-
-  async function check(){
-    const supa = window.preplineSupa;
-    if (!supa) return;               // база не поднялась — не мешаем работать
-    try {
-      const { data: { user } } = await supa.auth.getUser();
-      if (!user) show(); else hide();
-    } catch (e) { /* молча пропускаем */ }
-  }
-
-  setTimeout(check, 500);
-  const supa = window.preplineSupa;
-  if (supa && supa.auth && supa.auth.onAuthStateChange) {
-    supa.auth.onAuthStateChange(() => check());
-  }
-})();
-</script>
+<script src="gate.js?v=1"></script>
 
 
 <style>
