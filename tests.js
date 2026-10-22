@@ -675,65 +675,35 @@ window.PREPLINE_TESTS = [
 "kind": "math",
 "n": 68,
 "group": "Mock collection",
-"q": 16,
-"min": 30,
-"src": "Math tests #17 · full key",
+"q": 31,
+"min": 31,
+"src": "Math tests #17 + #18 · full key",
 "tap": 90
-},
-{
-"id": "mix-69",
-"kind": "math",
-"n": 69,
-"group": "Mock collection",
-"q": 15,
-"min": 30,
-"src": "Math tests #18 · full key",
-"tap": 93
 },
 {
 "id": "mix-70",
 "kind": "math",
-"n": 70,
+"n": 69,
 "group": "Mock collection",
-"q": 14,
+"q": 27,
 "min": 30,
-"src": "Math tests #19 · full key",
+"src": "Math tests #19 + #20 · full key",
 "tap": 90
-},
-{
-"id": "mix-71",
-"kind": "math",
-"n": 71,
-"group": "Mock collection",
-"q": 13,
-"min": 30,
-"src": "Math tests #20 · full key",
-"tap": 97
 },
 {
 "id": "mix-72",
 "kind": "math",
-"n": 72,
+"n": 70,
 "group": "Mock collection",
-"q": 14,
-"min": 30,
-"src": "Math tests #21 · full key",
+"q": 32,
+"min": 32,
+"src": "Math tests #21 + #22 · full key",
 "tap": 87
-},
-{
-"id": "mix-73",
-"kind": "math",
-"n": 73,
-"group": "Mock collection",
-"q": 18,
-"min": 30,
-"src": "Math tests #22 · full key",
-"tap": 100
 },
 {
 "id": "mix-74",
 "kind": "math",
-"n": 74,
+"n": 71,
 "group": "Mock collection",
 "q": 22,
 "min": 30,
@@ -743,7 +713,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-75",
 "kind": "math",
-"n": 75,
+"n": 72,
 "group": "Mock collection",
 "q": 20,
 "min": 30,
@@ -753,7 +723,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-76",
 "kind": "math",
-"n": 76,
+"n": 73,
 "group": "Mock collection",
 "q": 20,
 "min": 30,
@@ -763,7 +733,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-77",
 "kind": "math",
-"n": 77,
+"n": 74,
 "group": "Mock collection",
 "q": 23,
 "min": 30,
@@ -773,7 +743,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-78",
 "kind": "math",
-"n": 78,
+"n": 75,
 "group": "Mock collection",
 "q": 21,
 "min": 30,
@@ -783,7 +753,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-79",
 "kind": "math",
-"n": 79,
+"n": 76,
 "group": "Mock collection",
 "q": 25,
 "min": 30,
@@ -793,7 +763,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-80",
 "kind": "math",
-"n": 80,
+"n": 77,
 "group": "Mock collection",
 "q": 20,
 "min": 30,
@@ -803,7 +773,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-81",
 "kind": "math",
-"n": 81,
+"n": 78,
 "group": "Prepline originals",
 "q": 30,
 "min": 30,
@@ -813,7 +783,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-82",
 "kind": "math",
-"n": 82,
+"n": 79,
 "group": "Prepline originals",
 "q": 30,
 "min": 30,
@@ -823,7 +793,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-83",
 "kind": "math",
-"n": 83,
+"n": 80,
 "group": "Prepline originals",
 "q": 30,
 "min": 30,
@@ -833,7 +803,7 @@ window.PREPLINE_TESTS = [
 {
 "id": "mix-84",
 "kind": "math",
-"n": 84,
+"n": 81,
 "group": "Prepline originals",
 "q": 30,
 "min": 30,
