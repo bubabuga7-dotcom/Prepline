@@ -95,6 +95,7 @@
 <script src="tests.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="answers.js?v=3"></script>
 <script src="explain.js?v=2"></script>
 <script>
 (function () {
@@ -195,7 +196,12 @@
         var x = (r.data || [])[0];
         if (ok && x && x.mastered) { res.className = 'res gold'; res.innerHTML = '<b>Mastered.</b> Solved three times in a row — it leaves the deck.'; }
         else if (ok) { res.className = 'res ok'; res.innerHTML = '<b>Correct.</b> Next review in ' + when(x && x.due_at) + '.'; }
-        else { res.className = 'res no'; res.innerHTML = '<b>Not yet.</b> The answer is ' + L[q.correct] + '. It comes back tomorrow — read an explanation below.'; }
+        else { res.className = 'res no'; res.innerHTML = '<b>Not yet.</b> The answer is ' + L[q.correct] + '. It comes back tomorrow — the explanation is below.'; }
+      }
+      if (window.preplineWhy && q.explain) {        // official explanation, opened right away after a mistake
+        var wb = document.createElement('div'); res.parentNode.insertBefore(wb, res.nextSibling);
+        var d = window.preplineWhy(q, wb, c.mock_id + ':' + c.q_id);
+        if (d && !ok) d.open = true;
       }
       done++;
       $('next').style.display = ''; $('next').focus();

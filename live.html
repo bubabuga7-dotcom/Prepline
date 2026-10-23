@@ -244,6 +244,7 @@
 <script src="tests.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
+<script src="answers.js?v=3"></script>
 <script src="explain.js?v=2"></script>
 <script>
 (function () {
@@ -571,6 +572,10 @@
         }).join('') + '</div></div>';
     });
     $('rv-list').innerHTML = h || '<p class="muted">No mistakes — every scored question is correct.</p>';
+    if (window.preplineWhy) [].forEach.call($('rv-list').querySelectorAll('.rv-item'), function (it) {
+      var q = rvQs.find(function (x) { return String(x.id) === it.dataset.exQ; });
+      if (q && q.explain) window.preplineWhy(q, it, 'live:' + q.id);
+    });
     $('rv-sum').textContent = wrong ? wrong + ' to review' : 'no mistakes';
     renderMath($('rv-list'));
   }
