@@ -3,7 +3,7 @@
   --bg:#15181D; --bg-2:#1D2127; --bg-3:#191C21;
   --panel:rgba(255,255,255,.045); --panel-2:rgba(255,255,255,.07);
   --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.07);
-  --ink:#DADDE2; --ink-2:#A6ADB8; --ink-3:#858C97;
+  --ink:#DADDE2; --ink-2:#B4BAC4; --ink-3:#9AA1AC;
   --blue:#8EADD2; --blue-deep:#2C3A4C; --gold:#C9AA6A; --gold-2:#D5B97E;
   --ok:#7DC3A0; --warn:#D6B672; --bad:#DE8B8B;
   --dock:84px; --r:8px;
@@ -52,7 +52,7 @@ main{margin-left:var(--dock)}
 .stat{background:var(--bg-3);padding:15px 18px}
 .stat b{display:block;font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:var(--ink);line-height:1.2}
 .stat b.gold{color:var(--gold)}
-.stat span{font-size:12px;color:var(--ink-3)}
+.stat span{font-size:13px;color:var(--ink-3)}
 
 /* ---------- mobile: menu becomes a bottom bar ---------- */
 @media (max-width:780px){

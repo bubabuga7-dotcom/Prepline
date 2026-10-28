@@ -1,7 +1,7 @@
 /* Prepline test pages: navy + gold theme. Loaded last in <head>, overrides the old space theme.
    "html body" prefixes give these rules priority over the inline <style> blocks further down the page. */
 :root{
-  --bg:#15181D; --card:#1D2127; --text:#C8CDD4; --text-bright:#DADDE2;
+  --bg:#15181D; --card:#1D2127; --text:#D2D6DC; --text-bright:#DADDE2;
   --blue:#8EADD2; --violet:#8EADD2; --pink:#C9AA6A; --gold:#C9AA6A; --gold-2:#D5B97E;
   --grad:linear-gradient(90deg,#C9AA6A,#C9AA6A);
   --glass-line:rgba(255,255,255,.12);
@@ -60,3 +60,10 @@ html body .pl-rep-box .send{background:var(--gold);color:#1A1D21}
 /* wide data tables in questions scroll sideways instead of widening the page */
 .q-table{display:block;max-width:100%;overflow-x:auto}
 
+
+/* readability: the picked answer is marked by a thick edge and a tick, not by colour alone */
+html body .opt.selected,html body .pl-scroll .pl-opt.sel{position:relative;border-width:2px;padding-right:38px}
+html body .opt.selected::after,html body .pl-scroll .pl-opt.sel::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font:700 16px Inter,sans-serif;color:var(--gold)}
+html[data-theme=light] body .opt.selected::after,html[data-theme=light] body .pl-scroll .pl-opt.sel::after{color:#3D63A3}
+html body .pl-credit,html body .qmap-legend,html body .qmap-diff{opacity:1!important}
