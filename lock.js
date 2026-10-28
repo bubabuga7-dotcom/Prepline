@@ -2,6 +2,8 @@
    Loaded first in <head>; hides the page until the signed-in email is confirmed.
    To reopen the site: remove the <script src="lock.js"> line from the pages (python lock-site.py off). */
 (function () {
+  // Temporary open window: the site is open to everyone until this moment, then the lock returns by itself.
+  if (Date.now() < Date.parse('2026-10-28T14:15:00Z')) return;   // 19:15 Astana
   var OWNER = 'bubabuga7@gmail.com';
   var URL = 'https://spwavetenjuvvohlnsvx.supabase.co';
   var KEY = 'sb_publishable_8mO7x7XYroNYlL4n_yzoRw_FIK0z5MY';
