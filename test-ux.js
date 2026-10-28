@@ -795,7 +795,7 @@
       });
     }
     if (window.PREPLINE_TOPIC_FORMULAS) return add();
-    var sc = document.createElement('script'); sc.src = 'formula-topics.js'; sc.onload = add; document.body.appendChild(sc);
+    var sc = document.createElement('script'); sc.src = 'formula-topics.js?v=3179c1ff'; sc.onload = add; document.body.appendChild(sc);
   }
   function enhanceResults() {
     var items = [].filter.call(app.querySelectorAll('.review-item'), function (it) { return it.querySelector('.mark'); });
@@ -928,31 +928,31 @@
 /* official explanations under each answer on the results screen (answers.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="answers.js"]')) return;
-  var s = document.createElement('script'); s.src = 'answers.js?v=2'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'answers.js?v=acd34c2d'; document.body.appendChild(s);
 })();
 
 /* explanations written by students on the results screen (explain.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="explain.js"]')) return;
-  var s = document.createElement('script'); s.src = 'explain.js?v=2'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'explain.js?v=bf25f4cb'; document.body.appendChild(s);
 })();
 
 /* Russian hints for tricky English words in Fast mode and on results (glossary.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="glossary.js"]')) return;
-  var s = document.createElement('script'); s.src = 'glossary.js?v=1'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'glossary.js?v=910c53b9'; document.body.appendChild(s);
 })();
 
 /* drawing, zoom and full-screen figures (draw.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="draw.js"]')) return;
-  var s = document.createElement('script'); s.src = 'draw.js?v=1'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'draw.js?v=f8a0c8c8'; document.body.appendChild(s);
 })();
 
 /* answer image questions by tapping the option on the picture (tapmap.js + option-map.json) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="tapmap.js"]')) return;
-  var s = document.createElement('script'); s.src = 'tapmap.js?v=4'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'tapmap.js?v=424c2f37'; document.body.appendChild(s);
 })();
 
 /* where this test's questions come from, under the title (catalog from tests.js) */
@@ -979,5 +979,5 @@
     else h.parentNode.insertBefore(d, h.nextSibling);
   }
   if (window.PREPLINE_TESTS) return show();
-  var s = document.createElement('script'); s.src = 'tests.js'; s.onload = show; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'tests.js?v=54964113'; s.onload = show; document.body.appendChild(s);
 })();
