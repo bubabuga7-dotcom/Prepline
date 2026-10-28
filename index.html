@@ -145,10 +145,10 @@
 <main><div class="wrap">
 
   <section class="m-home" aria-label="Menu">
-    <div class="quick" id="quick-m"></div>
-    <a class="m-cont" id="m-cont" href="#" style="display:none"><span class="t"><small>Continue</small><b id="m-cont-t"></b><span id="m-cont-s"></span></span><span class="arr">→</span></a>
+    <a class="m-cont" id="m-cont" href="#" style="display:none"><span class="t"><small id="m-cont-k">Continue</small><b id="m-cont-t"></b><span id="m-cont-s"></span></span><span class="arr">→</span></a>
+    <p class="m-new" id="m-new" style="display:none">Or start with <a href="diagnostic-crit.html">the Critical Thinking diagnostic →</a></p>
     <nav class="m-grid" id="m-grid"></nav>
-    <p class="m-new" id="m-new" style="display:none">New here? <a href="diagnostic-math.html">10-question diagnostic →</a></p>
+    <div class="quick" id="quick-m"></div>
   </section>
 
   <section class="hero">
@@ -156,7 +156,7 @@
       <span class="kicker">Free NUET preparation</span>
       <h1>Prepare for NUET<br><em>one timed test</em> at a time</h1>
       <p class="lead">Start with a 10-question diagnostic, then work through full timed tests in Mathematics and Critical Thinking. Every answer is reviewed at the end.</p>
-      <div class="row">
+      <div class="row" id="hero-row">
         <a class="btn" href="diagnostic-math.html">Mathematics diagnostic →</a>
         <a class="btn ghost" href="diagnostic-crit.html">Critical Thinking diagnostic</a>
       </div>
@@ -261,14 +261,29 @@
       if (d && d.a && Object.keys(d.a).length && d.t > 5 && Date.now() - d.at < 30 * 864e5 && (!best || d.at > best.d.at)) best = { t: t, d: d };
     } catch (e) {}
   });
+  /* one main action: continue an unfinished test, else the next untaken test, else the diagnostic */
+  var name = function (t) { return t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Test ') + t.n; };
+  var main = null;
   if (best) {
-    var t = best.t, nm = t.group === 'Original mock exams' ? t.src : (t.kind === 'ct' ? 'CT Test ' : 'Test ') + t.n;
-    document.getElementById('m-cont-t').textContent = nm;
-    document.getElementById('m-cont-s').textContent = Object.keys(best.d.a).length + ' of ' + (best.d.n || t.q) + ' answered · ' + Math.ceil(best.d.t / 60) + ' min left';
-    var c = document.getElementById('m-cont'); c.href = t.id + '.html'; c.style.display = '';
-    any = true;
+    var t = best.t;
+    main = { k: 'Continue', t: name(t), s: Object.keys(best.d.a).length + ' of ' + (best.d.n || t.q) + ' answered · ' + Math.ceil(best.d.t / 60) + ' min left', href: t.id + '.html' };
+  } else if (any) {
+    var taken = function (t) { try { return (JSON.parse(localStorage.getItem('prepline:' + t.id) || '[]')).length > 0; } catch (e) { return true; } };
+    var nx = T.filter(function (t) { return t.kind === 'math' && !taken(t); })[0] || T.filter(function (t) { return !taken(t); })[0];
+    if (nx) main = { k: 'Next test', t: name(nx) + (nx.kind === 'ct' ? ' · Critical Thinking' : ' · Mathematics'), s: nx.q + ' questions · ' + nx.min + ' min', href: nx.id + '.html' };
+  } else {
+    main = { k: 'Start here', t: '10-question diagnostic', s: 'Mathematics · 10 minutes · shows where you stand', href: 'diagnostic-math.html' };
+    document.getElementById('m-new').style.display = '';
   }
-  if (!any) document.getElementById('m-new').style.display = '';
+  if (main) {
+    document.getElementById('m-cont-k').textContent = main.k;
+    document.getElementById('m-cont-t').textContent = main.t;
+    document.getElementById('m-cont-s').textContent = main.s;
+    var c = document.getElementById('m-cont'); c.href = main.href; c.style.display = '';
+    if (any) document.getElementById('hero-row').innerHTML =
+      '<a class="btn" href="' + main.href + '">' + main.k + ': ' + main.t.split(' · ')[0] + ' →</a>' +
+      '<a class="btn ghost" href="dashboard.html">Your progress</a>';
+  }
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
