@@ -65,6 +65,9 @@
   .mini .crack.healing{stroke:var(--gold);stroke-width:4;opacity:1;filter:drop-shadow(0 0 4px rgba(201,170,106,.7))}
   .fixed-cap{font:600 13px Inter,sans-serif;color:var(--gold);margin-top:6px}
   .mini .crack.healed{opacity:0}
+  .done{background:var(--panel);border:1px solid rgba(125,195,160,.45);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:14.5px}
+  .done summary{cursor:pointer;color:var(--ink)}
+  .done[open] summary{margin-bottom:8px}
   .heal-cap{font-size:12.5px;color:var(--ink-3);margin-top:6px}
   .say .who{display:block}
   @media (max-width:640px){.twin-top{grid-template-columns:1fr;justify-items:center;text-align:center}.tstats{justify-content:center}}
@@ -142,6 +145,17 @@
   };
   $('demo').onclick = function () { round('area-k', true); };
 
+  /* a finished stage folds into one line (tap to see it again); the next stage scrolls into view */
+  function fold(box, text, note) {
+    var prev = box.previousElementSibling, d = document.createElement('details');
+    d.className = 'done';
+    d.innerHTML = '<summary>✓ ' + text + '</summary>';
+    box.parentNode.insertBefore(d, box);
+    d.appendChild(box);
+    if (note && note.textContent) d.appendChild(note);
+    if (prev && prev.classList.contains('phase')) prev.remove();
+  }
+  function into(el) { setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function back() { $('play').style.display = 'none'; $('home').style.display = ''; drawHome(); window.scrollTo(0, 0); }
   var DEMO = '<span class="demo-tag">ПРИМЕР · ПРОГРЕСС НЕ СОХРАНЯЕТСЯ</span>';
@@ -163,8 +177,10 @@
       var i = +b.dataset.i; rec.steps.push(i);
       if (i !== v.bad) { b.classList.add('no'); b.disabled = true; $('note').textContent = 'Двойник: «' + v.replies[i] + '»'; return; }
       [].forEach.call($('steps').children, function (x) { x.disabled = true; });
-      b.classList.add('bad'); $('note').textContent = 'Двойник: «Хм. А что тут не так?»';
+      b.classList.add('bad');
+      fold($('steps'), '1 · Неверный шаг ' + (v.bad + 1) + ': ' + v.steps[v.bad], $('note'));
       fixPhase();
+      into($('fix'));
     };
     function fixPhase() {
       var order = shuffle([0, 1, 2, 3]);
@@ -176,9 +192,11 @@
         if (k !== 0) { b.classList.add('u'); b.disabled = true; $('fnote').textContent = 'Двойник: «' + R.fixReplies[k] + '»'; return; }
         [].forEach.call($('fx').children, function (x) { x.disabled = true; });
         b.classList.add('c'); $('fnote').textContent = '';
+        fold($('fx'), '2 · Исправление: ' + R.fixes[0], $('fnote'));
         $('after').innerHTML = '<div class="duel" style="margin-top:14px">' + mini(id, demo ? 'confirmed' : (c.state || 'confirmed')) + '<div>' + say(v.line, true) + '</div></div>' +
           '<button class="btn" id="tocheck">Проверить на новой задаче →</button>';
         $('tocheck').onclick = function () { check(id, demo, rec); };
+        into($('after'));
       };
     }
   }
