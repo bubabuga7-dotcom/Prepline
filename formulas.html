@@ -59,7 +59,9 @@
   .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;font-size:13px;color:var(--ink-3)}
   .card-top b{color:var(--ink);font-weight:600}
   .prog{height:4px;background:var(--line-2);border-radius:2px;overflow:hidden;margin-bottom:18px}
+  .prog{display:flex}
   .prog i{display:block;height:100%;background:var(--gold);transition:width .25s}
+  .prog i.bad{background:var(--bad)}
   .gtag{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
   .q-text{font-size:18px;line-height:1.5;margin:6px 0 18px;font-weight:600}
   .q-text .fx{display:block;margin-top:12px;font-size:22px;font-weight:500}
@@ -352,7 +354,7 @@ function show() {
              : it.q ? tex(it.q) : 'Which is the formula for: ' + it.n.charAt(0).toLowerCase() + it.n.slice(1) + '?';
   $('card').innerHTML =
     '<div class="card-top"><span>Question <b>' + (run.i + 1) + '</b> of ' + n + '</span><span><b>' + run.ok + '</b> correct</span></div>' +
-    '<div class="prog"><i style="width:' + (100 * run.i / n) + '%"></i></div>' +
+    '<div class="prog" id="prog">' + bar() + '</div>' +
     '<span class="gtag">' + it.g + '</span>' +
     '<div class="q-text' + (q.prob ? ' prob' : '') + '">' + prompt + '</div>' +
     '<div class="opts' + (q.rev ? ' names' : '') + '">' + q.opts.map(function (o, k) {
@@ -364,6 +366,10 @@ function show() {
   $('card').querySelector('.opts').onclick = function (e) { var b = e.target.closest('.opt'); if (b) answer(+b.getAttribute('data-k')); };
   $('nx').onclick = next;
 }
+function bar() {                         // blue = right answers, red = wrong ones, in proportion to all questions
+  var n = run.qs.length, bad = run.miss.length;
+  return '<i style="width:' + (100 * run.ok / n) + '%"></i><i class="bad" style="width:' + (100 * bad / n) + '%"></i>';
+}
 function answer(k) {
   var q = run.qs[run.i];
   if (q.picked !== undefined) return;
@@ -373,6 +379,7 @@ function answer(k) {
   var ok = k === q.ans, it = q.it;
   if (ok) run.ok++; else run.miss.push(it);
   mark(it, ok);
+  $('prog').innerHTML = bar();
   var r = $('res');
   r.className = 'res ' + (ok ? 'ok' : 'no');
   r.innerHTML = (ok ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + (it.q ? tex(it.q) + ' ' : it.n + ': ') + tex(it.f) + (it.s ? '<br>' + it.s : '') +
