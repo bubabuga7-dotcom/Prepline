@@ -843,6 +843,12 @@
   var s = document.createElement('script'); s.src = 'explain.js?v=2'; document.body.appendChild(s);
 })();
 
+/* Russian hints for tricky English words in Fast mode and on results (glossary.js) */
+(function () {
+  if (typeof questions === 'undefined' || document.querySelector('script[src^="glossary.js"]')) return;
+  var s = document.createElement('script'); s.src = 'glossary.js?v=1'; document.body.appendChild(s);
+})();
+
 /* drawing, zoom and full-screen figures (draw.js) */
 (function () {
   if (typeof questions === 'undefined' || document.querySelector('script[src^="draw.js"]')) return;
