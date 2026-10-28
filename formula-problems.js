@@ -399,6 +399,59 @@
       s: ['n(n + 1)/2 = ' + n + ' · ' + (n + 1) + ' / 2 = ' + th(n * (n + 1) / 2) + '.'] };
   };
 
+  /* ---------------- Probability and statistics (simple, NUET level) ---------------- */
+  function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); }
+  P['Probability that A does not happen'] = function () {
+    var d = pick([5, 8, 10, 12]), n = ri(1, d - 1); if (gcd(n, d) !== 1) return null;
+    var ev = pick(['it rains tomorrow', 'a bus is late', 'Aruzhan wins the game']);
+    return { q: 'The probability that ' + ev + ' is ' + fr(n, d) + '. What is the probability that this does not happen?',
+      a: fr(d - n, d), w: [fr(n, d), '−' + fr(n, d), fr(d, n)], s: ['P(не A) = 1 − P(A) = 1 − ' + fr(n, d) + ' = ' + fr(d - n, d) + '.'] };
+  };
+  P['P(A and B) for independent events'] = function () {
+    var a = pick([[1, 2], [1, 3], [2, 3], [1, 4], [3, 4]]), b = pick([[1, 6], [1, 2], [1, 3], [2, 5]]);
+    return { q: 'A spinner lands on red with probability ' + fr(a[0], a[1]) + '. A second, separate spinner lands on blue with probability ' + fr(b[0], b[1]) +
+      '. Both are spun once. What is the probability of red and blue?',
+      a: fr(a[0] * b[0], a[1] * b[1]), w: [fr(a[0] * b[1] + b[0] * a[1], a[1] * b[1]), fr(a[0] * b[1] + b[0] * a[1], 2 * a[1] * b[1]), fr(a[1] * b[1] - a[0] * b[0], a[1] * b[1])],
+      s: ['Независимые события: перемножаем.', fr(a[0], a[1]) + ' × ' + fr(b[0], b[1]) + ' = ' + fr(a[0] * b[0], a[1] * b[1]) + '.'] };
+  };
+  P['P(A or B) for events that cannot both happen'] = function () {
+    var r = ri(2, 6), bl = ri(2, 6), g = ri(1, 5), t = r + bl + g;
+    return { q: 'A bag has ' + r + ' red, ' + bl + ' blue and ' + g + ' green counters. One counter is taken at random. What is the probability that it is red or green?',
+      a: fr(r + g, t), w: [fr(r * g, t * t), fr(r, t), fr(bl, t)],
+      s: ['Красный и зелёный одновременно выпасть не могут — складываем.', fr(r, t) + ' + ' + fr(g, t) + ' = ' + fr(r + g, t) + '.'] };
+  };
+  P['P(A or B) for any two events'] = function () {
+    var a = pick([5, 6, 7]), b = pick([3, 4, 5]), ab = pick([2, 3]); if (ab >= b || a + b - ab > 10) return null;
+    var d = function (x) { return num(x / 10); };
+    return { q: 'In a class, P(a student plays football) = ' + d(a) + ', P(a student plays chess) = ' + d(b) + ' and P(both) = ' + d(ab) +
+      '. What is the probability that a student plays football or chess?',
+      a: d(a + b - ab), w: [d(a + b), d(a + b + ab), num(a * b / 100)], s: ['P(A или B) = P(A) + P(B) − P(A и B) = ' + d(a) + ' + ' + d(b) + ' − ' + d(ab) + ' = ' + d(a + b - ab) + '.'] };
+  };
+  P['Expected number of times an outcome happens in n trials'] = function () {
+    var c = pick([[6, 1, 6, 'a fair dice is rolled', 'a six'], [2, 1, 2, 'a fair coin is tossed', 'heads'], [5, 2, 5, 'a spinner with P(red) = {2|5} is spun', 'red'], [4, 1, 4, 'a spinner with P(blue) = {1|4} is spun', 'blue']]);
+    var n = c[0] * pick([10, 12, 20, 30]), e = n * c[1] / c[2];
+    return { q: 'If ' + c[3] + ' ' + n + ' times, how many times would you expect to get ' + c[4] + '?',
+      a: mn(e), w: [mn(n - e), mn(n * c[2] / c[1]), mn(e * 2)], s: ['Ожидаемое число = n × P = ' + n + ' × ' + fr(c[1], c[2]) + ' = ' + e + '.'] };
+  };
+  P['Mean of two groups together (sizes n₁, n₂; means x̄₁, x̄₂)'] = function () {
+    var n1 = pick([10, 20]), n2 = pick([30, 40]), m1 = pick([60, 70]), m2 = m1 + pick([10, 20]);
+    var m = (n1 * m1 + n2 * m2) / (n1 + n2); if (m % 1) return null;
+    return { q: 'Group A has ' + n1 + ' students with a mean score of ' + m1 + '. Group B has ' + n2 + ' students with a mean score of ' + m2 + '. What is the mean score of all ' + (n1 + n2) + ' students?',
+      a: mn(m), w: [mn((m1 + m2) / 2), mn(m + 2), mn(m - 2)],
+      s: ['Сумма баллов: ' + n1 + '·' + m1 + ' + ' + n2 + '·' + m2 + ' = ' + th(n1 * m1 + n2 * m2) + '.', th(n1 * m1 + n2 * m2) + ' : ' + (n1 + n2) + ' = ' + m + '. Простое среднее не подходит — группы разного размера.'] };
+  };
+  P['Ways to arrange n different objects in a row'] = function () {
+    var n = ri(4, 6);
+    return { q: 'In how many different orders can ' + n + ' different books be placed on a shelf?', a: mn(fact(n)), w: [mn(n * n), mn(n * (n - 1)), mn(2 * n)],
+      s: [n + '! = ' + Array.from({ length: n }, function (_, i) { return n - i; }).join(' · ') + ' = ' + fact(n) + '.'] };
+  };
+  P['Ways to choose r objects from n when the order does not matter'] = function () {
+    var n = ri(5, 8), r = ri(2, 3), c = fact(n) / (fact(r) * fact(n - r));
+    return { q: 'A team of ' + r + ' is chosen from ' + n + ' students. How many different teams are possible?', a: mn(c),
+      w: [mn(fact(n) / fact(n - r)), mn(n * r), mn(Math.pow(n, r))],
+      s: ['Порядок не важен: n! / (r!(n − r)!) = ' + n + '! / (' + r + '! · ' + (n - r) + '!) = ' + c + '.', 'Без деления на ' + r + '! получится ' + (fact(n) / fact(n - r)) + ' — это упорядоченные выборы.'] };
+  };
+
   /* make one problem; distinct options guaranteed */
   window.PREPLINE_PROB = function (name) {
     var g = P[name]; if (!g) return null;
