@@ -6,7 +6,7 @@ window.PREPLINE_TESTS = [
 "n": 1,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 1–7 · + 1 Prepline question",
 "tap": 0
 },
@@ -16,7 +16,7 @@ window.PREPLINE_TESTS = [
 "n": 2,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 1–7",
 "tap": 0
 },
@@ -26,7 +26,7 @@ window.PREPLINE_TESTS = [
 "n": 3,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 1–7 · + 3 Prepline questions",
 "tap": 0
 },
@@ -36,7 +36,7 @@ window.PREPLINE_TESTS = [
 "n": 4,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 1–7, 10",
 "tap": 0
 },
@@ -46,7 +46,7 @@ window.PREPLINE_TESTS = [
 "n": 5,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 8–12 · + 1 Prepline question",
 "tap": 0
 },
@@ -56,7 +56,7 @@ window.PREPLINE_TESTS = [
 "n": 6,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 8–12",
 "tap": 0
 },
@@ -66,7 +66,7 @@ window.PREPLINE_TESTS = [
 "n": 7,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "questions from mocks 8–14 · + 1 Prepline question",
 "tap": 0
 },
@@ -76,7 +76,7 @@ window.PREPLINE_TESTS = [
 "n": 8,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "the whole of Mock 6, answers checked against the solutions",
 "tap": 0
 },
@@ -86,7 +86,7 @@ window.PREPLINE_TESTS = [
 "n": 9,
 "group": "Mixed tests",
 "q": 30,
-"min": 28,
+"min": 60,
 "src": "geometry only, fully worked · + 2 Prepline questions",
 "tap": 4
 },
@@ -96,7 +96,7 @@ window.PREPLINE_TESTS = [
 "n": 10,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all answers worked and verified · + 2 Prepline questions",
 "tap": 0
 },
@@ -106,7 +106,7 @@ window.PREPLINE_TESTS = [
 "n": 11,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "25 with key · 5 questions without an answer yet, for practice",
 "tap": 0
 },
@@ -116,7 +116,7 @@ window.PREPLINE_TESTS = [
 "n": 12,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 2 Prepline questions",
 "tap": 0
 },
@@ -126,7 +126,7 @@ window.PREPLINE_TESTS = [
 "n": 13,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "28 with key · solved independently, without the original key · + 6 Prepline questions",
 "tap": 0
 },
@@ -136,7 +136,7 @@ window.PREPLINE_TESTS = [
 "n": 14,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "26 with key · 3 questions without an answer, for practice · + 2 Prepline questions",
 "tap": 0
 },
@@ -146,7 +146,7 @@ window.PREPLINE_TESTS = [
 "n": 15,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 6 Prepline questions",
 "tap": 0
 },
@@ -156,7 +156,7 @@ window.PREPLINE_TESTS = [
 "n": 16,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "full key · + 1 Prepline question",
 "tap": 0
 },
@@ -166,7 +166,7 @@ window.PREPLINE_TESTS = [
 "n": 17,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "28 with key · 1 question without an answer, for practice · + 5 Prepline questions",
 "tap": 0
 },
@@ -176,7 +176,7 @@ window.PREPLINE_TESTS = [
 "n": 18,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all answers worked and verified · + 2 Prepline questions",
 "tap": 0
 },
@@ -186,7 +186,7 @@ window.PREPLINE_TESTS = [
 "n": 19,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 4 Prepline questions",
 "tap": 0
 },
@@ -196,7 +196,7 @@ window.PREPLINE_TESTS = [
 "n": 20,
 "group": "Mixed tests",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "1 with key · no official answers, for practice · + 3 Prepline questions",
 "tap": 0
 },
@@ -206,7 +206,7 @@ window.PREPLINE_TESTS = [
 "n": 21,
 "group": "Mixed tests",
 "q": 30,
-"min": 27,
+"min": 60,
 "src": "all answers verified · + 4 Prepline questions",
 "tap": 0
 },
@@ -216,7 +216,7 @@ window.PREPLINE_TESTS = [
 "n": 22,
 "group": "Mixed tests",
 "q": 30,
-"min": 27,
+"min": 60,
 "src": "26 with key · 1 question unanswered even in the original · + 4 Prepline questions",
 "tap": 0
 },
@@ -226,7 +226,7 @@ window.PREPLINE_TESTS = [
 "n": 23,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 1.2 · 1 not scored · + 4 Prepline questions",
 "tap": 93
 },
@@ -236,7 +236,7 @@ window.PREPLINE_TESTS = [
 "n": 24,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 2.2 · full key · + 6 Prepline questions",
 "tap": 87
 },
@@ -246,7 +246,7 @@ window.PREPLINE_TESTS = [
 "n": 25,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 3.2 · 1 not scored · + 1 Prepline question",
 "tap": 63
 },
@@ -256,7 +256,7 @@ window.PREPLINE_TESTS = [
 "n": 26,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 4.2 · full key · + 1 Prepline question",
 "tap": 77
 },
@@ -266,7 +266,7 @@ window.PREPLINE_TESTS = [
 "n": 27,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 5.2 · full key · + 3 Prepline questions",
 "tap": 93
 },
@@ -276,7 +276,7 @@ window.PREPLINE_TESTS = [
 "n": 28,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 8.2 · full key · + 2 Prepline questions",
 "tap": 87
 },
@@ -286,7 +286,7 @@ window.PREPLINE_TESTS = [
 "n": 29,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 11.3 · full key · + 2 Prepline questions",
 "tap": 80
 },
@@ -296,7 +296,7 @@ window.PREPLINE_TESTS = [
 "n": 30,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 12.3 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -306,7 +306,7 @@ window.PREPLINE_TESTS = [
 "n": 31,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 13.3 · full key · + 4 Prepline questions",
 "tap": 87
 },
@@ -316,7 +316,7 @@ window.PREPLINE_TESTS = [
 "n": 32,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 14.3 · full key · + 4 Prepline questions",
 "tap": 90
 },
@@ -326,7 +326,7 @@ window.PREPLINE_TESTS = [
 "n": 33,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 15.3 · full key",
 "tap": 100
 },
@@ -336,7 +336,7 @@ window.PREPLINE_TESTS = [
 "n": 34,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 16.3 · full key · + 2 Prepline questions",
 "tap": 87
 },
@@ -346,7 +346,7 @@ window.PREPLINE_TESTS = [
 "n": 35,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 17.1 · 1 not scored · + 3 Prepline questions",
 "tap": 80
 },
@@ -356,7 +356,7 @@ window.PREPLINE_TESTS = [
 "n": 36,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 18.1 · full key · + 2 Prepline questions",
 "tap": 90
 },
@@ -366,7 +366,7 @@ window.PREPLINE_TESTS = [
 "n": 37,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 19.1 · full key · + 4 Prepline questions",
 "tap": 97
 },
@@ -376,7 +376,7 @@ window.PREPLINE_TESTS = [
 "n": 38,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Practice Version 20.1 · full key · + 4 Prepline questions",
 "tap": 93
 },
@@ -386,7 +386,7 @@ window.PREPLINE_TESTS = [
 "n": 39,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 1 · full key · + 4 Prepline questions",
 "tap": 97
 },
@@ -396,7 +396,7 @@ window.PREPLINE_TESTS = [
 "n": 40,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 2 · full key · + 1 Prepline question",
 "tap": 97
 },
@@ -406,7 +406,7 @@ window.PREPLINE_TESTS = [
 "n": 41,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 3 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -416,7 +416,7 @@ window.PREPLINE_TESTS = [
 "n": 42,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 4 · full key · + 1 Prepline question",
 "tap": 97
 },
@@ -426,7 +426,7 @@ window.PREPLINE_TESTS = [
 "n": 43,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 5 · full key · + 2 Prepline questions",
 "tap": 93
 },
@@ -436,7 +436,7 @@ window.PREPLINE_TESTS = [
 "n": 44,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 6 · full key · + 1 Prepline question",
 "tap": 93
 },
@@ -446,7 +446,7 @@ window.PREPLINE_TESTS = [
 "n": 45,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 7 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -456,7 +456,7 @@ window.PREPLINE_TESTS = [
 "n": 46,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 8 · full key · + 2 Prepline questions",
 "tap": 100
 },
@@ -466,7 +466,7 @@ window.PREPLINE_TESTS = [
 "n": 47,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 9 · full key · + 2 Prepline questions",
 "tap": 93
 },
@@ -476,7 +476,7 @@ window.PREPLINE_TESTS = [
 "n": 48,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Kiseki Mock 10 · full key",
 "tap": 100
 },
@@ -486,7 +486,7 @@ window.PREPLINE_TESTS = [
 "n": 49,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "math 7 · full key · + 1 Prepline question",
 "tap": 90
 },
@@ -496,7 +496,7 @@ window.PREPLINE_TESTS = [
 "n": 50,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "math 9 · full key · + 3 Prepline questions",
 "tap": 87
 },
@@ -506,7 +506,7 @@ window.PREPLINE_TESTS = [
 "n": 51,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "math 10 · full key · + 1 Prepline question",
 "tap": 80
 },
@@ -516,7 +516,7 @@ window.PREPLINE_TESTS = [
 "n": 52,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Mock Exam 10 · full key · + 2 Prepline questions",
 "tap": 83
 },
@@ -526,7 +526,7 @@ window.PREPLINE_TESTS = [
 "n": 53,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Mock Exam 11 · full key · + 1 Prepline question",
 "tap": 90
 },
@@ -536,7 +536,7 @@ window.PREPLINE_TESTS = [
 "n": 54,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Mock Exam 12 · full key · + 1 Prepline question",
 "tap": 93
 },
@@ -546,7 +546,7 @@ window.PREPLINE_TESTS = [
 "n": 55,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 1 · 1 not scored",
 "tap": 97
 },
@@ -556,7 +556,7 @@ window.PREPLINE_TESTS = [
 "n": 56,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 2 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -566,7 +566,7 @@ window.PREPLINE_TESTS = [
 "n": 57,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 3 · 2 not scored · + 2 Prepline questions",
 "tap": 90
 },
@@ -576,7 +576,7 @@ window.PREPLINE_TESTS = [
 "n": 58,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 4 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -586,7 +586,7 @@ window.PREPLINE_TESTS = [
 "n": 59,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 5 · full key · + 4 Prepline questions",
 "tap": 93
 },
@@ -596,7 +596,7 @@ window.PREPLINE_TESTS = [
 "n": 60,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 6 · full key · + 1 Prepline question",
 "tap": 100
 },
@@ -606,7 +606,7 @@ window.PREPLINE_TESTS = [
 "n": 61,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 7 · full key · + 2 Prepline questions",
 "tap": 97
 },
@@ -616,7 +616,7 @@ window.PREPLINE_TESTS = [
 "n": 62,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 8 · full key · + 3 Prepline questions",
 "tap": 100
 },
@@ -626,7 +626,7 @@ window.PREPLINE_TESTS = [
 "n": 63,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 9 · full key · + 1 Prepline question",
 "tap": 93
 },
@@ -636,7 +636,7 @@ window.PREPLINE_TESTS = [
 "n": 64,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 10 · full key · + 3 Prepline questions",
 "tap": 93
 },
@@ -646,7 +646,7 @@ window.PREPLINE_TESTS = [
 "n": 65,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 11 · 2 not scored · + 3 Prepline questions",
 "tap": 93
 },
@@ -656,7 +656,7 @@ window.PREPLINE_TESTS = [
 "n": 66,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial Test 12 · 1 not scored · + 1 Prepline question",
 "tap": 97
 },
@@ -666,7 +666,7 @@ window.PREPLINE_TESTS = [
 "n": 67,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "NUET practice test, version 6.2 · full key · + 1 Prepline question",
 "tap": 83
 },
@@ -676,7 +676,7 @@ window.PREPLINE_TESTS = [
 "n": 68,
 "group": "Mock collection",
 "q": 31,
-"min": 31,
+"min": 62,
 "src": "Math tests #17 + #18 · full key",
 "tap": 90
 },
@@ -686,7 +686,7 @@ window.PREPLINE_TESTS = [
 "n": 69,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Math tests #19 + #20 · full key · + 3 Prepline questions",
 "tap": 90
 },
@@ -696,7 +696,7 @@ window.PREPLINE_TESTS = [
 "n": 70,
 "group": "Mock collection",
 "q": 32,
-"min": 32,
+"min": 64,
 "src": "Math tests #21 + #22 · full key",
 "tap": 87
 },
@@ -706,7 +706,7 @@ window.PREPLINE_TESTS = [
 "n": 71,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #1 · full key · + 8 Prepline questions",
 "tap": 90
 },
@@ -716,7 +716,7 @@ window.PREPLINE_TESTS = [
 "n": 72,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #2 · full key · + 10 Prepline questions",
 "tap": 97
 },
@@ -726,7 +726,7 @@ window.PREPLINE_TESTS = [
 "n": 73,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #3 · full key · + 10 Prepline questions",
 "tap": 100
 },
@@ -736,7 +736,7 @@ window.PREPLINE_TESTS = [
 "n": 74,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #4 · full key · + 7 Prepline questions",
 "tap": 100
 },
@@ -746,7 +746,7 @@ window.PREPLINE_TESTS = [
 "n": 75,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #5 · full key · + 9 Prepline questions",
 "tap": 97
 },
@@ -756,7 +756,7 @@ window.PREPLINE_TESTS = [
 "n": 76,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #6 · full key · + 5 Prepline questions",
 "tap": 100
 },
@@ -766,7 +766,7 @@ window.PREPLINE_TESTS = [
 "n": 77,
 "group": "Mock collection",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Trial SET #7 · full key · + 10 Prepline questions",
 "tap": 93
 },
@@ -776,7 +776,7 @@ window.PREPLINE_TESTS = [
 "n": 78,
 "group": "Prepline originals",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
 "tap": 0
 },
@@ -786,7 +786,7 @@ window.PREPLINE_TESTS = [
 "n": 79,
 "group": "Prepline originals",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
 "tap": 0
 },
@@ -796,7 +796,7 @@ window.PREPLINE_TESTS = [
 "n": 80,
 "group": "Prepline originals",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
 "tap": 0
 },
@@ -806,7 +806,7 @@ window.PREPLINE_TESTS = [
 "n": 81,
 "group": "Prepline originals",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
 "tap": 0
 },
@@ -816,7 +816,7 @@ window.PREPLINE_TESTS = [
 "n": 1,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all 5 question types",
 "tap": 10
 },
@@ -826,7 +826,7 @@ window.PREPLINE_TESTS = [
 "n": 2,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all 5 question types",
 "tap": 10
 },
@@ -836,7 +836,7 @@ window.PREPLINE_TESTS = [
 "n": 3,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all 5 question types",
 "tap": 10
 },
@@ -846,7 +846,7 @@ window.PREPLINE_TESTS = [
 "n": 4,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "all 5 question types",
 "tap": 13
 },
@@ -856,7 +856,7 @@ window.PREPLINE_TESTS = [
 "n": 5,
 "group": "Topic mix",
 "q": 30,
-"min": 22,
+"min": 60,
 "src": "Assumptions, Conclusions, External Factors · + 8 Prepline questions",
 "tap": 0
 },
@@ -866,7 +866,7 @@ window.PREPLINE_TESTS = [
 "n": 6,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions",
 "tap": 0
 },
@@ -876,7 +876,7 @@ window.PREPLINE_TESTS = [
 "n": 7,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions · + 2 Prepline questions",
 "tap": 0
 },
@@ -886,7 +886,7 @@ window.PREPLINE_TESTS = [
 "n": 8,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions",
 "tap": 0
 },
@@ -896,7 +896,7 @@ window.PREPLINE_TESTS = [
 "n": 9,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions · + 1 Prepline question",
 "tap": 0
 },
@@ -906,7 +906,7 @@ window.PREPLINE_TESTS = [
 "n": 10,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions · + 1 Prepline question",
 "tap": 3
 },
@@ -916,7 +916,7 @@ window.PREPLINE_TESTS = [
 "n": 11,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions · + 1 Prepline question",
 "tap": 3
 },
@@ -926,7 +926,7 @@ window.PREPLINE_TESTS = [
 "n": 12,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions",
 "tap": 3
 },
@@ -936,7 +936,7 @@ window.PREPLINE_TESTS = [
 "n": 13,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions",
 "tap": 0
 },
@@ -946,7 +946,7 @@ window.PREPLINE_TESTS = [
 "n": 14,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions",
 "tap": 3
 },
@@ -956,7 +956,7 @@ window.PREPLINE_TESTS = [
 "n": 15,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "worked solutions · + 4 Prepline questions",
 "tap": 0
 },
@@ -966,7 +966,7 @@ window.PREPLINE_TESTS = [
 "n": 16,
 "group": "Topic mix",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "no answer key, for practice · + 1 Prepline question",
 "tap": 7
 },
@@ -976,7 +976,7 @@ window.PREPLINE_TESTS = [
 "n": 17,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2009 · 12 CT / 18 PS · official key (4 unscored) · + 4 Prepline questions",
 "tap": 80
 },
@@ -986,7 +986,7 @@ window.PREPLINE_TESTS = [
 "n": 18,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2009 + BMAT 2010 · 14 CT / 16 PS · official key (1 unscored) · + 1 Prepline question",
 "tap": 90
 },
@@ -996,7 +996,7 @@ window.PREPLINE_TESTS = [
 "n": 19,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2010 + BMAT 2011 · 14 CT / 16 PS · official key",
 "tap": 93
 },
@@ -1006,7 +1006,7 @@ window.PREPLINE_TESTS = [
 "n": 20,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2011 + BMAT 2012 · 12 CT / 18 PS · official key",
 "tap": 90
 },
@@ -1016,7 +1016,7 @@ window.PREPLINE_TESTS = [
 "n": 21,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2012 + BMAT 2013 · 12 CT / 18 PS · official key",
 "tap": 97
 },
@@ -1026,7 +1026,7 @@ window.PREPLINE_TESTS = [
 "n": 22,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2013 + BMAT 2014 · 13 CT / 17 PS · official key",
 "tap": 97
 },
@@ -1036,7 +1036,7 @@ window.PREPLINE_TESTS = [
 "n": 23,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2014 · 12 CT / 18 PS · official key",
 "tap": 97
 },
@@ -1046,7 +1046,7 @@ window.PREPLINE_TESTS = [
 "n": 24,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2015 · 14 CT / 16 PS · official key",
 "tap": 97
 },
@@ -1056,7 +1056,7 @@ window.PREPLINE_TESTS = [
 "n": 25,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2015 + BMAT 2016 · 12 CT / 18 PS · official key",
 "tap": 93
 },
@@ -1066,7 +1066,7 @@ window.PREPLINE_TESTS = [
 "n": 26,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2016 + BMAT 2017 · 11 CT / 19 PS · official key",
 "tap": 97
 },
@@ -1076,7 +1076,7 @@ window.PREPLINE_TESTS = [
 "n": 27,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2017 + BMAT 2018 · 14 CT / 16 PS · official key",
 "tap": 100
 },
@@ -1086,7 +1086,7 @@ window.PREPLINE_TESTS = [
 "n": 28,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2018 + BMAT 2019 · 10 CT / 20 PS · official key · + 1 Prepline question",
 "tap": 97
 },
@@ -1096,7 +1096,7 @@ window.PREPLINE_TESTS = [
 "n": 29,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2019 + BMAT 2020 · 16 CT / 14 PS · official key",
 "tap": 100
 },
@@ -1106,7 +1106,7 @@ window.PREPLINE_TESTS = [
 "n": 30,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2020 + BMAT 2021 · 14 CT / 16 PS · official key",
 "tap": 93
 },
@@ -1116,7 +1116,7 @@ window.PREPLINE_TESTS = [
 "n": 31,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2021 + BMAT 2022 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1126,7 +1126,7 @@ window.PREPLINE_TESTS = [
 "n": 32,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2022 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1136,7 +1136,7 @@ window.PREPLINE_TESTS = [
 "n": 33,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "BMAT 2022 + TSA 2008 · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1146,7 +1146,7 @@ window.PREPLINE_TESTS = [
 "n": 34,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2008 + TSA 2009 · 14 CT / 16 PS · official key",
 "tap": 97
 },
@@ -1156,7 +1156,7 @@ window.PREPLINE_TESTS = [
 "n": 35,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2009 · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1166,7 +1166,7 @@ window.PREPLINE_TESTS = [
 "n": 36,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2009 + TSA 2010 · 15 CT / 15 PS · official key",
 "tap": 93
 },
@@ -1176,7 +1176,7 @@ window.PREPLINE_TESTS = [
 "n": 37,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2010 · 16 CT / 14 PS · official key",
 "tap": 100
 },
@@ -1186,7 +1186,7 @@ window.PREPLINE_TESTS = [
 "n": 38,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2010 + TSA 2011 · 16 CT / 14 PS · official key",
 "tap": 93
 },
@@ -1196,7 +1196,7 @@ window.PREPLINE_TESTS = [
 "n": 39,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2011 + TSA 2012 · 15 CT / 15 PS · official key",
 "tap": 93
 },
@@ -1206,7 +1206,7 @@ window.PREPLINE_TESTS = [
 "n": 40,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2012 · 15 CT / 15 PS · official key",
 "tap": 93
 },
@@ -1216,7 +1216,7 @@ window.PREPLINE_TESTS = [
 "n": 41,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2012 + TSA 2013 · 15 CT / 15 PS · official key",
 "tap": 93
 },
@@ -1226,7 +1226,7 @@ window.PREPLINE_TESTS = [
 "n": 42,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2013 · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1236,7 +1236,7 @@ window.PREPLINE_TESTS = [
 "n": 43,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2013 + TSA 2014 · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1246,7 +1246,7 @@ window.PREPLINE_TESTS = [
 "n": 44,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2014 + TSA 2015 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1256,7 +1256,7 @@ window.PREPLINE_TESTS = [
 "n": 45,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2015 · 17 CT / 13 PS · official key",
 "tap": 93
 },
@@ -1266,7 +1266,7 @@ window.PREPLINE_TESTS = [
 "n": 46,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2015 + TSA 2016 · 15 CT / 15 PS · official key",
 "tap": 90
 },
@@ -1276,7 +1276,7 @@ window.PREPLINE_TESTS = [
 "n": 47,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2016 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1286,7 +1286,7 @@ window.PREPLINE_TESTS = [
 "n": 48,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2016 + TSA 2017 · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1296,7 +1296,7 @@ window.PREPLINE_TESTS = [
 "n": 49,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2017 + TSA 2018 · 14 CT / 16 PS · official key",
 "tap": 93
 },
@@ -1306,7 +1306,7 @@ window.PREPLINE_TESTS = [
 "n": 50,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2018 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1316,7 +1316,7 @@ window.PREPLINE_TESTS = [
 "n": 51,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2018 + TSA 2019 · 15 CT / 15 PS · official key",
 "tap": 100
 },
@@ -1326,7 +1326,7 @@ window.PREPLINE_TESTS = [
 "n": 52,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2019 · 15 CT / 15 PS · official key",
 "tap": 90
 },
@@ -1336,7 +1336,7 @@ window.PREPLINE_TESTS = [
 "n": 53,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2019 + TSA 2020 · 16 CT / 14 PS · official key",
 "tap": 100
 },
@@ -1346,7 +1346,7 @@ window.PREPLINE_TESTS = [
 "n": 54,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2020 + TSA 2021 · 14 CT / 16 PS · official key",
 "tap": 97
 },
@@ -1356,7 +1356,7 @@ window.PREPLINE_TESTS = [
 "n": 55,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2021 · 15 CT / 15 PS · official key",
 "tap": 100
 },
@@ -1366,7 +1366,7 @@ window.PREPLINE_TESTS = [
 "n": 56,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2021 + TSA 2022 · 15 CT / 15 PS · official key",
 "tap": 100
 },
@@ -1376,7 +1376,7 @@ window.PREPLINE_TESTS = [
 "n": 57,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2022 · 15 CT / 15 PS · official key",
 "tap": 100
 },
@@ -1386,7 +1386,7 @@ window.PREPLINE_TESTS = [
 "n": 58,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA 2022 + TSA Specimen · 16 CT / 14 PS · official key",
 "tap": 97
 },
@@ -1396,7 +1396,7 @@ window.PREPLINE_TESTS = [
 "n": 59,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "TSA Specimen + IMAT 2011 · 12 CT / 18 PS · official key",
 "tap": 97
 },
@@ -1406,7 +1406,7 @@ window.PREPLINE_TESTS = [
 "n": 60,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2011 + IMAT 2012 · 16 CT / 14 PS · official key",
 "tap": 100
 },
@@ -1416,7 +1416,7 @@ window.PREPLINE_TESTS = [
 "n": 61,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2012 · 13 CT / 17 PS · official key",
 "tap": 100
 },
@@ -1426,7 +1426,7 @@ window.PREPLINE_TESTS = [
 "n": 62,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2012 + IMAT 2013 + IMAT 2014 · 17 CT / 13 PS · official key",
 "tap": 100
 },
@@ -1436,7 +1436,7 @@ window.PREPLINE_TESTS = [
 "n": 63,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2014 + IMAT 2015 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1446,7 +1446,7 @@ window.PREPLINE_TESTS = [
 "n": 64,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2015 + IMAT 2016 · 14 CT / 16 PS · official key",
 "tap": 93
 },
@@ -1456,7 +1456,7 @@ window.PREPLINE_TESTS = [
 "n": 65,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2016 + IMAT 2017 + IMAT 2018 · 17 CT / 13 PS · official key",
 "tap": 90
 },
@@ -1466,7 +1466,7 @@ window.PREPLINE_TESTS = [
 "n": 66,
 "group": "Past papers",
 "q": 30,
-"min": 30,
+"min": 60,
 "src": "IMAT 2018 + IMAT 2019 + IMAT 2020 · 15 CT / 15 PS · official key",
 "tap": 97
 },
@@ -1476,7 +1476,7 @@ window.PREPLINE_TESTS = [
 "n": 67,
 "group": "Past papers",
 "q": 30,
-"min": 21,
+"min": 60,
 "src": "IMAT 2020 + IMAT 2021 + IMAT 2022 · 11 CT / 10 PS · official key · original IMAT order, most answers are A · + 9 Prepline questions",
 "tap": 95
 },

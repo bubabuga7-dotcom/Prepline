@@ -495,6 +495,65 @@
       if (examStarted && !state.finished) { e.preventDefault(); e.returnValue = ''; }
     });
   }
+  /* ---------- start card: pick Exam (2 min a question, like NUET) or Fast (1 min), clock starts on Start ---------- */
+  var FULL = !ROOM_CODE && !partial && !PARAMS.get('only') && /^(mix-|crit-|test)/.test(page);
+  window.PL_MODE = 'exam';
+  if (FULL && EXAM) { T0 = state.timeLeft = 120 * questions.length; }
+  var startCard = null;
+  function setupStart() {
+    var dr0 = null;
+    try { dr0 = JSON.parse(localStorage.getItem('prepline-draft:' + page) || 'null'); } catch (e) {}
+    if (dr0 && dr0.a && Object.keys(dr0.a).length && dr0.n === questions.length) {   // resumed attempt keeps its own clock
+      try { window.PL_MODE = localStorage.getItem('prepline:pace-mode') || 'exam'; } catch (e) {}
+      return;
+    }
+    var n = questions.length, pick = 'exam';
+    try { pick = localStorage.getItem('prepline:pace-mode') || 'exam'; } catch (e) {}
+    var stopId = setInterval(function () { state.timeLeft = (pick === 'fast' ? 60 : 120) * n; }, 200);
+    css.textContent += [
+      '.pl-start{position:fixed;inset:0;z-index:7000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(21,24,29,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}',
+      '.pl-start .box{width:100%;max-width:440px;background:#1D2127;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:24px;color:#C8CDD4;font:15px/1.55 Inter,system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.5)}',
+      '.pl-start h3{margin:0 0 4px;font:700 20px Sora,Inter,sans-serif;color:#DADDE2}',
+      '.pl-start .sub{margin:0 0 16px;color:#858C97;font-size:13.5px}',
+      '.pl-start .md{display:grid;gap:8px;margin-bottom:16px}',
+      '.pl-start .md button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#15181D;border:1px solid rgba(255,255,255,.14);color:#C8CDD4;border-radius:8px;padding:12px 14px;cursor:pointer;font:14px Inter,sans-serif}',
+      '.pl-start .md button b{color:#DADDE2;font-size:15px}.pl-start .md button span{color:#858C97;font-size:12.5px;display:block}',
+      '.pl-start .md button i{font:600 14px "IBM Plex Mono",monospace;font-style:normal;color:#A6ADB8;white-space:nowrap}',
+      '.pl-start .md button.on{border-color:#C9AA6A;background:rgba(201,170,106,.1)}.pl-start .md button.on i{color:#C9AA6A}',
+      '.pl-start .go{width:100%;background:#C9AA6A;color:#1A1D21;border:0;font:700 15px Inter,sans-serif;padding:13px;border-radius:8px;cursor:pointer}',
+      '.pl-start .alt{display:block;text-align:center;margin-top:12px;font-size:13px;color:#858C97}',
+      'html[data-theme=light] .pl-start{background:rgba(245,244,240,.86)}',
+      'html[data-theme=light] .pl-start .box{background:#FBFAF7;border-color:#D3D0C8;color:#3A3F48;box-shadow:0 20px 60px rgba(15,27,51,.15)}',
+      'html[data-theme=light] .pl-start h3,html[data-theme=light] .pl-start .md button b{color:#2B2F36}',
+      'html[data-theme=light] .pl-start .md button{background:#fff;border-color:#D3D0C8;color:#3A3F48}',
+      'html[data-theme=light] .pl-start .md button.on{border-color:#3D63A3;background:#EEF2F9}html[data-theme=light] .pl-start .md button.on i{color:#3D63A3}',
+      'html[data-theme=light] .pl-start .go{background:#3D63A3;color:#fff}'
+    ].join('\n');
+    var h2 = document.querySelector('.wrap h2');
+    startCard = document.createElement('div'); startCard.className = 'pl-start';
+    startCard.innerHTML = '<div class="box"><h3>' + (h2 ? h2.textContent.replace(/\s*\(.*\)\s*$/, '') : 'Test') + '</h3>' +
+      '<p class="sub">' + n + ' questions. The clock starts when you press Start.</p><div class="md">' +
+      '<button type="button" data-m="exam"><div><b>Exam</b><span>Real NUET time: 2 minutes a question</span></div><i>' + (2 * n) + ' min</i></button>' +
+      '<button type="button" data-m="fast"><div><b>Fast</b><span>Practice under pressure; word hints are on</span></div><i>' + n + ' min</i></button>' +
+      '</div><button type="button" class="go">Start →</button>' +
+      '<a class="alt" href="' + location.pathname + '?exam=1">Exam day mode: hidden clock, no map →</a></div>';
+    document.body.appendChild(startCard);
+    function mark() { [].forEach.call(startCard.querySelectorAll('.md button'), function (b) { b.classList.toggle('on', b.getAttribute('data-m') === pick); }); }
+    mark();
+    startCard.querySelector('.md').onclick = function (e) { var b = e.target.closest('button'); if (b) { pick = b.getAttribute('data-m'); mark(); } };
+    startCard.querySelector('.go').onclick = function () {
+      clearInterval(stopId);
+      try { localStorage.setItem('prepline:pace-mode', pick); } catch (e) {}
+      window.PL_MODE = pick;
+      T0 = state.timeLeft = (pick === 'fast' ? 60 : 120) * n;
+      pace = []; lastCount = -1;
+      startCard.remove(); startCard = null;
+      document.dispatchEvent(new CustomEvent('prepline:started', { detail: { mode: pick } }));
+      lastSig = null; render();
+    };
+  }
+  if (FULL && !EXAM && !state.finished) setupStart();
+
   if (EXAM) setupExam();
 
   // remember the pace of every finished attempt for the ghost next time
