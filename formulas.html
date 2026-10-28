@@ -150,6 +150,7 @@
 <script src="formula-problems.js"></script>
 <script src="formula-traps.js"></script>
 <script src="formula-topics.js"></script>
+<script src="twin.js"></script>
 <script>
 /* Formula data. Notation: {top|bottom} is a fraction, sqrt{…} a square root, ^{…} a power, _{…} an index.
    n = name shown in the quiz, f = the formula, t = traps (common wrong versions), q = a custom question (identities),
@@ -395,6 +396,8 @@ function answer(k) {
   var ok = k === q.ans, it = q.it;
   if (ok) run.ok++; else run.miss.push(it);
   mark(it, ok);
+  run.id = run.id || Date.now();                     // one quiz attempt: a crack is confirmed only by another attempt
+  if (!ok && !q.rev && !q.prob && window.PreplineTwin) { var tid = window.PreplineTwin.seen(it.n, q.opts[k], run.id); if (tid) (run.cracks = run.cracks || {})[tid] = 1; }
   $('prog').innerHTML = bar();
   var r = $('res');
   r.className = 'res ' + (ok ? 'ok' : 'no');
@@ -431,11 +434,12 @@ function next() {
     }).join('') + '</div>' : '') +
     '<div class="actions">' + (run.miss.length ? '<button class="btn" id="again-miss">' + (mode === 'p' ? 'More problems on the ' + run.miss.length + ' missed' : 'Retry the ' + run.miss.length + ' missed') + '</button>' : '') +
     (mode === 'f' && run.miss.filter(canProb).length ? '<button class="btn ghost" id="to-prob">Solve problems with them</button>' : '') +
+    (run.cracks ? '<a class="btn ghost" href="twin.html">Your twin picked up ' + Object.keys(run.cracks).length + ' crack' + (Object.keys(run.cracks).length > 1 ? 's' : '') + ' →</a>' : '') +
     '<button class="btn ghost" id="again">New quiz</button><button class="btn ghost" id="to-sheet">All formulas</button></div>';
   var m = $('again-miss');
-  if (m) m.onclick = function () { var miss = run.miss.slice(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [] }; show(); };
+  if (m) m.onclick = function () { var miss = run.miss.slice(), rid = run.id; run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [], id: rid }; show(); };
   var tp = $('to-prob');
-  if (tp) tp.onclick = function () { var miss = run.miss.filter(canProb); mode = 'p'; syncMode(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [] }; show(); };
+  if (tp) tp.onclick = function () { var miss = run.miss.filter(canProb), rid = run.id; mode = 'p'; syncMode(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [], id: rid }; show(); };
   $('again').onclick = function () { best(); drawMine(); view('setup'); };
   $('to-sheet').onclick = function () { view('sheet'); };
 }
