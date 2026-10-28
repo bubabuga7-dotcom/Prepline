@@ -59,6 +59,7 @@
       '.pl-menu{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border-radius:12px;' +
         'background:rgba(201,170,106,.14);border:1px solid rgba(201,170,106,.45);color:var(--gold,#C9AA6A);font:700 15px Inter,system-ui,sans-serif;text-decoration:none}' +
       '.pl-menu svg{width:20px;height:20px}' +
+      '.pl-sec{font:600 15px Inter,system-ui,sans-serif;color:var(--ink,#DADDE2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}' +
       '.pl-brand{font:700 19px Sora,sans-serif;color:var(--ink,#DADDE2);text-decoration:none;letter-spacing:-.02em}' +
       '.pl-brand i{font-style:normal;color:var(--gold,#C9AA6A)}' +
       /* less reading on hubs */
@@ -70,10 +71,15 @@
     'html[data-theme=light] .pl-menu{background:#E4E9F1;border-color:#C3CEDF;color:#3D63A3}' +
     'html[data-theme=light] .pl-brand i{color:#3D63A3}';
   document.head.appendChild(dst);
+  function secName() {                          // phone: the name of the section you are in, next to Menu
+    var it = items.filter(function (x) { return Array.isArray(x) && x[0] === kind; })[0];
+    var n = it ? it[1] : ({ 'admin.html': 'Admin', 'premium.html': 'Premium', 'live.html': 'Live room' })[page];
+    return n ? '<span class="pl-sec">' + n + '</span>' : '';
+  }
   var bar = document.createElement('div'); bar.className = 'pl-top';
   bar.innerHTML = page === 'index.html'
     ? '<a href="index.html" class="pl-brand">Prep<i>line</i></a>'
-    : '<a href="index.html" class="pl-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Menu</a>';
+    : '<a href="index.html" class="pl-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Menu</a>' + secName();
   document.body.insertBefore(bar, document.body.firstChild);
 
   // "Admin" item: only for accounts in the admins table (stage7.sql). Remembered on this device to avoid a flash.
