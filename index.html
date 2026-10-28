@@ -244,8 +244,7 @@
   var order = ['math.html', 'crit.html', 'topics.html', 'dashboard.html', 'review.html', 'formulas.html', 'live.html', 'league.html', 'intro.html'];
   var by = {}; N.items.forEach(function (it) { by[it[0]] = it; });
   var star = '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>';
-  by['premium.html'] = ['premium.html', 'Premium', 'Premium', star];
-  order.push('premium.html');
+  if (window.PREPLINE_PAID) { by['premium.html'] = ['premium.html', 'Premium', 'Premium', star]; order.push('premium.html'); }
   box.innerHTML = order.map(function (h) {
     var it = by[h]; if (!it) return '';
     return '<a class="m-tile' + (h === 'math.html' || h === 'crit.html' ? ' big' : '') + '" href="' + h + '">' +

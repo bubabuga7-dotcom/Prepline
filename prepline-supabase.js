@@ -17,7 +17,9 @@ window.PREPLINE_PREMIUM = {
     if (pv === '0') localStorage.removeItem('prepline:premium-preview');
   } catch (e) {}
 })();
+window.PREPLINE_PAID = false;   // payments switched off: everything is free for everyone, no Premium locks. Set true to bring Premium back.
 window.preplinePremiumOn = function () {
+  if (!window.PREPLINE_PAID) return false;
   var P = window.PREPLINE_PREMIUM, pv = false;
   try { pv = localStorage.getItem('prepline:premium-preview') === '1'; } catch (e) {}
   return !!P.checkout && (P.live || pv);
