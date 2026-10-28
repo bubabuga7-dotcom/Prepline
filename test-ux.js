@@ -217,6 +217,7 @@
     try {
       if (state.finished) { flags = {}; saveFlags(); enhanceResults(); }
       decorate(); updateMap();
+      try { confUI(); } catch (e) {}
       if (live) pushProgress();
     } catch (e) {}
     tick();
@@ -814,6 +815,7 @@
       sp.addEventListener('click', open); more.onclick = open;
     });
     formulaLinks(items);
+    try { confResults(items); } catch (e) {}
     var bar = document.createElement('div'); bar.className = 'rv-filter';
     bar.innerHTML = '<button type="button" class="on" data-f="all">All questions ' + items.length + '</button>' +
       '<button type="button" data-f="no">Only mistakes ' + wrong.length + '</button>';
@@ -824,6 +826,98 @@
       var only = b.getAttribute('data-f') === 'no';
       items.forEach(function (it) { it.style.display = only && !it.querySelector('.mark.no') ? 'none' : ''; });
     };
+  }
+
+  /* ---------- how sure: Sure / Not sure / Guessed; unsure right answers go to the mistakes deck (stage15.sql) ---------- */
+  var CONF_ON = !ROOM_CODE && !EXAM && !partial, CKEY = 'prepline-conf:' + page, CONF = {};
+  try { CONF = JSON.parse(localStorage.getItem(CKEY) || '{}'); } catch (e) {}
+  css.textContent += '\n.conf{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:12px 0 0;font-size:12.5px;color:#858C97}' +
+    '\n.conf button{background:none;border:1px solid rgba(255,255,255,.16);color:#A6ADB8;border-radius:99px;padding:4px 11px;font:600 12px Inter,sans-serif;cursor:pointer}' +
+    '\n.conf button.on{border-color:#C9AA6A;color:#C9AA6A;background:rgba(201,170,106,.1)}' +
+    '\nhtml[data-theme=light] .conf button{border-color:#D3D0C8;color:#4E545E}html[data-theme=light] .conf button.on{border-color:#3D63A3;color:#3D63A3;background:#EEF2F9}' +
+    '\n.why-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center;font-size:12.5px;color:#858C97}' +
+    '\n.why-row button{background:none;border:1px solid rgba(255,255,255,.16);color:#A6ADB8;border-radius:99px;padding:3px 10px;font:600 12px Inter,sans-serif;cursor:pointer}' +
+    '\n.why-row button.on{border-color:#DE8B8B;color:#DE8B8B}' +
+    '\nhtml[data-theme=light] .why-row button{border-color:#D3D0C8;color:#4E545E}' +
+    '\n.guess-tag{display:inline-block;margin-top:8px;font:600 12px Inter,sans-serif;color:#D6B672}' +
+    '\n.why-sum{border:1px solid var(--glass-line,rgba(255,255,255,.14));border-radius:10px;padding:12px 16px;margin:0 0 14px;font-size:13.5px}' +
+    '\n.why-sum b{font-family:"IBM Plex Mono",monospace}';
+  var CLAB = { s: 'Sure', u: 'Not sure', g: 'Guessed' };
+  function confUI() {
+    if (!CONF_ON || state.finished) return;
+    var q = questions[state.idx];
+    if (!q || state.answers[q.id] === undefined || app.querySelector('.conf')) return;
+    var opts = app.querySelector('.options'); if (!opts) return;
+    var d = document.createElement('div'); d.className = 'conf';
+    d.innerHTML = '<span>How sure are you?</span>' + ['s', 'u', 'g'].map(function (k) {
+      return '<button type="button" data-c="' + k + '" class="' + (CONF[q.id] === k ? 'on' : '') + '">' + CLAB[k] + '</button>';
+    }).join('');
+    opts.insertAdjacentElement('afterend', d);
+    d.onclick = function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      CONF[q.id] = b.getAttribute('data-c');
+      try { localStorage.setItem(CKEY, JSON.stringify(CONF)); } catch (e) {}
+      [].forEach.call(d.querySelectorAll('button'), function (x) { x.classList.toggle('on', x === b); });
+    };
+  }
+  (function () {
+    var f = window.finish;
+    if (typeof f !== 'function' || !CONF_ON) return;
+    window.finish = function () {
+      var was = state.finished, r = f.apply(this, arguments);
+      if (!was && state.finished) {
+        var ids = questions.filter(function (q) { return state.answers[q.id] === q.correct && (CONF[q.id] === 'u' || CONF[q.id] === 'g'); })
+          .map(function (q) { return q.id; });
+        try { localStorage.removeItem(CKEY); } catch (e) {}
+        if (ids.length && window.preplineSupa) window.preplineSupa.rpc('deck_add', { p_mock: page, p_ids: ids }).then(function () {}, function () {});
+      }
+      return r;
+    };
+  })();
+
+  /* ---------- results: why each mistake happened (kept on this device) ---------- */
+  var WHY = { k: "Didn't know it", c: 'Calculation slip', r: 'Misread the question', t: 'Ran out of time' };
+  function whyGet() { try { return JSON.parse(localStorage.getItem('prepline:why-wrong') || '{}'); } catch (e) { return {}; } }
+  function whySum(box) {
+    var all = whyGet(), n = {};
+    Object.keys(all).forEach(function (p) { Object.keys(all[p]).forEach(function (id) { var w = all[p][id]; n[w] = (n[w] || 0) + 1; }); });
+    var keys = Object.keys(n).sort(function (a, b) { return n[b] - n[a]; });
+    box.innerHTML = keys.length
+      ? 'What costs you marks, across your tests: ' + keys.map(function (k) { return WHY[k] + ' <b>' + n[k] + '</b>'; }).join(' · ') +
+        (keys[0] === 'c' ? '. Check each calculation once before you pick an answer.' : keys[0] === 't' ? '. Skip a hard question early and come back to it.' :
+         keys[0] === 'r' ? '. Underline what the question actually asks.' : '. Train your weakest topics below.')
+      : 'Tap why you got each mistake wrong. After a few tests you will see what costs you the most marks.';
+  }
+  function confResults(items) {
+    if (items.length !== questions.length || app.querySelector('.why-sum')) return;
+    var all = whyGet(), mine = all[page] || (all[page] = {}), any = false;
+    var sum = document.createElement('div'); sum.className = 'why-sum';
+    items.forEach(function (it, i) {
+      var q = questions[i];
+      if (q.verified === false) return;
+      var right = state.answers[q.id] === q.correct;
+      if (right && (CONF[q.id] === 'u' || CONF[q.id] === 'g')) {
+        it.insertAdjacentHTML('beforeend', '<span class="guess-tag">' + CLAB[CONF[q.id]] + ' — added to your mistakes deck to check again</span>');
+      }
+      if (!right && state.answers[q.id] !== undefined) {
+        any = true;
+        var row = document.createElement('div'); row.className = 'why-row';
+        row.innerHTML = '<span>Why?</span>' + Object.keys(WHY).map(function (k) {
+          return '<button type="button" data-w="' + k + '" class="' + (mine[q.id] === k ? 'on' : '') + '">' + WHY[k] + '</button>';
+        }).join('');
+        it.appendChild(row);
+        row.onclick = function (e) {
+          var b = e.target.closest('button'); if (!b) return;
+          var cur = whyGet(); cur[page] = cur[page] || {}; cur[page][q.id] = b.getAttribute('data-w');
+          try { localStorage.setItem('prepline:why-wrong', JSON.stringify(cur)); } catch (e) {}
+          [].forEach.call(row.querySelectorAll('button'), function (x) { x.classList.toggle('on', x === b); });
+          whySum(sum);
+        };
+      }
+    });
+    if (!any) return;
+    whySum(sum);
+    items[0].parentNode.insertBefore(sum, items[0]);
   }
 
   decorate(); updateMap(); tick();
