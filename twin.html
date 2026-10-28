@@ -23,7 +23,7 @@
   .twin-svg .crack{fill:none;stroke-linecap:round;stroke-linejoin:round;transition:opacity .6s,stroke-width .6s}
   .twin-svg .crack.suspected{stroke:var(--bad);stroke-width:1.5;stroke-dasharray:4 4;opacity:.7}
   .twin-svg .crack.confirmed{stroke:var(--bad);stroke-width:3.5}
-  .twin-svg .crack.healing{stroke:var(--gold);stroke-width:1.5;opacity:.55}
+  .twin-svg .crack.healing{stroke:var(--gold);stroke-width:2.5;opacity:.95}
   .twin-svg .crack.healed{opacity:0}
   .tstat{font:600 13px 'IBM Plex Mono',monospace;color:var(--ink-3)}
   .tstat b{color:var(--ink);font-size:22px;display:block;font-family:Sora,Inter,sans-serif}
@@ -62,7 +62,8 @@
   .mini .body{fill:var(--panel);stroke:var(--line);stroke-width:2}
   .mini .crack{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .8s,opacity .8s,stroke-width .8s}
   .mini .crack.confirmed,.mini .crack.suspected{stroke:var(--bad)}
-  .mini .crack.healing{stroke:var(--gold);stroke-width:1.5;opacity:.6}
+  .mini .crack.healing{stroke:var(--gold);stroke-width:4;opacity:1;filter:drop-shadow(0 0 4px rgba(201,170,106,.7))}
+  .fixed-cap{font:600 13px Inter,sans-serif;color:var(--gold);margin-top:6px}
   .mini .crack.healed{opacity:0}
   .heal-cap{font-size:12.5px;color:var(--ink-3);margin-top:6px}
   .say .who{display:block}
@@ -202,11 +203,11 @@
       if (demo) {
         heal = rec.first;
         msg = rec.first ? 'Верно с первой попытки — трещина начинает затягиваться.' : 'Решено, но не с первой попытки: в настоящем раунде двойник вернулся бы с другой версией этой ловушки.';
-        if (heal) $('cap').textContent = 'Пример — прогресс не сохранён.';
+        if (heal) $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>Пример — прогресс не сохранён.';
       } else {
         var m = T.load(), c = m[id] || (m[id] = { state: 'confirmed', runs: [] });
         if (rec.first) {
-          heal = true;
+          heal = true; $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>';
           if (delayed) { c.state = 'healed'; msg = 'Верно с первой попытки спустя 3+ дня. Трещина исчезла.'; }
           else { c.state = 'healing'; c.healFrom = Date.now(); msg = 'Верно с первой попытки. Трещина затягивается, проверка откроется через 3 дня.'; }
         } else {

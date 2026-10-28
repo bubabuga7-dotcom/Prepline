@@ -17,6 +17,7 @@
     topic: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
     admin: '<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
     star: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+    twin: '<circle cx="12" cy="7" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/><path d="m12.6 14.5-1.4 2.6 1.6 1.4-.8 2.5"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/>'
   };
   var items = [
@@ -27,6 +28,7 @@
     ['crit.html', 'Critical Thinking', 'CT', I.ct],
     ['topics.html', 'Train by topic', 'Topics', I.topic],
     ['formulas.html', 'Formula quiz', 'Formulas', I.fx, 'more'],
+    ['twin.html', 'Твой двойник', 'Twin', I.twin, 'more'],
     ['review.html', 'Mistakes deck', 'Review', I.deck, 'more'],
     ['saved.html', 'Saved questions', 'Saved', I.star, 'more'],
     ['live.html', 'Live room', 'Live', I.live, 'more'],
