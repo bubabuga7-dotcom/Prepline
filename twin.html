@@ -84,6 +84,7 @@
       <div>
         <div class="tstats" id="stats"></div>
         <p class="muted" id="hint"></p>
+        <p class="muted" id="save" style="margin-top:6px"></p>
         <div class="actions"><button class="btn ghost" id="demo">Попробовать на примере</button><a class="btn ghost" href="formulas.html">Квиз формул →</a></div>
       </div>
     </div>
@@ -112,13 +113,16 @@
     return '<svg class="mini" viewBox="0 0 200 260" aria-hidden="true">' + BODY + '<path id="mcrack" class="crack ' + state + '" d="' + crackPath(idx(id)) + '"/></svg>';
   }
   function drawHome() {
-    var m = T.load(), ids = Object.keys(m);
+    var m = T.state(), ids = Object.keys(m);
     var svg = BODY;
     T.TRAPS.forEach(function (t, i) { var c = m[t[0]]; if (c) svg += '<path class="crack ' + c.state + '" d="' + crackPath(i) + '"/>'; });
     $('svg').innerHTML = svg;
     var n = function (st) { return ids.filter(function (id) { return m[id].state === st; }).length; };
     $('stats').innerHTML = '<span class="tstat"><b>' + n('confirmed') + '</b>подтверждены</span><span class="tstat"><b>' + n('suspected') + '</b>подозрения</span>' +
       '<span class="tstat"><b>' + n('healing') + '</b>затягиваются</span><span class="tstat"><b>' + n('healed') + '</b>исчезли</span>';
+    var sv = T.owner() === 'guest' ? 'Прогресс хранится только на этом устройстве. Войди в аккаунт, чтобы он не потерялся.'
+      : T.pending() ? 'Сохранено на устройстве, отправится в аккаунт при подключении к интернету (' + T.pending() + ').' : 'Прогресс сохранён в аккаунте.';
+    $('save').textContent = sv;
     $('hint').textContent = ids.length
       ? 'Трещина появляется, когда в квизе формул ты выбираешь известную неверную формулу, и углубляется, если выбираешь её снова в другом квизе. Выиграй раунд — она начнёт затягиваться. Через 3 дня откроется проверка.'
       : 'Трещин пока нет. Двойник собирается из неверных формул, которые ты выбираешь в квизе формул. Начни с примера.';
@@ -145,7 +149,7 @@
 
   /* a round: find the wrong step → pick the fix → twin's line → fresh check (first try counts) */
   function round(id, demo) {
-    var R = T.ROUNDS[id], m = T.load(), c = m[id] || {};
+    var R = T.ROUNDS[id], m = T.state(), c = m[id] || {};
     var vi = demo ? 0 : (c.next || 0) % R.versions.length, v = R.versions[vi];
     var rec = { id: id, kind: 'round', v: vi, at: Date.now(), steps: [], fixes: [], check: [], first: null };
     $('home').style.display = 'none'; $('play').style.display = '';
@@ -181,7 +185,7 @@
 
   /* the check: only a first-try answer moves the crack */
   function check(id, demo, rec) {
-    var R = T.ROUNDS[id], p = R.check(), delayed = !rec, c0 = (T.load()[id] || {}).state || 'confirmed';
+    var R = T.ROUNDS[id], p = R.check(), delayed = !rec, c0 = (T.state()[id] || {}).state || 'confirmed';
     rec = rec || { id: id, kind: 'check', at: Date.now(), steps: [], fixes: [], check: [], first: null };
     $('home').style.display = 'none'; $('play').style.display = '';
     var t0 = Date.now();
@@ -205,16 +209,11 @@
         msg = rec.first ? 'Верно с первой попытки — трещина начинает затягиваться.' : 'Решено, но не с первой попытки: в настоящем раунде двойник вернулся бы с другой версией этой ловушки.';
         if (heal) $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>Пример — прогресс не сохранён.';
       } else {
-        var m = T.load(), c = m[id] || (m[id] = { state: 'confirmed', runs: [] });
+        T.record(delayed ? 'check' : 'round', id, { first: !!rec.first, v: rec.v || 0, steps: rec.steps, fixes: rec.fixes, check: rec.check, ms: rec.ms });
         if (rec.first) {
           heal = true; $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>';
-          if (delayed) { c.state = 'healed'; msg = 'Верно с первой попытки спустя 3+ дня. Трещина исчезла.'; }
-          else { c.state = 'healing'; c.healFrom = Date.now(); msg = 'Верно с первой попытки. Трещина затягивается, проверка откроется через 3 дня.'; }
-        } else {
-          c.state = 'confirmed'; c.next = (c.next || 0) + 1;
-          msg = 'Решено, но не с первой попытки. Двойник вернётся с другой версией этой ловушки.';
-        }
-        T.save(m); T.log(rec);
+          msg = delayed ? 'Верно с первой попытки спустя 3+ дня. Трещина исчезла.' : 'Верно с первой попытки. Трещина затягивается, проверка откроется через 3 дня.';
+        } else msg = 'Решено, но не с первой попытки. Двойник вернётся с другой версией этой ловушки.';
       }
       if (heal) { var mc = document.getElementById('mcrack'); if (mc) setTimeout(function () { mc.setAttribute('class', 'crack ' + (delayed && !demo ? 'healed' : 'healing')); }, 150); }
       $('res').textContent = p.why + ' ' + msg;
@@ -223,6 +222,7 @@
     };
   }
 
+  document.addEventListener('prepline:twin-changed', function () { if ($('home').style.display !== 'none') drawHome(); });
   drawHome();
   if (location.hash === '#demo') round('area-k', true);
 })();

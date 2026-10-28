@@ -215,28 +215,137 @@
     }
   };
 
-  function load() { try { return JSON.parse(localStorage.getItem(K) || '{}'); } catch (e) { return {}; } }
-  function save(m) { try { localStorage.setItem(K, JSON.stringify(m)); } catch (e) {} }
-  function log(entry) {
-    try { var l = JSON.parse(localStorage.getItem(LOGK) || '[]'); l.push(entry); localStorage.setItem(LOGK, JSON.stringify(l.slice(-500))); } catch (e) {}
+  /* ================= storage: an event log, local first, synced to Supabase (stage16.sql) =================
+     Events: { id: uuid, trap, kind: 'seen'|'round'|'check', at: ISO time, data: {...} }
+     Buckets: prepline:twin-ev:guest and prepline:twin-ev:<user id>; unsent ids in prepline:twin-out:<bucket>.
+     The state of every crack is rebuilt from the events sorted by time, never stored. */
+  var bucket = 'guest';
+  try { bucket = localStorage.getItem('prepline:twin-owner') || 'guest'; } catch (e) {}
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === 'x' ? r : r & 3 | 8).toString(16); });
   }
+  function rd(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
+  function wr(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function evKey(b) { return 'prepline:twin-ev:' + (b || bucket); }
+  function outKey(b) { return 'prepline:twin-out:' + (b || bucket); }
+  function events(b) { return rd(evKey(b), []); }
+
+  /* one-time move of the first local format (prepline:twin + prepline:twin-log) into guest events */
+  (function migrate() {
+    var old = rd(K, null); if (!old || rd('prepline:twin-migrated', 0)) return;
+    var ev = events('guest'), out = rd(outKey('guest'), []), add = function (e) { ev.push(e); out.push(e.id); };
+    Object.keys(old).forEach(function (trap) {
+      (old[trap].runs || []).forEach(function (run) { add({ id: uuid(), trap: trap, kind: 'seen', at: new Date(run).toISOString(), data: { run: run } }); });
+    });
+    rd(LOGK, []).forEach(function (r) {
+      add({ id: uuid(), trap: r.id, kind: r.kind === 'check' ? 'check' : 'round', at: new Date(r.at).toISOString(),
+            data: { first: !!r.first, v: r.v || 0, steps: r.steps || [], fixes: r.fixes || [], check: r.check || [], ms: r.ms || 0 } });
+    });
+    wr(evKey('guest'), ev); wr(outKey('guest'), out); wr('prepline:twin-migrated', 1);
+  })();
+
+  /* rebuild every crack from the events in time order */
+  function state() {
+    var list = events().slice().sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : a.id < b.id ? -1 : 1; });
+    var m = {};
+    list.forEach(function (e) {
+      var c = m[e.trap] || (m[e.trap] = { state: 'suspected', runs: [], next: 0 }), t = Date.parse(e.at);
+      if (e.kind === 'seen') {
+        var run = e.data && e.data.run;
+        if (c.runs.indexOf(run) < 0) c.runs.push(run);
+        if (c.state === 'healing' || c.state === 'healed') c.state = 'confirmed';     // the mistake came back after healing
+        else if (c.runs.length >= 2) c.state = 'confirmed';                             // seen in a second, separate quiz attempt
+        c.seenAt = t;
+      } else if (e.kind === 'round') {
+        if (e.data.first) { c.state = 'healing'; c.healFrom = t; } else { c.state = 'confirmed'; c.next++; }
+      } else if (e.kind === 'check') {
+        if (e.data.first) c.state = 'healed'; else { c.state = 'confirmed'; c.next++; }
+      }
+    });
+    return m;
+  }
+  function record(kind, trap, data, at) {
+    var e = { id: uuid(), trap: trap, kind: kind, at: new Date(at || Date.now()).toISOString(), data: data || {} };
+    var ev = events(); ev.push(e); wr(evKey(), ev.slice(-2000));
+    var out = rd(outKey(), []); out.push(e.id); wr(outKey(), out);
+    changed(); sync();
+    return e;
+  }
+  function changed() { try { document.dispatchEvent(new CustomEvent('prepline:twin-changed')); } catch (e) {} }
+
   function trapFor(formulaName, optionText) {
     for (var i = 0; i < TRAPS.length; i++) if (TRAPS[i][1] === formulaName && TRAPS[i][2] === optionText) return TRAPS[i][0];
     return null;
   }
-  /* the quiz reports a wrong option; runId identifies one quiz attempt */
+  /* the quiz reports a wrong option; runId identifies one quiz attempt (same run twice = one event) */
   function seen(formulaName, optionText, runId) {
     var id = trapFor(formulaName, optionText);
     if (!id) return null;
-    var m = load(), c = m[id] || (m[id] = { state: 'suspected', runs: [] });
-    if (c.runs.indexOf(runId) < 0) c.runs = c.runs.concat([runId]).slice(-10);
-    c.seenAt = Date.now();
-    if (c.state === 'healing' || c.state === 'healed') c.state = 'confirmed';         // the mistake came back
-    else if (c.runs.length >= 2) c.state = 'confirmed';                                  // a second, separate attempt
-    save(m);
+    var dup = events().some(function (e) { return e.kind === 'seen' && e.trap === id && e.data && e.data.run === runId; });
+    if (!dup) record('seen', id, { run: runId });
     return id;
   }
   function checkDue(c) { return c && c.state === 'healing' && Date.now() >= (c.healFrom || 0) + 3 * DAY; }
 
-  window.PreplineTwin = { TRAPS: TRAPS, ROUNDS: ROUNDS, load: load, save: save, log: log, trapFor: trapFor, seen: seen, checkDue: checkDue, DAY: DAY };
+  /* ---------- sync ---------- */
+  var busy = false, again = false;
+  function supa() { return window.preplineSupa || null; }
+  function setOwner(uid) {
+    var nb = uid || 'guest';
+    if (nb === bucket) return;
+    if (uid) {                                  // signing in: the guest's events join this account
+      var g = events('guest'), gout = rd(outKey('guest'), []);
+      if (g.length) {
+        var ev = events(nb), have = {}; ev.forEach(function (e) { have[e.id] = 1; });
+        g.forEach(function (e) { if (!have[e.id]) ev.push(e); });
+        var out = rd(outKey(nb), []); g.forEach(function (e) { if (out.indexOf(e.id) < 0) out.push(e.id); });
+        if (wr(evKey(nb), ev) && wr(outKey(nb), out)) { wr(evKey('guest'), []); wr(outKey('guest'), []); }
+      }
+      void gout;
+    }
+    bucket = nb; wr('prepline:twin-owner', nb === 'guest' ? null : nb);
+    if (nb === 'guest') try { localStorage.removeItem('prepline:twin-owner'); } catch (e) {}
+    changed();
+  }
+  function sync() {
+    var s = supa(); if (!s || bucket === 'guest' || !navigator.onLine) return Promise.resolve(false);
+    if (busy) { again = true; return Promise.resolve(false); }
+    busy = true;
+    var b = bucket, ev = events(b), out = rd(outKey(b), []);
+    var byId = {}; ev.forEach(function (e) { byId[e.id] = e; });
+    var rows = out.map(function (id) { return byId[id]; }).filter(Boolean)
+      .map(function (e) { return { id: e.id, trap: e.trap, kind: e.kind, at: e.at, data: e.data }; });
+    var push = rows.length ? s.from('twin_events').upsert(rows, { onConflict: 'id', ignoreDuplicates: true }) : Promise.resolve({ error: null });
+    return push.then(function (r) {
+      if (r.error) throw r.error;
+      var sent = {}; rows.forEach(function (x) { sent[x.id] = 1; });
+      wr(outKey(b), rd(outKey(b), []).filter(function (id) { return !sent[id]; }));   // only what the server accepted
+      return s.from('twin_events').select('id,trap,kind,at,data').order('at', { ascending: true }).limit(5000);
+    }).then(function (r) {
+      if (r.error) throw r.error;
+      if (b !== bucket) return false;
+      var local = events(b), have = {}; local.forEach(function (e) { have[e.id] = 1; });
+      var added = 0;
+      (r.data || []).forEach(function (e) { if (!have[e.id]) { local.push({ id: e.id, trap: e.trap, kind: e.kind, at: new Date(e.at).toISOString(), data: e.data || {} }); added++; } });
+      if (added) { wr(evKey(b), local); changed(); }
+      return true;
+    }).catch(function (e) { console.warn('[Prepline] twin sync:', e && e.message); return false; })
+      .then(function (ok) { busy = false; if (again) { again = false; sync(); } return ok; });
+  }
+  function watchAuth() {
+    var s = supa();
+    if (!s) { if (watchAuth.n = (watchAuth.n || 0) + 1, watchAuth.n < 40) setTimeout(watchAuth, 250); return; }
+    s.auth.getSession().then(function (r) { var u = r.data && r.data.session && r.data.session.user; setOwner(u ? u.id : null); sync(); });
+    s.auth.onAuthStateChange(function (ev, session) {
+      var u = session && session.user;
+      if (ev === 'SIGNED_OUT') setOwner(null);
+      else if (u) { setOwner(u.id); sync(); }
+    });
+  }
+  window.addEventListener('online', function () { sync(); });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchAuth); else setTimeout(watchAuth, 0);
+
+  window.PreplineTwin = { TRAPS: TRAPS, ROUNDS: ROUNDS, state: state, record: record, events: events, trapFor: trapFor, seen: seen,
+    checkDue: checkDue, sync: sync, pending: function () { return rd(outKey(), []).length; }, owner: function () { return bucket; }, DAY: DAY };
 })();
