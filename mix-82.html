@@ -240,7 +240,7 @@ function renderResults(app) {
       const correctAns = q.options[q.correct];
       return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span>Question ${q.id}${q.text ? ': ' + q.text : ''}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
+          <span>Question ${questions.indexOf(q)+1}${q.text ? ': ' + q.text : ''}</span><span class="mark ${ok ? 'ok' : 'no'}">${ok ? '&#10003;' : '&#10007;'}</span>
         </div>
         ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Question ${q.id}">` : ''}
         ${ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Correct: ${correctAns}</span></div>`}
