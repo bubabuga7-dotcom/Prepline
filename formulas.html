@@ -43,6 +43,16 @@
   .chip{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font:600 13px Inter,sans-serif;padding:7px 12px;border-radius:6px;cursor:pointer}
   .chip.on{background:rgba(201,170,106,.14);border-color:rgba(201,170,106,.55);color:var(--gold)}
   html[data-theme=light] .chip.on{background:#E4E9F1;border-color:#3D63A3;color:#3D63A3}
+  .mode-note{color:var(--ink-3);font-size:13.5px;margin:8px 0 0}
+  #mine:empty{display:none}
+  #mine{margin-bottom:8px}
+  .chip.mine{border-style:dashed}
+  .sol{margin:8px 0 0;padding-left:20px}
+  .sol li{margin:2px 0}
+  .q-text.prob{font-size:17px;line-height:1.55}
+  .q-text.prob,.q-text.prob .fx,.sol,.sol .fx{font-family:Inter,sans-serif}
+  .q-text.prob .fx,.sol .fx{display:inline;margin:0;font-size:inherit;font-weight:inherit;white-space:normal}
+  .q-text.prob{font-weight:500}
   .chip span{font:500 11.5px 'IBM Plex Mono',monospace;opacity:.7;margin-left:4px}
   .start-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px}
   .best{font-size:13px;color:var(--ink-3)}
@@ -104,13 +114,17 @@
   <div class="head">
     <span class="kicker">Mathematics · formulas</span>
     <h1>Formula quiz</h1>
-    <p>Every formula you need for NUET Mathematics. The wrong options are the usual slips: a missing ½, a wrong sign, πr² instead of 2πr. If you can tell them apart here, you will not lose marks on them in the test.</p>
+    <p>Every formula you need for NUET Mathematics. The wrong options are the usual slips: a missing ½, a wrong sign, πr² instead of 2πr. If you can tell them apart here, you will not lose marks on them in the test. Then switch to problems and use them. Formulas you miss are saved, so you can come back to just those.</p>
   </div>
 
   <div class="seg tabs" id="tabs"><button data-v="setup" class="on">Quiz</button><button data-v="sheet">All formulas</button></div>
 
   <section class="view on setup" id="v-setup">
+    <h3>Mode</h3>
+    <div class="seg" id="mode"><button data-m="f" class="on">Recall the formula</button><button data-m="p">Solve problems</button></div>
+    <p class="mode-note" id="mode-note">Pick the right formula from four look-alikes.</p>
     <h3>Topics</h3>
+    <div class="chips" id="mine"></div>
     <div class="chips" id="groups"></div>
     <h3>Questions</h3>
     <div class="chips" id="count">
@@ -128,6 +142,7 @@
 </div></main>
 
 <script src="nav.js"></script>
+<script src="formula-problems.js"></script>
 <script>
 /* Formula data. Notation: {top|bottom} is a fraction, sqrt{…} a square root, ^{…} a power, _{…} an index.
    n = name shown in the quiz, f = the formula, t = traps (common wrong versions), q = a custom question (identities),
@@ -248,18 +263,48 @@ function view(v) {
 }
 $('tabs').onclick = function (e) { var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v')); };
 
+/* mistakes: formulas missed in either mode; each miss needs two later right answers to clear */
+function key(it) { return it.q ? it.n + ' ' + it.q : it.n; }
+function missGet() { try { return JSON.parse(localStorage.getItem('prepline:formula-miss') || '{}'); } catch (e) { return {}; } }
+function missSet(m) { try { localStorage.setItem('prepline:formula-miss', JSON.stringify(m)); } catch (e) {} }
+function mark(it, ok) {
+  var m = missGet(), k = key(it);
+  if (!ok) m[k] = 2; else if (m[k]) { m[k]--; if (!m[k]) delete m[k]; }
+  missSet(m);
+}
+function canProb(it) { return !!(window.PREPLINE_PROB_HAS && window.PREPLINE_PROB_HAS(it.n)); }
+function myMisses() { var m = missGet(); return ALL.filter(function (it) { return m[key(it)] && (mode === 'f' || canProb(it)); }); }
+
 /* setup */
 var picked = {}; G.forEach(function (g) { picked[g[0]] = true; });
-var count = 10;
+var count = 10, mode = 'f', onlyMine = false;
+function drawMine() {
+  var n = myMisses().length;
+  if (!n) onlyMine = false;
+  $('mine').innerHTML = n ? '<button class="chip mine' + (onlyMine ? ' on' : '') + '" id="mine-b">Only my mistakes<span>' + n + '</span></button>' : '';
+  $('groups').style.opacity = onlyMine ? '.45' : '';
+}
+$('mine').onclick = function (e) { if (e.target.closest('.chip')) { onlyMine = !onlyMine; drawMine(); } };
+$('mode').onclick = function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  mode = b.getAttribute('data-m');
+  [].forEach.call($('mode').children, function (x) { x.classList.toggle('on', x === b); });
+  $('mode-note').textContent = mode === 'p' ? 'Real exam-style problems where you have to use the formula. A worked solution follows each one.' : 'Pick the right formula from four look-alikes.';
+  $('best').style.display = mode === 'p' ? 'none' : '';
+  drawGroups(); drawMine();
+};
 function drawGroups() {
   $('groups').innerHTML = G.map(function (g) {
-    return '<button class="chip' + (picked[g[0]] ? ' on' : '') + '" data-g="' + g[0] + '">' + g[0] + '<span>' + g[1].length + '</span></button>';
+    var n = mode === 'p' ? g[1].filter(canProb).length : g[1].length;
+    if (!n) return '';
+    return '<button class="chip' + (picked[g[0]] ? ' on' : '') + '" data-g="' + g[0] + '">' + g[0] + '<span>' + n + '</span></button>';
   }).join('');
 }
 $('groups').onclick = function (e) {
   var b = e.target.closest('.chip'); if (!b) return;
   var g = b.getAttribute('data-g');
   var on = Object.keys(picked).filter(function (k) { return picked[k]; });
+  if (onlyMine) { onlyMine = false; drawMine(); }
   if (on.length === G.length) { Object.keys(picked).forEach(function (k) { picked[k] = false; }); picked[g] = true; } // first tap: only this topic
   else { picked[g] = !picked[g]; if (!Object.keys(picked).some(function (k) { return picked[k]; })) G.forEach(function (x) { picked[x[0]] = true; }); }
   drawGroups();
@@ -277,6 +322,10 @@ function best() {
 function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 var run = null;
 function makeQ(it) {
+  if (mode === 'p') {
+    var p = window.PREPLINE_PROB(it.n);
+    if (p) { var o = shuffle([p.a].concat(p.w)); return { it: it, prob: p, opts: o, ans: o.indexOf(p.a) }; }
+  }
   var group = G.filter(function (g) { return g[0] === it.g; })[0][1];
   // "what does this formula give?" for items with a real name and unique formula (a third of the time)
   var canRev = !it.q && it.n !== 'Exact value' && group.filter(function (x) { return !x.q && x.n !== 'Exact value'; }).length >= 4;
@@ -289,7 +338,7 @@ function makeQ(it) {
   return { it: it, rev: false, opts: o, ans: o.indexOf(it.f) };
 }
 function start() {
-  var pool = ALL.filter(function (it) { return picked[it.g]; });
+  var pool = onlyMine ? myMisses() : ALL.filter(function (it) { return picked[it.g] && (mode === 'f' || canProb(it)); });
   pool = shuffle(pool.slice());
   if (count) pool = pool.slice(0, count);
   run = { qs: pool.map(makeQ), i: 0, ok: 0, miss: [], done: false };
@@ -299,13 +348,13 @@ $('start').onclick = start;
 function show() {
   var q = run.qs[run.i], it = q.it, n = run.qs.length;
   var L = 'ABCD';
-  var prompt = q.rev ? 'What does this formula give?' + tex(it.f)
+  var prompt = q.prob ? tex(q.prob.q) : q.rev ? 'What does this formula give?' + tex(it.f)
              : it.q ? tex(it.q) : 'Which is the formula for: ' + it.n.charAt(0).toLowerCase() + it.n.slice(1) + '?';
   $('card').innerHTML =
     '<div class="card-top"><span>Question <b>' + (run.i + 1) + '</b> of ' + n + '</span><span><b>' + run.ok + '</b> correct</span></div>' +
     '<div class="prog"><i style="width:' + (100 * run.i / n) + '%"></i></div>' +
     '<span class="gtag">' + it.g + '</span>' +
-    '<div class="q-text">' + prompt + '</div>' +
+    '<div class="q-text' + (q.prob ? ' prob' : '') + '">' + prompt + '</div>' +
     '<div class="opts' + (q.rev ? ' names' : '') + '">' + q.opts.map(function (o, k) {
       return '<button class="opt" data-k="' + k + '"><b>' + L[k] + '</b><span>' + (q.rev ? o : tex(o)) + '</span></button>';
     }).join('') + '</div>' +
@@ -323,9 +372,11 @@ function answer(k) {
   [].forEach.call(btns, function (b, j) { b.disabled = true; if (j === q.ans) b.classList.add('c'); else if (j === k) b.classList.add('u'); });
   var ok = k === q.ans, it = q.it;
   if (ok) run.ok++; else run.miss.push(it);
+  mark(it, ok);
   var r = $('res');
   r.className = 'res ' + (ok ? 'ok' : 'no');
-  r.innerHTML = (ok ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + (it.q ? tex(it.q) + ' ' : it.n + ': ') + tex(it.f) + (it.s ? '<br>' + it.s : '');
+  r.innerHTML = (ok ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + (it.q ? tex(it.q) + ' ' : it.n + ': ') + tex(it.f) + (it.s ? '<br>' + it.s : '') +
+    (q.prob ? '<ol class="sol">' + q.prob.s.map(function (x) { return '<li>' + tex(x) + '</li>'; }).join('') + '</ol>' : '');
   $('nx').style.display = '';
   $('nx').focus();
 }
@@ -335,7 +386,7 @@ function next() {
   var n = run.qs.length, p = Math.round(100 * run.ok / n);
   try {
     var b = JSON.parse(localStorage.getItem('prepline:formula-best') || 'null');
-    if (n >= 10 && (!b || run.ok / n > b.s / b.n)) localStorage.setItem('prepline:formula-best', JSON.stringify({ s: run.ok, n: n }));
+    if (mode === 'f' && n >= 10 && (!b || run.ok / n > b.s / b.n)) localStorage.setItem('prepline:formula-best', JSON.stringify({ s: run.ok, n: n }));
   } catch (e) {}
   $('card').innerHTML =
     '<span class="gtag">Result</span><div class="big">' + run.ok + '/' + n + '</div>' +
@@ -343,11 +394,14 @@ function next() {
     (run.miss.length ? '<div class="miss">' + run.miss.map(function (it) {
       return '<div class="row"><span>' + it.n + '</span>' + tex((it.q ? it.q + ' ' : '') + it.f) + '</div>';
     }).join('') + '</div>' : '') +
-    '<div class="actions">' + (run.miss.length ? '<button class="btn" id="again-miss">Retry the ' + run.miss.length + ' missed</button>' : '') +
+    '<div class="actions">' + (run.miss.length ? '<button class="btn" id="again-miss">' + (mode === 'p' ? 'More problems on the ' + run.miss.length + ' missed' : 'Retry the ' + run.miss.length + ' missed') + '</button>' : '') +
+    (mode === 'f' && run.miss.filter(canProb).length ? '<button class="btn ghost" id="to-prob">Solve problems with them</button>' : '') +
     '<button class="btn ghost" id="again">New quiz</button><button class="btn ghost" id="to-sheet">All formulas</button></div>';
   var m = $('again-miss');
   if (m) m.onclick = function () { var miss = run.miss.slice(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [] }; show(); };
-  $('again').onclick = function () { best(); view('setup'); };
+  var tp = $('to-prob');
+  if (tp) tp.onclick = function () { var miss = run.miss.filter(canProb); mode = 'p'; syncMode(); run = { qs: shuffle(miss).map(makeQ), i: 0, ok: 0, miss: [] }; show(); };
+  $('again').onclick = function () { best(); drawMine(); view('setup'); };
   $('to-sheet').onclick = function () { view('sheet'); };
 }
 document.addEventListener('keydown', function (e) {
@@ -377,7 +431,9 @@ function drawSheet() {
 }
 $('find').oninput = drawSheet;
 
-drawGroups(); best(); drawSheet();
+function syncMode() { [].forEach.call($('mode').children, function (x) { x.classList.toggle('on', x.getAttribute('data-m') === mode); }); drawGroups(); drawMine(); }
+drawGroups(); drawMine(); best(); drawSheet();
+if (location.hash === '#mistakes' && myMisses().length) { onlyMine = true; drawMine(); }
 if (location.hash === '#all') view('sheet');
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
