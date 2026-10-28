@@ -149,6 +149,7 @@
 <script src="nav.js"></script>
 <script src="formula-problems.js"></script>
 <script src="formula-traps.js"></script>
+<script src="formula-topics.js"></script>
 <script>
 /* Formula data. Notation: {top|bottom} is a fraction, sqrt{…} a square root, ^{…} a power, _{…} an index.
    n = name shown in the quiz, f = the formula, t = traps (common wrong versions), q = a custom question (identities),
@@ -468,6 +469,18 @@ $('find').oninput = drawSheet;
 function syncMode() { [].forEach.call($('mode').children, function (x) { x.classList.toggle('on', x.getAttribute('data-m') === mode); }); drawGroups(); drawMine(); }
 drawGroups(); drawMine(); best(); drawSheet();
 if (location.hash === '#mistakes' && myMisses().length) { onlyMine = true; drawMine(); }
+/* from a test's results: formulas.html#topic=M5.15 opens problems on that topic's formulas */
+(function () {
+  var m = location.hash.match(/^#topic=([A-Z0-9.]+)/), map = window.PREPLINE_TOPIC_FORMULAS || {};
+  if (!m || !map[m[1]]) return;
+  var names = map[m[1]];
+  mode = 'p'; syncMode(); $('best').style.display = 'none';
+  var pool = shuffle(ALL.filter(function (it) { return names.indexOf(it.n) >= 0 && canProb(it); }));
+  if (!pool.length) return;
+  while (pool.length < 5) pool = pool.concat(pool);           // a short set: at least five problems
+  run = { qs: pool.slice(0, Math.max(5, names.length)).map(makeQ), i: 0, ok: 0, miss: [], done: false };
+  view('run'); show();
+})();
 if (location.hash === '#all') view('sheet');
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

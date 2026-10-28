@@ -779,6 +779,23 @@
     var grid = app.querySelector('.stat-grid');
     if (grid) grid.insertAdjacentElement('afterend', box); else app.insertBefore(box, app.firstChild);
   }
+  /* under a wrong maths answer: practise the formulas that topic uses (formula-topics.js) */
+  function formulaLinks(items) {
+    if (page.indexOf('crit-') === 0 || items.length !== questions.length) return;
+    function add() {
+      var map = window.PREPLINE_TOPIC_FORMULAS || {};
+      items.forEach(function (it, i) {
+        var q = questions[i];
+        if (!it.querySelector('.mark.no') || !q.topic || !map[q.topic] || it.querySelector('.fx-go')) return;
+        var a = document.createElement('a'); a.className = 'fx-go'; a.href = 'formulas.html#topic=' + encodeURIComponent(q.topic);
+        a.textContent = 'Practise the formulas for this topic →';
+        a.style.cssText = 'display:inline-block;margin-top:8px;font:600 13px Inter,sans-serif;color:var(--blue,#8EADD2);text-decoration:none';
+        it.appendChild(a);
+      });
+    }
+    if (window.PREPLINE_TOPIC_FORMULAS) return add();
+    var sc = document.createElement('script'); sc.src = 'formula-topics.js'; sc.onload = add; document.body.appendChild(sc);
+  }
   function enhanceResults() {
     var items = [].filter.call(app.querySelectorAll('.review-item'), function (it) { return it.querySelector('.mark'); });
     items = items.filter(function (it) { return it.style.flexDirection === 'column'; });
@@ -796,6 +813,7 @@
       function open() { sp.classList.add('open'); more.remove(); }
       sp.addEventListener('click', open); more.onclick = open;
     });
+    formulaLinks(items);
     var bar = document.createElement('div'); bar.className = 'rv-filter';
     bar.innerHTML = '<button type="button" class="on" data-f="all">All questions ' + items.length + '</button>' +
       '<button type="button" data-f="no">Only mistakes ' + wrong.length + '</button>';
