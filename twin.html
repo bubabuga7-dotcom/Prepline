@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/favicon-48.png" type="image/png">
-<title>Your twin — Prepline</title>
+<title>Твой двойник — Prepline</title>
 <meta name="description" content="Your mistakes from the Formula quiz become a twin who argues the wrong way. Prove it wrong.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -57,6 +57,15 @@
   .opt:disabled{cursor:default}
   .demo-tag{display:inline-block;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--blue);border:1px solid var(--line);border-radius:4px;padding:2px 8px;margin-bottom:10px}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .duel{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start}
+  .mini{width:72px;height:94px}
+  .mini .body{fill:var(--panel);stroke:var(--line);stroke-width:2}
+  .mini .crack{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .8s,opacity .8s,stroke-width .8s}
+  .mini .crack.confirmed,.mini .crack.suspected{stroke:var(--bad)}
+  .mini .crack.healing{stroke:var(--gold);stroke-width:1.5;opacity:.6}
+  .mini .crack.healed{opacity:0}
+  .heal-cap{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+  .say .who{display:block}
   @media (max-width:640px){.twin-top{grid-template-columns:1fr;justify-items:center;text-align:center}.tstats{justify-content:center}}
 </style>
 </head>
@@ -64,9 +73,9 @@
 <aside class="dock" id="dock"></aside>
 <main><div class="wrap">
   <div class="head">
-    <span class="kicker">Mathematics · formulas</span>
-    <h1>Your twin</h1>
-    <p>We kept your mistakes. Now they can argue. Every crack is one wrong idea you picked in the Formula quiz. Find the wrong step, fix it, and prove you are stronger.</p>
+    <span class="kicker">Математика · формулы</span>
+    <h1>Твой двойник</h1>
+    <p>Мы сохранили твои ошибки. Теперь они умеют спорить. Каждая трещина — неверная формула, которую ты выбрал в квизе формул. Найди неверный шаг, исправь его и докажи, что ты стал сильнее.</p>
   </div>
   <div id="home">
     <div class="twin-top">
@@ -74,7 +83,7 @@
       <div>
         <div class="tstats" id="stats"></div>
         <p class="muted" id="hint"></p>
-        <div class="actions"><button class="btn ghost" id="demo">Try it on an example</button><a class="btn ghost" href="formulas.html">Formula quiz →</a></div>
+        <div class="actions"><button class="btn ghost" id="demo">Попробовать на примере</button><a class="btn ghost" href="formulas.html">Квиз формул →</a></div>
       </div>
     </div>
     <div class="list" id="list"></div>
@@ -88,31 +97,37 @@
 (function () {
   var T = window.PreplineTwin, $ = function (id) { return document.getElementById(id); };
   var NAMES = {}; T.TRAPS.forEach(function (t) { NAMES[t[0]] = t[3]; });
-  var LABEL = { suspected: 'suspected', confirmed: 'confirmed', healing: 'healing', healed: 'healed' };
+  var LABEL = { suspected: 'подозрение', confirmed: 'подтверждена', healing: 'затягивается', healed: 'исчезла' };
+  var ORDER = ['confirmed', 'suspected', 'healing', 'healed'];
   /* one crack path per misconception, placed on the silhouette */
   function crackPath(i) {
     var x = 68 + (i * 37) % 64, y = 102 + (i * 53) % 86, d = 'M' + x + ' ' + y;
     for (var k = 0; k < 4; k++) { x += ((i + k) % 2 ? 7 : -6) + (k % 3); y += 9 + (i * k) % 6; d += ' L' + x + ' ' + y; }
     return d;
   }
+  var BODY = '<circle class="body" cx="100" cy="48" r="30"/><path class="body" d="M55 92 Q100 70 145 92 L160 200 Q100 230 40 200 Z"/>';
+  function idx(id) { for (var i = 0; i < T.TRAPS.length; i++) if (T.TRAPS[i][0] === id) return i; return 0; }
+  function mini(id, state) {
+    return '<svg class="mini" viewBox="0 0 200 260" aria-hidden="true">' + BODY + '<path id="mcrack" class="crack ' + state + '" d="' + crackPath(idx(id)) + '"/></svg>';
+  }
   function drawHome() {
     var m = T.load(), ids = Object.keys(m);
-    var open = ids.filter(function (id) { return m[id].state !== 'healed'; });
-    var svg = '<circle class="body" cx="100" cy="48" r="30"/><path class="body" d="M55 92 Q100 70 145 92 L160 200 Q100 230 40 200 Z"/>';
+    var svg = BODY;
     T.TRAPS.forEach(function (t, i) { var c = m[t[0]]; if (c) svg += '<path class="crack ' + c.state + '" d="' + crackPath(i) + '"/>'; });
     $('svg').innerHTML = svg;
-    var n = function (s) { return ids.filter(function (id) { return m[id].state === s; }).length; };
-    $('stats').innerHTML = '<span class="tstat"><b>' + n('confirmed') + '</b>confirmed</span><span class="tstat"><b>' + n('suspected') + '</b>suspected</span>' +
-      '<span class="tstat"><b>' + n('healing') + '</b>healing</span><span class="tstat"><b>' + n('healed') + '</b>gone</span>';
-    $('hint').textContent = ids.length ? 'A crack appears when you pick a known wrong formula in the Formula quiz, and deepens if you pick it again in another quiz. Win a round to start healing it; a check after 3 days closes it.'
-      : 'No cracks yet. Your twin is built from the wrong formulas you pick in the Formula quiz. Try a round on an example first.';
-    $('list').innerHTML = ids.sort(function (a, b) { return ['confirmed', 'suspected', 'healing', 'healed'].indexOf(m[a].state) - ['confirmed', 'suspected', 'healing', 'healed'].indexOf(m[b].state); })
+    var n = function (st) { return ids.filter(function (id) { return m[id].state === st; }).length; };
+    $('stats').innerHTML = '<span class="tstat"><b>' + n('confirmed') + '</b>подтверждены</span><span class="tstat"><b>' + n('suspected') + '</b>подозрения</span>' +
+      '<span class="tstat"><b>' + n('healing') + '</b>затягиваются</span><span class="tstat"><b>' + n('healed') + '</b>исчезли</span>';
+    $('hint').textContent = ids.length
+      ? 'Трещина появляется, когда в квизе формул ты выбираешь известную неверную формулу, и углубляется, если выбираешь её снова в другом квизе. Выиграй раунд — она начнёт затягиваться. Через 3 дня откроется проверка.'
+      : 'Трещин пока нет. Двойник собирается из неверных формул, которые ты выбираешь в квизе формул. Начни с примера.';
+    $('list').innerHTML = ids.sort(function (a, b) { return ORDER.indexOf(m[a].state) - ORDER.indexOf(m[b].state); })
       .map(function (id) {
         var c = m[id], has = !!T.ROUNDS[id], btn = '';
-        if (has && (c.state === 'confirmed' || c.state === 'suspected')) btn = '<button class="btn sm" data-r="' + id + '">Fight it →</button>';
-        else if (has && T.checkDue(c)) btn = '<button class="btn sm" data-c="' + id + '">Delayed check →</button>';
-        else if (c.state === 'healing') btn = '<span class="muted">Check opens ' + new Date(c.healFrom + 3 * T.DAY).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + '</span>';
-        else if (!has && c.state !== 'healed') btn = '<span class="muted">Round coming soon</span>';
+        if (has && (c.state === 'confirmed' || c.state === 'suspected')) btn = '<button class="btn sm" data-r="' + id + '">Сразиться →</button>';
+        else if (has && T.checkDue(c)) btn = '<button class="btn sm" data-c="' + id + '">Отложенная проверка →</button>';
+        else if (c.state === 'healing') btn = '<span class="muted">Проверка откроется ' + new Date(c.healFrom + 3 * T.DAY).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + '</span>';
+        else if (!has && c.state !== 'healed') btn = '<span class="muted">Раунд скоро появится</span>';
         return '<div class="item"><span class="nm">' + (NAMES[id] || id) + '</span><span class="tag ' + c.state + '">' + LABEL[c.state] + '</span>' + btn + '</div>';
       }).join('');
   }
@@ -124,6 +139,8 @@
 
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function back() { $('play').style.display = 'none'; $('home').style.display = ''; drawHome(); window.scrollTo(0, 0); }
+  var DEMO = '<span class="demo-tag">ПРИМЕР · ПРОГРЕСС НЕ СОХРАНЯЕТСЯ</span>';
+  function say(text, calm) { return '<div class="say' + (calm ? ' calm' : '') + '"><span class="who">ТЫ v1.0</span>' + text + '</div>'; }
 
   /* a round: find the wrong step → pick the fix → twin's line → fresh check (first try counts) */
   function round(id, demo) {
@@ -131,71 +148,76 @@
     var vi = demo ? 0 : (c.next || 0) % R.versions.length, v = R.versions[vi];
     var rec = { id: id, kind: 'round', v: vi, at: Date.now(), steps: [], fixes: [], check: [], first: null };
     $('home').style.display = 'none'; $('play').style.display = '';
-    var card = $('card');
-    card.innerHTML = (demo ? '<span class="demo-tag">EXAMPLE · NOT SAVED</span>' : '') +
-      '<div class="say"><span class="who">YOU v1.0</span>' + v.claim + '</div>' +
-      '<div class="phase">1 · Tap the wrong step</div><div class="steps" id="steps">' +
-      v.steps.map(function (s, i) { return '<button class="step" data-i="' + i + '"><b>' + (i + 1) + '</b><span>' + s + '</span></button>'; }).join('') +
+    $('card').innerHTML = (demo ? DEMO : '') +
+      '<div class="duel">' + mini(id, demo ? 'confirmed' : (c.state || 'confirmed')) + '<div>' + say(v.claim) + '</div></div>' +
+      '<div class="phase">1 · Нажми на неверный шаг</div><div class="steps" id="steps">' +
+      v.steps.map(function (st, i) { return '<button class="step" data-i="' + i + '"><b>' + (i + 1) + '</b><span>' + st + '</span></button>'; }).join('') +
       '</div><p class="note" id="note"></p><div id="fix"></div>';
     $('steps').onclick = function (e) {
       var b = e.target.closest('.step'); if (!b || b.disabled) return;
       var i = +b.dataset.i; rec.steps.push(i);
-      if (i !== v.bad) { b.classList.add('no'); b.disabled = true; $('note').textContent = 'Twin: «' + v.replies[i] + '»'; return; }
+      if (i !== v.bad) { b.classList.add('no'); b.disabled = true; $('note').textContent = 'Двойник: «' + v.replies[i] + '»'; return; }
       [].forEach.call($('steps').children, function (x) { x.disabled = true; });
-      b.classList.add('bad'); $('note').textContent = 'Twin: «Хм. А что тут не так?»';
+      b.classList.add('bad'); $('note').textContent = 'Двойник: «Хм. А что тут не так?»';
       fixPhase();
     };
     function fixPhase() {
       var order = shuffle([0, 1, 2, 3]);
-      $('fix').innerHTML = '<div class="phase">2 · Fix the step</div><div class="opts" id="fx">' +
-        order.map(function (k) { return '<button class="opt" data-k="' + k + '">' + R.fixes[k] + '</button>'; }).join('') + '</div><div id="after"></div>';
+      $('fix').innerHTML = '<div class="phase">2 · Исправь этот шаг</div><div class="opts" id="fx">' +
+        order.map(function (k) { return '<button class="opt" data-k="' + k + '">' + R.fixes[k] + '</button>'; }).join('') + '</div><p class="note" id="fnote"></p><div id="after"></div>';
       $('fx').onclick = function (e) {
         var b = e.target.closest('.opt'); if (!b || b.disabled) return;
         var k = +b.dataset.k; rec.fixes.push(k);
-        if (k !== 0) { b.classList.add('u'); b.disabled = true; return; }
+        if (k !== 0) { b.classList.add('u'); b.disabled = true; $('fnote').textContent = 'Двойник: «' + R.fixReplies[k] + '»'; return; }
         [].forEach.call($('fx').children, function (x) { x.disabled = true; });
-        b.classList.add('c');
-        $('after').innerHTML = '<div class="say calm" style="margin-top:14px"><span class="who">YOU v1.0</span>' + v.line + '</div>' +
-          '<button class="btn" id="tocheck">Now check it on a new problem →</button>';
+        b.classList.add('c'); $('fnote').textContent = '';
+        $('after').innerHTML = '<div class="duel" style="margin-top:14px">' + mini(id, demo ? 'confirmed' : (c.state || 'confirmed')) + '<div>' + say(v.line, true) + '</div></div>' +
+          '<button class="btn" id="tocheck">Проверить на новой задаче →</button>';
         $('tocheck').onclick = function () { check(id, demo, rec); };
       };
     }
   }
 
-  /* the check: only a first-try answer without hints moves the crack */
+  /* the check: only a first-try answer moves the crack */
   function check(id, demo, rec) {
-    var R = T.ROUNDS[id], p = R.check(), delayed = !rec;
+    var R = T.ROUNDS[id], p = R.check(), delayed = !rec, c0 = (T.load()[id] || {}).state || 'confirmed';
     rec = rec || { id: id, kind: 'check', at: Date.now(), steps: [], fixes: [], check: [], first: null };
     $('home').style.display = 'none'; $('play').style.display = '';
     var t0 = Date.now();
-    $('card').innerHTML = (demo ? '<span class="demo-tag">EXAMPLE · NOT SAVED</span>' : '') +
-      '<div class="phase">' + (delayed ? 'Delayed check · first try counts' : '3 · New problem · first try counts') + '</div>' +
-      '<p style="font-size:16px;line-height:1.55;margin:4px 0 12px">' + p.q + '</p><div class="opts" id="ck">' +
+    $('card').innerHTML = (demo ? DEMO : '') +
+      '<div class="duel">' + mini(id, demo ? 'confirmed' : c0) + '<div>' +
+      '<div class="phase" style="margin-top:0">' + (delayed ? 'Отложенная проверка · засчитывается только первая попытка' : '3 · Новая задача · засчитывается только первая попытка') + '</div>' +
+      '<p style="font-size:16px;line-height:1.55;margin:4px 0 0">' + p.q + '</p><div class="heal-cap" id="cap"></div></div></div>' +
+      '<div class="opts" id="ck" style="margin-top:12px">' +
       p.opts.map(function (o, k) { return '<button class="opt" data-k="' + k + '">' + o + '</button>'; }).join('') + '</div><p class="note" id="res"></p><div class="actions" id="end"></div>';
     $('ck').onclick = function (e) {
       var b = e.target.closest('.opt'); if (!b || b.disabled) return;
       var k = +b.dataset.k; rec.check.push(k);
       if (rec.first === null) rec.first = k === p.ans;
-      if (k !== p.ans) { b.classList.add('u'); b.disabled = true; $('res').textContent = 'Not quite. Try again — but this attempt no longer heals the crack.'; return; }
+      if (k !== p.ans) { b.classList.add('u'); b.disabled = true; $('res').textContent = 'Не так. Попробуй ещё раз — но эта попытка уже не затянет трещину.'; return; }
       [].forEach.call($('ck').children, function (x) { x.disabled = true; });
       b.classList.add('c');
       rec.ms = Date.now() - t0;
-      var msg;
-      if (demo) msg = rec.first ? 'Right first time. In a real round this crack would start healing.' : 'Solved, but not first time: in a real round the twin would come back with another version.';
-      else {
+      var msg, heal = false;
+      if (demo) {
+        heal = rec.first;
+        msg = rec.first ? 'Верно с первой попытки — трещина начинает затягиваться.' : 'Решено, но не с первой попытки: в настоящем раунде двойник вернулся бы с другой версией этой ловушки.';
+        if (heal) $('cap').textContent = 'Пример — прогресс не сохранён.';
+      } else {
         var m = T.load(), c = m[id] || (m[id] = { state: 'confirmed', runs: [] });
         if (rec.first) {
-          if (delayed) { c.state = 'healed'; msg = 'Right first time after 3+ days. The crack is gone.'; }
-          else { c.state = 'healing'; c.healFrom = Date.now(); msg = 'Right first time. The crack is healing; a check opens in 3 days.'; }
+          heal = true;
+          if (delayed) { c.state = 'healed'; msg = 'Верно с первой попытки спустя 3+ дня. Трещина исчезла.'; }
+          else { c.state = 'healing'; c.healFrom = Date.now(); msg = 'Верно с первой попытки. Трещина затягивается, проверка откроется через 3 дня.'; }
         } else {
           c.state = 'confirmed'; c.next = (c.next || 0) + 1;
-          msg = 'Solved, but not first time. The twin will come back with another version of this trap.';
+          msg = 'Решено, но не с первой попытки. Двойник вернётся с другой версией этой ловушки.';
         }
-        if (!delayed) c.next = rec.first ? (c.next || 0) : c.next;
         T.save(m); T.log(rec);
       }
+      if (heal) { var mc = document.getElementById('mcrack'); if (mc) setTimeout(function () { mc.setAttribute('class', 'crack ' + (delayed && !demo ? 'healed' : 'healing')); }, 150); }
       $('res').textContent = p.why + ' ' + msg;
-      $('end').innerHTML = '<button class="btn" id="home-b">Back to your twin</button>';
+      $('end').innerHTML = '<button class="btn" id="home-b">К двойнику</button>';
       $('home-b').onclick = back;
     };
   }
