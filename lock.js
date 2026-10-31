@@ -64,7 +64,7 @@
       return;
     }
     var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    s.src = 'vendor/supabase/supabase.js?v=2.118.0';
     s.onload = start;
     s.onerror = function () { screen(null, 'Could not reach the server. Reload the page.'); };
     (document.head || document.documentElement).appendChild(s);
