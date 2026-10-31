@@ -80,7 +80,10 @@
   function paint() {
     [].forEach.call(document.querySelectorAll('.pl-bm'), function (b) {
       var on = !!marks[page + ':' + b.dataset.q];
-      b.classList.toggle('on', on); b.textContent = on ? '★ Saved' : '☆ Save';
+      // write only on change: every write is a DOM mutation that re-triggers the observer below (was an endless loop)
+      var label = on ? '★ Saved' : '☆ Save';
+      if (b.classList.contains('on') !== on) b.classList.toggle('on', on);
+      if (b.textContent !== label) b.textContent = label;
     });
   }
   function decorate() {

@@ -269,7 +269,7 @@ render();
 
 <!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="prepline-supabase.js?v=fa20c0b3"></script>
+<script src="prepline-supabase.js?v=1c2c9c12"></script>
 <script>
 (function () {
   function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
@@ -519,7 +519,10 @@ render();
       throwOnError: false
     });
   }
-  function schedule(){ clearTimeout(pending); pending = setTimeout(draw, 60); }
+  var first = 0;
+  function schedule(){ clearTimeout(pending); var now = Date.now(); if(!first) first = now;
+    // never wait more than 300 ms in total: constant DOM changes elsewhere must not block rendering
+    pending = setTimeout(function(){ first = 0; draw(); }, now - first > 300 ? 0 : 60); }
   window.addEventListener("load", function(){
     schedule();
     new MutationObserver(schedule).observe(document.body, {childList:true, subtree:true});
