@@ -497,6 +497,26 @@ render();
 </div>
 <script src="gate.js?v=1b5e3d3d"></script>
 
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  var pending = null;
+  function draw(){
+    if(!window.renderMathInElement) return;
+    renderMathInElement(document.body, {
+      delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],
+      throwOnError: false
+    });
+  }
+  function schedule(){ clearTimeout(pending); pending = setTimeout(draw, 60); }
+  window.addEventListener("load", function(){
+    schedule();
+    new MutationObserver(schedule).observe(document.body, {childList:true, subtree:true});
+  });
+})();
+</script>
 <script src="test-ux.js?v=1468e607"></script>
 </body>
 </html>

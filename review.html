@@ -130,10 +130,10 @@
     if (window.renderMathInElement) return go();
     if (!/\\\(|\\\[/.test(el.textContent)) return;
     if (document.getElementById('katex-js')) return;
-    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css'; document.head.appendChild(l);
-    var a = document.createElement('script'); a.id = 'katex-js'; a.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'vendor/katex/katex.min.css'; document.head.appendChild(l);
+    var a = document.createElement('script'); a.id = 'katex-js'; a.src = 'vendor/katex/katex.min.js';
     a.onload = function () {
-      var b = document.createElement('script'); b.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+      var b = document.createElement('script'); b.src = 'vendor/katex/contrib/auto-render.min.js';
       b.onload = go; document.head.appendChild(b);
     };
     document.head.appendChild(a);
