@@ -20,7 +20,11 @@
     });
   }
   window.preplineReferral = function () {
-    return supa.rpc('my_referral').then(function (r) {
+    // signed-out visitors have no referral code: skip the request instead of getting a 401
+    return supa.auth.getSession().then(function (s) {
+      if (!s || !s.data || !s.data.session) return { error: 1 };
+      return supa.rpc('my_referral');
+    }).then(function (r) {
       if (r.error || !r.data) return null;
       r.data.link = 'https://bubabuga7-dotcom.github.io/Prepline/?ref=' + r.data.code;
       return r.data;
