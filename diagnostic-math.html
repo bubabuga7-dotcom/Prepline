@@ -518,22 +518,23 @@ render();
 <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
 <script>
 (function(){
-  var pending = null;
-  function draw(){
-    if(!window.renderMathInElement) return;
-    renderMathInElement(document.body, {
-      delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],
-      throwOnError: false
-    });
+  // render math the moment it lands in the page: MutationObserver callbacks run before the next paint, so raw LaTeX is never shown
+  var opts = {delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}], throwOnError: false};
+  function render(el){ if(!window.renderMathInElement || !el) return; try { renderMathInElement(el, opts); } catch(e) {} }
+  function hasMath(el){ var t = el.textContent || ""; return t.indexOf("\\(") >= 0 || t.indexOf("\\[") >= 0; }
+  function start(){
+    render(document.body);
+    new MutationObserver(function(ms){
+      var done = [];
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target;
+        if (!ms[i].addedNodes.length || t.nodeType !== 1 || done.indexOf(t) >= 0) continue;
+        if (t.closest(".katex") || !hasMath(t)) continue;
+        done.push(t); render(t);
+      }
+    }).observe(document.body, {childList: true, subtree: true});
   }
-  var first = 0;
-  function schedule(){ clearTimeout(pending); var now = Date.now(); if(!first) first = now;
-    // never wait more than 300 ms in total: constant DOM changes elsewhere must not block rendering
-    pending = setTimeout(function(){ first = 0; draw(); }, now - first > 300 ? 0 : 60); }
-  window.addEventListener("load", function(){
-    schedule();
-    new MutationObserver(schedule).observe(document.body, {childList:true, subtree:true});
-  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
 </script>
 <script src="test-ux.js?v=1468e607"></script>
