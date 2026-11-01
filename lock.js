@@ -27,11 +27,11 @@
       d.setAttribute('style', 'position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#15181D;color:#DADDE2;font:16px system-ui,sans-serif;padding:24px');
       d.innerHTML =
         '<form style="width:100%;max-width:340px;text-align:center">' +
-        '<div style="font:700 26px system-ui;color:#C9AA6A;margin-bottom:6px">Shyn</div>' +
+        '<div style="font:700 26px system-ui;color:#9DB8DC;margin-bottom:6px">Shyn</div>' +
         '<p style="color:#A6ADB8;margin:0 0 18px">The site is temporarily closed.</p>' +
         '<input name="e" type="email" placeholder="Email" autocomplete="username" required style="width:100%;box-sizing:border-box;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #333a44;background:#1d2128;color:#DADDE2;font-size:16px">' +
         '<input name="p" type="password" placeholder="Password" autocomplete="current-password" required style="width:100%;box-sizing:border-box;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #333a44;background:#1d2128;color:#DADDE2;font-size:16px">' +
-        '<button style="width:100%;padding:12px;border:0;border-radius:10px;background:#C9AA6A;color:#15181D;font-weight:700;font-size:16px;cursor:pointer">Sign in</button>' +
+        '<button style="width:100%;padding:12px;border:0;border-radius:10px;background:#9DB8DC;color:#15181D;font-weight:700;font-size:16px;cursor:pointer">Sign in</button>' +
         '<p data-m style="color:#e08a8a;min-height:1.2em;margin:12px 0 0">' + (msg || '') + '</p></form>';
       document.body.appendChild(d);
       var f = d.querySelector('form'), m = d.querySelector('[data-m]');

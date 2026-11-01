@@ -2,8 +2,8 @@
    "html body" prefixes give these rules priority over the inline <style> blocks further down the page. */
 :root{
   --bg:#15181D; --card:#1D2127; --text:#D2D6DC; --text-bright:#DADDE2;
-  --blue:#8EADD2; --violet:#8EADD2; --pink:#C9AA6A; --gold:#C9AA6A; --gold-2:#D5B97E;
-  --grad:linear-gradient(90deg,#C9AA6A,#C9AA6A);
+  --blue:#8EADD2; --violet:#8EADD2; --pink:#9DB8DC; --gold:#9DB8DC; --gold-2:#B7CBE6;
+  --grad:linear-gradient(90deg,#9DB8DC,#9DB8DC);
   --glass-line:rgba(255,255,255,.12);
   --ok:#7DC3A0; --ok-bg:rgba(125,195,160,.12); --danger:#DE8B8B; --danger-bg:rgba(222,139,139,.12);
 }
@@ -44,7 +44,7 @@ html body button.submit-btn:hover,html body .restart-btn:hover,html body .pl-bar
 /* one-at-a-time / scroll switch */
 html body .pl-mode{border-radius:7px;background:#1D2127}
 html body .pl-mode button{border-radius:5px}
-html body .pl-mode button.on{background:rgba(201,170,106,.16);color:var(--gold)}
+html body .pl-mode button.on{background:rgba(157,184,220,.16);color:var(--gold)}
 html body .pl-scroll .pl-num{color:var(--gold);opacity:.9;font-family:'IBM Plex Mono',monospace;font-weight:600}
 html body .pl-bar{background:rgba(21,24,29,.94)}
 
@@ -54,7 +54,7 @@ html body .stat-num{background:none;-webkit-background-clip:initial;background-c
 html body .stat-label{color:#858C97;opacity:1}
 
 /* report button, sign-in modal, toasts (from prepline-supabase.js) */
-html body .pl-pill:hover{border-color:rgba(201,170,106,.6);background:rgba(201,170,106,.12)}
+html body .pl-pill:hover{border-color:rgba(157,184,220,.6);background:rgba(157,184,220,.12)}
 html body .pl-rep-box .send{background:var(--gold);color:#1A1D21}
 
 /* wide data tables in questions scroll sideways instead of widening the page */

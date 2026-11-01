@@ -66,7 +66,7 @@
     st.textContent =
       '.pl-theme{position:fixed;top:14px;right:14px;z-index:401;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;' +
       'background:#1D2127;color:#A6ADB8;border:1px solid rgba(255,255,255,.16);cursor:pointer;padding:0;transition:color .15s,border-color .15s}' +
-      '.pl-theme:hover{color:#C9AA6A;border-color:rgba(201,170,106,.6)}' +
+      '.pl-theme:hover{color:#9DB8DC;border-color:rgba(157,184,220,.6)}' +
       '@media (max-width:780px){.pl-theme,.pl-theme-menu{position:absolute}}' +
       '*{-webkit-tap-highlight-color:transparent}' +
       'a:active,button:active,.pl-pill:active,.pl-theme:active{opacity:.7}' +
@@ -77,7 +77,7 @@
       '.pl-theme-menu button{display:flex;gap:9px;align-items:center;width:100%;background:none;border:0;color:#C8CDD4;font:inherit;' +
       'padding:8px 9px;border-radius:5px;cursor:pointer;text-align:left}' +
       '.pl-theme-menu button:hover{background:rgba(255,255,255,.06)}' +
-      '.pl-theme-menu button.on{color:#C9AA6A}' +
+      '.pl-theme-menu button.on{color:#9DB8DC}' +
       '.pl-theme-menu button.on::after{content:"✓";margin-left:auto}' +
       'html[data-theme=light] .pl-theme,html[data-theme=light] .pl-theme-menu{background:#FBFAF7;color:#4E545E;border-color:#D9D6CF}' +
       'html[data-theme=light] .pl-theme-menu{box-shadow:0 12px 32px rgba(15,27,51,.14)}' +

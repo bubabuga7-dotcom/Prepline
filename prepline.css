@@ -4,7 +4,7 @@
   --panel:rgba(255,255,255,.045); --panel-2:rgba(255,255,255,.07);
   --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.07);
   --ink:#DADDE2; --ink-2:#B4BAC4; --ink-3:#9AA1AC;
-  --blue:#8EADD2; --blue-deep:#2C3A4C; --gold:#C9AA6A; --gold-2:#D5B97E;
+  --blue:#8EADD2; --blue-deep:#2C3A4C; --gold:#9DB8DC; --gold-2:#B7CBE6;
   --ok:#7DC3A0; --warn:#D6B672; --bad:#DE8B8B;
   --dock:84px; --r:8px;
 }
@@ -22,11 +22,11 @@ a{color:inherit;text-decoration:none}
 .dock{position:fixed;left:0;top:0;bottom:0;width:var(--dock);z-index:100;display:flex;flex-direction:column;
       align-items:center;padding:18px 0;gap:8px;background:#121519;border-right:1px solid var(--line)}
 .dock-logo{width:44px;height:44px;border-radius:var(--r);background:var(--blue-deep);color:#fff;display:grid;place-items:center;
-           font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin-bottom:10px;border:1px solid rgba(201,170,106,.45)}
+           font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin-bottom:10px;border:1px solid rgba(157,184,220,.45)}
 .dock-item{width:44px;height:44px;border-radius:var(--r);display:grid;place-items:center;color:var(--ink-3);
            border:1px solid transparent;transition:background .15s,color .15s;position:relative}
 .dock-item:hover{background:rgba(142,173,210,.12);color:var(--blue);border-color:var(--line)}
-.dock-item.on{background:rgba(201,170,106,.14);color:var(--gold);border-color:rgba(201,170,106,.35)}
+.dock-item.on{background:rgba(157,184,220,.14);color:var(--gold);border-color:rgba(157,184,220,.35)}
 .dock-item svg{width:20px;height:20px}
 .dock-tip{position:absolute;left:56px;white-space:nowrap;background:#DADDE2;color:#1A1D21;font-size:12px;font-weight:600;
           padding:5px 10px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .14s}

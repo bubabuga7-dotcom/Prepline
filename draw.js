@@ -22,7 +22,7 @@
     '.pl-tools button{height:34px;min-width:34px;padding:0 9px;border-radius:7px;border:1px solid transparent;background:none;color:#A6ADB8;',
     '  font:inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}',
     '.pl-tools button:hover{background:rgba(255,255,255,.07);color:#DADDE2}',
-    '.pl-tools button.on{background:rgba(201,170,106,.16);border-color:rgba(201,170,106,.55);color:#C9AA6A}',
+    '.pl-tools button.on{background:rgba(157,184,220,.16);border-color:rgba(157,184,220,.55);color:#9DB8DC}',
     '.pl-tools .sep{width:1px;height:22px;background:rgba(255,255,255,.14);margin:0 3px}',
     '.pl-tools .zl{min-width:44px;text-align:center;color:#858C97;font-family:"IBM Plex Mono",monospace}',
     '.pl-tools .dot{width:14px;height:14px;border-radius:50%;display:inline-block}',

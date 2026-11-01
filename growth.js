@@ -70,8 +70,8 @@
   /* star buttons inside tests: next to "Report an error", and on the results list */
   var css = document.createElement('style');
   css.textContent = '.pl-bm{background:none;border:1px solid rgba(255,255,255,.16);color:#A6ADB8;border-radius:5px;font:600 12px Inter,sans-serif;' +
-    'padding:4px 10px;cursor:pointer;margin:0 8px 10px 0}.pl-bm:hover{border-color:#C9AA6A;color:#C9AA6A}' +
-    '.pl-bm.on{background:rgba(201,170,106,.16);border-color:#C9AA6A;color:#C9AA6A}' +
+    'padding:4px 10px;cursor:pointer;margin:0 8px 10px 0}.pl-bm:hover{border-color:#9DB8DC;color:#9DB8DC}' +
+    '.pl-bm.on{background:rgba(157,184,220,.16);border-color:#9DB8DC;color:#9DB8DC}' +
     '.review-item .pl-bm{margin:8px 0 0;align-self:flex-start}';
   document.head.appendChild(css);
   var QS = function () { return typeof QUESTIONS !== 'undefined' ? QUESTIONS : (typeof questions !== 'undefined' ? questions : null); };

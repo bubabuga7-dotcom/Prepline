@@ -234,7 +234,7 @@ window.preplinePremiumCached = function () {
       padding: 8px 16px; border-radius: 999px; user-select: none;
       transition: border-color .25s, background .25s;
     }
-    .pl-pill:hover { border-color: rgba(201,170,106,0.6); background: rgba(201,170,106,0.12); }
+    .pl-pill:hover { border-color: rgba(157,184,220,0.6); background: rgba(157,184,220,0.12); }
     .pl-pill .pl-dot { width: 8px; height: 8px; border-radius: 50%; background: #64748B; }
     .pl-pill.on .pl-dot { background: #22C55E; }
     .pl-modal-bg {
@@ -260,17 +260,17 @@ window.preplinePremiumCached = function () {
       border-radius: 6px; padding: 11px 14px; outline: none;
       transition: border-color .2s;
     }
-    .pl-modal input:focus { border-color: #C9AA6A; }
+    .pl-modal input:focus { border-color: #9DB8DC; }
     .pl-row { display: flex; gap: 10px; margin-top: 6px; }
     .pl-btn {
       flex: 1; font: 600 14px 'Inter', sans-serif; color: #fff; cursor: pointer;
       border: none; border-radius: 6px; padding: 11px 0;
-      background: #C9AA6A; color: #1A1D21;
+      background: #9DB8DC; color: #1A1D21;
       transition: background .15s;
     }
-    .pl-btn:hover { background: #D5B97E; }
-    .pl-btn.ghost { background: transparent; border: 1px solid #C9AA6A; color: #D5B97E; }
-    .pl-btn.ghost:hover { background: rgba(201,170,106,0.16); color: #D5B97E; }
+    .pl-btn:hover { background: #B7CBE6; }
+    .pl-btn.ghost { background: transparent; border: 1px solid #9DB8DC; color: #B7CBE6; }
+    .pl-btn.ghost:hover { background: rgba(157,184,220,0.16); color: #B7CBE6; }
     .pl-btn:disabled { opacity: .55; cursor: default; }
     .pl-forgot { background: none; border: 0; padding: 0; margin-top: 12px; cursor: pointer;
       font: 500 12.5px 'Inter', sans-serif; color: #858C97; text-decoration: underline; }
@@ -285,7 +285,7 @@ window.preplinePremiumCached = function () {
       position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(16px);
       z-index: 600; opacity: 0; pointer-events: none;
       font: 600 13.5px 'Inter', sans-serif; color: #DADDE2; white-space: nowrap;
-      background: #1D2127; border: 1px solid rgba(201,170,106,0.5);
+      background: #1D2127; border: 1px solid rgba(157,184,220,0.5);
       border-radius: 999px; padding: 10px 20px;
       box-shadow: 0 12px 40px -10px rgba(0,0,0,0.5);
       transition: opacity .3s, transform .3s;
@@ -443,7 +443,7 @@ window.preplinePremiumCached = function () {
     .pl-rep-box .row { display: flex; gap: 10px; justify-content: flex-end; }
     .pl-rep-box button { font: 600 14px 'Inter', sans-serif; border-radius: 999px; padding: 9px 18px; cursor: pointer; }
     .pl-rep-box .cancel { background: none; color: #C8CDD4; border: 1px solid rgba(255,255,255,0.2); }
-    .pl-rep-box .send { border: 0; color: #fff; background: #C9AA6A; color: #1A1D21; }
+    .pl-rep-box .send { border: 0; color: #fff; background: #9DB8DC; color: #1A1D21; }
     .pl-rep-bg { position: fixed; inset: 0; z-index: 500; background: rgba(5,8,20,0.7); display: none; align-items: center; justify-content: center; }
     .pl-rep-bg.open { display: flex; }`;
   document.head.appendChild(rcss);

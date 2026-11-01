@@ -7,7 +7,7 @@ html[data-theme=light]{
   --line:#E1DED7; --line-2:#ECE9E3;
   --ink:#2B2F36; --ink-2:#454B55; --ink-3:#5C626D;
   --blue:#3D63A3; --blue-deep:#3D63A3; --gold:#3D63A3; --gold-2:#33568F;
-  --ok:#2F8A63; --warn:#9A7330; --bad:#B95050;
+  --ok:#2F8A63; --warn:#3D63A3; --bad:#B95050;
   /* test pages */
   --card:#FBFAF7; --text:#3A3F48; --text-bright:#2B2F36; --violet:#3D63A3; --pink:#3D63A3;
   --grad:linear-gradient(90deg,#3D63A3,#3D63A3); --glass-line:#E1DED7;
@@ -78,7 +78,7 @@ html[data-theme=light] .qmap{background:#F3F1EC;border-color:#E1DED7}
 html[data-theme=light] .qmap-head,html[data-theme=light] .qmap-legend,html[data-theme=light] .qmap-diff{color:#6E7480}
 html[data-theme=light] .qmap-head b{color:#2B2F36}
 html[data-theme=light] .qmap-flag{border-color:#D3D0C8;color:#4E545E;background:#FBFAF7}
-html[data-theme=light] .qmap-flag:hover,html[data-theme=light] .qmap-flag.on{border-color:#9A7330;color:#9A7330;background:#FFF7E6}
+html[data-theme=light] .qmap-flag:hover,html[data-theme=light] .qmap-flag.on{border-color:#3D63A3;color:#3D63A3;background:#FFF7E6}
 html[data-theme=light] .qm{background:#FBFAF7;border-color:#D9D6CF;color:#6E7480}
 html[data-theme=light] .qm:hover{border-color:#3D63A3;color:#3D63A3}
 html[data-theme=light] .qm.ans{background:#E4E9F1;border-color:#AFBFD6;color:#2B2F36}
@@ -87,7 +87,7 @@ html[data-theme=light] .qm.flag::after,html[data-theme=light] .qmap-legend .l-fl
 html[data-theme=light] .qmap-legend span::before{border-color:#A6ADB8}
 html[data-theme=light] .qmap-legend .l-ans::before{background:#E4E9F1;border-color:#AFBFD6}
 html[data-theme=light] .qmap-legend .l-cur::before{border-color:#3D63A3}
-html[data-theme=light] .q-flagnote{color:#9A7330}
+html[data-theme=light] .q-flagnote{color:#3D63A3}
 html[data-theme=light] body .opt .k{color:#6E7480}
 html[data-theme=light] body .opt.selected .k{color:#3D63A3}
 html[data-theme=light] .resume{background:#E8ECF2;border-color:#C3CEDF;color:#2B2F36}
@@ -102,7 +102,7 @@ html[data-theme=light] .ghost .gt{background:#E3E0D9}
 html[data-theme=light] .ghost .gt .g{background:#A6ADB8}
 html[data-theme=light] .ghost .gt .y{background:#3D63A3}
 html[data-theme=light] .ghost .gd.ahead{color:#2F8A63}
-html[data-theme=light] .ghost .gd.behind{color:#9A7330}
+html[data-theme=light] .ghost .gd.behind{color:#3D63A3}
 html[data-theme=light] .lroom{background:#E8ECF2;border-color:#C3CEDF;color:#2B2F36}
 html[data-theme=light] .lroom b{color:#3D63A3}
 html[data-theme=light] .lcover{background:rgba(244,242,237,.94);color:#2B2F36}
