@@ -60,7 +60,8 @@
         'background:rgba(157,184,220,.14);border:1px solid rgba(157,184,220,.45);color:var(--gold,#9DB8DC);font:700 15px Inter,system-ui,sans-serif;text-decoration:none}' +
       '.pl-menu svg{width:20px;height:20px}' +
       '.pl-sec{font:600 15px Inter,system-ui,sans-serif;color:var(--ink,#DADDE2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}' +
-      '.pl-brand{font:700 19px Sora,sans-serif;color:var(--ink,#DADDE2);text-decoration:none;letter-spacing:-.02em}' +
+      '.pl-brand{display:inline-flex;align-items:center;gap:9px;font:700 19px Sora,sans-serif;color:var(--ink,#DADDE2);text-decoration:none;letter-spacing:-.02em}' +
+      '.pl-brand img{width:28px;height:28px;border-radius:8px;display:block}' +
       '.pl-brand i{font-style:normal;color:var(--gold,#9DB8DC)}' +
       /* less reading on hubs */
       'body[data-kind] .hub-head>div:first-child>p,body[data-kind] .hub-head>div:first-child>.kicker,' +
@@ -78,7 +79,7 @@
   }
   var bar = document.createElement('div'); bar.className = 'pl-top';
   bar.innerHTML = page === 'index.html'
-    ? '<a href="index.html" class="pl-brand">Shyn<i>.</i></a>'
+    ? '<a href="index.html" class="pl-brand"><img src="icons/icon.svg" alt="" width="28" height="28">Shyn<i>.</i></a>'
     : '<a href="index.html" class="pl-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Menu</a>' + secName();
   document.body.insertBefore(bar, document.body.firstChild);
 
