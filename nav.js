@@ -1,4 +1,4 @@
-/* Prepline shared side menu. Put <aside class="dock" id="dock"></aside> on a page and load this script. */
+/* Shyn shared side menu. Put <aside class="dock" id="dock"></aside> on a page and load this script. */
 (function () {
   var el = document.getElementById('dock');
   if (!el) return;
@@ -36,7 +36,7 @@
     'spacer',
     ['intro.html', 'What is NUET', 'NUET', I.info, 'more']
   ];
-  var h = '<a href="index.html" class="dock-logo" aria-label="Prepline home">P</a>';
+  var h = '<a href="index.html" class="dock-logo" aria-label="Shyn home">P</a>';
   items.forEach(function (it) {
     if (it === 'sep') { h += '<div class="dock-sep"></div>'; return; }
     if (it === 'spacer') { h += '<div class="dock-spacer"></div>'; return; }

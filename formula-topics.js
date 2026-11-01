@@ -1,4 +1,4 @@
-/* Prepline: which Formula quiz formulas a question topic uses (topic code -> formula names in formulas.html). */
+/* Shyn: which Formula quiz formulas a question topic uses (topic code -> formula names in formulas.html). */
 window.PREPLINE_TOPIC_FORMULAS = (function () {
   var IDX = ['Multiplying powers', 'Dividing powers', 'Power of a power', 'Negative power', 'Fractional power', 'Zero power (a ≠ 0)'];
   var PCT = ['Percentage change', 'Original price before an increase of r%'];

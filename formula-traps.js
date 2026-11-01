@@ -1,4 +1,4 @@
-/* Prepline Formula quiz: why each wrong version is wrong.
+/* Shyn Formula quiz: why each wrong version is wrong.
    PREPLINE_TRAPS[formula name or "name|question"] = [note for t[0], note for t[1], note for t[2]] — same order as t in formulas.html. */
 window.PREPLINE_TRAPS = {
  'Solutions of ax² + bx + c = 0': ['Под корнем b² − 4ac, а не плюс: это дискриминант.', 'Перед b стоит минус: −b ± √Δ.', 'Делят на 2a, а не на a.'],

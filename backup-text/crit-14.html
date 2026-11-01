@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CT Test 14 — Prepline</title>
+<title>CT Test 14 — Shyn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -167,7 +167,7 @@ function finish() {
   appendHistory();
 }
 
-/* === Prepline: attempt history (localStorage) === */
+/* === Shyn: attempt history (localStorage) === */
 function mockKey() {
   return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
 }
@@ -245,7 +245,7 @@ startTimer();
 render();
 </script>
 
-<!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
+<!-- ===== Shyn x Supabase: auth + cloud saving ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="prepline-supabase.js"></script>
 <script>
@@ -262,7 +262,7 @@ render();
         questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
         window.preplineSaveResult(mockId(), score, questions.length);
         window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), questions, state.answers);
-      } catch (e) { console.error('[Prepline]', e); }
+      } catch (e) { console.error('[Shyn]', e); }
     };
   } else if (typeof finish === 'function') {
     /* mix-8: no saveAttempt, wrap finish instead */
@@ -278,13 +278,13 @@ render();
           window.preplineSaveResult(mockId(), score, qs.length);
         window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
         }
-      } catch (e) { console.error('[Prepline]', e); }
+      } catch (e) { console.error('[Shyn]', e); }
     };
   }
 })();
 </script>
 
-<!-- ===== Prepline: scroll view ===== -->
+<!-- ===== Shyn: scroll view ===== -->
 <style id="prepline-scroll-view-css">
   .pl-mode {
     display: flex; gap: 6px; align-items: center; margin: 0 0 16px;
@@ -451,7 +451,7 @@ render();
 </script>
 
 
-<!-- ===== Prepline: sign-in gate ===== -->
+<!-- ===== Shyn: sign-in gate ===== -->
 <style id="prepline-gate-css">
   #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
            background:rgba(6,10,20,.78);backdrop-filter:blur(4px);padding:20px}

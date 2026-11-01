@@ -1,4 +1,4 @@
-/* Prepline: answer image questions by tapping the option on the picture.
+/* Shyn: answer image questions by tapping the option on the picture.
    option-map.json (build-optmap.py) gives the box of each option A-E inside a question image.
    For a mapped image the answer buttons under it are hidden and transparent tap areas sit over the options;
    a tap clicks the real (hidden) button, so the test engine, autosave, keyboard and results work unchanged.

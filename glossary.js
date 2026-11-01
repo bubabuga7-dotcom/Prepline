@@ -1,4 +1,4 @@
-/* Prepline: Russian hints for tricky English words in questions.
+/* Shyn: Russian hints for tricky English words in questions.
    On in Fast mode and on the results screen; off in Exam mode (window.PL_MODE from test-ux.js). Tap or hover a dotted word. */
 (function () {
   if (typeof questions === 'undefined' || window.PL_GLOSSARY) return;

@@ -10,12 +10,12 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-title" content="Shyn">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>Prepline — NUET preparation</title>
+<title>Shyn — NUET preparation</title>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Prepline">
-<meta property="og:title" content="Prepline — NUET preparation">
+<meta property="og:site_name" content="Shyn">
+<meta property="og:title" content="Shyn — NUET preparation">
 <meta property="og:description" content="Your NUET progress: estimated score out of 240, weakest topics and what to practise next.">
 <meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/dashboard.html">
 <meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
@@ -335,8 +335,8 @@
 
       <div class="panel install" id="install" style="display:none">
         <div class="panel-head"><h2>Install the app</h2></div>
-        <p class="st-note" id="installTxt" style="margin:0 0 12px">Open Prepline from your home screen like a normal app, full screen, without the browser bar.</p>
-        <button class="btn" id="installBtn">Install Prepline</button>
+        <p class="st-note" id="installTxt" style="margin:0 0 12px">Open Shyn from your home screen like a normal app, full screen, without the browser bar.</p>
+        <button class="btn" id="installBtn">Install Shyn</button>
       </div>
 
       <div class="panel" id="cloud">
@@ -614,7 +614,7 @@ async function boot(){
           : 'League: not ranked yet this month — play a live room or a duel &rarr;')+'</a>');
   });
 
-  drawStreak(supa).catch(e => console.error('[Prepline] streak:', e));
+  drawStreak(supa).catch(e => console.error('[Shyn] streak:', e));
 
   // облачные результаты
   const {data:res} = await supa.from('results').select('mock_id,score,total,created_at').limit(2000);
@@ -772,8 +772,8 @@ setTimeout(boot, 300);
       $('invLink').value = r.link;
       $('invCount').textContent = r.joined ? r.joined + ' joined · ' + r.rewarded + ' week' + (r.rewarded === 1 ? '' : 's') + ' earned' : '';
       $('invShare').onclick = function(){
-        var text = 'I prepare for NUET on Prepline — free mocks with answers. Join with my link:';
-        if (navigator.share) navigator.share({ title: 'Prepline', text: text, url: r.link }).catch(function(){});
+        var text = 'I prepare for NUET on Shyn — free mocks with answers. Join with my link:';
+        if (navigator.share) navigator.share({ title: 'Shyn', text: text, url: r.link }).catch(function(){});
         else { $('invLink').select(); (navigator.clipboard ? navigator.clipboard.writeText(r.link) : Promise.reject()).then(function(){ window.preplineToast && window.preplineToast('Link copied'); }, function(){ document.execCommand('copy'); }); }
       };
     }, function(){});
@@ -782,8 +782,8 @@ setTimeout(boot, 300);
     on: ['On. We remind you in the evening if your streak is about to end, and on Mondays when a new challenge is up.', 'Turn off', true],
     off: ['Get a reminder in the evening if your streak is about to end, and on Mondays when a new challenge is up. Two short messages at most.', 'Turn on reminders', false],
     blocked: ['Notifications are blocked for this site. Allow them in your browser settings, then refresh the page.', '', null],
-    install: ['On iPhone, reminders work only in the app: tap Share → Add to Home Screen, then open Prepline from the home screen.', '', null],
-    unsupported: ['This browser does not support reminders. Try Chrome, or install Prepline as an app.', '', null]
+    install: ['On iPhone, reminders work only in the app: tap Share → Add to Home Screen, then open Shyn from the home screen.', '', null],
+    unsupported: ['This browser does not support reminders. Try Chrome, or install Shyn as an app.', '', null]
   };
   function paint(st){
     var t = T[st] || T.unsupported;

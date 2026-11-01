@@ -10,19 +10,19 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-title" content="Shyn">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>Test 79 — Prepline</title>
+<title>Test 79 — Shyn</title>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Prepline">
-<meta property="og:title" content="Test 79 — Prepline">
-<meta property="og:description" content="A timed NUET Mathematics mock on Prepline, with answer review. Free.">
+<meta property="og:site_name" content="Shyn">
+<meta property="og:title" content="Test 79 — Shyn">
+<meta property="og:description" content="A timed NUET Mathematics mock on Shyn, with answer review. Free.">
 <meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/mix-82.html">
 <meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="description" content="A timed NUET Mathematics mock on Prepline, with answer review. Free.">
+<meta name="description" content="A timed NUET Mathematics mock on Shyn, with answer review. Free.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -130,7 +130,7 @@
 <div class="page-photo"></div>
 <div class="wrap">
   <a href="math.html" class="back">&larr; Mathematics</a>
-  <h2>Test 79 — Prepline original maths 2 (30 questions)</h2>
+  <h2>Test 79 — Shyn original maths 2 (30 questions)</h2>
   <div id="app"></div>
 </div>
 
@@ -188,7 +188,7 @@ function finish() {
   appendHistory();
 }
 
-/* === Prepline: attempt history (localStorage) === */
+/* === Shyn: attempt history (localStorage) === */
 function mockKey() {
   return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
 }
@@ -266,7 +266,7 @@ startTimer();
 render();
 </script>
 
-<!-- ===== Prepline x Supabase: auth + cloud saving ===== -->
+<!-- ===== Shyn x Supabase: auth + cloud saving ===== -->
 <script src="vendor/supabase/supabase.js?v=2.118.0"></script>
 <script src="prepline-supabase.js?v=94bf63bf"></script>
 <script>
@@ -283,7 +283,7 @@ render();
         questions.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
         window.preplineSaveResult(mockId(), score, questions.length);
         window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), questions, state.answers);
-      } catch (e) { console.error('[Prepline]', e); }
+      } catch (e) { console.error('[Shyn]', e); }
     };
   } else if (typeof finish === 'function') {
     /* mix-8: no saveAttempt, wrap finish instead */
@@ -299,13 +299,13 @@ render();
           window.preplineSaveResult(mockId(), score, qs.length);
         window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
         }
-      } catch (e) { console.error('[Prepline]', e); }
+      } catch (e) { console.error('[Shyn]', e); }
     };
   }
 })();
 </script>
 
-<!-- ===== Prepline: scroll view ===== -->
+<!-- ===== Shyn: scroll view ===== -->
 <style id="prepline-scroll-view-css">
   .pl-mode {
     display: flex; gap: 6px; align-items: center; margin: 0 0 16px;
@@ -472,7 +472,7 @@ render();
 </script>
 
 
-<!-- ===== Prepline: sign-in gate ===== -->
+<!-- ===== Shyn: sign-in gate ===== -->
 <style id="prepline-gate-css">
   #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
            background:rgba(12,14,17,.78);backdrop-filter:blur(4px);padding:20px}

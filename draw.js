@@ -1,4 +1,4 @@
-/* Prepline test tools: draw on the test (pen / highlighter / eraser), zoom the test, and open any figure full screen.
+/* Shyn test tools: draw on the test (pen / highlighter / eraser), zoom the test, and open any figure full screen.
    Loaded by test-ux.js on every test page. Drawings are kept per question while the page is open.
    With a stylus the finger keeps scrolling, so a hand resting on a tablet does not draw. */
 (function () {

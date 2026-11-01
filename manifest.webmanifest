@@ -1,6 +1,6 @@
 {
-  "name": "Prepline — NUET preparation",
-  "short_name": "Prepline",
+  "name": "Shyn — NUET preparation",
+  "short_name": "Shyn",
   "description": "Free NUET preparation: timed Mathematics and Critical Thinking mocks, topic practice, live rooms and duels.",
   "id": "./",
   "start_url": "./dashboard.html",

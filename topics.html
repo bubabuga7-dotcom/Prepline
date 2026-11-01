@@ -10,12 +10,12 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Prepline">
+<meta name="apple-mobile-web-app-title" content="Shyn">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>Train by topic — Prepline</title>
+<title>Train by topic — Shyn</title>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Prepline">
-<meta property="og:title" content="Train by topic — Prepline">
+<meta property="og:site_name" content="Shyn">
+<meta property="og:title" content="Train by topic — Shyn">
 <meta property="og:description" content="Practise one NUET topic at a time: quadratics, percentages, assumptions, flaws — with instant feedback.">
 <meta property="og:url" content="https://bubabuga7-dotcom.github.io/Prepline/topics.html">
 <meta property="og:image" content="https://bubabuga7-dotcom.github.io/Prepline/og.png">
@@ -252,7 +252,7 @@
     try { history.replaceState(null, '', '?quick=' + k); } catch (e) {}
     show('v-run');
     var hd = document.querySelector('.head'); if (hd) hd.style.display = 'none';
-    document.title = 'Quick 10 — Prepline';
+    document.title = 'Quick 10 — Shyn';
     if (quickLocked()) {
       $('card').innerHTML = '<span class="kicker">Premium</span><h2 style="font-size:21px;margin:6px 0">Quick 10</h2>' +
         '<p class="muted" style="margin-bottom:14px">Ten random questions, about 15 minutes, and you see the right answer after every question. ' +
@@ -338,7 +338,7 @@
   function save(it, q, ok) {
     if (!user || !supa) return;
     supa.from('answer_attempts').insert({ mock_id: it.mock, q_ids: [it.id], marks: ok ? 'c' : 'w' }).then(function (r) {
-      if (r.error) { console.error('[Prepline] topic practice:', r.error.message); return; }
+      if (r.error) { console.error('[Shyn] topic practice:', r.error.message); return; }
       var tp = run.quick ? q.topic : run.topic; if (!tp) return;
       var s = stats[tp] = stats[tp] || { total: 0, correct: 0 };
       s.total++; if (ok) s.correct++;

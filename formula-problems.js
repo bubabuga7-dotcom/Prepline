@@ -1,4 +1,4 @@
-/* Prepline: problems that need a formula from the Formula quiz.
+/* Shyn: problems that need a formula from the Formula quiz.
    PREPLINE_PROB[name]() -> { q: question, a: right answer, w: [3 wrong answers], s: [solution steps] }
    Answers use the quiz notation: {top|bottom} fraction, sqrt{…}, ^{…}. Wrong answers come from the usual slips. */
 (function () {

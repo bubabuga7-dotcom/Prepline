@@ -1,7 +1,7 @@
-/* Prepline service worker: makes the site installable and keeps visited pages available offline.
+/* Shyn service worker: makes the site installable and keeps visited pages available offline.
    Pages, scripts and styles: network first (always the latest version when online), cache as fallback.
    Question images: cache first (their file names never change). Supabase and CDNs are not touched. */
-var VERSION = 'prepline-v24';
+var VERSION = 'prepline-v25';
 var SHELL = 'shell-' + VERSION, IMAGES = 'images-' + VERSION;
 var MAX_IMAGES = 400;
 var PRECACHE = [
@@ -31,7 +31,7 @@ function trim(name, max) {
 }
 
 var OFFLINE = '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-  '<title>Offline — Prepline</title><body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#15181D;color:#DADDE2;font:16px system-ui,sans-serif;text-align:center;padding:24px">' +
+  '<title>Offline — Shyn</title><body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#15181D;color:#DADDE2;font:16px system-ui,sans-serif;text-align:center;padding:24px">' +
   '<div><div style="font:700 28px system-ui;color:#C9AA6A;margin-bottom:8px">You are offline</div>' +
   '<p style="color:#A6ADB8;max-width:420px">This page has not been opened on this device yet. Pages you have visited before work without internet; results are saved once you are back online.</p>' +
   '<p><a href="dashboard.html" style="color:#8EADD2">Open the dashboard</a></p></div></body>';
@@ -74,8 +74,8 @@ self.addEventListener('fetch', function (e) {
 /* push reminders (sent by the push-send function) */
 self.addEventListener('push', function (e) {
   var d = {};
-  try { d = e.data ? e.data.json() : {}; } catch (err) { d = { title: 'Prepline', body: e.data ? e.data.text() : '' }; }
-  e.waitUntil(self.registration.showNotification(d.title || 'Prepline', {
+  try { d = e.data ? e.data.json() : {}; } catch (err) { d = { title: 'Shyn', body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Shyn', {
     body: d.body || '', tag: d.tag || 'prepline', renotify: false,
     icon: 'icons/icon-192.png', badge: 'icons/favicon-48.png', data: { url: d.url || './dashboard.html' }
   }));

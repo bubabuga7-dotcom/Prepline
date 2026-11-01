@@ -1,4 +1,4 @@
-/* Prepline appearance: Dark / Light / Auto (follows the device). Load in <head> so the page never flashes the wrong theme.
+/* Shyn appearance: Dark / Light / Auto (follows the device). Load in <head> so the page never flashes the wrong theme.
    The choice is stored on this device (localStorage "prepline:theme") and shared by all pages and tabs. */
 (function () {
   var KEY = 'prepline:theme';

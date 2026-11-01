@@ -1,4 +1,4 @@
-/* Prepline: saved questions (bookmarks), invite-a-friend referrals and push reminders.
+/* Shyn: saved questions (bookmarks), invite-a-friend referrals and push reminders.
    Loaded by prepline-supabase.js on every page that talks to Supabase. */
 (function () {
   if (window.__plGrowth) return; window.__plGrowth = 1;

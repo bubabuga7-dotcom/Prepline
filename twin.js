@@ -1,4 +1,4 @@
-/* Prepline twin: misconceptions caught in the Formula quiz become cracks in "You v1.0".
+/* Shyn twin: misconceptions caught in the Formula quiz become cracks in "You v1.0".
    Stable trap IDs: a trap is matched by formula name + the exact wrong option text, never by its position.
    Storage (this device):
      prepline:twin      { id: { state, runs:[quiz run ids], seenAt, healFrom } }
@@ -330,7 +330,7 @@
       (r.data || []).forEach(function (e) { if (!have[e.id]) { local.push({ id: e.id, trap: e.trap, kind: e.kind, at: new Date(e.at).toISOString(), data: e.data || {} }); added++; } });
       if (added) { wr(evKey(b), local); changed(); }
       return true;
-    }).catch(function (e) { console.warn('[Prepline] twin sync:', e && e.message); return false; })
+    }).catch(function (e) { console.warn('[Shyn] twin sync:', e && e.message); return false; })
       .then(function (ok) { busy = false; if (again) { again = false; sync(); } return ok; });
   }
   function watchAuth() {

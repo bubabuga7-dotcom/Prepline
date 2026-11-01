@@ -1,4 +1,4 @@
-/* Prepline test UX: question map with flags, compact A–E row for picture questions, keyboard shortcuts.
+/* Shyn test UX: question map with flags, compact A–E row for picture questions, keyboard shortcuts.
    Works on top of the existing test engines (globals: questions, state, render). Load last in <body>. */
 (function () {
   if (typeof questions === 'undefined' || typeof state === 'undefined' || typeof render !== 'function') return;
@@ -961,7 +961,7 @@
   var page = (location.pathname.split('/').pop() || '').replace('.html', '');
   function credit(t) {
     var src = (t && t.src) || '';
-    if (t && t.group === 'Prepline originals') return '© Prepline · original questions';
+    if (t && t.group === 'Shyn originals') return '© Shyn · original questions';
     if (/BMAT|TSA|IMAT/i.test(src) || /^crit-[1-5]$/.test(page)) return 'Past-paper questions © Cambridge University Press & Assessment';
     if (/Kiseki/i.test(src)) return 'Questions © Kiseki';
     if (/^diagnostic-/.test(page)) return '';

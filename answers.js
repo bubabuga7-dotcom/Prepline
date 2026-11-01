@@ -1,4 +1,4 @@
-/* Prepline: official explanations ("Why C?") stored with each question as q.explain.
+/* Shyn: official explanations ("Why C?") stored with each question as q.explain.
    Free plan: 3 explanations per test attempt (or per topic session); Premium: all.
    Test pages: added under each answer on the results screen.
    Other pages call window.preplineWhy(q, container) after an answer is shown. */

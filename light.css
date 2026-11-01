@@ -1,4 +1,4 @@
-/* Prepline light theme: white background, blue buttons. Active when <html data-theme="light"> (theme.js).
+/* Shyn light theme: white background, blue buttons. Active when <html data-theme="light"> (theme.js).
    Every rule starts with html[data-theme=light] so it beats the inline page styles and scripts' injected styles. */
 
 html[data-theme=light]{

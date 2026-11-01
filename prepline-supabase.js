@@ -56,13 +56,13 @@ window.preplinePremiumCached = function () {
   catch (e) { return false; }
 };
 
-/* Prepline x Supabase: authentication + saving results to the cloud.
+/* Shyn x Supabase: authentication + saving results to the cloud.
    Included on every page AFTER supabase-js (CDN). */
 /* ---------- installable app (PWA): service worker + install prompt ---------- */
 (function () {
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function (e) { console.warn('[Prepline] service worker:', e.message); });
+      navigator.serviceWorker.register('sw.js').catch(function (e) { console.warn('[Shyn] service worker:', e.message); });
     });
   }
   window.preplineInstallPrompt = null;
@@ -78,7 +78,7 @@ window.preplinePremiumCached = function () {
 })();
 
 (function () {
-  if (typeof supabase === 'undefined') { console.error('[Prepline] supabase-js failed to load'); return; }
+  if (typeof supabase === 'undefined') { console.error('[Shyn] supabase-js failed to load'); return; }
 
   const supa = supabase.createClient(
     'https://spwavetenjuvvohlnsvx.supabase.co',
@@ -163,9 +163,9 @@ window.preplinePremiumCached = function () {
       const { error } = await supa.from('results').insert({
         user_id: user.id, mock_id: mockId, score: score, total: total
       });
-      if (error) { console.error('[Prepline] insert:', error.message); toast('Could not save: ' + error.message); }
+      if (error) { console.error('[Shyn] insert:', error.message); toast('Could not save: ' + error.message); }
       else toast('Result ' + score + '/' + total + ' saved to the cloud');
-    } catch (e) { console.error('[Prepline]', e); }
+    } catch (e) { console.error('[Shyn]', e); }
   };
 
 
@@ -195,7 +195,7 @@ window.preplinePremiumCached = function () {
           return;
         }
         if (!/answer_attempts|schema cache|does not exist/i.test(error.message)) {
-          console.error('[Prepline] answer_attempts:', error.message); return;
+          console.error('[Shyn] answer_attempts:', error.message); return;
         }
       }
       // fallback: before stage5.sql is run
@@ -204,8 +204,8 @@ window.preplinePremiumCached = function () {
         correct: mark(q) === 'c', answered: mark(q) !== 's'
       }));
       const { error } = await supa.from('answer_log').insert(rows);
-      if (error) console.error('[Prepline] answer_log:', error.message);
-    } catch (e) { console.error('[Prepline]', e); }
+      if (error) console.error('[Shyn] answer_log:', error.message);
+    } catch (e) { console.error('[Shyn]', e); }
   };
 
   /* ---------- topic statistics of the signed-in student ---------- */
@@ -314,7 +314,7 @@ window.preplinePremiumCached = function () {
   modalBg.innerHTML = `
     <div class="pl-modal">
       <button class="pl-close" id="plClose">&#10005;</button>
-      <h3 id="plTitle">Sign in to Prepline</h3>
+      <h3 id="plTitle">Sign in to Shyn</h3>
       <div id="plForm">
         <input type="email" id="plEmail" placeholder="Email" autocomplete="email">
         <input type="password" id="plPass" placeholder="Password (at least 6 characters)" autocomplete="current-password">
@@ -360,7 +360,7 @@ window.preplinePremiumCached = function () {
     } else {
       pill.classList.remove('on');
       pillText.textContent = 'Sign in';
-      $('plTitle').textContent = 'Sign in to Prepline';
+      $('plTitle').textContent = 'Sign in to Shyn';
       $('plForm').style.display = 'block';
       $('plLogged').style.display = 'none';
     }
@@ -475,14 +475,14 @@ window.preplinePremiumCached = function () {
         mock_id: mockId, q_id: target.id, image: target.image || null,
         reason: reason, comment: comment, user_id: user ? user.id : null, page_url: location.href
       });
-      if (error) { console.error('[Prepline] report:', error.message); toast('Could not send: ' + error.message); }
+      if (error) { console.error('[Shyn] report:', error.message); toast('Could not send: ' + error.message); }
       else {
         sent.add(mockId + ':' + target.id);
         try { localStorage.setItem('prepline:reported', JSON.stringify([...sent].slice(-500))); } catch (e) {}
         toast('Thanks! The report has been sent.');
         close(); decorate();
       }
-    } catch (e) { console.error('[Prepline]', e); }
+    } catch (e) { console.error('[Shyn]', e); }
     btn.disabled = false;
   };
 

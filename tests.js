@@ -1,4 +1,4 @@
-/* Prepline test catalog: one entry per test page. Edit here when adding tests. */
+/* Shyn test catalog: one entry per test page. Edit here when adding tests. */
 window.PREPLINE_TESTS = [
 {
 "id": "mix-1",
@@ -7,7 +7,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "questions from mocks 1–7 · + 1 Prepline question",
+"src": "questions from mocks 1–7 · + 1 Shyn question",
 "tap": 0
 },
 {
@@ -27,7 +27,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "questions from mocks 1–7 · + 3 Prepline questions",
+"src": "questions from mocks 1–7 · + 3 Shyn questions",
 "tap": 0
 },
 {
@@ -47,7 +47,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "questions from mocks 8–12 · + 1 Prepline question",
+"src": "questions from mocks 8–12 · + 1 Shyn question",
 "tap": 0
 },
 {
@@ -67,7 +67,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "questions from mocks 8–14 · + 1 Prepline question",
+"src": "questions from mocks 8–14 · + 1 Shyn question",
 "tap": 0
 },
 {
@@ -87,7 +87,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "geometry only, fully worked · + 2 Prepline questions",
+"src": "geometry only, fully worked · + 2 Shyn questions",
 "tap": 4
 },
 {
@@ -97,7 +97,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "all answers worked and verified · + 2 Prepline questions",
+"src": "all answers worked and verified · + 2 Shyn questions",
 "tap": 0
 },
 {
@@ -117,7 +117,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "29 with key · 1 question without an answer, for practice · + 2 Prepline questions",
+"src": "29 with key · 1 question without an answer, for practice · + 2 Shyn questions",
 "tap": 0
 },
 {
@@ -127,7 +127,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "28 with key · solved independently, without the original key · + 6 Prepline questions",
+"src": "28 with key · solved independently, without the original key · + 6 Shyn questions",
 "tap": 0
 },
 {
@@ -137,7 +137,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "26 with key · 3 questions without an answer, for practice · + 2 Prepline questions",
+"src": "26 with key · 3 questions without an answer, for practice · + 2 Shyn questions",
 "tap": 0
 },
 {
@@ -147,7 +147,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "29 with key · 1 question without an answer, for practice · + 6 Prepline questions",
+"src": "29 with key · 1 question without an answer, for practice · + 6 Shyn questions",
 "tap": 0
 },
 {
@@ -157,7 +157,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "full key · + 1 Prepline question",
+"src": "full key · + 1 Shyn question",
 "tap": 0
 },
 {
@@ -167,7 +167,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "28 with key · 1 question without an answer, for practice · + 5 Prepline questions",
+"src": "28 with key · 1 question without an answer, for practice · + 5 Shyn questions",
 "tap": 0
 },
 {
@@ -177,7 +177,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "all answers worked and verified · + 2 Prepline questions",
+"src": "all answers worked and verified · + 2 Shyn questions",
 "tap": 0
 },
 {
@@ -187,7 +187,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "29 with key · 1 question without an answer, for practice · + 4 Prepline questions",
+"src": "29 with key · 1 question without an answer, for practice · + 4 Shyn questions",
 "tap": 0
 },
 {
@@ -197,7 +197,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "1 with key · no official answers, for practice · + 3 Prepline questions",
+"src": "1 with key · no official answers, for practice · + 3 Shyn questions",
 "tap": 0
 },
 {
@@ -207,7 +207,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "all answers verified · + 4 Prepline questions",
+"src": "all answers verified · + 4 Shyn questions",
 "tap": 0
 },
 {
@@ -217,7 +217,7 @@ window.PREPLINE_TESTS = [
 "group": "Mixed tests",
 "q": 30,
 "min": 60,
-"src": "26 with key · 1 question unanswered even in the original · + 4 Prepline questions",
+"src": "26 with key · 1 question unanswered even in the original · + 4 Shyn questions",
 "tap": 0
 },
 {
@@ -227,7 +227,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 1.2 · 1 not scored · + 4 Prepline questions",
+"src": "Practice Version 1.2 · 1 not scored · + 4 Shyn questions",
 "tap": 93
 },
 {
@@ -237,7 +237,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 2.2 · full key · + 6 Prepline questions",
+"src": "Practice Version 2.2 · full key · + 6 Shyn questions",
 "tap": 87
 },
 {
@@ -247,7 +247,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 3.2 · 1 not scored · + 1 Prepline question",
+"src": "Practice Version 3.2 · 1 not scored · + 1 Shyn question",
 "tap": 63
 },
 {
@@ -257,7 +257,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 4.2 · full key · + 1 Prepline question",
+"src": "Practice Version 4.2 · full key · + 1 Shyn question",
 "tap": 77
 },
 {
@@ -267,7 +267,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 5.2 · full key · + 3 Prepline questions",
+"src": "Practice Version 5.2 · full key · + 3 Shyn questions",
 "tap": 93
 },
 {
@@ -277,7 +277,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 8.2 · full key · + 2 Prepline questions",
+"src": "Practice Version 8.2 · full key · + 2 Shyn questions",
 "tap": 87
 },
 {
@@ -287,7 +287,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 11.3 · full key · + 2 Prepline questions",
+"src": "Practice Version 11.3 · full key · + 2 Shyn questions",
 "tap": 80
 },
 {
@@ -297,7 +297,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 12.3 · full key · + 2 Prepline questions",
+"src": "Practice Version 12.3 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -307,7 +307,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 13.3 · full key · + 4 Prepline questions",
+"src": "Practice Version 13.3 · full key · + 4 Shyn questions",
 "tap": 87
 },
 {
@@ -317,7 +317,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 14.3 · full key · + 4 Prepline questions",
+"src": "Practice Version 14.3 · full key · + 4 Shyn questions",
 "tap": 90
 },
 {
@@ -337,7 +337,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 16.3 · full key · + 2 Prepline questions",
+"src": "Practice Version 16.3 · full key · + 2 Shyn questions",
 "tap": 87
 },
 {
@@ -347,7 +347,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 17.1 · 1 not scored · + 3 Prepline questions",
+"src": "Practice Version 17.1 · 1 not scored · + 3 Shyn questions",
 "tap": 80
 },
 {
@@ -357,7 +357,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 18.1 · full key · + 2 Prepline questions",
+"src": "Practice Version 18.1 · full key · + 2 Shyn questions",
 "tap": 90
 },
 {
@@ -367,7 +367,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 19.1 · full key · + 4 Prepline questions",
+"src": "Practice Version 19.1 · full key · + 4 Shyn questions",
 "tap": 97
 },
 {
@@ -377,7 +377,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Practice Version 20.1 · full key · + 4 Prepline questions",
+"src": "Practice Version 20.1 · full key · + 4 Shyn questions",
 "tap": 93
 },
 {
@@ -387,7 +387,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 1 · full key · + 4 Prepline questions",
+"src": "Kiseki Mock 1 · full key · + 4 Shyn questions",
 "tap": 97
 },
 {
@@ -397,7 +397,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 2 · full key · + 1 Prepline question",
+"src": "Kiseki Mock 2 · full key · + 1 Shyn question",
 "tap": 97
 },
 {
@@ -407,7 +407,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 3 · full key · + 2 Prepline questions",
+"src": "Kiseki Mock 3 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -417,7 +417,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 4 · full key · + 1 Prepline question",
+"src": "Kiseki Mock 4 · full key · + 1 Shyn question",
 "tap": 97
 },
 {
@@ -427,7 +427,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 5 · full key · + 2 Prepline questions",
+"src": "Kiseki Mock 5 · full key · + 2 Shyn questions",
 "tap": 93
 },
 {
@@ -437,7 +437,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 6 · full key · + 1 Prepline question",
+"src": "Kiseki Mock 6 · full key · + 1 Shyn question",
 "tap": 93
 },
 {
@@ -447,7 +447,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 7 · full key · + 2 Prepline questions",
+"src": "Kiseki Mock 7 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -457,7 +457,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 8 · full key · + 2 Prepline questions",
+"src": "Kiseki Mock 8 · full key · + 2 Shyn questions",
 "tap": 100
 },
 {
@@ -467,7 +467,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Kiseki Mock 9 · full key · + 2 Prepline questions",
+"src": "Kiseki Mock 9 · full key · + 2 Shyn questions",
 "tap": 93
 },
 {
@@ -487,7 +487,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "math 7 · full key · + 1 Prepline question",
+"src": "math 7 · full key · + 1 Shyn question",
 "tap": 90
 },
 {
@@ -497,7 +497,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "math 9 · full key · + 3 Prepline questions",
+"src": "math 9 · full key · + 3 Shyn questions",
 "tap": 87
 },
 {
@@ -507,7 +507,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "math 10 · full key · + 1 Prepline question",
+"src": "math 10 · full key · + 1 Shyn question",
 "tap": 80
 },
 {
@@ -517,7 +517,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Mock Exam 10 · full key · + 2 Prepline questions",
+"src": "Mock Exam 10 · full key · + 2 Shyn questions",
 "tap": 83
 },
 {
@@ -527,7 +527,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Mock Exam 11 · full key · + 1 Prepline question",
+"src": "Mock Exam 11 · full key · + 1 Shyn question",
 "tap": 90
 },
 {
@@ -537,7 +537,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Mock Exam 12 · full key · + 1 Prepline question",
+"src": "Mock Exam 12 · full key · + 1 Shyn question",
 "tap": 93
 },
 {
@@ -557,7 +557,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 2 · full key · + 2 Prepline questions",
+"src": "Trial Test 2 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -567,7 +567,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 3 · 2 not scored · + 2 Prepline questions",
+"src": "Trial Test 3 · 2 not scored · + 2 Shyn questions",
 "tap": 90
 },
 {
@@ -577,7 +577,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 4 · full key · + 2 Prepline questions",
+"src": "Trial Test 4 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -587,7 +587,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 5 · full key · + 4 Prepline questions",
+"src": "Trial Test 5 · full key · + 4 Shyn questions",
 "tap": 93
 },
 {
@@ -597,7 +597,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 6 · full key · + 1 Prepline question",
+"src": "Trial Test 6 · full key · + 1 Shyn question",
 "tap": 100
 },
 {
@@ -607,7 +607,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 7 · full key · + 2 Prepline questions",
+"src": "Trial Test 7 · full key · + 2 Shyn questions",
 "tap": 97
 },
 {
@@ -617,7 +617,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 8 · full key · + 3 Prepline questions",
+"src": "Trial Test 8 · full key · + 3 Shyn questions",
 "tap": 100
 },
 {
@@ -627,7 +627,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 9 · full key · + 1 Prepline question",
+"src": "Trial Test 9 · full key · + 1 Shyn question",
 "tap": 93
 },
 {
@@ -637,7 +637,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 10 · full key · + 3 Prepline questions",
+"src": "Trial Test 10 · full key · + 3 Shyn questions",
 "tap": 93
 },
 {
@@ -647,7 +647,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 11 · 2 not scored · + 3 Prepline questions",
+"src": "Trial Test 11 · 2 not scored · + 3 Shyn questions",
 "tap": 93
 },
 {
@@ -657,7 +657,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial Test 12 · 1 not scored · + 1 Prepline question",
+"src": "Trial Test 12 · 1 not scored · + 1 Shyn question",
 "tap": 97
 },
 {
@@ -667,7 +667,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "NUET practice test, version 6.2 · full key · + 1 Prepline question",
+"src": "NUET practice test, version 6.2 · full key · + 1 Shyn question",
 "tap": 83
 },
 {
@@ -687,7 +687,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Math tests #19 + #20 · full key · + 3 Prepline questions",
+"src": "Math tests #19 + #20 · full key · + 3 Shyn questions",
 "tap": 90
 },
 {
@@ -707,7 +707,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #1 · full key · + 8 Prepline questions",
+"src": "Trial SET #1 · full key · + 8 Shyn questions",
 "tap": 90
 },
 {
@@ -717,7 +717,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #2 · full key · + 10 Prepline questions",
+"src": "Trial SET #2 · full key · + 10 Shyn questions",
 "tap": 97
 },
 {
@@ -727,7 +727,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #3 · full key · + 10 Prepline questions",
+"src": "Trial SET #3 · full key · + 10 Shyn questions",
 "tap": 100
 },
 {
@@ -737,7 +737,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #4 · full key · + 7 Prepline questions",
+"src": "Trial SET #4 · full key · + 7 Shyn questions",
 "tap": 100
 },
 {
@@ -747,7 +747,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #5 · full key · + 9 Prepline questions",
+"src": "Trial SET #5 · full key · + 9 Shyn questions",
 "tap": 97
 },
 {
@@ -757,7 +757,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #6 · full key · + 5 Prepline questions",
+"src": "Trial SET #6 · full key · + 5 Shyn questions",
 "tap": 100
 },
 {
@@ -767,14 +767,14 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "Trial SET #7 · full key · + 10 Prepline questions",
+"src": "Trial SET #7 · full key · + 10 Shyn questions",
 "tap": 93
 },
 {
 "id": "mix-81",
 "kind": "math",
 "n": 78,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
@@ -784,7 +784,7 @@ window.PREPLINE_TESTS = [
 "id": "mix-82",
 "kind": "math",
 "n": 79,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
@@ -794,7 +794,7 @@ window.PREPLINE_TESTS = [
 "id": "mix-83",
 "kind": "math",
 "n": 80,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
@@ -804,7 +804,7 @@ window.PREPLINE_TESTS = [
 "id": "mix-84",
 "kind": "math",
 "n": 81,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
@@ -857,7 +857,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "Assumptions, Conclusions, External Factors · + 8 Prepline questions",
+"src": "Assumptions, Conclusions, External Factors · + 8 Shyn questions",
 "tap": 0
 },
 {
@@ -877,7 +877,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "worked solutions · + 2 Prepline questions",
+"src": "worked solutions · + 2 Shyn questions",
 "tap": 0
 },
 {
@@ -897,7 +897,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "worked solutions · + 1 Prepline question",
+"src": "worked solutions · + 1 Shyn question",
 "tap": 0
 },
 {
@@ -907,7 +907,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "worked solutions · + 1 Prepline question",
+"src": "worked solutions · + 1 Shyn question",
 "tap": 3
 },
 {
@@ -917,7 +917,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "worked solutions · + 1 Prepline question",
+"src": "worked solutions · + 1 Shyn question",
 "tap": 3
 },
 {
@@ -957,7 +957,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "worked solutions · + 4 Prepline questions",
+"src": "worked solutions · + 4 Shyn questions",
 "tap": 0
 },
 {
@@ -967,7 +967,7 @@ window.PREPLINE_TESTS = [
 "group": "Topic mix",
 "q": 30,
 "min": 60,
-"src": "no answer key, for practice · + 1 Prepline question",
+"src": "no answer key, for practice · + 1 Shyn question",
 "tap": 7
 },
 {
@@ -977,7 +977,7 @@ window.PREPLINE_TESTS = [
 "group": "Past papers",
 "q": 30,
 "min": 60,
-"src": "BMAT 2009 · 12 CT / 18 PS · official key (4 unscored) · + 4 Prepline questions",
+"src": "BMAT 2009 · 12 CT / 18 PS · official key (4 unscored) · + 4 Shyn questions",
 "tap": 80
 },
 {
@@ -987,7 +987,7 @@ window.PREPLINE_TESTS = [
 "group": "Past papers",
 "q": 30,
 "min": 60,
-"src": "BMAT 2009 + BMAT 2010 · 14 CT / 16 PS · official key (1 unscored) · + 1 Prepline question",
+"src": "BMAT 2009 + BMAT 2010 · 14 CT / 16 PS · official key (1 unscored) · + 1 Shyn question",
 "tap": 90
 },
 {
@@ -1087,7 +1087,7 @@ window.PREPLINE_TESTS = [
 "group": "Past papers",
 "q": 30,
 "min": 60,
-"src": "BMAT 2018 + BMAT 2019 · 10 CT / 20 PS · official key · + 1 Prepline question",
+"src": "BMAT 2018 + BMAT 2019 · 10 CT / 20 PS · official key · + 1 Shyn question",
 "tap": 97
 },
 {
@@ -1477,14 +1477,14 @@ window.PREPLINE_TESTS = [
 "group": "Past papers",
 "q": 30,
 "min": 60,
-"src": "IMAT 2020 + IMAT 2021 + IMAT 2022 · 11 CT / 10 PS · official key · original IMAT order, most answers are A · + 9 Prepline questions",
+"src": "IMAT 2020 + IMAT 2021 + IMAT 2022 · 11 CT / 10 PS · official key · original IMAT order, most answers are A · + 9 Shyn questions",
 "tap": 95
 },
 {
 "id": "crit-68",
 "kind": "ct",
 "n": 68,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1494,7 +1494,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-69",
 "kind": "ct",
 "n": 69,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1504,7 +1504,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-70",
 "kind": "ct",
 "n": 70,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1514,7 +1514,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-71",
 "kind": "ct",
 "n": 71,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1524,7 +1524,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-72",
 "kind": "ct",
 "n": 72,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1534,7 +1534,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-73",
 "kind": "ct",
 "n": 73,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1544,7 +1544,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-74",
 "kind": "ct",
 "n": 74,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1554,7 +1554,7 @@ window.PREPLINE_TESTS = [
 "id": "crit-75",
 "kind": "ct",
 "n": 75,
-"group": "Prepline originals",
+"group": "Shyn originals",
 "q": 30,
 "min": 60,
 "src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
@@ -1567,7 +1567,7 @@ window.PREPLINE_TESTS = [
 "group": "Original mock exams",
 "q": 30,
 "min": 60,
-"src": "Mock Exam #1 · + 5 Prepline questions",
+"src": "Mock Exam #1 · + 5 Shyn questions",
 "tap": 0
 },
 {
@@ -1577,7 +1577,7 @@ window.PREPLINE_TESTS = [
 "group": "Original mock exams",
 "q": 30,
 "min": 60,
-"src": "Mock Exam #2 · + 5 Prepline questions",
+"src": "Mock Exam #2 · + 5 Shyn questions",
 "tap": 0
 },
 {
@@ -1587,7 +1587,7 @@ window.PREPLINE_TESTS = [
 "group": "Original mock exams",
 "q": 30,
 "min": 60,
-"src": "Mock Exam #3 · + 11 Prepline questions",
+"src": "Mock Exam #3 · + 11 Shyn questions",
 "tap": 0
 }
 ];

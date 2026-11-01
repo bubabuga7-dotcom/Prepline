@@ -1,4 +1,4 @@
-/* Prepline: explanations written by students.
+/* Shyn: explanations written by students.
    Test pages (loaded by test-ux.js): added to every .review-item of the results screen.
    Any other page (live.html review): added to every element with data-ex-mock and data-ex-q.
    Needs stage4.sql in Supabase. */

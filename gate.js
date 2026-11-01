@@ -1,4 +1,4 @@
-/* Prepline sign-in gate for test pages.
+/* Shyn sign-in gate for test pages.
    Guests can try the first few questions without an account; then the gate asks them to sign up.
    Their answers stay in place and the clock is paused while the gate is open. */
 (function () {

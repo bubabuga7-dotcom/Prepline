@@ -1,4 +1,4 @@
-/* Prepline private lock: the whole site is closed. Only the owner's account can see any page.
+/* Shyn private lock: the whole site is closed. Only the owner's account can see any page.
    Loaded first in <head>; hides the page until the signed-in email is confirmed.
    To reopen the site: remove the <script src="lock.js"> line from the pages (python lock-site.py off). */
 (function () {
@@ -27,7 +27,7 @@
       d.setAttribute('style', 'position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#15181D;color:#DADDE2;font:16px system-ui,sans-serif;padding:24px');
       d.innerHTML =
         '<form style="width:100%;max-width:340px;text-align:center">' +
-        '<div style="font:700 26px system-ui;color:#C9AA6A;margin-bottom:6px">Prepline</div>' +
+        '<div style="font:700 26px system-ui;color:#C9AA6A;margin-bottom:6px">Shyn</div>' +
         '<p style="color:#A6ADB8;margin:0 0 18px">The site is temporarily closed.</p>' +
         '<input name="e" type="email" placeholder="Email" autocomplete="username" required style="width:100%;box-sizing:border-box;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #333a44;background:#1d2128;color:#DADDE2;font-size:16px">' +
         '<input name="p" type="password" placeholder="Password" autocomplete="current-password" required style="width:100%;box-sizing:border-box;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #333a44;background:#1d2128;color:#DADDE2;font-size:16px">' +

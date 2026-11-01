@@ -1,4 +1,4 @@
-/* Prepline hub page (math.html / crit.html): renders the test grid from tests.js.
+/* Shyn hub page (math.html / crit.html): renders the test grid from tests.js.
    <body data-kind="math"> or <body data-kind="ct">. */
 (function () {
   var kind = document.body.getAttribute('data-kind');
