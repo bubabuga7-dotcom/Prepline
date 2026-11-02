@@ -232,7 +232,7 @@
     </div>
 
     <div class="countdown" id="cd">
-      <div class="lbl">NUET countdown</div>
+      <div class="lbl">Exam countdown</div>
       <div id="cdBody">
         <input type="date" id="dateIn"><button id="dateSet">Set</button>
       </div>
@@ -281,18 +281,6 @@
         <span class="mq-next" id="mqN">Another question &rarr;</span>
       </div>
 
-      <div class="panel about">
-        <h2 style="margin-bottom:10px">About NUET</h2>
-        <p>Two sections, 60 questions, 120 minutes. Mathematics and Critical Thinking,
-           each marked out of 120.</p>
-        <ul>
-          <li><span>Mathematics</span><b>30 questions &middot; 60 min</b></li>
-          <li><span>Critical Thinking</span><b>30 questions &middot; 60 min</b></li>
-          <li><span>Competitive score</span><b>210+ / 240</b></li>
-        </ul>
-        <a href="intro.html">Full explanation &rarr;</a>
-      </div>
-
       </div>
 
     </div>
@@ -308,7 +296,7 @@
 
       <div class="panel grow" id="invite" style="display:none">
         <div class="panel-head"><h2>Invite a friend</h2><span class="more" id="invCount"></span></div>
-        <p class="g-txt">Preparing for NUET together is easier. Send a friend your link — you will see here how many joined.</p><!-- with payments on: "you get a week of Premium" -->
+        <p class="g-txt">Practising together is easier. Send a friend your link — you will see here how many joined.</p><!-- with payments on: "you get a week of Premium" -->
         <div class="g-link"><input id="invLink" readonly aria-label="Your invite link"><button type="button" class="btn" id="invShare">Share</button></div>
       </div>
 
@@ -362,8 +350,8 @@
 
 <script src="vendor/supabase/supabase.js?v=2.118.0"></script>
 <script src="prepline-supabase.js?v=72ae5a09"></script>
-<script src="tests.js?v=96fccec0"></script>
-<script src="nav.js?v=0ffe34d9"></script>
+<script src="tests.js?v=3ae440db"></script>
+<script src="nav.js?v=aa42e62a"></script>
 <script>
 /* ================= данные ================= */
 const TESTS = (window.PREPLINE_TESTS || []).map(t => ({
@@ -529,7 +517,7 @@ function drawNU(){
   const target = nuTarget();
   if(full < 3){
     box.innerHTML = '<div><div class="kicker">NU scale estimate</div><h2 style="font-size:18px;margin:6px 0 4px">Take '+(3-full)+' more full mock'+(3-full===1?'':'s')+' to see your estimate</h2>'+
-      '<p class="sub" style="margin:0">After 3 mocks this panel estimates your NUET score out of 240 and how far you are from '+target+'.</p></div>';
+      '<p class="sub" style="margin:0">After 3 mocks this panel estimates your score out of 240 and how far you are from '+target+'.</p></div>';
     return;
   }
   const secRow = (name, x) => {
@@ -735,7 +723,7 @@ function mqDraw(){
   const opts = item.opts.slice();
   for(let k=opts.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [opts[k],opts[j]]=[opts[j],opts[k]]; }
 
-  $('mqCount').textContent = 'one NUET question';
+  $('mqCount').textContent = 'one question';
   $('mqQ').textContent = item.q;
   $('mqF').textContent = ''; $('mqF').className = 'mq-fb';
   $('mqN').style.display = 'none';
@@ -772,7 +760,7 @@ setTimeout(boot, 300);
       $('invLink').value = r.link;
       $('invCount').textContent = r.joined ? r.joined + ' joined · ' + r.rewarded + ' week' + (r.rewarded === 1 ? '' : 's') + ' earned' : '';
       $('invShare').onclick = function(){
-        var text = 'I prepare for NUET on Shyn — free mocks with answers. Join with my link:';
+        var text = 'I practise Maths and Critical Thinking on Shyn — free tests with answers. Join with my link:';
         if (navigator.share) navigator.share({ title: 'Shyn', text: text, url: r.link }).catch(function(){});
         else { $('invLink').select(); (navigator.clipboard ? navigator.clipboard.writeText(r.link) : Promise.reject()).then(function(){ window.preplineToast && window.preplineToast('Link copied'); }, function(){ document.execCommand('copy'); }); }
       };

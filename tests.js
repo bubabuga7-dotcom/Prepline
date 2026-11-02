@@ -667,7 +667,7 @@ window.PREPLINE_TESTS = [
 "group": "Mock collection",
 "q": 30,
 "min": 60,
-"src": "NUET practice test, version 6.2 · full key · + 1 Shyn question",
+"src": "Practice test, version 6.2 · full key · + 1 Shyn question",
 "tap": 83
 },
 {
@@ -1487,7 +1487,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1497,7 +1497,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1507,7 +1507,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1517,7 +1517,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1527,7 +1527,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1537,7 +1537,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1547,7 +1547,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {
@@ -1557,7 +1557,7 @@ window.PREPLINE_TESTS = [
 "group": "Shyn originals",
 "q": 30,
 "min": 60,
-"src": "Original questions in the official NUET format · 15 CT + 15 PS · explanations",
+"src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0
 },
 {

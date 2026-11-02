@@ -32,11 +32,9 @@
     ['review.html', 'Mistakes deck', 'Review', I.deck, 'more'],
     ['saved.html', 'Saved questions', 'Saved', I.star, 'more'],
     ['live.html', 'Live room', 'Live', I.live, 'more'],
-    ['league.html', 'League', 'League', I.league, 'more'],
-    'spacer',
-    ['intro.html', 'What is NUET', 'NUET', I.info, 'more']
+    ['league.html', 'League', 'League', I.league, 'more']
   ];
-  var h = '<a href="index.html" class="dock-logo" aria-label="Shyn home">P</a>';
+  var h = '<a href="index.html" class="dock-logo" aria-label="Shyn home">S</a>';
   items.forEach(function (it) {
     if (it === 'sep') { h += '<div class="dock-sep"></div>'; return; }
     if (it === 'spacer') { h += '<div class="dock-spacer"></div>'; return; }

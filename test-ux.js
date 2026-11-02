@@ -481,7 +481,7 @@
     // nothing counts until the student presses Start
     var stopId = setInterval(function () { if (!examStarted) state.timeLeft = T0; }, 200);
     var intro = document.createElement('div'); intro.className = 'exam-intro';
-    intro.innerHTML = '<div class="box"><span class="exam-tag">EXAM DAY MODE</span><h3>Like the real NUET</h3><ul>' +
+    intro.innerHTML = '<div class="box"><span class="exam-tag">EXAM DAY MODE</span><h3>Like the real exam</h3><ul>' +
       '<li>The clock is hidden. You get a signal at 10, 5 and 1 minute left.</li>' +
       '<li>No question map, flags, hints or scroll view.</li>' +
       '<li>You have <b>' + Math.round(T0 / 60) + ' minutes</b> for ' + questions.length + ' questions. When time is up, the test is submitted.</li>' +
@@ -534,7 +534,7 @@
     startCard = document.createElement('div'); startCard.className = 'pl-start';
     startCard.innerHTML = '<div class="box"><h3>' + (h2 ? h2.textContent.replace(/\s*\(.*\)\s*$/, '') : 'Test') + '</h3>' +
       '<p class="sub">' + n + ' questions. The clock starts when you press Start.</p><div class="md">' +
-      '<button type="button" data-m="exam"><div><b>Exam</b><span>Real NUET time: 2 minutes a question</span></div><i>' + (2 * n) + ' min</i></button>' +
+      '<button type="button" data-m="exam"><div><b>Exam</b><span>Real exam time: 2 minutes a question</span></div><i>' + (2 * n) + ' min</i></button>' +
       '<button type="button" data-m="fast"><div><b>Fast</b><span>Practice under pressure; word hints are on</span></div><i>' + n + ' min</i></button>' +
       '</div><button type="button" class="go">Start →</button>' +
       '<a class="alt" href="' + location.pathname + '?exam=1">Exam day mode: hidden clock, no map →</a></div>';
@@ -965,7 +965,7 @@
     if (/BMAT|TSA|IMAT/i.test(src) || /^crit-[1-5]$/.test(page)) return 'Past-paper questions © Cambridge University Press & Assessment';
     if (/Kiseki/i.test(src)) return 'Questions © Kiseki';
     if (/^diagnostic-/.test(page)) return '';
-    return 'Questions from publicly shared NUET practice materials · rights belong to their authors';
+    return 'Questions from publicly shared practice materials · rights belong to their authors';
   }
   function show() {
     var t = (window.PREPLINE_TESTS || []).filter(function (x) { return x.id === page; })[0];
@@ -979,5 +979,5 @@
     else h.parentNode.insertBefore(d, h.nextSibling);
   }
   if (window.PREPLINE_TESTS) return show();
-  var s = document.createElement('script'); s.src = 'tests.js?v=96fccec0'; s.onload = show; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'tests.js?v=3ae440db'; s.onload = show; document.body.appendChild(s);
 })();

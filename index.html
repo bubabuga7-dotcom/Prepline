@@ -29,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="prepline.css?v=02c0bfea">
 <style>
-  .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;padding:34px 0 34px}
+  .hero{display:grid;grid-template-columns:minmax(0,760px);gap:40px;align-items:center;padding:34px 0 34px}
   .hero h1{font-size:46px;line-height:1.08;margin:14px 0 16px}
   .hero h1 em{font-style:normal;color:var(--gold)}
   .hero .lead{font-size:16.5px;color:var(--ink-2);max-width:520px;margin-bottom:26px}
@@ -49,7 +49,7 @@
   .sec-title h2{font-size:21px}
   .sec-title a{font-size:13px;color:var(--blue)}
 
-  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tracks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
   .track{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
          padding:20px 22px;transition:border-color .15s,transform .15s}
   .track:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -153,8 +153,8 @@
 
   <section class="hero">
     <div>
-      <span class="kicker">Free NUET preparation</span>
-      <h1>Prepare for NUET<br><em>one timed test</em> at a time</h1>
+      <span class="kicker">Free practice</span>
+      <h1>Improve your <em>Maths</em><br>and <em>Critical Thinking</em></h1>
       <p class="lead">Start with a 10-question diagnostic, then work through full timed tests in Mathematics and Critical Thinking. Every answer is reviewed at the end.</p>
       <div class="row" id="hero-row">
         <a class="btn" href="diagnostic-math.html">Mathematics diagnostic →</a>
@@ -162,12 +162,6 @@
       </div>
       <p class="note">Studying with friends? <a href="live.html" style="color:var(--gold);font-weight:600">Open a live room →</a> everyone takes the same mock at once.</p>
       <p class="note">Sign in to save your results in the cloud and see them on any device.</p>
-    </div>
-    <div class="exam">
-      <div class="exam-head"><b>The NUET at a glance</b><a class="mono" style="font-size:12px;color:var(--blue)" href="intro.html">Guide →</a></div>
-      <div class="exam-row"><span class="nm">Mathematics</span><span class="val">30 q · 60 min</span><span class="ds">Algebra, geometry, functions, probability</span></div>
-      <div class="exam-row"><span class="nm">Critical Thinking</span><span class="val">30 q · 60 min</span><span class="ds">Arguments, assumptions, flaws, problem solving</span></div>
-      <div class="exam-row"><span class="nm">Competitive score</span><span class="val">210+ / 240</span><span class="ds">Each section is marked out of 120</span></div>
     </div>
   </section>
 
@@ -192,7 +186,7 @@
     <a class="track" href="math.html">
       <span class="kicker">Section 1</span>
       <h3>Mathematics</h3>
-      <p>Mixed tests from NUET-style mocks plus a large mock collection: Practice Compilation, Kiseki, Matesha and Trial Tests.</p>
+      <p>Mixed tests plus a large mock collection: Practice Compilation, Kiseki, Matesha and Trial Tests.</p>
       <div class="meta"><span><b id="m-tests">—</b> tests</span><span><b id="m-q">—</b> q</span><span class="go">Open →</span></div>
     </a>
     <a class="track" href="crit.html">
@@ -200,12 +194,6 @@
       <h3>Critical Thinking</h3>
       <p>Topic mixes and official past papers from BMAT, TSA Oxford and IMAT, checked against the official keys.</p>
       <div class="meta"><span><b id="c-tests">—</b> tests</span><span><b id="c-q">—</b> q</span><span class="go">Open →</span></div>
-    </a>
-    <a class="track" href="intro.html">
-      <span class="kicker">Exam guide</span>
-      <h3>What is NUET?</h3>
-      <p>Sections, timing, scoring and what score you need for Nazarbayev University foundation and undergraduate programmes.</p>
-      <div class="meta"><span>5 min read</span><span class="go">Read →</span></div>
     </a>
   </section>
 
@@ -217,10 +205,10 @@
     <div class="step"><b>04</b><h3>Track</h3><p>Best scores show on every test card.</p></div>
   </section>
 
-  <div class="foot"><span>Shyn — free NUET preparation.</span><span><a href="math.html">Mathematics</a> · <a href="crit.html">Critical Thinking</a> · <a href="intro.html">About NUET</a> · <a href="copyright.html">Rights holders</a></span></div>
+  <div class="foot"><span>Shyn — free Maths and Critical Thinking practice.</span><span><a href="math.html">Mathematics</a> · <a href="crit.html">Critical Thinking</a> · <a href="copyright.html">Rights holders</a></span></div>
 </div></main>
-<script src="nav.js?v=0ffe34d9"></script>
-<script src="tests.js?v=96fccec0"></script>
+<script src="nav.js?v=aa42e62a"></script>
+<script src="tests.js?v=3ae440db"></script>
 <script>
 (function () {
   var T = window.PREPLINE_TESTS || [], f = function (n) { return n.toLocaleString('en-US'); };
@@ -238,10 +226,9 @@
   var T = window.PREPLINE_TESTS || [];
   var cnt = function (k) { return T.filter(function (t) { return t.kind === k; }).length + ' tests'; };
   var sub = { 'math.html': cnt('math'), 'crit.html': cnt('ct'), 'topics.html': 'short drills', 'dashboard.html': 'scores & weak topics',
-              'review.html': 'your wrong answers', 'formulas.html': 'quick quiz', 'twin.html': 'fix your twin’s mistakes', 'live.html': 'with friends', 'league.html': 'monthly table',
-              'intro.html': 'exam guide', 'premium.html': 'unlimited tests' };
-  var short = { 'Mathematics': 'Mathematics', 'Critical Thinking': 'Critical Thinking', 'Dashboard': 'Progress', 'What is NUET': 'What is NUET' };
-  var order = ['math.html', 'crit.html', 'topics.html', 'dashboard.html', 'review.html', 'formulas.html', 'twin.html', 'live.html', 'league.html', 'intro.html'];
+              'review.html': 'your wrong answers', 'formulas.html': 'quick quiz', 'twin.html': 'fix your twin’s mistakes', 'live.html': 'with friends', 'league.html': 'monthly table', 'premium.html': 'unlimited tests' };
+  var short = { 'Mathematics': 'Mathematics', 'Critical Thinking': 'Critical Thinking', 'Dashboard': 'Progress' };
+  var order = ['math.html', 'crit.html', 'topics.html', 'dashboard.html', 'review.html', 'formulas.html', 'twin.html', 'live.html', 'league.html'];
   var by = {}; N.items.forEach(function (it) { by[it[0]] = it; });
   var star = '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>';
   if (window.PREPLINE_PAID) { by['premium.html'] = ['premium.html', 'Premium', 'Premium', star]; order.push('premium.html'); }
