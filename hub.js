@@ -77,7 +77,7 @@
     return '<a class="tile' + (r && !d ? ' done' : '') + '" href="' + (d ? t.id + '.html' : link(t.id)) + '">' +
       '<div class="tile-top"><span class="num mono">' + (t.group === 'Original mock exams' ? 'EXAM' : '#' + t.n) + '</span>' + badge + '</div>' +
       '<h3>' + esc(title(t)) + '</h3>' +
-      '<p class="src">' + esc(t.src || '') + '</p>' +
+      '<p class="src">' + esc(t.about || t.src || '') + '</p>' +
       '<div class="tile-foot mono"><span>' + t.q + ' q</span><span>' + t.min + ' min</span>' +
       (d ? '<span class="cont">Continue →</span>' : r ? '<span class="tries">' + r.count + (r.count === 1 ? ' attempt' : ' attempts') + '</span>' : '<span class="go">Start →</span>') +
       '</div></a>';
@@ -90,7 +90,7 @@
       var list = all.filter(function (t) {
         if (t.group !== g) return false;
         if (state.hide && results[t.id]) return false;
-        if (q && (title(t) + ' ' + t.n + ' ' + (t.src || '')).toLowerCase().indexOf(q) < 0) return false;
+        if (q && (title(t) + ' ' + t.n + ' ' + (t.src || '') + ' ' + (t.about || '')).toLowerCase().indexOf(q) < 0) return false;
         return true;
       });
       if (!list.length) return;
@@ -137,7 +137,7 @@
     var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams' && !locked(t.id); })[0];
     if (next && nx) {
       nx.querySelector('.next-name').textContent = title(next);
-      nx.querySelector('.next-src').textContent = (next.src ? next.src + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
+      nx.querySelector('.next-src').textContent = ((next.about || next.src) ? (next.about || next.src) + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
       nx.querySelector('a.btn').href = link(next.id);
       nx.querySelector('.next-label').textContent = done.length ? 'Next up' : 'Start here';
     }

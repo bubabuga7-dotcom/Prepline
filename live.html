@@ -240,9 +240,9 @@
 </div></main>
 
 <script src="nav.js?v=f9fab1a1"></script>
-<script src="tests.js?v=3ae440db"></script>
+<script src="tests.js?v=12f57cfa"></script>
 <script src="vendor/supabase/supabase.js?v=2.118.0"></script>
-<script src="prepline-supabase.js?v=72ae5a09"></script>
+<script src="prepline-supabase.js?v=9d5a56b9"></script>
 <script src="answers.js?v=ac05f505"></script>
 <script src="explain.js?v=2d970f80"></script>
 <script>
@@ -273,7 +273,7 @@
   function fillMocks() {
     var list = TESTS.filter(function (t) { return t.kind === kind; });
     $('mock-sel').innerHTML = list.map(function (t) {
-      return '<option value="' + t.id + '">' + esc(testName(t)) + (t.src && t.group !== 'Original mock exams' ? ' — ' + esc(t.src) : '') + ' (' + t.q + ' q)</option>';
+      return '<option value="' + t.id + '">' + esc(testName(t)) + ((t.about || t.src) && t.group !== 'Original mock exams' ? ' — ' + esc(t.about || t.src) : '') + ' (' + t.q + ' q)</option>';
     }).join('');
     fillDur();
   }

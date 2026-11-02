@@ -8,7 +8,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 1–7 · + 1 Shyn question",
-"tap": 0
+"tap": 0,
+"about": "More ratio and graphs"
 },
 {
 "id": "mix-2",
@@ -18,7 +19,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 1–7",
-"tap": 0
+"tap": 0,
+"about": "More algebra and graphs"
 },
 {
 "id": "mix-3",
@@ -28,7 +30,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 1–7 · + 3 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More algebra"
 },
 {
 "id": "mix-4",
@@ -38,7 +41,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 1–7, 10",
-"tap": 0
+"tap": 0,
+"about": "More percentages and algebra"
 },
 {
 "id": "mix-5",
@@ -48,7 +52,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 8–12 · + 1 Shyn question",
-"tap": 0
+"tap": 0,
+"about": "More ratio and algebra"
 },
 {
 "id": "mix-6",
@@ -58,7 +63,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 8–12",
-"tap": 0
+"tap": 0,
+"about": "More percentages and numbers"
 },
 {
 "id": "mix-7",
@@ -68,7 +74,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "questions from mocks 8–14 · + 1 Shyn question",
-"tap": 0
+"tap": 0,
+"about": "More algebra"
 },
 {
 "id": "mix-8",
@@ -78,7 +85,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "the whole of Mock 6, answers checked against the solutions",
-"tap": 0
+"tap": 0,
+"about": "More ratio and algebra"
 },
 {
 "id": "mix-9",
@@ -88,7 +96,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "geometry only, fully worked · + 2 Shyn questions",
-"tap": 4
+"tap": 4,
+"about": "Geometry only"
 },
 {
 "id": "mix-10",
@@ -98,7 +107,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all answers worked and verified · + 2 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More numbers"
 },
 {
 "id": "mix-11",
@@ -108,7 +118,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "25 with key · 5 questions without an answer yet, for practice",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-12",
@@ -118,7 +129,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 2 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-13",
@@ -128,7 +140,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "28 with key · solved independently, without the original key · + 6 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-14",
@@ -138,7 +151,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "26 with key · 3 questions without an answer, for practice · + 2 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-15",
@@ -148,7 +162,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 6 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-16",
@@ -158,7 +173,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "full key · + 1 Shyn question",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-17",
@@ -168,7 +184,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "28 with key · 1 question without an answer, for practice · + 5 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-18",
@@ -178,7 +195,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all answers worked and verified · + 2 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-19",
@@ -188,7 +206,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "29 with key · 1 question without an answer, for practice · + 4 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More graphs"
 },
 {
 "id": "mix-20",
@@ -198,7 +217,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "1 with key · no official answers, for practice · + 3 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-21",
@@ -208,7 +228,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all answers verified · + 4 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "mix-22",
@@ -218,7 +239,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "26 with key · 1 question unanswered even in the original · + 4 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More algebra"
 },
 {
 "id": "mix-23",
@@ -228,7 +250,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 1.2 · 1 not scored · + 4 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "More graphs"
 },
 {
 "id": "mix-24",
@@ -238,7 +261,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 2.2 · full key · + 6 Shyn questions",
-"tap": 87
+"tap": 87,
+"about": "Balanced mix"
 },
 {
 "id": "mix-25",
@@ -248,7 +272,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 3.2 · 1 not scored · + 1 Shyn question",
-"tap": 63
+"tap": 63,
+"about": "More algebra"
 },
 {
 "id": "mix-26",
@@ -258,7 +283,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 4.2 · full key · + 1 Shyn question",
-"tap": 77
+"tap": 77,
+"about": "Balanced mix"
 },
 {
 "id": "mix-27",
@@ -268,7 +294,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 5.2 · full key · + 3 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-28",
@@ -278,7 +305,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 8.2 · full key · + 2 Shyn questions",
-"tap": 87
+"tap": 87,
+"about": "More graphs"
 },
 {
 "id": "mix-29",
@@ -288,7 +316,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 11.3 · full key · + 2 Shyn questions",
-"tap": 80
+"tap": 80,
+"about": "Balanced mix"
 },
 {
 "id": "mix-30",
@@ -298,7 +327,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 12.3 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-31",
@@ -308,7 +338,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 13.3 · full key · + 4 Shyn questions",
-"tap": 87
+"tap": 87,
+"about": "More percentages"
 },
 {
 "id": "mix-32",
@@ -318,7 +349,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 14.3 · full key · + 4 Shyn questions",
-"tap": 90
+"tap": 90,
+"about": "More percentages and algebra"
 },
 {
 "id": "mix-33",
@@ -328,7 +360,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 15.3 · full key",
-"tap": 100
+"tap": 100,
+"about": "More percentages and numbers"
 },
 {
 "id": "mix-34",
@@ -338,7 +371,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 16.3 · full key · + 2 Shyn questions",
-"tap": 87
+"tap": 87,
+"about": "More graphs"
 },
 {
 "id": "mix-35",
@@ -348,7 +382,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 17.1 · 1 not scored · + 3 Shyn questions",
-"tap": 80
+"tap": 80,
+"about": "More geometry"
 },
 {
 "id": "mix-36",
@@ -358,7 +393,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 18.1 · full key · + 2 Shyn questions",
-"tap": 90
+"tap": 90,
+"about": "Geometry only"
 },
 {
 "id": "mix-37",
@@ -368,7 +404,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 19.1 · full key · + 4 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "More geometry"
 },
 {
 "id": "mix-38",
@@ -378,7 +415,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice Version 20.1 · full key · + 4 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-39",
@@ -388,7 +426,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 1 · full key · + 4 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-40",
@@ -398,7 +437,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 2 · full key · + 1 Shyn question",
-"tap": 97
+"tap": 97,
+"about": "More ratio"
 },
 {
 "id": "mix-41",
@@ -408,7 +448,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 3 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-42",
@@ -418,7 +459,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 4 · full key · + 1 Shyn question",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-43",
@@ -428,7 +470,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 5 · full key · + 2 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-44",
@@ -438,7 +481,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 6 · full key · + 1 Shyn question",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-45",
@@ -448,7 +492,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 7 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "More percentages"
 },
 {
 "id": "mix-46",
@@ -458,7 +503,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 8 · full key · + 2 Shyn questions",
-"tap": 100
+"tap": 100,
+"about": "More percentages"
 },
 {
 "id": "mix-47",
@@ -468,7 +514,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 9 · full key · + 2 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-48",
@@ -478,7 +525,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Kiseki Mock 10 · full key",
-"tap": 100
+"tap": 100,
+"about": "More numbers"
 },
 {
 "id": "mix-49",
@@ -488,7 +536,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "math 7 · full key · + 1 Shyn question",
-"tap": 90
+"tap": 90,
+"about": "More ratio and numbers"
 },
 {
 "id": "mix-50",
@@ -498,7 +547,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "math 9 · full key · + 3 Shyn questions",
-"tap": 87
+"tap": 87,
+"about": "More numbers"
 },
 {
 "id": "mix-51",
@@ -508,7 +558,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "math 10 · full key · + 1 Shyn question",
-"tap": 80
+"tap": 80,
+"about": "Balanced mix"
 },
 {
 "id": "mix-52",
@@ -518,7 +569,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam 10 · full key · + 2 Shyn questions",
-"tap": 83
+"tap": 83,
+"about": "Balanced mix"
 },
 {
 "id": "mix-53",
@@ -528,7 +580,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam 11 · full key · + 1 Shyn question",
-"tap": 90
+"tap": 90,
+"about": "More graphs and percentages"
 },
 {
 "id": "mix-54",
@@ -538,7 +591,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam 12 · full key · + 1 Shyn question",
-"tap": 93
+"tap": 93,
+"about": "More algebra"
 },
 {
 "id": "mix-55",
@@ -548,7 +602,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 1 · 1 not scored",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix · 1 unscored"
 },
 {
 "id": "mix-56",
@@ -558,7 +613,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 2 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-57",
@@ -568,7 +624,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 3 · 2 not scored · + 2 Shyn questions",
-"tap": 90
+"tap": 90,
+"about": "More ratio · 1 unscored"
 },
 {
 "id": "mix-58",
@@ -578,7 +635,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 4 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "More graphs"
 },
 {
 "id": "mix-59",
@@ -588,7 +646,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 5 · full key · + 4 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "More graphs"
 },
 {
 "id": "mix-60",
@@ -598,7 +657,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 6 · full key · + 1 Shyn question",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "mix-61",
@@ -608,7 +668,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 7 · full key · + 2 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-62",
@@ -618,7 +679,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 8 · full key · + 3 Shyn questions",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "mix-63",
@@ -628,7 +690,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 9 · full key · + 1 Shyn question",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-64",
@@ -638,7 +701,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 10 · full key · + 3 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "mix-65",
@@ -648,7 +712,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 11 · 2 not scored · + 3 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "More geometry"
 },
 {
 "id": "mix-66",
@@ -658,7 +723,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial Test 12 · 1 not scored · + 1 Shyn question",
-"tap": 97
+"tap": 97,
+"about": "More geometry · 1 unscored"
 },
 {
 "id": "mix-67",
@@ -668,7 +734,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Practice test, version 6.2 · full key · + 1 Shyn question",
-"tap": 83
+"tap": 83,
+"about": "Balanced mix"
 },
 {
 "id": "mix-68",
@@ -678,7 +745,8 @@ window.PREPLINE_TESTS = [
 "q": 31,
 "min": 62,
 "src": "Math tests #17 + #18 · full key",
-"tap": 90
+"tap": 90,
+"about": "Balanced mix"
 },
 {
 "id": "mix-70",
@@ -688,7 +756,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Math tests #19 + #20 · full key · + 3 Shyn questions",
-"tap": 90
+"tap": 90,
+"about": "More numbers"
 },
 {
 "id": "mix-72",
@@ -698,7 +767,8 @@ window.PREPLINE_TESTS = [
 "q": 32,
 "min": 64,
 "src": "Math tests #21 + #22 · full key",
-"tap": 87
+"tap": 87,
+"about": "More numbers"
 },
 {
 "id": "mix-74",
@@ -708,7 +778,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #1 · full key · + 8 Shyn questions",
-"tap": 90
+"tap": 90,
+"about": "Balanced mix"
 },
 {
 "id": "mix-75",
@@ -718,7 +789,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #2 · full key · + 10 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-76",
@@ -728,7 +800,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #3 · full key · + 10 Shyn questions",
-"tap": 100
+"tap": 100,
+"about": "More percentages and numbers"
 },
 {
 "id": "mix-77",
@@ -738,7 +811,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #4 · full key · + 7 Shyn questions",
-"tap": 100
+"tap": 100,
+"about": "More graphs"
 },
 {
 "id": "mix-78",
@@ -748,7 +822,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #5 · full key · + 9 Shyn questions",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "mix-79",
@@ -758,7 +833,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #6 · full key · + 5 Shyn questions",
-"tap": 100
+"tap": 100,
+"about": "More numbers"
 },
 {
 "id": "mix-80",
@@ -768,7 +844,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Trial SET #7 · full key · + 10 Shyn questions",
-"tap": 93
+"tap": 93,
+"about": "More numbers"
 },
 {
 "id": "mix-81",
@@ -778,7 +855,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
-"tap": 0
+"tap": 0,
+"about": "More ratio and percentages"
 },
 {
 "id": "mix-82",
@@ -788,7 +866,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
-"tap": 0
+"tap": 0,
+"about": "More ratio and percentages"
 },
 {
 "id": "mix-83",
@@ -798,7 +877,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
-"tap": 0
+"tap": 0,
+"about": "More ratio and percentages"
 },
 {
 "id": "mix-84",
@@ -808,7 +888,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions on the topics with the fewest questions · explanations",
-"tap": 0
+"tap": 0,
+"about": "More ratio and percentages"
 },
 {
 "id": "crit-1",
@@ -818,7 +899,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all 5 question types",
-"tap": 10
+"tap": 10,
+"about": "Critical thinking only · more weaken & strengthen"
 },
 {
 "id": "crit-2",
@@ -828,7 +910,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all 5 question types",
-"tap": 10
+"tap": 10,
+"about": "Critical thinking only · more weaken & strengthen"
 },
 {
 "id": "crit-3",
@@ -838,7 +921,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all 5 question types",
-"tap": 10
+"tap": 10,
+"about": "Critical thinking only · more weaken & strengthen"
 },
 {
 "id": "crit-4",
@@ -848,7 +932,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "all 5 question types",
-"tap": 13
+"tap": 13,
+"about": "Critical thinking only · more weaken & strengthen"
 },
 {
 "id": "crit-5",
@@ -858,7 +943,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Assumptions, Conclusions, External Factors · + 8 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Critical thinking only · more assumptions and conclusions"
 },
 {
 "id": "crit-6",
@@ -868,7 +954,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions",
-"tap": 0
+"tap": 0,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-7",
@@ -878,7 +965,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions · + 2 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-8",
@@ -888,7 +976,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions",
-"tap": 0
+"tap": 0,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-9",
@@ -898,7 +987,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions · + 1 Shyn question",
-"tap": 0
+"tap": 0,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-10",
@@ -908,7 +998,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions · + 1 Shyn question",
-"tap": 3
+"tap": 3,
+"about": "Balanced mix"
 },
 {
 "id": "crit-11",
@@ -918,7 +1009,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions · + 1 Shyn question",
-"tap": 3
+"tap": 3,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-12",
@@ -928,7 +1020,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions",
-"tap": 3
+"tap": 3,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-13",
@@ -938,7 +1031,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions",
-"tap": 0
+"tap": 0,
+"about": "More main conclusion and weaken & strengthen"
 },
 {
 "id": "crit-14",
@@ -948,7 +1042,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions",
-"tap": 3
+"tap": 3,
+"about": "Mostly critical thinking"
 },
 {
 "id": "crit-15",
@@ -958,7 +1053,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "worked solutions · + 4 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-16",
@@ -968,7 +1064,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "no answer key, for practice · + 1 Shyn question",
-"tap": 7
+"tap": 7,
+"about": "Balanced mix"
 },
 {
 "id": "crit-17",
@@ -978,7 +1075,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2009 · 12 CT / 18 PS · official key (4 unscored) · + 4 Shyn questions",
-"tap": 80
+"tap": 80,
+"about": "More conclusions"
 },
 {
 "id": "crit-18",
@@ -988,7 +1086,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2009 + BMAT 2010 · 14 CT / 16 PS · official key (1 unscored) · + 1 Shyn question",
-"tap": 90
+"tap": 90,
+"about": "More conclusions"
 },
 {
 "id": "crit-19",
@@ -998,7 +1097,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2010 + BMAT 2011 · 14 CT / 16 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "More assumptions and conclusions"
 },
 {
 "id": "crit-20",
@@ -1008,7 +1108,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2011 + BMAT 2012 · 12 CT / 18 PS · official key",
-"tap": 90
+"tap": 90,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-21",
@@ -1018,7 +1119,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2012 + BMAT 2013 · 12 CT / 18 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-22",
@@ -1028,7 +1130,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2013 + BMAT 2014 · 13 CT / 17 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More weaken & strengthen"
 },
 {
 "id": "crit-23",
@@ -1038,7 +1141,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2014 · 12 CT / 18 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-24",
@@ -1048,7 +1152,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2015 · 14 CT / 16 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More weaken & strengthen and conclusions"
 },
 {
 "id": "crit-25",
@@ -1058,7 +1163,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2015 + BMAT 2016 · 12 CT / 18 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-26",
@@ -1068,7 +1174,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2016 + BMAT 2017 · 11 CT / 19 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-27",
@@ -1078,7 +1185,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2017 + BMAT 2018 · 14 CT / 16 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More conclusions"
 },
 {
 "id": "crit-28",
@@ -1088,7 +1196,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2018 + BMAT 2019 · 10 CT / 20 PS · official key · + 1 Shyn question",
-"tap": 97
+"tap": 97,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-29",
@@ -1098,7 +1207,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2019 + BMAT 2020 · 16 CT / 14 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More conclusions"
 },
 {
 "id": "crit-30",
@@ -1108,7 +1218,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2020 + BMAT 2021 · 14 CT / 16 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "More parallel reasoning and conclusions"
 },
 {
 "id": "crit-31",
@@ -1118,7 +1229,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2021 + BMAT 2022 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More principles"
 },
 {
 "id": "crit-32",
@@ -1128,7 +1240,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2022 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-33",
@@ -1138,7 +1251,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "BMAT 2022 + TSA 2008 · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-34",
@@ -1148,7 +1262,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2008 + TSA 2009 · 14 CT / 16 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-35",
@@ -1158,7 +1273,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2009 · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-36",
@@ -1168,7 +1284,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2009 + TSA 2010 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-37",
@@ -1178,7 +1295,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2010 · 16 CT / 14 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "crit-38",
@@ -1188,7 +1306,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2010 + TSA 2011 · 16 CT / 14 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-39",
@@ -1198,7 +1317,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2011 + TSA 2012 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-40",
@@ -1208,7 +1328,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2012 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-41",
@@ -1218,7 +1339,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2012 + TSA 2013 · 15 CT / 15 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-42",
@@ -1228,7 +1350,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2013 · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More parallel reasoning"
 },
 {
 "id": "crit-43",
@@ -1238,7 +1361,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2013 + TSA 2014 · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-44",
@@ -1248,7 +1372,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2014 + TSA 2015 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-45",
@@ -1258,7 +1383,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2015 · 17 CT / 13 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "More conclusions"
 },
 {
 "id": "crit-46",
@@ -1268,7 +1394,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2015 + TSA 2016 · 15 CT / 15 PS · official key",
-"tap": 90
+"tap": 90,
+"about": "Balanced mix"
 },
 {
 "id": "crit-47",
@@ -1278,7 +1405,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2016 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-48",
@@ -1288,7 +1416,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2016 + TSA 2017 · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-49",
@@ -1298,7 +1427,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2017 + TSA 2018 · 14 CT / 16 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "Balanced mix"
 },
 {
 "id": "crit-50",
@@ -1308,7 +1438,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2018 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More main conclusion"
 },
 {
 "id": "crit-51",
@@ -1318,7 +1449,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2018 + TSA 2019 · 15 CT / 15 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "crit-52",
@@ -1328,7 +1460,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2019 · 15 CT / 15 PS · official key",
-"tap": 90
+"tap": 90,
+"about": "Balanced mix"
 },
 {
 "id": "crit-53",
@@ -1338,7 +1471,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2019 + TSA 2020 · 16 CT / 14 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More parallel reasoning"
 },
 {
 "id": "crit-54",
@@ -1348,7 +1482,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2020 + TSA 2021 · 14 CT / 16 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More principles and main conclusion"
 },
 {
 "id": "crit-55",
@@ -1358,7 +1493,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2021 · 15 CT / 15 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "crit-56",
@@ -1368,7 +1504,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2021 + TSA 2022 · 15 CT / 15 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More principles"
 },
 {
 "id": "crit-57",
@@ -1378,7 +1515,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2022 · 15 CT / 15 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More parallel reasoning"
 },
 {
 "id": "crit-58",
@@ -1388,7 +1526,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA 2022 + TSA Specimen · 16 CT / 14 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "More flaws"
 },
 {
 "id": "crit-59",
@@ -1398,7 +1537,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "TSA Specimen + IMAT 2011 · 12 CT / 18 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Mostly problem solving"
 },
 {
 "id": "crit-60",
@@ -1408,7 +1548,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2011 + IMAT 2012 · 16 CT / 14 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More flaws"
 },
 {
 "id": "crit-61",
@@ -1418,7 +1559,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2012 · 13 CT / 17 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "Balanced mix"
 },
 {
 "id": "crit-62",
@@ -1428,7 +1570,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2012 + IMAT 2013 + IMAT 2014 · 17 CT / 13 PS · official key",
-"tap": 100
+"tap": 100,
+"about": "More main conclusion and flaws"
 },
 {
 "id": "crit-63",
@@ -1438,7 +1581,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2014 + IMAT 2015 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-64",
@@ -1448,7 +1592,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2015 + IMAT 2016 · 14 CT / 16 PS · official key",
-"tap": 93
+"tap": 93,
+"about": "More principles"
 },
 {
 "id": "crit-65",
@@ -1458,7 +1603,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2016 + IMAT 2017 + IMAT 2018 · 17 CT / 13 PS · official key",
-"tap": 90
+"tap": 90,
+"about": "More principles and conclusions"
 },
 {
 "id": "crit-66",
@@ -1468,7 +1614,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2018 + IMAT 2019 + IMAT 2020 · 15 CT / 15 PS · official key",
-"tap": 97
+"tap": 97,
+"about": "Balanced mix"
 },
 {
 "id": "crit-67",
@@ -1478,7 +1625,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "IMAT 2020 + IMAT 2021 + IMAT 2022 · 11 CT / 10 PS · official key · original IMAT order, most answers are A · + 9 Shyn questions",
-"tap": 95
+"tap": 95,
+"about": "Balanced mix"
 },
 {
 "id": "crit-68",
@@ -1488,7 +1636,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-69",
@@ -1498,7 +1647,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "More flaws"
 },
 {
 "id": "crit-70",
@@ -1508,7 +1658,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "More flaws"
 },
 {
 "id": "crit-71",
@@ -1518,7 +1669,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-72",
@@ -1528,7 +1680,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-73",
@@ -1538,7 +1691,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "More flaws"
 },
 {
 "id": "crit-74",
@@ -1548,7 +1702,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "crit-75",
@@ -1558,7 +1713,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
-"tap": 0
+"tap": 0,
+"about": "More flaws"
 },
 {
 "id": "test",
@@ -1568,7 +1724,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam #1 · + 5 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "Balanced mix"
 },
 {
 "id": "test-2",
@@ -1578,7 +1735,8 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam #2 · + 5 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More algebra"
 },
 {
 "id": "test-3",
@@ -1588,6 +1746,7 @@ window.PREPLINE_TESTS = [
 "q": 30,
 "min": 60,
 "src": "Mock Exam #3 · + 11 Shyn questions",
-"tap": 0
+"tap": 0,
+"about": "More graphs and algebra"
 }
 ];

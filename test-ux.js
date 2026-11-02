@@ -735,7 +735,7 @@
     '\n.rv-more{font-size:12px;color:#8EADD2;cursor:pointer;margin-top:4px;align-self:flex-start;background:none;border:0;padding:0;font-weight:600}';
   /* ---------- results: weak spots by topic ---------- */
   var TNAMES = { MC:'Main conclusion', CON:'Drawing conclusions', ASM:'Assumptions', FLAW:'Flaws in reasoning',
-    WKN:'Weakening arguments', STR:'Strengthening arguments', EF:'External factors', PRIN:'Applying principles',
+    WKN:'Weakening arguments', STR:'Strengthening arguments', EF:'Weaken & strengthen', PRIN:'Applying principles',
     PAR:'Parallel reasoning', PS:'Problem solving',
     M1:'Units', M2:'Number', M3:'Ratio and proportion', M4:'Algebra', M5:'Geometry and measures' };
   css.textContent += '\n.ws{border:1px solid var(--glass-line,rgba(255,255,255,.14));border-radius:10px;padding:14px 16px;margin:0 0 18px;background:var(--card,rgba(17,26,46,.6))}' +
@@ -979,5 +979,5 @@
     else h.parentNode.insertBefore(d, h.nextSibling);
   }
   if (window.PREPLINE_TESTS) return show();
-  var s = document.createElement('script'); s.src = 'tests.js?v=3ae440db'; s.onload = show; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'tests.js?v=12f57cfa'; s.onload = show; document.body.appendChild(s);
 })();

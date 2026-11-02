@@ -552,5 +552,5 @@ window.preplinePremiumCached = function () {
 /* saved questions, invite-a-friend and push reminders (growth.js) */
 (function () {
   if (!window.preplineSupa || document.querySelector('script[src^="growth.js"]')) return;
-  var s = document.createElement('script'); s.src = 'growth.js?v=63416a0d'; document.body.appendChild(s);
+  var s = document.createElement('script'); s.src = 'growth.js?v=93a1a8ef'; document.body.appendChild(s);
 })();
