@@ -4,7 +4,7 @@ import webpush from "npm:web-push@3.6.7";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-const SITE = "https://bubabuga7-dotcom.github.io/Prepline/";
+const SITE = "https://shynstudy.lol/";
 
 function message(kind: string, days: number) {
   if (kind === "streak") return {

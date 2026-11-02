@@ -26,7 +26,7 @@
       return supa.rpc('my_referral');
     }).then(function (r) {
       if (r.error || !r.data) return null;
-      r.data.link = 'https://bubabuga7-dotcom.github.io/Prepline/?ref=' + r.data.code;
+      r.data.link = 'https://shynstudy.lol/?ref=' + r.data.code;
       return r.data;
     });
   };
