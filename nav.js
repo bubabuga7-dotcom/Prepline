@@ -32,7 +32,8 @@
     ['review.html', 'Mistakes deck', 'Review', I.deck, 'more'],
     ['saved.html', 'Saved questions', 'Saved', I.star, 'more'],
     ['live.html', 'Live room', 'Live', I.live, 'more'],
-    ['league.html', 'League', 'League', I.league, 'more']
+    ['league.html', 'League', 'League', I.league, 'more'],
+    'spacer'     // the Admin item is inserted before this; keep it
   ];
   var h = '<a href="index.html" class="dock-logo" aria-label="Shyn home">S</a>';
   items.forEach(function (it) {

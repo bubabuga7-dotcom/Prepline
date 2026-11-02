@@ -1,7 +1,7 @@
 {
-  "name": "Shyn — NUET preparation",
+  "name": "Shyn",
   "short_name": "Shyn",
-  "description": "Free NUET preparation: timed Mathematics and Critical Thinking mocks, topic practice, live rooms and duels.",
+  "description": "Free Maths and Critical Thinking practice: timed tests, topic drills and answer review.",
   "id": "./",
   "start_url": "./dashboard.html",
   "scope": "./",
@@ -11,14 +11,65 @@
   "theme_color": "#0B1120",
   "lang": "en",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png?v=8bd80ea4",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png?v=e0632603",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png?v=b3676738",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "Mathematics tests", "url": "./math.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Critical Thinking tests", "url": "./crit.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Train by topic", "url": "./topics.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Mistakes deck", "url": "./review.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Mathematics tests",
+      "url": "./math.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png?v=8bd80ea4",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Critical Thinking tests",
+      "url": "./crit.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png?v=8bd80ea4",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Train by topic",
+      "url": "./topics.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png?v=8bd80ea4",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Mistakes deck",
+      "url": "./review.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png?v=8bd80ea4",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
