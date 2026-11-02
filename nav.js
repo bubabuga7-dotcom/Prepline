@@ -28,7 +28,7 @@
     ['crit.html', 'Critical Thinking', 'CT', I.ct],
     ['topics.html', 'Train by topic', 'Topics', I.topic],
     ['formulas.html', 'Formula quiz', 'Formulas', I.fx, 'more'],
-    ['twin.html', 'Твой двойник', 'Twin', I.twin, 'more'],
+    ['twin.html', 'Your Twin', 'Twin', I.twin, 'more'],
     ['review.html', 'Mistakes deck', 'Review', I.deck, 'more'],
     ['saved.html', 'Saved questions', 'Saved', I.star, 'more'],
     ['live.html', 'Live room', 'Live', I.live, 'more'],

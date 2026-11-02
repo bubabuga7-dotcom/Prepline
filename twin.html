@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#15181D">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml"><link rel="icon" href="icons/favicon-48.png" type="image/png">
-<title>Твой двойник — Shyn</title>
+<title>Your Twin — Shyn</title>
 <meta name="description" content="Your mistakes from the Formula quiz become a twin who argues the wrong way. Prove it wrong.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -77,9 +77,9 @@
 <aside class="dock" id="dock"></aside>
 <main><div class="wrap">
   <div class="head">
-    <span class="kicker">Математика · формулы</span>
-    <h1>Твой двойник</h1>
-    <p>Мы сохранили твои ошибки. Теперь они умеют спорить. Каждая трещина — неверная формула, которую ты выбрал в квизе формул. Найди неверный шаг, исправь его и докажи, что ты стал сильнее.</p>
+    <span class="kicker">Math · Formulas</span>
+    <h1>Your Twin</h1>
+    <p>We saved your mistakes. Now they can argue back. Each crack is a wrong formula you chose in the formula quiz. Find the wrong step, fix it, and prove how much you’ve improved.</p>
   </div>
   <div id="home">
     <div class="twin-top">
@@ -88,7 +88,7 @@
         <div class="tstats" id="stats"></div>
         <p class="muted" id="hint"></p>
         <p class="muted" id="save" style="margin-top:6px"></p>
-        <div class="actions"><button class="btn ghost" id="demo">Попробовать на примере</button><a class="btn ghost" href="formulas.html">Квиз формул →</a></div>
+        <div class="actions"><button class="btn ghost" id="demo">Try a demo</button><a class="btn ghost" href="formulas.html">Formula quiz →</a></div>
       </div>
     </div>
     <div class="list" id="list"></div>
@@ -96,13 +96,13 @@
   <div id="play" style="display:none"><div class="panel" id="card"></div></div>
 </div></main>
 
-<script src="nav.js?v=dacfc10a"></script>
-<script src="twin.js?v=3fc622df"></script>
+<script src="nav.js?v=0ffe34d9"></script>
+<script src="twin.js?v=916d7109"></script>
 <script>
 (function () {
   var T = window.PreplineTwin, $ = function (id) { return document.getElementById(id); };
   var NAMES = {}; T.TRAPS.forEach(function (t) { NAMES[t[0]] = t[3]; });
-  var LABEL = { suspected: 'подозрение', confirmed: 'подтверждена', healing: 'затягивается', healed: 'исчезла' };
+  var LABEL = { suspected: 'suspected', confirmed: 'confirmed', healing: 'healing', healed: 'gone' };
   var ORDER = ['confirmed', 'suspected', 'healing', 'healed'];
   /* one crack path per misconception, placed on the silhouette */
   function crackPath(i) {
@@ -121,21 +121,21 @@
     T.TRAPS.forEach(function (t, i) { var c = m[t[0]]; if (c) svg += '<path class="crack ' + c.state + '" d="' + crackPath(i) + '"/>'; });
     $('svg').innerHTML = svg;
     var n = function (st) { return ids.filter(function (id) { return m[id].state === st; }).length; };
-    $('stats').innerHTML = '<span class="tstat"><b>' + n('confirmed') + '</b>подтверждены</span><span class="tstat"><b>' + n('suspected') + '</b>подозрения</span>' +
-      '<span class="tstat"><b>' + n('healing') + '</b>затягиваются</span><span class="tstat"><b>' + n('healed') + '</b>исчезли</span>';
-    var sv = T.owner() === 'guest' ? 'Прогресс хранится только на этом устройстве. Войди в аккаунт, чтобы он не потерялся.'
-      : T.pending() ? 'Сохранено на устройстве, отправится в аккаунт при подключении к интернету (' + T.pending() + ').' : 'Прогресс сохранён в аккаунте.';
+    $('stats').innerHTML = '<span class="tstat"><b>' + n('confirmed') + '</b>confirmed</span><span class=\"tstat\"><b>' + n('suspected') + '</b>suspected</span>' +
+      '<span class="tstat"><b>' + n('healing') + '</b>healing</span><span class=\"tstat\"><b>' + n('healed') + '</b>gone</span>';
+    var sv = T.owner() === 'guest' ? 'Your progress is stored only on this device. Sign in so you don’t lose it.'
+      : T.pending() ? 'Saved on this device. Will sync to your account when you’re online (' + T.pending() + ').' : 'Progress saved to your account.';
     $('save').textContent = sv;
     $('hint').textContent = ids.length
-      ? 'Трещина появляется, когда в квизе формул ты выбираешь известную неверную формулу, и углубляется, если выбираешь её снова в другом квизе. Выиграй раунд — она начнёт затягиваться. Через 3 дня откроется проверка.'
-      : 'Трещин пока нет. Двойник собирается из неверных формул, которые ты выбираешь в квизе формул. Начни с примера.';
+      ? 'A crack appears when you choose a known wrong formula in the formula quiz. It gets deeper if you choose it again in another quiz. Win a round and it starts healing. A review unlocks after 3 days.'
+      : 'No cracks yet. Your Twin is built from the wrong formulas you choose in the formula quiz. Start with a demo.';
     $('list').innerHTML = ids.sort(function (a, b) { return ORDER.indexOf(m[a].state) - ORDER.indexOf(m[b].state); })
       .map(function (id) {
         var c = m[id], has = !!T.ROUNDS[id], btn = '';
-        if (has && (c.state === 'confirmed' || c.state === 'suspected')) btn = '<button class="btn sm" data-r="' + id + '">Сразиться →</button>';
-        else if (has && T.checkDue(c)) btn = '<button class="btn sm" data-c="' + id + '">Отложенная проверка →</button>';
-        else if (c.state === 'healing') btn = '<span class="muted">Проверка откроется ' + new Date(c.healFrom + 3 * T.DAY).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + '</span>';
-        else if (!has && c.state !== 'healed') btn = '<span class="muted">Раунд скоро появится</span>';
+        if (has && (c.state === 'confirmed' || c.state === 'suspected')) btn = '<button class="btn sm" data-r="' + id + '\">Challenge →</button>';
+        else if (has && T.checkDue(c)) btn = '<button class="btn sm" data-c="' + id + '\">Delayed review →</button>';
+        else if (c.state === 'healing') btn = '<span class=\"muted\">Review unlocks ' + new Date(c.healFrom + 3 * T.DAY).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + '</span>';
+        else if (!has && c.state !== 'healed') btn = '<span class=\"muted\">Round coming soon</span>';
         return '<div class="item"><span class="nm">' + (NAMES[id] || id) + '</span><span class="tag ' + c.state + '">' + LABEL[c.state] + '</span>' + btn + '</div>';
       }).join('');
   }
@@ -158,8 +158,8 @@
   function into(el) { setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function back() { $('play').style.display = 'none'; $('home').style.display = ''; drawHome(); window.scrollTo(0, 0); }
-  var DEMO = '<span class="demo-tag">ПРИМЕР · ПРОГРЕСС НЕ СОХРАНЯЕТСЯ</span>';
-  function say(text, calm) { return '<div class="say' + (calm ? ' calm' : '') + '"><span class="who">ТЫ v1.0</span>' + text + '</div>'; }
+  var DEMO = '<span class=\"demo-tag\">DEMO · PROGRESS NOT SAVED</span>';
+  function say(text, calm) { return '<div class="say' + (calm ? ' calm' : '') + '\"><span class=\"who\">YOU v1.0</span>' + text + '</div>'; }
 
   /* a round: find the wrong step → pick the fix → twin's line → fresh check (first try counts) */
   function round(id, demo) {
@@ -169,32 +169,32 @@
     $('home').style.display = 'none'; $('play').style.display = '';
     $('card').innerHTML = (demo ? DEMO : '') +
       '<div class="duel">' + mini(id, demo ? 'confirmed' : (c.state || 'confirmed')) + '<div>' + say(v.claim) + '</div></div>' +
-      '<div class="phase">1 · Нажми на неверный шаг</div><div class="steps" id="steps">' +
+      '<div class=\"phase\">1 · Tap the wrong step</div><div class=\"steps\" id=\"steps\">' +
       v.steps.map(function (st, i) { return '<button class="step" data-i="' + i + '"><b>' + (i + 1) + '</b><span>' + st + '</span></button>'; }).join('') +
       '</div><p class="note" id="note"></p><div id="fix"></div>';
     $('steps').onclick = function (e) {
       var b = e.target.closest('.step'); if (!b || b.disabled) return;
       var i = +b.dataset.i; rec.steps.push(i);
-      if (i !== v.bad) { b.classList.add('no'); b.disabled = true; $('note').textContent = 'Двойник: «' + v.replies[i] + '»'; return; }
+      if (i !== v.bad) { b.classList.add('no'); b.disabled = true; $('note').textContent = 'Twin: «' + v.replies[i] + '»'; return; }
       [].forEach.call($('steps').children, function (x) { x.disabled = true; });
       b.classList.add('bad');
-      fold($('steps'), '1 · Неверный шаг ' + (v.bad + 1) + ': ' + v.steps[v.bad], $('note'));
+      fold($('steps'), '1 · Wrong step ' + (v.bad + 1) + ': ' + v.steps[v.bad], $('note'));
       fixPhase();
       into($('fix'));
     };
     function fixPhase() {
       var order = shuffle([0, 1, 2, 3]);
-      $('fix').innerHTML = '<div class="phase">2 · Исправь этот шаг</div><div class="opts" id="fx">' +
+      $('fix').innerHTML = '<div class=\"phase\">2 · Fix this step</div><div class=\"opts\" id=\"fx\">' +
         order.map(function (k) { return '<button class="opt" data-k="' + k + '">' + R.fixes[k] + '</button>'; }).join('') + '</div><p class="note" id="fnote"></p><div id="after"></div>';
       $('fx').onclick = function (e) {
         var b = e.target.closest('.opt'); if (!b || b.disabled) return;
         var k = +b.dataset.k; rec.fixes.push(k);
-        if (k !== 0) { b.classList.add('u'); b.disabled = true; $('fnote').textContent = 'Двойник: «' + R.fixReplies[k] + '»'; return; }
+        if (k !== 0) { b.classList.add('u'); b.disabled = true; $('fnote').textContent = 'Twin: «' + R.fixReplies[k] + '»'; return; }
         [].forEach.call($('fx').children, function (x) { x.disabled = true; });
         b.classList.add('c'); $('fnote').textContent = '';
-        fold($('fx'), '2 · Исправление: ' + R.fixes[0], $('fnote'));
+        fold($('fx'), '2 · Your fix: ' + R.fixes[0], $('fnote'));
         $('after').innerHTML = '<div class="duel" style="margin-top:14px">' + mini(id, demo ? 'confirmed' : (c.state || 'confirmed')) + '<div>' + say(v.line, true) + '</div></div>' +
-          '<button class="btn" id="tocheck">Проверить на новой задаче →</button>';
+          '<button class=\"btn\" id=\"tocheck\">Test yourself with a new problem →</button>';
         $('tocheck').onclick = function () { check(id, demo, rec); };
         into($('after'));
       };
@@ -209,7 +209,7 @@
     var t0 = Date.now();
     $('card').innerHTML = (demo ? DEMO : '') +
       '<div class="duel">' + mini(id, demo ? 'confirmed' : c0) + '<div>' +
-      '<div class="phase" style="margin-top:0">' + (delayed ? 'Отложенная проверка · засчитывается только первая попытка' : '3 · Новая задача · засчитывается только первая попытка') + '</div>' +
+      '<div class="phase" style="margin-top:0">' + (delayed ? 'Delayed review · only your first attempt counts' : '3 · New problem · only your first attempt counts') + '</div>' +
       '<p style="font-size:16px;line-height:1.55;margin:4px 0 0">' + p.q + '</p><div class="heal-cap" id="cap"></div></div></div>' +
       '<div class="opts" id="ck" style="margin-top:12px">' +
       p.opts.map(function (o, k) { return '<button class="opt" data-k="' + k + '">' + o + '</button>'; }).join('') + '</div><p class="note" id="res"></p><div class="actions" id="end"></div>';
@@ -217,25 +217,25 @@
       var b = e.target.closest('.opt'); if (!b || b.disabled) return;
       var k = +b.dataset.k; rec.check.push(k);
       if (rec.first === null) rec.first = k === p.ans;
-      if (k !== p.ans) { b.classList.add('u'); b.disabled = true; $('res').textContent = 'Не так. Попробуй ещё раз — но эта попытка уже не затянет трещину.'; return; }
+      if (k !== p.ans) { b.classList.add('u'); b.disabled = true; $('res').textContent = 'Not quite. Try again — but this attempt won’t heal the crack.'; return; }
       [].forEach.call($('ck').children, function (x) { x.disabled = true; });
       b.classList.add('c');
       rec.ms = Date.now() - t0;
       var msg, heal = false;
       if (demo) {
         heal = rec.first;
-        msg = rec.first ? 'Верно с первой попытки — трещина начинает затягиваться.' : 'Решено, но не с первой попытки: в настоящем раунде двойник вернулся бы с другой версией этой ловушки.';
-        if (heal) $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>Пример — прогресс не сохранён.';
+        msg = rec.first ? 'Correct on your first try — the crack starts healing.' : 'Solved, but not on your first try: in a real round, your Twin would return with a new version of this trap.';
+        if (heal) $('cap').innerHTML = '<div class=\"fixed-cap\">You fixed your Twin’s reasoning.</div>Demo — progress not saved.';
       } else {
         T.record(delayed ? 'check' : 'round', id, { first: !!rec.first, v: rec.v || 0, steps: rec.steps, fixes: rec.fixes, check: rec.check, ms: rec.ms });
         if (rec.first) {
-          heal = true; $('cap').innerHTML = '<div class="fixed-cap">Ты исправил рассуждение двойника.</div>';
-          msg = delayed ? 'Верно с первой попытки спустя 3+ дня. Трещина исчезла.' : 'Верно с первой попытки. Трещина затягивается, проверка откроется через 3 дня.';
-        } else msg = 'Решено, но не с первой попытки. Двойник вернётся с другой версией этой ловушки.';
+          heal = true; $('cap').innerHTML = '<div class=\"fixed-cap\">You fixed your Twin’s reasoning.</div>';
+          msg = delayed ? 'Correct on your first try after 3+ days. The crack is gone.' : 'Correct on your first try. The crack is healing. Review unlocks in 3 days.';
+        } else msg = 'Solved, but not on your first try. Your Twin will return with a new version of this trap.';
       }
       if (heal) { var mc = document.getElementById('mcrack'); if (mc) setTimeout(function () { mc.setAttribute('class', 'crack ' + (delayed && !demo ? 'healed' : 'healing')); }, 150); }
       $('res').textContent = p.why + ' ' + msg;
-      $('end').innerHTML = '<button class="btn" id="home-b">К двойнику</button>';
+      $('end').innerHTML = '<button class=\"btn\" id=\"home-b\">Back to your Twin</button>';
       $('home-b').onclick = back;
     };
   }

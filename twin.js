@@ -11,72 +11,72 @@
 
   /* the 25 misconceptions: formula name in the quiz + the wrong option exactly as written there */
   var TRAPS = [
-    ['area-k', 'Area scale factor of similar shapes with length scale factor k', I('k'), 'Площадь растёт в k раз'],
-    ['vol-k2', 'Volume scale factor of similar solids with length scale factor k', I('k') + '²', 'Объём растёт в k² раз'],
-    ['circle-area-2pr', 'Area of a circle', I('A') + ' = 2π' + I('r'), 'Площадь круга = 2πr'],
-    ['circum-pr2', 'Circumference of a circle', I('C') + ' = π' + I('r') + '²', 'Длина окружности = πr²'],
-    ['arc-no-2', 'Arc length (angle θ in degrees)', I('l') + ' = {θ|360} × π' + I('r'), 'Дуга без двойки'],
-    ['sector-2pr', 'Area of a sector (angle θ in degrees)', I('A') + ' = {θ|360} × 2π' + I('r'), 'Сектор через 2πr'],
-    ['tri-no-half', 'Area of a triangle', I('A') + ' = base × height', 'Треугольник без ½'],
-    ['para-slant', 'Area of a parallelogram', I('A') + ' = base × slanted side', 'Параллелограмм через наклонную сторону'],
-    ['cone-no-third', 'Volume of a cone', I('V') + ' = π' + I('r') + '²' + I('h'), 'Конус без ⅓'],
-    ['sphere-4pr2', 'Volume of a sphere', I('V') + ' = 4π' + I('r') + '²', 'Объём шара = 4πr²'],
-    ['pct-new-base', 'Percentage change', '{new − old|new} × 100%', 'Процент от нового значения'],
-    ['revpct-subtract', 'Original price before an increase of r%', 'original = new × (1 − {' + I('r') + '|100})', 'Обратный процент вычитанием'],
-    ['compound-simple', 'Value after n years of compound growth at r% a year', I('A') + ' = ' + I('P') + '(1 + {' + I('rn') + '|100})', 'Сложный процент как простой'],
+    ['area-k', 'Area scale factor of similar shapes with length scale factor k', I('k'), 'Area increases by a factor of k'],
+    ['vol-k2', 'Volume scale factor of similar solids with length scale factor k', I('k') + '²', 'Volume increases by a factor of k²'],
+    ['circle-area-2pr', 'Area of a circle', I('A') + ' = 2π' + I('r'), 'Area of a circle = 2πr'],
+    ['circum-pr2', 'Circumference of a circle', I('C') + ' = π' + I('r') + '²', 'Circumference = πr²'],
+    ['arc-no-2', 'Arc length (angle θ in degrees)', I('l') + ' = {θ|360} × π' + I('r'), 'Arc without the factor of two'],
+    ['sector-2pr', 'Area of a sector (angle θ in degrees)', I('A') + ' = {θ|360} × 2π' + I('r'), 'Sector using 2πr'],
+    ['tri-no-half', 'Area of a triangle', I('A') + ' = base × height', 'Triangle without ½'],
+    ['para-slant', 'Area of a parallelogram', I('A') + ' = base × slanted side', 'Parallelogram using the slanted side'],
+    ['cone-no-third', 'Volume of a cone', I('V') + ' = π' + I('r') + '²' + I('h'), 'Cone without ⅓'],
+    ['sphere-4pr2', 'Volume of a sphere', I('V') + ' = 4π' + I('r') + '²', 'Volume of a sphere = 4πr²'],
+    ['pct-new-base', 'Percentage change', '{new − old|new} × 100%', 'Percentage of the new value'],
+    ['revpct-subtract', 'Original price before an increase of r%', 'original = new × (1 − {' + I('r') + '|100})', 'Reverse percentage by subtraction'],
+    ['compound-simple', 'Value after n years of compound growth at r% a year', I('A') + ' = ' + I('P') + '(1 + {' + I('rn') + '|100})', 'Compound interest treated as simple interest'],
     ['pow-mult', 'Multiplying powers', I('a') + '^{' + I('mn') + '}', 'aᵐ·aⁿ = aᵐⁿ'],
     ['neg-pow', 'Negative power', '−' + I('a') + '^{' + I('n') + '}', 'a⁻ⁿ = −aⁿ'],
-    ['frac-pow-swap', 'Fractional power', '(ᵐ√' + I('a') + ')^{' + I('n') + '}', 'Корень и степень перепутаны'],
+    ['frac-pow-swap', 'Fractional power', '(ᵐ√' + I('a') + ')^{' + I('n') + '}', 'Root and power mixed up'],
     ['sq-sum', 'Square of a sum', I('a') + '² + ' + I('b') + '²', '(a + b)² = a² + b²'],
-    ['quad-plus-b', 'Solutions of ax² + bx + c = 0', I('x') + ' = {' + I('b') + ' ± sqrt{' + I('b') + '² − 4' + I('ac') + '}|2' + I('a') + '}', '+b вместо −b в формуле корней'],
-    ['vertex-sign', 'x-coordinate of the vertex of y = ax² + bx + c', I('x') + ' = {' + I('b') + '|2' + I('a') + '}', 'Вершина в b/2a'],
-    ['grad-flip', 'Gradient of the line through (x₁, y₁) and (x₂, y₂)', I('m') + ' = {' + I('x') + '₂ − ' + I('x') + '₁|' + I('y') + '₂ − ' + I('y') + '₁}', 'Градиент Δx/Δy'],
-    ['perp-equal', 'Gradients of perpendicular lines', I('m') + '₁ = ' + I('m') + '₂', 'Перпендикулярные = равные градиенты'],
-    ['ap-nd', 'n-th term of an arithmetic sequence', I('a') + 'ₙ = ' + I('a') + ' + ' + I('nd'), 'n-й член a + nd'],
-    ['pyth-no-squares', 'Pythagoras’ theorem (c is the hypotenuse)', I('a') + ' + ' + I('b') + ' = ' + I('c'), 'Пифагор без квадратов'],
-    ['cos-plus', 'Cosine rule', I('a') + '² = ' + I('b') + '² + ' + I('c') + '² + 2' + I('bc') + ' cos ' + I('A'), '+2bc cos A в теореме косинусов'],
-    ['poly-n180', 'Sum of the interior angles of an n-sided polygon', I('n') + ' × 180°', 'Сумма углов n × 180°']
+    ['quad-plus-b', 'Solutions of ax² + bx + c = 0', I('x') + ' = {' + I('b') + ' ± sqrt{' + I('b') + '² − 4' + I('ac') + '}|2' + I('a') + '}', '+b instead of −b in the quadratic formula'],
+    ['vertex-sign', 'x-coordinate of the vertex of y = ax² + bx + c', I('x') + ' = {' + I('b') + '|2' + I('a') + '}', 'Vertex at b/2a'],
+    ['grad-flip', 'Gradient of the line through (x₁, y₁) and (x₂, y₂)', I('m') + ' = {' + I('x') + '₂ − ' + I('x') + '₁|' + I('y') + '₂ − ' + I('y') + '₁}', 'Gradient Δx/Δy'],
+    ['perp-equal', 'Gradients of perpendicular lines', I('m') + '₁ = ' + I('m') + '₂', 'Perpendicular = equal gradients'],
+    ['ap-nd', 'n-th term of an arithmetic sequence', I('a') + 'ₙ = ' + I('a') + ' + ' + I('nd'), 'n-th term a + nd'],
+    ['pyth-no-squares', 'Pythagoras’ theorem (c is the hypotenuse)', I('a') + ' + ' + I('b') + ' = ' + I('c'), 'Pythagoras without squares'],
+    ['cos-plus', 'Cosine rule', I('a') + '² = ' + I('b') + '² + ' + I('c') + '² + 2' + I('bc') + ' cos ' + I('A'), '+2bc cos A in the cosine rule'],
+    ['poly-n180', 'Sum of the interior angles of an n-sided polygon', I('n') + ' × 180°', 'Sum of angles n × 180°']
   ];
 
   /* rounds: only area-k for now. A version = the twin's argument with one wrong step. */
   var ROUNDS = {
     'area-k': {
-      name: 'Площадь растёт в k раз',
+      name: 'Area increases by a factor of k',
       versions: [
-        { claim: 'Радиус круга вырос с 3 до 6. Сейчас докажу, что площадь выросла вдвое. Я уверен.',
-          steps: ['Площадь круга: S = πr².', 'Радиус увеличился в 6 : 3 = 2 раза.', 'Значит, площадь увеличилась в 2 раза.'],
-          bad: 2, replies: ['Формула верная, я ею и пользуюсь.', '6 : 3 = 2, тут всё честно.', null],
-          line: 'Я смотрел только на радиус. Теперь вижу квадрат: π·6² = 36π, а π·3² = 9π — в 4 раза.' },
-        { claim: 'Сторону квадрата увеличили с 4 до 12. Площадь выросла в 3 раза — это же очевидно.',
-          steps: ['Площадь квадрата: S = a².', 'Сторона увеличилась в 12 : 4 = 3 раза.', 'Значит, площадь увеличилась в 3 раза.'],
-          bad: 2, replies: ['S = a² — это я помню.', '12 : 4 = 3, проверь сам.', null],
-          line: 'Я снова смотрел только на сторону. 12² = 144, а 4² = 16 — в 9 раз, то есть 3².' },
-        { claim: 'Два подобных треугольника, стороны относятся как 2 : 5. Значит, и площади 2 : 5.',
-          steps: ['Треугольники подобны, коэффициент подобия k = 5/2.', 'Все стороны большого в 5/2 раза длиннее.', 'Значит, площадь большого в 5/2 раза больше: площади 2 : 5.'],
-          bad: 2, replies: ['Подобие тут честное — так дано в условии.', 'Стороны действительно умножаются на k.', null],
-          line: 'Площадь — это длина на длину, поэтому k дважды: площади 4 : 25.' }
+        { claim: 'The radius of a circle increased from 3 to 6. I’ll prove that the area doubled. I’m sure.',
+          steps: ['Area of a circle: S = πr².', 'The radius increased by 6 : 3 = 2 times.', 'So the area doubled.'],
+          bad: 2, replies: ['The formula is correct, and that’s what I’m using.', '6 : 3 = 2, that’s definitely right.', null],
+          line: 'I only looked at the radius. Now I see the square: π·6² = 36π, and π·3² = 9π — that’s 4 times as much.' },
+        { claim: 'A square’s side increased from 4 to 12. The area tripled — obviously.',
+          steps: ['Area of a square: S = a².', 'The side increased by 12 : 4 = 3 times.', 'So the area tripled.'],
+          bad: 2, replies: ['S = a² — I remember that.', '12 : 4 = 3, check it yourself.', null],
+          line: 'I only looked at the side again. 12² = 144, while 4² = 16 — that’s 9 times as much, or 3².' },
+        { claim: 'Two similar triangles have sides in the ratio 2 : 5. So their areas are also 2 : 5.',
+          steps: ['The triangles are similar, with scale factor k = 5/2.', 'Every side of the larger triangle is 5/2 times as long.', 'So the larger area is 5/2 times as big: areas 2 : 5.'],
+          bad: 2, replies: ['The triangles really are similar — the question says so.', 'The sides really are multiplied by k.', null],
+          line: 'Area is length times length, so we use k twice: areas 4 : 25.' }
       ],
-      fixes: ['Множитель длины нужно возвести в квадрат: площадь растёт в k² раз',
-              'Нужно сложить старую и новую длину',
-              'Площадь растёт так же, как периметр, значит, ответ верный',
-              'Множитель нужно возвести в куб: площадь растёт в k³ раз'],
+      fixes: ['You need to square the length scale factor: area increases by a factor of k²',
+              'You need to add the old and new lengths',
+              'Area grows at the same rate as perimeter, so the answer is correct',
+              'You need to cube the scale factor: area increases by a factor of k³'],
       fixReplies: [null,
-              'Складывать длины — это про периметр. Площадь — это длина на длину.',
-              'Периметр и правда растёт в k раз. А площадь? Сколько направлений у неё меняется?',
-              'Куб подходит для объёма. Мы сейчас считаем площадь — сколько направлений у неё меняется?'],
+              'Adding lengths is about perimeter. Area is length times length.',
+              'Perimeter really does increase by a factor of k. But what about area? How many dimensions change?',
+              'Cubing works for volume. We’re finding area — how many dimensions change?'],
       check: function (k, up, shapeIdx) {
         k = k || 2 + Math.floor(Math.random() * 4);
         if (up === undefined) up = Math.random() < 0.5;
         if (shapeIdx === undefined) shapeIdx = Math.floor(Math.random() * 3);
-        var shape = [['радиус круга', 'площадь круга'], ['сторону квадрата', 'площадь квадрата'], ['все стороны треугольника', 'его площадь (форма та же)']][shapeIdx];
-        var word = { 2: 'вдвое', 3: 'втрое', 4: 'в 4 раза', 5: 'в 5 раз' }[k];
+        var shape = [['the radius of a circle', 'the area of a circle'], ['the side of a square', 'the area of a square'], ['all sides of a triangle', 'its area (same shape)']][shapeIdx];
+        var word = { 2: 'by a factor of 2', 3: 'by a factor of 3', 4: 'by a factor of 4', 5: 'by a factor of 5' }[k];
         var vals = [];                                   // k, k², k³ and one more slip, all different
         [k, k * k, k * k * k, 2 * k, k * k + k, k * k - 1].forEach(function (x) { if (vals.length < 4 && vals.indexOf(x) < 0) vals.push(x); });
         vals.sort(function (a, b) { return a - b; });
-        var raz = function (x) { var d = x % 10, h = x % 100; return 'в ' + x + (d >= 2 && d <= 4 && (h < 12 || h > 14) ? ' раза' : ' раз'); };
-        return { q: (up ? 'Увеличили ' : 'Уменьшили ') + shape[0] + ' ' + word + '. Во сколько раз ' + (up ? 'увеличилась ' : 'уменьшилась ') + shape[1] + '?',
+        var raz = function (x) { var d = x % 10, h = x % 100; return x + ' times'; };
+        return { q: (up ? 'You multiply ' : 'You divide ') + shape[0] + ' by ' + k + '. By what factor does ' + shape[1] + ' ' + (up ? 'increase' : 'decrease') + '?',
           opts: vals.map(raz), ans: vals.indexOf(k * k), k: k,
-          why: 'Площадь меняется в k² = ' + k + '² = ' + (k * k) + ' раз' + (k * k % 10 >= 2 && k * k % 10 <= 4 && (k * k % 100 < 12 || k * k % 100 > 14) ? 'а' : '') + '.' };
+          why: 'Area changes by a factor of k² = ' + k + '² = ' + (k * k) + '.' };
       }
     }
   };
@@ -84,100 +84,100 @@
   /* ---------- batch 2 ---------- */
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
   function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
-  function raz(x) { var d = x % 10, h = x % 100; return 'в ' + x + (d >= 2 && d <= 4 && (h < 12 || h > 14) ? ' раза' : ' раз'); }
+  function raz(x) { var d = x % 10, h = x % 100; return x + ' times'; }
   function uniq4(vals) { var out = []; vals.forEach(function (x) { if (out.length < 4 && out.indexOf(x) < 0) out.push(x); }); return out; }
   function th(x) { return String(x).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
   ROUNDS['vol-k2'] = {
-    name: 'Объём растёт в k² раз',
+    name: 'Volume increases by a factor of k²',
     versions: [
-      { claim: 'Ребро куба выросло вдвое — объём вырос в четыре раза. Я уверен.',
-        steps: ['Объём куба: V = a³.', 'Ребро увеличилось в 2 раза.', 'Значит, объём увеличился в 2² = 4 раза.'],
-        bad: 2, replies: ['V = a³ — формула верная.', 'Было a, стало 2a — вдвое, всё честно.', null],
-        line: 'Я посчитал только два направления. У объёма их три: 2³ = 8.' },
-      { claim: 'Две подобные банки, высоты 1 : 3. Маленькая вмещает 200 мл, значит, большая — 1800 мл.',
-        steps: ['Банки подобны, коэффициент k = 3.', 'Все размеры большой банки в 3 раза больше.', 'Значит, объём больше в 3² = 9 раз: 1800 мл.'],
-        bad: 2, replies: ['Подобие дано в условии.', 'Если подобны — все размеры растут одинаково.', null],
-        line: 'Длина, ширина и высота — три множителя: 3³ = 27, значит, 5400 мл.' }
+      { claim: 'A cube’s edge doubled — its volume quadrupled. I’m sure.',
+        steps: ['Volume of a cube: V = a³.', 'The edge doubled.', 'So the volume increased by 2² = 4 times.'],
+        bad: 2, replies: ['V = a³ — the formula is correct.', 'It was a, now it’s 2a — twice as long, no mistake there.', null],
+        line: 'I only counted two dimensions. Volume has three: 2³ = 8.' },
+      { claim: 'Two similar containers have heights in the ratio 1 : 3. The smaller holds 200 ml, so the larger holds 1800 ml.',
+        steps: ['The containers are similar, with scale factor k = 3.', 'Every dimension of the larger container is 3 times as big.', 'So the volume is 3² = 9 times as large: 1800 ml.'],
+        bad: 2, replies: ['The question says they’re similar.', 'If they’re similar, all dimensions scale equally.', null],
+        line: 'Length, width, and height — three factors: 3³ = 27, so 5400 ml.' }
     ],
-    fixes: ['Объём меняется в k³ раз: растут длина, ширина и высота', 'Объём меняется в k раз, как длина', 'Объём меняется в 2k раз', 'Нужно сложить: k + k²'],
-    fixReplies: [null, 'В k раз меняется только длина. А у объёма сколько измерений?', '2k — это просто удвоение. Сравни 1³ и 2³.', 'Сложение тут ни при чём — размеры перемножаются.'],
+    fixes: ['Volume changes by a factor of k³: length, width, and height all increase', 'Volume changes by a factor of k, just like length', 'Volume changes by a factor of 2k', 'You need to add: k + k²'],
+    fixReplies: [null, 'Only length changes by a factor of k. How many dimensions does volume have?', '2k just means doubling. Compare 1³ and 2³.', 'Addition doesn’t apply here — the dimensions are multiplied.'],
     check: function () {
-      var k = ri(2, 5), sit = ri(0, 2), word = { 2: 'вдвое', 3: 'втрое', 4: 'в 4 раза', 5: 'в 5 раз' }[k];
+      var k = ri(2, 5), sit = ri(0, 2), word = { 2: 'by a factor of 2', 3: 'by a factor of 3', 4: 'by a factor of 4', 5: 'by a factor of 5' }[k];
       var q = [
-        'Ребро куба увеличили ' + word + '. Во сколько раз увеличился объём куба?',
-        'Две подобные бутылки, высоты относятся как 1 : ' + k + '. Во сколько раз большая бутылка вмещает больше?',
-        'Две подобные статуэтки из одного металла, высоты 1 : ' + k + '. Во сколько раз большая тяжелее?'][sit];
+        'A cube’s edge was increased ' + word + '. By what factor did the cube’s volume increase?',
+        'Two similar bottles have heights in the ratio 1 : ' + k + '. How many times more does the larger bottle hold?',
+        'Two similar statues made of the same metal have heights in the ratio 1 : ' + k + '. How many times heavier is the larger one?'][sit];
       var vals = uniq4([k, k * k, k * k * k, 3 * k, k * k + k]).sort(function (a, b) { return a - b; });
-      return { q: q, opts: vals.map(raz), ans: vals.indexOf(k * k * k), params: { k: k }, why: 'Объём (и масса) меняются в k³ = ' + k + '³ = ' + (k * k * k) + ' раз' + (/[234]$/.test(String(k * k * k)) && !/1[234]$/.test(String(k * k * k)) ? 'а' : '') + '.' };
+      return { q: q, opts: vals.map(raz), ans: vals.indexOf(k * k * k), params: { k: k }, why: 'Volume (and mass) change by a factor of k³ = ' + k + '³ = ' + (k * k * k) + '.' };
     }
   };
 
   ROUNDS['circle-area-2pr'] = {
-    name: 'Площадь круга = 2πr',
+    name: 'Area of a circle = 2πr',
     versions: [
-      { claim: 'Радиус круга 3, значит, площадь — 6π. Проще некуда.',
-        steps: ['Радиус r = 3.', 'Площадь круга: S = 2πr.', '2π · 3 = 6π.'],
-        bad: 1, replies: ['r = 3 — так дано.', null, '2 · 3 = 6, считать я умею.'],
-        line: '2πr — это длина обода. Площадь — πr²: 9π, а не 6π.' },
-      { claim: 'Диаметр круглого стола 10 дм. Площадь — 10π дм².',
-        steps: ['Радиус r = 10 : 2 = 5 дм.', 'Площадь круга: S = 2πr.', '2π · 5 = 10π дм².'],
-        bad: 1, replies: ['Радиус — половина диаметра, всё верно.', null, '2 · 5 = 10, тут без ошибок.'],
-        line: 'Я снова взял длину окружности. Площадь — π · 5² = 25π дм².' }
+      { claim: 'A circle has radius 3, so its area is 6π. Couldn’t be simpler.',
+        steps: ['Radius r = 3.', 'Area of a circle: S = 2πr.', '2π · 3 = 6π.'],
+        bad: 1, replies: ['r = 3 — that’s given.', null, '2 · 3 = 6, I can do the math.'],
+        line: '2πr is the circumference. Area is πr²: 9π, not 6π.' },
+      { claim: 'A round table has a diameter of 10 dm. Its area is 10π dm².',
+        steps: ['Radius r = 10 : 2 = 5 dm.', 'Area of a circle: S = 2πr.', '2π · 5 = 10π dm².'],
+        bad: 1, replies: ['The radius is half the diameter, that’s correct.', null, '2 · 5 = 10, no mistakes there.'],
+        line: 'I used the circumference formula again. Area is π · 5² = 25π dm².' }
     ],
-    fixes: ['Площадь круга S = πr²; 2πr — это длина окружности', 'S = πd², через диаметр', 'S = 2πr²', 'S = πr'],
-    fixReplies: [null, 'πd² в четыре раза больше нужного: d = 2r, а d² = 4r².', 'Лишняя двойка: 2πr² — это не площадь круга.', 'πr — это половина длины окружности, а не площадь.'],
+    fixes: ['Area of a circle S = πr²; 2πr is the circumference', 'S = πd², using the diameter', 'S = 2πr²', 'S = πr'],
+    fixReplies: [null, 'πd² is four times too large: d = 2r, and d² = 4r².', 'An extra factor of two: 2πr² is not the area of a circle.', 'πr is half the circumference, not the area.'],
     check: function () {
       var r = ri(3, 9), sit = ri(0, 2);
-      var q = ['Найдите площадь круга радиусом ' + r + ' см.', 'Круглая клумба имеет диаметр ' + (2 * r) + ' м. Найдите её площадь.', 'Найдите площадь круглой пиццы радиусом ' + r + ' см.'][sit];
-      var u = sit === 1 ? ' м²' : ' см²';
+      var q = ['Find the area of a circle with radius ' + r + ' cm.', 'A circular flower bed has a diameter of ' + (2 * r) + ' m. Find its area.', 'Find the area of a round pizza with radius ' + r + ' cm.'][sit];
+      var u = sit === 1 ? ' m²' : ' cm²';
       var vals = uniq4([r * r, 2 * r, 4 * r * r, 2 * r * r]).sort(function (a, b) { return a - b; });
       return { q: q, opts: vals.map(function (x) { return x + 'π' + u; }), ans: vals.indexOf(r * r), params: { r: r }, why: 'S = πr² = π · ' + r + '² = ' + (r * r) + 'π' + u + '.' };
     }
   };
 
   ROUNDS['cone-no-third'] = {
-    name: 'Конус без ⅓',
+    name: 'Cone without ⅓',
     versions: [
-      { claim: 'Конус и цилиндр с одинаковым основанием и высотой вмещают поровну. Форма не важна.',
-        steps: ['Объём цилиндра: V = πr²h.', 'У конуса то же основание и та же высота.', 'Значит, объём конуса тоже πr²h.'],
-        bad: 2, replies: ['V = πr²h — для цилиндра верно.', 'Так дано в условии.', null],
-        line: 'Конус сужается к вершине — он вмещает только треть цилиндра: ⅓πr²h.' },
-      { claim: 'Конус: r = 3, h = 4. Объём — 36π.',
-        steps: ['Площадь основания: π · 3² = 9π.', 'Объём = площадь основания × высота.', '9π · 4 = 36π.'],
-        bad: 1, replies: ['3² = 9, основание найдено верно.', null, '9 · 4 = 36, проверь.'],
-        line: '«Основание × высота» — это для призмы и цилиндра. У конуса ещё ⅓: 12π.' }
+      { claim: 'A cone and a cylinder with the same base and height hold the same amount. Shape doesn’t matter.',
+        steps: ['Volume of a cylinder: V = πr²h.', 'The cone has the same base and height.', 'So the cone’s volume is also πr²h.'],
+        bad: 2, replies: ['V = πr²h — that’s correct for a cylinder.', 'That’s given in the question.', null],
+        line: 'A cone narrows toward its tip — it holds only a third of the cylinder’s volume: ⅓πr²h.' },
+      { claim: 'Cone: r = 3, h = 4. Volume is 36π.',
+        steps: ['Base area: π · 3² = 9π.', 'Volume = base area × height.', '9π · 4 = 36π.'],
+        bad: 1, replies: ['3² = 9, the base area is correct.', null, '9 · 4 = 36, check it.'],
+        line: '“Base area × height” works for prisms and cylinders. A cone also needs ⅓: 12π.' }
     ],
-    fixes: ['Объём конуса — треть цилиндра: V = ⅓πr²h', 'V = ½πr²h', 'V = ⅓πrh', 'V = 2πr²h'],
-    fixReplies: [null, '½ — это про треугольник. Конус помещается в цилиндр ровно трижды.', 'Радиус должен быть в квадрате: основание — круг.', 'Двойки там нет — наоборот, объём нужно делить.'],
+    fixes: ['A cone’s volume is one-third of a cylinder’s: V = ⅓πr²h', 'V = ½πr²h', 'V = ⅓πrh', 'V = 2πr²h'],
+    fixReplies: [null, '½ is for triangles. A cone fits into the corresponding cylinder exactly three times.', 'The radius must be squared: the base is a circle.', 'There’s no factor of two — you actually need to divide the volume.'],
     check: function () {
       var r = pick([3, 6]), h = ri(2, 10), sit = ri(0, 2);
-      var q = ['Конус: радиус основания ' + r + ' см, высота ' + h + ' см. Найдите объём.', 'Вафельный рожок — конус радиусом ' + r + ' см и высотой ' + h + ' см. Сколько он вмещает?', 'Песок насыпан конусом: радиус ' + r + ' м, высота ' + h + ' м. Найдите объём кучи.'][sit];
-      var u = sit === 2 ? ' м³' : ' см³';
+      var q = ['Cone: base radius ' + r + ' cm, height ' + h + ' cm. Find the volume.', 'An ice cream cone has a radius of ' + r + ' cm and a height of ' + h + ' cm. How much can it hold?', 'A pile of sand forms a cone: radius ' + r + ' m, height ' + h + ' m. Find the pile’s volume.'][sit];
+      var u = sit === 2 ? ' m³' : ' cm³';
       var a = r * r * h / 3, vals = uniq4([a, r * r * h, 4 * r * r * h / 3, r * h / 3]).sort(function (x, y) { return x - y; });
       return { q: q, opts: vals.map(function (x) { return x + 'π' + u; }), ans: vals.indexOf(a), params: { r: r, h: h }, why: 'V = ⅓πr²h = ⅓ · ' + (r * r) + ' · ' + h + ' π = ' + a + 'π' + u + '.' };
     }
   };
 
   ROUNDS['pct-new-base'] = {
-    name: 'Процент от нового значения',
+    name: 'Percentage of the new value',
     versions: [
-      { claim: 'Цена выросла со 100 до 125 тенге. Рост — 20%.',
-        steps: ['Изменение: 125 − 100 = 25.', 'Делю изменение на новую цену: 25 / 125.', '25 / 125 = 0,2 = 20%.'],
-        bad: 1, replies: ['125 − 100 = 25 — верно.', null, '25 / 125 = 0,2 — арифметика верная.'],
-        line: 'Процент считают от того, что было: 25 от 100 — это 25%.' },
-      { claim: 'Население посёлка упало с 8000 до 6000. Падение — примерно 33%.',
-        steps: ['Изменение: 8000 − 6000 = 2000.', 'Делю изменение на новое число жителей: 2000 / 6000.', '2000 / 6000 ≈ 33%.'],
-        bad: 1, replies: ['Разница 2000 — верно.', null, '2000 / 6000 ≈ 0,33 — тут всё правильно.'],
-        line: 'Делить надо на 8000 — на то, что было: падение 25%.' }
+      { claim: 'The price rose from 100 to 125 tenge. That’s a 20% increase.',
+        steps: ['Change: 125 − 100 = 25.', 'I divide the change by the new price: 25 / 125.', '25 / 125 = 0,2 = 20%.'],
+        bad: 1, replies: ['125 − 100 = 25 — correct.', null, '25 / 125 = 0.2 — the calculation is correct.'],
+        line: 'You calculate the percentage from the original value: 25 out of 100 is 25%.' },
+      { claim: 'A town’s population dropped from 8000 to 6000. That’s a decrease of about 33%.',
+        steps: ['Change: 8000 − 6000 = 2000.', 'I divide the change by the new population: 2000 / 6000.', '2000 / 6000 ≈ 33%.'],
+        bad: 1, replies: ['The difference is 2000 — correct.', null, '2000 / 6000 ≈ 0.33 — that’s correct.'],
+        line: 'You need to divide by 8000 — the original population: a 25% decrease.' }
     ],
-    fixes: ['Делить нужно на исходное значение: изменение / было', 'Делить на среднее старого и нового', 'Делить изменение на само изменение', 'Брать новое / старое × 100%'],
-    fixReplies: [null, 'Среднее нигде не используется — процент считают от исходного.', 'Изменение, делённое на само себя, всегда 100%.', 'Так получится новое в процентах от старого, а не изменение.'],
+    fixes: ['You need to divide by the original value: change / original', 'Divide by the average of the old and new values', 'Divide the change by itself', 'Take new / old × 100%'],
+    fixReplies: [null, 'You don’t use the average here — percentages are calculated from the original value.', 'The change divided by itself is always 100%.', 'That gives you the new value as a percentage of the old one, not the change.'],
     check: function () {
       var c = pick([[80, 100], [200, 250], [50, 40], [400, 300], [60, 75], [250, 200], [120, 150], [500, 400]]), o = c[0], n = c[1], sit = ri(0, 2);
-      var what = [['Цена выросла', 'Цена снизилась', ' ₸'], ['Число учеников выросло', 'Число учеников уменьшилось', ''], ['Зарплата выросла', 'Зарплата снизилась', ' ₸']][sit];
-      var q = (n > o ? what[0] : what[1]) + ' с ' + o + what[2] + ' до ' + n + what[2] + '. На сколько процентов?';
-      var f = function (x) { x = Math.round(x * 10) / 10; return (x > 0 ? '+' : '−') + String(Math.abs(x)).replace('.', ',') + '%'; };
+      var what = [['Price increased', 'Price decreased', ' ₸'], ['Number of students increased', 'Number of students decreased', ''], ['Salary increased', 'Salary decreased', ' ₸']][sit];
+      var q = (n > o ? what[0] : what[1]) + ' from ' + o + what[2] + ' to ' + n + what[2] + '. By what percentage?';
+      var f = function (x) { x = Math.round(x * 10) / 10; return (x > 0 ? '+' : '−') + String(Math.abs(x)) + '%'; };
       var right = (n - o) / o * 100;
       var vals = uniq4([f(right), f((n - o) / n * 100), f(n / o * 100), f(-right)]);
       var sorted = vals.slice().sort();
@@ -186,19 +186,19 @@
   };
 
   ROUNDS['revpct-subtract'] = {
-    name: 'Обратный процент вычитанием',
+    name: 'Reverse percentage by subtraction',
     versions: [
-      { claim: 'После повышения на 20% цена стала 120 ₸. Вычитаю 20% от 120 — раньше было 96 ₸.',
-        steps: ['Новая цена: 120 ₸.', 'Убираю 20% от новой цены: 120 · 0,8.', '120 · 0,8 = 96 ₸.'],
-        bad: 1, replies: ['120 ₸ — так дано.', null, '120 · 0,8 = 96 — посчитано верно.'],
-        line: '20% считались от старой цены, а я отнял от новой. 120 : 1,2 = 100 ₸.' },
-      { claim: 'После скидки 25% куртка стоит 6000 ₸. Прибавлю 25% к 6000 — было 7500 ₸.',
-        steps: ['Цена со скидкой: 6000 ₸.', 'Возвращаю 25%, считая от цены со скидкой: 6000 · 1,25.', '6000 · 1,25 = 7500 ₸.'],
-        bad: 1, replies: ['6000 ₸ — так дано.', null, '6000 · 1,25 = 7500, арифметика честная.'],
-        line: 'Скидку брали от старой цены: 6000 — это 75% от неё. 6000 : 0,75 = 8000 ₸.' }
+      { claim: 'After a 20% increase, the price is 120 ₸. I’ll subtract 20% from 120 — the original price was 96 ₸.',
+        steps: ['New price: 120 ₸.', 'I remove 20% from the new price: 120 · 0.8.', '120 · 0,8 = 96 ₸.'],
+        bad: 1, replies: ['120 ₸ — that’s given.', null, '120 · 0.8 = 96 — the calculation is correct.'],
+        line: 'The 20% was based on the old price, but I subtracted it from the new one. 120 : 1.2 = 100 ₸.' },
+      { claim: 'After a 25% discount, a jacket costs 6000 ₸. I’ll add 25% to 6000 — the original price was 7500 ₸.',
+        steps: ['Discounted price: 6000 ₸.', 'I add back 25%, calculated from the discounted price: 6000 · 1.25.', '6000 · 1,25 = 7500 ₸.'],
+        bad: 1, replies: ['6000 ₸ — that’s given.', null, '6000 · 1.25 = 7500, the calculation is correct.'],
+        line: 'The discount was based on the original price: 6000 is 75% of it. 6000 : 0.75 = 8000 ₸.' }
     ],
-    fixes: ['Новая цена — это (100 ± r)% от старой: делить на этот множитель', 'Отнять или прибавить r тенге', 'Умножить новую цену на r/100', 'Считать, что старая цена равна новой'],
-    fixReplies: [null, 'r — это проценты, а не тенге.', 'Так получится только сама надбавка, а не старая цена.', 'Цена же изменилась — значит, старая была другой.'],
+    fixes: ['The new price is (100 ± r)% of the old price: divide by this factor', 'Subtract or add r tenge', 'Multiply the new price by r/100', 'Assume the old price equals the new price'],
+    fixReplies: [null, 'r is a percentage, not an amount in tenge.', 'That only gives you the extra amount, not the original price.', 'The price changed — so the original price was different.'],
     check: function () {
       for (var t = 0; t < 50; t++) {
         var r = pick([10, 20, 25, 50]), up = Math.random() < 0.5, old = pick([40, 60, 80, 120, 200, 300, 400]) * 10;
@@ -208,9 +208,9 @@
         var vals = uniq4([old, w1, w2, w3]); if (vals.length < 4) continue;
         vals.sort(function (a, b) { return a - b; });
         var sit = ri(0, 1);
-        var q = (up ? 'После повышения на ' + r + '% ' : 'После скидки ' + r + '% ') + (sit ? 'телефон стоит ' : 'товар стоит ') + th(nw) + ' ₸. Сколько он стоил до этого?';
+        var q = (up ? 'After an increase of ' + r + '%, ' : 'After a discount of ' + r + '%, ') + (sit ? 'the phone costs ' : 'the item costs ') + th(nw) + ' ₸. How much did it cost before?';
         return { q: q, opts: vals.map(function (x) { return th(x) + ' ₸'; }), ans: vals.indexOf(old), params: { r: r, up: up, nw: nw },
-          why: th(nw) + ' — это ' + (up ? 100 + r : 100 - r) + '% от старой цены: ' + th(nw) + ' : ' + String((up ? 100 + r : 100 - r) / 100).replace('.', ',') + ' = ' + th(old) + ' ₸.' };
+          why: th(nw) + ' is ' + (up ? 100 + r : 100 - r) + '% of the original price: ' + th(nw) + ' : ' + String((up ? 100 + r : 100 - r) / 100) + ' = ' + th(old) + ' ₸.' };
       }
     }
   };
