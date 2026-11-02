@@ -100,6 +100,20 @@ window.preplinePremiumCached = function () {
     } catch (e) {}
   };
   window.preplineTrack('visit');
+  /* landing page + referring site (domain only), once per device per day: shows where visitors arrive and leave */
+  (function () {
+    try {
+      var d = localStorage.getItem('prepline:device'), k = 'prepline:landing';
+      var today = new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10);
+      if (!d || localStorage.getItem(k) === today) return;
+      var ref = '';
+      try { if (document.referrer) { var h = new URL(document.referrer).hostname; if (h !== location.hostname) ref = h; } } catch (e) {}
+      var page = (location.pathname.split('/').pop() || 'index.html');
+      var mob = !!(window.matchMedia && matchMedia('(pointer:coarse)').matches);
+      supa.rpc('track_landing', { p_device: d, p_page: page, p_ref: ref, p_mobile: mob })
+        .then(function (r) { if (!r.error) localStorage.setItem(k, today); }, function () {});
+    } catch (e) {}
+  })();
   /* ---------- error log: script errors real visitors hit, stored in client_errors (log_error rpc) ---------- */
   (function () {
     var sent = {}, n = 0;
