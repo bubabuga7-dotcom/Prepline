@@ -537,7 +537,7 @@
       '<button type="button" data-m="exam"><div><b>Exam</b><span>Real exam time: 2 minutes a question</span></div><i>' + (2 * n) + ' min</i></button>' +
       '<button type="button" data-m="fast"><div><b>Fast</b><span>Practice under pressure; word hints are on</span></div><i>' + n + ' min</i></button>' +
       '</div><button type="button" class="go">Start →</button>' +
-      '<a class="alt" href="' + location.pathname + '?exam=1">Exam day mode: hidden clock, no map →</a></div>';
+      '<a class="alt" href="' + (location.pathname.split('/').pop() || 'index.html') + '?exam=1">Exam day mode: hidden clock, no map →</a></div>';
     document.body.appendChild(startCard);
     function mark() { [].forEach.call(startCard.querySelectorAll('.md button'), function (b) { b.classList.toggle('on', b.getAttribute('data-m') === pick); }); }
     mark();

@@ -132,7 +132,7 @@
         <div><b style="color:#D39A6A">Bronze</b>any points</div>
         <div><b style="color:#DAD7D0">Silver</b>50+ points</div>
         <div><b style="color:var(--gold-2)">Gold</b>150+ points</div>
-        <div><b style="color:var(--gold)">210+ Club</b>150+ points and 88%+ accuracy — the pace of 210/240</div>
+        <div><b style="color:var(--gold)">Top Club</b>150+ points and 88%+ accuracy</div>
       </div>
       <div style="margin-top:16px"><a class="btn" href="live.html">Play in a live room →</a></div>
     </div>
@@ -151,7 +151,8 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function show(id) { ['v-signin', 'v-league'].forEach(function (v) { $(v).classList.toggle('on', v === id); }); }
   function cls(t) { return 't-' + (t === '210+ Club' ? 'Club' : t); }
-  function tierTag(t) { return '<span class="tier ' + cls(t) + '">' + esc(t) + '</span>'; }
+  function nm(t) { return t === '210+ Club' ? 'Top Club' : t; }
+  function tierTag(t) { return '<span class="tier ' + cls(t) + '">' + esc(nm(t)) + '</span>'; }
   function monthName(d) { return new Date(d.getTime() + 5 * 3600e3).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }); }
 
   async function load(prev) {
@@ -190,9 +191,9 @@
     var next = '', pct = 100;
     if (me.points < 50) { next = (50 - me.points) + ' points to Silver'; pct = me.points / 50 * 100; }
     else if (me.points < 150) { next = (150 - me.points) + ' points to Gold'; pct = (me.points - 50) / 100 * 100; }
-    else if (me.tier === 'Gold') { next = 'Raise your accuracy to 88% to enter the 210+ Club (now ' + me.accuracy + '%)'; pct = Math.min(100, me.accuracy / 88 * 100); }
+    else if (me.tier === 'Gold') { next = 'Raise your accuracy to 88% to enter the Top Club (now ' + me.accuracy + '%)'; pct = Math.min(100, me.accuracy / 88 * 100); }
     else next = 'Top tier. Keep your accuracy at 88%+ to stay in the club.';
-    $('me').innerHTML = '<div class="badge ' + cls(me.tier) + '">' + esc(me.tier) + '</div><div>' +
+    $('me').innerHTML = '<div class="badge ' + cls(me.tier) + '">' + esc(nm(me.tier)) + '</div><div>' +
       '<h2>#' + me.rank + ' · ' + esc(me.name) + '</h2>' +
       '<div class="nums"><div><b>' + me.points + '</b>points</div><div><b>' + me.accuracy + '%</b>accuracy</div>' +
       '<div><b>' + me.games + '</b>games</div><div><b>' + me.duel_wins + '</b>duels won</div></div>' +

@@ -302,8 +302,9 @@ render();
         if (!was && state.finished) {
           const qs = (typeof QUESTIONS !== 'undefined') ? QUESTIONS : questions;
           let score = 0;
-          qs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
-          window.preplineSaveResult(mockId(), score, qs.length);
+          const vq = qs.filter(q => q.verified !== false);
+          vq.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+          window.preplineSaveResult(mockId(), score, vq.length);
         window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
         }
       } catch (e) { console.error('[Shyn]', e); }
@@ -495,7 +496,7 @@ render();
 </style>
 <div id="pl-gate">
   <div class="box">
-    <h3>Sign in to start this test</h3>
+    <h3>Save your progress</h3>
     <p>Sign in or create an account to start this test. Your results will be saved to your account.</p>
     <div class="row">
       <button class="go" id="plGateGo">Sign in or create an account</button>
@@ -536,7 +537,7 @@ render();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
 </script>
-<script src="test-ux.js?v=72e95420"></script>
+<script src="test-ux.js?v=a61ed9a1"></script>
 <script src="zoom.js?v=d5c1b15d" defer></script>
 <script src="mtext.js?v=7848c645" defer></script>
 </body>
