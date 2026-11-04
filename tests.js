@@ -603,7 +603,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "Trial Test 1 · 1 not scored",
 "tap": 97,
-"about": "Balanced mix · 1 unscored"
+"about": "Balanced mix"
 },
 {
 "id": "mix-56",
@@ -625,7 +625,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "Trial Test 3 · 2 not scored · + 2 Shyn questions",
 "tap": 90,
-"about": "More ratio · 1 unscored"
+"about": "More ratio"
 },
 {
 "id": "mix-58",
@@ -724,7 +724,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "Trial Test 12 · 1 not scored · + 1 Shyn question",
 "tap": 97,
-"about": "More geometry · 1 unscored"
+"about": "More geometry"
 },
 {
 "id": "mix-67",
@@ -900,7 +900,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "all 5 question types",
 "tap": 10,
-"about": "Critical thinking only · more weaken & strengthen"
+"about": "Critical thinking only, more weaken and strengthen"
 },
 {
 "id": "crit-2",
@@ -911,7 +911,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "all 5 question types",
 "tap": 10,
-"about": "Critical thinking only · more weaken & strengthen"
+"about": "Critical thinking only, more weaken and strengthen"
 },
 {
 "id": "crit-3",
@@ -922,7 +922,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "all 5 question types",
 "tap": 10,
-"about": "Critical thinking only · more weaken & strengthen"
+"about": "Critical thinking only, more weaken and strengthen"
 },
 {
 "id": "crit-4",
@@ -933,7 +933,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "all 5 question types",
 "tap": 13,
-"about": "Critical thinking only · more weaken & strengthen"
+"about": "Critical thinking only, more weaken and strengthen"
 },
 {
 "id": "crit-5",
@@ -944,7 +944,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "Assumptions, Conclusions, External Factors · + 8 Shyn questions",
 "tap": 0,
-"about": "Critical thinking only · more assumptions and conclusions"
+"about": "Critical thinking only, more assumptions and conclusions"
 },
 {
 "id": "crit-6",
@@ -1032,7 +1032,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "worked solutions",
 "tap": 0,
-"about": "More main conclusion and weaken & strengthen"
+"about": "More main conclusion, weaken and strengthen"
 },
 {
 "id": "crit-14",
@@ -1131,7 +1131,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "BMAT 2013 + BMAT 2014 · 13 CT / 17 PS · official key",
 "tap": 97,
-"about": "More weaken & strengthen"
+"about": "More weaken and strengthen"
 },
 {
 "id": "crit-23",
@@ -1153,7 +1153,7 @@ window.PREPLINE_TESTS = [
 "min": 60,
 "src": "BMAT 2015 · 14 CT / 16 PS · official key",
 "tap": 97,
-"about": "More weaken & strengthen and conclusions"
+"about": "More weaken, strengthen and conclusions"
 },
 {
 "id": "crit-25",
@@ -1715,6 +1715,17 @@ window.PREPLINE_TESTS = [
 "src": "Original questions in the official exam format · 15 CT + 15 PS · explanations",
 "tap": 0,
 "about": "More flaws"
+},
+{
+"id": "crit-76",
+"kind": "ct",
+"n": 76,
+"group": "Topic mocks",
+"q": 30,
+"min": 60,
+"src": "TSA · BMAT · IMAT past papers · 15 Main Conclusion + 15 Relevant Selection · official keys · explanations",
+"tap": 80,
+"about": "Main conclusion and data selection"
 },
 {
 "id": "test",

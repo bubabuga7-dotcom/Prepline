@@ -72,15 +72,14 @@
       var cls = p >= 70 ? 'ok' : p >= 45 ? 'warn' : 'bad';
       badge = '<span class="score ' + cls + '">' + r.best + '/' + r.total + '</span>';
     }
-    if (!r && !d && locked(t.id)) badge = '<span class="lock" title="Premium">🔒 Premium</span>';
+    if (!r && !d && locked(t.id)) badge = '<span class="lock" title="Premium">Premium</span>';
     if (d) badge = '<span class="wip" title="Unfinished attempt, saved on this device">' + d.n + '/' + d.q + ' in progress</span>';
     return '<a class="tile' + (r && !d ? ' done' : '') + '" href="' + (d ? t.id + '.html' : link(t.id)) + '">' +
-      '<div class="tile-top"><span class="num mono">' + (t.group === 'Original mock exams' ? 'EXAM' : '#' + t.n) + '</span>' + badge + '</div>' +
+      (badge ? '<div class="tile-top">' + badge + '</div>' : '') +
       '<h3>' + esc(title(t)) + '</h3>' +
       '<p class="src">' + esc(t.about || t.src || '') + '</p>' +
-      '<div class="tile-foot mono"><span>' + t.q + ' q</span><span>' + t.min + ' min</span>' +
-      (d ? '<span class="cont">Continue →</span>' : r ? '<span class="tries">' + r.count + (r.count === 1 ? ' attempt' : ' attempts') + '</span>' : '<span class="go">Start →</span>') +
-      '</div></a>';
+      (d ? '<div class="tile-foot"><span class="cont">Continue</span></div>' : '') +
+      '</a>';
   }
 
   function render() {
@@ -137,7 +136,7 @@
     var next = all.filter(function (t) { return !results[t.id] && t.group !== 'Original mock exams' && !locked(t.id); })[0];
     if (next && nx) {
       nx.querySelector('.next-name').textContent = title(next);
-      nx.querySelector('.next-src').textContent = ((next.about || next.src) ? (next.about || next.src) + ' · ' : '') + next.q + ' questions · ' + next.min + ' min';
+      nx.querySelector('.next-src').textContent = next.about || '';
       nx.querySelector('a.btn').href = link(next.id);
       nx.querySelector('.next-label').textContent = done.length ? 'Next up' : 'Start here';
     }

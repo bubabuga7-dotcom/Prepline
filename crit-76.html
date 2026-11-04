@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://shynstudy.lol/crit-76.html">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#15181D">
+<link rel="icon" href="icons/icon.svg?v=c1f6ddba" type="image/svg+xml"><link rel="icon" href="icons/favicon-48.png?v=034e02fd" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=8d1c169d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shyn">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>CT Test 76 — Shyn</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Shyn">
+<meta property="og:title" content="CT Test 76 — Shyn">
+<meta property="og:description" content="A timed NUET Critical Thinking mock on Shyn: 15 Main Conclusion and 15 Relevant Selection questions from past papers, with answer review. Free.">
+<meta property="og:url" content="https://shynstudy.lol/crit-76.html">
+<meta property="og:image" content="https://shynstudy.lol/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="A timed NUET Critical Thinking mock on Shyn: 15 Main Conclusion and 15 Relevant Selection questions from past papers, with answer review. Free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #15181D; --card: rgba(14,20,48,0.72); --text: #C8CDD4; --text-bright: #DADDE2;
+    --blue: #8EADD2; --violet: #8EADD2; --pink: #9DB8DC;
+    --grad: linear-gradient(90deg, #8EADD2 0%, #8EADD2 50%, #9DB8DC 100%);
+    --glass-line: rgba(255,255,255,0.14);
+    --ok: #7DC3A0; --ok-bg: rgba(125,195,160,0.14);
+    --danger: #DE8B8B; --danger-bg: rgba(222,139,139,0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  .page-photo { position: fixed; inset: 0; z-index: 0; background: url('bg-milkyway.jpg') center / cover no-repeat; }
+  .page-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,24,29,0.78) 0%, rgba(21,24,29,0.88) 100%); }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+  a.back { color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.7; transition: opacity .2s, color .2s; }
+  a.back:hover { opacity: 1; color: var(--violet); }
+  h2 { font-family: 'Sora', sans-serif; color: var(--text-bright); letter-spacing: -0.02em; font-size: 20px; margin: 16px 0 20px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; opacity: 0.85; }
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text-bright); opacity: 1;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-line); padding: 2px 12px; border-radius: 999px;
+  }
+  .timer.low { color: #E3A1A1; border-color: rgba(222,139,139,0.5); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0.55; } }
+  .progress { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--grad); transition: width 0.25s; border-radius: 3px; }
+  .question { font-size: 17px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+  .question-img { max-width: 100%; border: 1px solid var(--glass-line); border-radius: 10px; margin-bottom: 16px; display: block; background: #fff; padding: 6px; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .opt {
+    text-align: left; border: 1px solid var(--glass-line); border-radius: 10px; padding: 13px 16px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 15px; font-family: inherit; cursor: pointer; color: var(--text);
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .opt:hover { border-color: var(--violet); background: rgba(142,173,210,0.12); transform: translateX(3px); }
+  .opt.selected {
+    border: 2px solid var(--blue); background: rgba(142,173,210,0.16);
+    color: var(--text-bright); font-weight: 500;
+  }
+  .nav-row { display: flex; justify-content: space-between; }
+  button.nav-btn {
+    border: 1.5px solid var(--glass-line); color: var(--text-bright); background: var(--card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  button.nav-btn:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-1px); }
+  button.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.submit-btn {
+    border: none; color: #fff;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    padding: 10px 22px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s, transform .15s;
+    box-shadow: 0 8px 24px -10px rgba(157,184,220,0.5);
+  }
+  button.submit-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(142,173,210,0.55); transform: translateY(-1px); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--glass-line); border-radius: 12px; padding: 16px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 500;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .review-item {
+    border: 1px solid var(--glass-line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .mark { font-weight: 700; margin-left: 12px; flex-shrink: 0; }
+  .mark.ok { color: var(--ok); }
+  .mark.no { color: var(--danger); }
+  .restart-btn {
+    margin-top: 20px; width: 100%; padding: 13px; border-radius: 999px; border: none;
+    background: var(--grad); background-size: 200% 100%; background-position: 0% 50%;
+    color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background-position .4s, box-shadow .3s;
+  }
+  .restart-btn:hover { background-position: 100% 50%; box-shadow: 0 12px 36px -10px rgba(142,173,210,0.55); }
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 16px; }
+    h2 { font-size: 17px; }
+    .question { font-size: 16px; }
+    .stat-grid { gap: 8px; }
+    .stat-card { padding: 10px; }
+    .stat-num { font-size: 19px; }
+    .stat-label { font-size: 11px; }
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .review-item { flex-wrap: wrap; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+<link rel="stylesheet" href="test-theme.css?v=8cdcf57c">
+<script src="theme.js?v=22e17baf"></script>
+<link rel="stylesheet" href="light.css?v=4043c88c">
+</head>
+<body>
+<div class="page-photo"></div>
+<div class="wrap">
+  <a href="crit.html" class="back">&larr; Critical Thinking</a>
+  <h2>CT Test 76 — Main Conclusion & Relevant Selection (30 questions)</h2>
+  <div id="app"></div>
+</div>
+
+<script>
+const questions = [{"id": 1, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2014 · original Q27 · Main conclusion · from CT Test 43</p>", "image": "images/ct-pp/ct064_q28.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Всё ведёт к рекомендации.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Использовать иву для электричества, как Швеция. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Рекомендация = вывод.</div></div>"}, {"id": 2, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2019 · original Q1 · Main conclusion · from CT Test 51</p>", "image": "images/ct-pp/ct072_q12.webp", "options": ["A", "B", "C", "D", "E"], "correct": 4, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Цены и производительность.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Дорогое жильё лишает Лондон нужного разнообразия. Ответ E.</li></ol><div class=\"ex-a\">Ответ: <b>E</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — факты.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Главный вывод.</div></div>"}, {"id": 3, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">IMAT 2016 · original Q17 · Main conclusion · from CT Test 64</p>", "image": "images/ct-pp/ct085_q28.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Цены не помогут: важно удобство.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Главный вывод: нужно больше готовой здоровой еды. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>B — отвергнутая идея.</li><li>A, D, E — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Рекомендация в конце.</div></div>"}, {"id": 4, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2011 · original Q11 · Main conclusion · from CT Test 38</p>", "image": "images/ct-pp/ct059_q12.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Примеры ведут к мысли.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Поведение людей разное — обобщать трудно. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — примеры.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Главный вывод.</div></div>"}, {"id": 5, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2022 · original Q39 · Main conclusion · from CT Test 57</p>", "image": "images/ct-pp/ct078_q20.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Главный вывод.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Моральные оценки, вопреки нашим представлениям, зависят от удачи. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>A, B — контраст.</li><li>D, E — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> «Whether or not we like to admit it» — вывод.</div></div>"}, {"id": 6, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2015 · original Q6 · Main conclusion · from CT Test 24</p>", "image": "images/ct-pp/ct045_q06.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Всё ведёт к рекомендации.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Создать каталогизированные банки семян для фермерских испытаний. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>B — преувеличение.</li><li>Другие — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Рекомендация = вывод.</div></div>"}, {"id": 7, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2015 · original Q11 · Main conclusion · from CT Test 45</p>", "image": "images/ct-pp/ct066_q02.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Всё ведёт к одной мысли.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Чтобы быть счастливыми, надо жить как предки. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Главный вывод.</div></div>"}, {"id": 8, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2013 · original Q1 · Main conclusion · from CT Test 41</p>", "image": "images/ct-pp/ct062_q12.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Логической разницы с другим мясом нет.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Реакция британцев немного иррациональна. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Главный вывод.</div></div>"}, {"id": 9, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA Specimen · original Q22 · Main conclusion · from CT Test 58</p>", "image": "images/ct-pp/ct079_q23.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Главный вывод.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Лучше полностью вегетарианское сельское хозяйство. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>C, D, E — доводы.</li><li>A — уступка.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> «It would be preferable» — вывод.</div></div>"}, {"id": 10, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">IMAT 2012 · original Q9 · Main conclusion · from CT Test 76</p>", "image": "images/ct-pp/ct082_q05.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Ищи утверждение, которое поддерживают все остальные. Проверь кандидатов тестом «следовательно».</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Гель → больше упаковки и больше расход → «So» тренд вреден для природы. Это промежуточный вывод.</li><li>Из «вреден для природы» вытекает последняя фраза: людям нужно знать о последствиях такого выбора.</li><li>Тест: «вреден, следовательно, нужно информировать» работает; наоборот не работает. Главный вывод C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>A — промежуточный вывод: он поддерживает C, а не наоборот.</li><li>B — оценка в начале текста, по сути повтор A.</li><li>D — довод про мусор.</li><li>E — довод про ресурсы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> «So» не всегда главный вывод. Если после него идёт рекомендация, которая из него следует, главный вывод — рекомендация.</div></div>"}, {"id": 11, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2011 · original Q26 · Main conclusion · from CT Test 20</p>", "image": "images/ct-pp/ct041_q06.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Быстрое обнаружение рядом + 10–20% из сотен миллиардов систем.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Главная мысль: пригодные для жизни планеты очень распространены. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы или слишком узко.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Все доводы ведут к одному выводу.</div></div>"}, {"id": 12, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">IMAT 2013 · original Q4 · Main conclusion · from CT Test 62</p>", "image": "images/ct-pp/ct083_q10.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Неверно думать, что только поездка даёт уверенность.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Проекты в своей стране могут быть так же полезны. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>B — промежуточный довод.</li><li>A, D, E — не сказано.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Итоговая мысль.</div></div>"}, {"id": 13, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2009 · original Q1 · Main conclusion · from CT Test 34</p>", "image": "images/ct-pp/ct055_q22.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Всё поддерживает призыв.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>UK должна отменить обязательный пенсионный возраст. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Призыв = вывод.</div></div>"}, {"id": 14, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2020 · original Q33 · Main conclusion · from CT Test 54</p>", "image": "images/ct-pp/ct075_q04.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Ищем утверждение, ради которого написан весь текст. Ключевая фраза: «But it is now time to call a halt».</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Начало (прорывы медицины) — фон.</li><li>«Пора остановиться» — главный вывод.</li><li>Дальше идут причины: дорого, обанкротит страну, продление угасания приносит вред.</li><li>Значит, вывод: работу над новыми методами лечения нужно прекратить.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>A — это вводная часть, а не вывод.</li><li>C, D, E — причины, которые подкрепляют вывод.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Слова «But», «now», «therefore» часто стоят прямо перед главным выводом.</div></div>"}, {"id": 15, "topic": "MC", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2018 · original Q1 · Main conclusion · from CT Test 49</p>", "image": "images/ct-pp/ct070_q22.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Главный вывод.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Эвтаназия должна быть доступна по достижении определённого возраста. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — доводы.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Главный вывод.</div></div>"}, {"id": 16, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2021 · original Q7 · Problem solving · from CT Test 31</p>", "image": "images/ct-pp/ct052_q04.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Фильтр: соль ≤ 0,60, жир ≤ 50, белок ≥ 5.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Подходят яблочный пирог, брауни, рокки-роуд.</li><li>Меньше всего углеводов — рокки-роуд, 81 г. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Крем-брюле — мало белка, Бейквелл — жир, ирисочный пудинг — соль.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Сначала фильтр.</div></div>"}, {"id": 17, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2012 · original Q32 · Problem solving · from CT Test 21</p>", "image": "images/ct-pp/ct042_q17.webp", "options": ["A", "B", "C", "D", "E"], "correct": 0, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Смерти на машину.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>1930: 7000 : 2,3 млн ≈ 0,0030.</li><li>Сейчас: 3180 : 27 млн ≈ 0,00012.</li><li>Отношение ≈ 0,04. Ответ A.</li></ol><div class=\"ex-a\">Ответ: <b>A</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — без учёта числа машин.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Делите на число машин.</div></div>"}, {"id": 18, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">IMAT 2011 · original Q5 · Problem solving · from CT Test 59</p>", "image": "images/ct-pp/ct080_q24.webp", "options": ["A", "B", "C", "D", "E"], "correct": 0, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Без мелких деталей: машинка, мишка, поезд.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Мишка (Алиса, Ханна) + поезд (Джордж) = 7 + 8 = 15 €. Ответ A.</li></ol><div class=\"ex-a\">Ответ: <b>A</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Другие — с мелкими деталями или не всем.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Фильтр, потом покрытие.</div></div>"}, {"id": 19, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2014 · original Q13 · Problem solving · from CT Test 43</p>", "image": "images/ct-pp/ct064_q14.webp", "options": ["A", "B", "C", "D", "E"], "correct": 0, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Уже: 225 + 525 + 750 + 1000 = 2500 калорий.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Ещё 2500 при 5 кал/г = 500 г. Ответ A.</li></ol><div class=\"ex-a\">Ответ: <b>A</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — арифметика.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Остаток : калорийность.</div></div>"}, {"id": 20, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2015 · original Q24 · Problem solving · from CT Test 45</p>", "image": "images/ct-pp/ct066_q15.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Мэри до 65 лет: льгота 4385 £.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Облагаемо 1200 £ по 10% = 120 £. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — не та льгота или ставка.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Доход − льгота.</div></div>"}, {"id": 21, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2019 · original Q9 · Problem solving · from CT Test 29</p>", "image": "images/ct-pp/ct050_q02.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">550 — среднее мужской и женской оплаты; женщины 90,9% от мужчин.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>M + 0,909M = 1100 → M ≈ 576, W ≈ 524 ≈ 525 £. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — не то уравнение.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Поровну людей → среднее.</div></div>"}, {"id": 22, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2018 · original Q8 · Problem solving · from CT Test 49</p>", "image": "images/ct-pp/ct070_q29.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">По верхним сегментам — ≈ 14:57.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Выезд 08:34 → больше 6 ч → до часа: 3 часа. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Другие — не совпадают.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Проверьте по контексту.</div></div>"}, {"id": 23, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA Specimen · original Q2 · Problem solving · from CT Test 58</p>", "image": "images/ct-pp/ct079_q03.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Занятые = полная + частичная + самозанятые.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Мужчины: 55,4 + 2,3 + 8,8 = 66,5.</li><li>Женщины: 28,4 + 20,5 + 2,8 = 51,7.</li><li>Разница 14,8. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — пропущена категория.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Читайте определение «занятости».</div></div>"}, {"id": 24, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2021 · original Q19 · Problem solving · from CT Test 55</p>", "image": "images/ct-pp/ct076_q10.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Едем накануне дня рождения: Марте 15 — ребёнок.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Онлайн за день: семья из 5 (2 взрослых + 3 детей) 57 + ещё ребёнок 11 + пенсионерка 13 = 81 $. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>В день рождения Марта взрослая — дороже.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Возраст меняет тариф.</div></div>"}, {"id": 25, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2011 · original Q12 · Problem solving · from CT Test 38</p>", "image": "images/ct-pp/ct059_q13.webp", "options": ["A", "B", "C", "D", "E"], "correct": 0, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Kostless: 8,50 £/кг; Savemore: 10 £/кг.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Разница 1,50 £. Ответ A.</li></ol><div class=\"ex-a\">Ответ: <b>A</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — не на кг.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Приводите к цене за кг.</div></div>"}, {"id": 26, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">IMAT 2015 · original Q11 · Problem solving · from CT Test 64</p>", "image": "images/ct-pp/ct085_q02.webp", "options": ["A", "B", "C", "D", "E"], "correct": 4, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Кошка: 5,3 : 3500 ≈ 0,0015.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Мышь 0,09 : 58 ≈ 0,00155 — ближе всего. Ответ E.</li></ol><div class=\"ex-a\">Ответ: <b>E</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Собака 0,0017; кролик 0,0011; голубь 0,0008; белка 0,0043.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Переведите кг в г.</div></div>"}, {"id": 27, "topic": "CON", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2010 · original Q25 · Drawing a conclusion · from CT Test 37</p>", "image": "images/ct-pp/ct058_q06.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Стоимость ∝ 100 · списание + 10 · серьёзные + лёгкие.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Март: 11 572 — максимум. Ответ B.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Янв 11 281, ноя 10 775.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Взвешенная сумма.</div></div>"}, {"id": 28, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2019 · original Q2 · Problem solving · from CT Test 51</p>", "image": "images/ct-pp/ct072_q13.webp", "options": ["A", "B", "C", "D", "E"], "correct": 2, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Налоги каждого.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Тим 3000, Дэвид 3000 — Дэвид. Ответ C.</li></ol><div class=\"ex-a\">Ответ: <b>C</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Другие платят больше.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Ставка × доход.</div></div>"}, {"id": 29, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">TSA 2020 · original Q32 · Problem solving · from CT Test 54</p>", "image": "images/ct-pp/ct075_q03.webp", "options": ["A", "B", "C", "D", "E"], "correct": 1, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Нужно 14 кусков по 12 см и 14 по 7 см; склеивать нельзя. Ищем самый дешёвый набор лент без лишних отходов.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Цена за сантиметр: 30 см — 13,3p, 50 см и 60 см — по 10p. Выгоднее длинные ленты.</li><li>Нижняя граница: всего нужно 14 × 12 + 14 × 7 = 266 см → минимум 266 × 10p = £26,60, значит, не меньше £27.</li><li>Набор на £27: 2 × 60 см (по 5 кусков 12 см) = 10 кусков; 1 × 50 см (4 куска 12 см) → всего 14 больших.</li><li>Ещё 2 × 50 см по 7 кусков 7 см (49 см) = 14 маленьких.</li><li>Итого 2 × £6 + 3 × £5 = <b>£27</b> — равно нижней границе, дешевле нельзя.</li></ol><div class=\"ex-a\">Ответ: <b>B</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>A (£26) — меньше теоретического минимума £26,60.</li><li>C–E — возможны, но дороже найденного набора.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Сначала посчитайте нижнюю границу (общая длина × лучшая цена за см) — она отсекает слишком дешёвые варианты и подтверждает оптимум.</div></div>"}, {"id": 30, "topic": "PS", "text": "<p style=\"font-size:12px;opacity:.6;font-weight:500\">BMAT 2016 · original Q10 · Problem solving · from CT Test 25</p>", "image": "images/ct-pp/ct046_q15.webp", "options": ["A", "B", "C", "D", "E"], "correct": 3, "explain": "<div class=\"ex\"><div class=\"ex-h\">✦ Идея</div><p class=\"ex-i\">Продукт 6: 600 за ноя–дек.</p><div class=\"ex-h\">Решение</div><ol class=\"ex-s\"><li>Декабрь: 6000 : 40 = 150. Ноябрь 450. Ответ D.</li></ol><div class=\"ex-a\">Ответ: <b>D</b></div><div class=\"ex-h ex-x\">✗ Почему не другие</div><ul class=\"ex-n\"><li>Остальные — не та цена.</li></ul><div class=\"ex-t\"><b>⚠ Ловушка / совет.</b> Доход : цена = количество.</div></div>"}];
+
+let state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.finished) { renderResults(app); return; }
+
+  const q = questions[state.idx];
+  const answeredCount = Object.keys(state.answers).length;
+
+  app.innerHTML = `
+    <div class="topbar">
+      <span>Question ${state.idx+1} of ${questions.length}</span>
+      <span class="timer ${state.timeLeft < 60 ? 'low' : ''}" id="timer">${fmt(state.timeLeft)}</span>
+    </div>
+    <div class="progress"><div class="progress-fill" style="width:${(answeredCount/questions.length)*100}%"></div></div>
+    ${q.image ? `<img loading="lazy" src="${q.image}" class="question-img" alt="Figure for the question">` : ''}
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt,i) => `<button class="opt ${state.answers[q.id]===i ? 'selected' : ''}" data-i="${i}">${opt}</button>`).join('')}
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev" ${state.idx===0 ? 'disabled' : ''}>&larr; Back</button>
+      ${state.idx === questions.length-1
+        ? '<button class="submit-btn" id="submit">Finish test</button>'
+        : '<button class="nav-btn" id="next">Next &rarr;</button>'}
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => { state.answers[q.id] = parseInt(btn.dataset.i); render(); };
+  });
+  const prev = document.getElementById('prev');
+  if (prev) prev.onclick = () => { state.idx = Math.max(0, state.idx-1); render(); };
+  const next = document.getElementById('next');
+  if (next) next.onclick = () => { state.idx = Math.min(questions.length-1, state.idx+1); render(); };
+  const submit = document.getElementById('submit');
+  if (submit) submit.onclick = finish;
+}
+
+function finish() {
+  clearInterval(state.timerId);
+  state.finished = true;
+  saveAttempt();
+  render();
+  appendHistory();
+}
+
+/* === Shyn: attempt history (localStorage) === */
+function mockKey() {
+  return 'prepline:' + ((location.pathname.split('/').pop() || 'mock').replace('.html','') || 'mock');
+}
+function saveAttempt() {
+  try {
+    let score = 0;
+    const verifiedQs = questions.filter(q => q.verified !== false);
+    verifiedQs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    hist.push({ t: Date.now(), s: score, n: verifiedQs.length });
+    localStorage.setItem(mockKey(), JSON.stringify(hist.slice(-50)));
+  } catch (e) {}
+}
+function appendHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem(mockKey()) || '[]');
+    if (hist.length < 2) return; // first attempt — no history yet
+    const best = Math.max.apply(null, hist.map(a => a.s));
+    const rows = hist.slice(-10).reverse().map(a => {
+      const d = new Date(a.t);
+      const ds = d.toLocaleDateString('ru-RU') + ' ' +
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const pct = Math.round(a.s / a.n * 100);
+      return '<div class="review-item"><span>' + ds + '</span>' +
+        '<span class="mark ' + (a.s === best ? 'ok' : '') + '">' + a.s + '/' + a.n + ' &middot; ' + pct + '%</span></div>';
+    }).join('');
+    const div = document.createElement('div');
+    div.innerHTML = '<h2 style="margin-top:28px">Attempt history &middot; best result ' + best + '/' + hist[hist.length-1].n + '</h2>' + rows;
+    const app = document.getElementById('app');
+    const rb = app.querySelector('.restart-btn');
+    if (rb) app.insertBefore(div, rb); else app.appendChild(div);
+  } catch (e) {}
+}
+
+function renderResults(app) {
+  const verifiedQs = questions.filter(q => q.verified !== false);
+  let correctCount = 0;
+  verifiedQs.forEach(q => { if (state.answers[q.id] === q.correct) correctCount++; });
+  const pct = verifiedQs.length ? Math.round((correctCount/verifiedQs.length)*100) : 0;
+
+  app.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Result</div><div class="stat-num">${correctCount}/${verifiedQs.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Percentage</div><div class="stat-num">${pct}%</div></div>
+      <div class="stat-card"><div class="stat-label">Unanswered</div><div class="stat-num">${questions.length - Object.keys(state.answers).length}</div></div>
+    </div>
+    ${questions.map(q => {
+      const unverified = q.verified === false;
+      const ok = state.answers[q.id] === q.correct;
+      const userAns = q.id in state.answers ? q.options[state.answers[q.id]] : '—';
+      const correctAns = unverified ? null : q.options[q.correct];
+      return `<div class="review-item" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span>Question ${questions.indexOf(q)+1}${q.text ? ': ' + q.text : ''}</span><span class="mark ${unverified ? '' : (ok ? 'ok' : 'no')}" style="${unverified ? 'color:var(--text); opacity:0.6; font-weight:500; font-size:12px;' : ''}">${unverified ? 'no key' : (ok ? '&#10003;' : '&#10007;')}</span>
+        </div>
+        ${q.image ? `<img loading="lazy" src="${q.image}" style="max-width:100%; border:1px solid var(--glass-line); border-radius:8px; margin-top:8px; background:#fff; padding:4px;" alt="Question ${q.id}">` : ''}
+        ${unverified ? '' : (ok ? '' : `<div style="font-size:13px; margin-top:6px;"><span style="color:var(--danger);">Your answer: ${userAns}</span> &nbsp;·&nbsp; <span style="color:var(--ok); font-weight:600;">Correct: ${correctAns}</span></div>`)}
+      </div>`;
+    }).join('')}
+    <button class="restart-btn" id="restart">Take it again</button>
+  `;
+  document.getElementById('restart').onclick = () => {
+    state = { idx: 0, answers: {}, timeLeft: 1800, timerId: null, finished: false };
+    startTimer();
+    render();
+  };
+}
+
+function startTimer() {
+  state.timerId = setInterval(() => {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) { finish(); return; }
+    render();
+  }, 1000);
+}
+
+startTimer();
+render();
+</script>
+
+<!-- ===== Shyn x Supabase: auth + cloud saving ===== -->
+<script src="vendor/supabase/supabase.js?v=2.118.0"></script>
+<script src="prepline-supabase.js?v=9d5a56b9"></script>
+<script>
+(function () {
+  function mockId() { return (location.pathname.split('/').pop() || 'mock').replace('.html',''); }
+
+  if (typeof saveAttempt === 'function') {
+    /* mix-1..7: hook saveAttempt — localStorage stays, cloud is added */
+    const orig = saveAttempt;
+    saveAttempt = function () {
+      orig();
+      try {
+        const verifiedQs = questions.filter(q => q.verified !== false);
+        let score = 0;
+        verifiedQs.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+        window.preplineSaveResult(mockId(), score, verifiedQs.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), verifiedQs, state.answers);
+      } catch (e) { console.error('[Shyn]', e); }
+    };
+  } else if (typeof finish === 'function') {
+    /* mix-8: no saveAttempt, wrap finish instead */
+    const origFinish = finish;
+    finish = function (reason) {
+      const was = state.finished;
+      origFinish(reason);
+      try {
+        if (!was && state.finished) {
+          const qs = (typeof QUESTIONS !== 'undefined') ? QUESTIONS : questions;
+          let score = 0;
+          const vq = qs.filter(q => q.verified !== false);
+          vq.forEach(q => { if (state.answers[q.id] === q.correct) score++; });
+          window.preplineSaveResult(mockId(), score, vq.length);
+        window.preplineSaveAnswers && window.preplineSaveAnswers(mockId(), qs, state.answers);
+        }
+      } catch (e) { console.error('[Shyn]', e); }
+    };
+  }
+})();
+</script>
+
+<!-- ===== Shyn: scroll view ===== -->
+<style id="prepline-scroll-view-css">
+  .pl-mode {
+    display: flex; gap: 6px; align-items: center; margin: 0 0 16px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px; padding: 4px; width: fit-content;
+  }
+  .pl-mode button {
+    font: 600 12.5px 'Inter', system-ui, sans-serif; color: inherit; cursor: pointer;
+    background: none; border: 0; padding: 7px 16px; border-radius: 999px;
+    opacity: .65; transition: opacity .15s, background .15s;
+  }
+  .pl-mode button:hover { opacity: 1; }
+  .pl-mode button.on {
+    opacity: 1; background: linear-gradient(90deg,#8EADD2,#8EADD2,#9DB8DC); color: #fff;
+  }
+  .pl-scroll .pl-q {
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+    padding: 20px 0 24px;
+  }
+  .pl-scroll .pl-q:last-of-type { border-bottom: 0; }
+  .pl-scroll .pl-num {
+    font: 700 12px 'Inter', system-ui, sans-serif; letter-spacing: .06em;
+    text-transform: uppercase; opacity: .5; margin-bottom: 8px;
+  }
+  .pl-scroll .pl-img {
+    max-width: 100%; border-radius: 8px; margin: 4px 0 12px;
+    background: #fff; padding: 4px; -webkit-user-drag: none; user-drag: none;
+    pointer-events: none;
+  }
+  .pl-scroll .pl-text { margin-bottom: 12px; line-height: 1.55; }
+  .pl-scroll .pl-opts { display: flex; flex-direction: column; gap: 7px; }
+  .pl-scroll .pl-opt {
+    text-align: left; font: 400 14.5px 'Inter', system-ui, sans-serif; color: inherit;
+    cursor: pointer; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px;
+    transition: border-color .15s, background .15s;
+  }
+  .pl-scroll .pl-opt:hover { border-color: rgba(142,173,210,0.55); }
+  .pl-scroll .pl-opt.sel {
+    background: rgba(142,173,210,0.18); border-color: rgba(142,173,210,0.85);
+  }
+  .pl-bar {
+    position: sticky; bottom: 0; display: flex; gap: 14px; align-items: center;
+    justify-content: space-between; margin-top: 8px; padding: 12px 4px;
+    background: rgba(21,24,29,0.9); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .pl-bar .pl-count { font: 500 13px 'Inter', system-ui, sans-serif; opacity: .75; }
+  .pl-bar .pl-submit {
+    font: 600 14px 'Inter', system-ui, sans-serif; color: #fff; cursor: pointer; border: 0;
+    background: linear-gradient(90deg,#8EADD2,#8EADD2,#9DB8DC);
+    padding: 11px 26px; border-radius: 999px;
+  }
+  .pl-noselect, .pl-noselect * {
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  }
+  @media print { body.pl-noprint * { display: none !important; } }
+</style>
+
+<script id="prepline-scroll-view">
+(function () {
+  if (typeof questions === 'undefined' || typeof state === 'undefined') return;
+  if (typeof render !== 'function') return;
+
+  var LETTERS = 'ABCDEFGH';
+  var app = document.getElementById('app');
+  if (!app) return;
+
+  var wrap = app.parentNode;
+  var host = document.createElement('div');
+  host.id = 'pl-scroll-host';
+  host.className = 'pl-scroll pl-noselect';
+  host.style.display = 'none';
+  wrap.insertBefore(host, app.nextSibling);
+
+  var bar = document.createElement('div');
+  bar.className = 'pl-mode';
+  bar.innerHTML = '<button type="button" data-m="one" class="on">One at a time</button>' +
+                  '<button type="button" data-m="all">Scroll view</button>';
+  wrap.insertBefore(bar, app);
+
+  var mode = 'one';
+
+  function esc(s) { return String(s == null ? '' : s); }
+
+  function draw() {
+    var parts = [];
+    for (var i = 0; i < questions.length; i++) {
+      var q = questions[i];
+      var opts = '';
+      for (var k = 0; k < (q.options || []).length; k++) {
+        var on = state.answers[q.id] === k ? ' sel' : '';
+        opts += '<button type="button" class="pl-opt' + on + '" data-q="' + q.id +
+                '" data-i="' + k + '">' + (LETTERS[k] || (k + 1)) + ') ' + (q.options[k]) + '</button>';
+      }
+      parts.push(
+        '<div class="pl-q" id="pl-q-' + q.id + '">' +
+          '<div class="pl-num">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
+          (q.image ? '<img loading="lazy" class="pl-img" src="' + q.image + '" alt="Figure">' : '') +
+          (q.text ? '<div class="pl-text">' + q.text + '</div>' : '') +
+          '<div class="pl-opts">' + opts + '</div>' +
+        '</div>');
+    }
+    var answered = Object.keys(state.answers).length;
+    parts.push(
+      '<div class="pl-bar">' +
+        '<span class="pl-count">' + answered + ' of ' + questions.length + ' answered</span>' +
+        '<button type="button" class="pl-submit" id="pl-submit">Finish test</button>' +
+      '</div>');
+    host.innerHTML = parts.join('');
+
+    var btns = host.querySelectorAll('.pl-opt');
+    for (var b = 0; b < btns.length; b++) {
+      btns[b].onclick = function () {
+        var qid = parseInt(this.dataset.q, 10);
+        state.answers[qid] = parseInt(this.dataset.i, 10);
+        var sibs = this.parentNode.querySelectorAll('.pl-opt');
+        for (var s = 0; s < sibs.length; s++) sibs[s].classList.remove('sel');
+        this.classList.add('sel');
+        var c = host.querySelector('.pl-count');
+        if (c) c.textContent = Object.keys(state.answers).length + ' of ' + questions.length + ' answered';
+      };
+    }
+    var sub = document.getElementById('pl-submit');
+    if (sub) sub.onclick = function () {
+      var left = questions.length - Object.keys(state.answers).length;
+      if (left > 0 && !confirm('Unanswered: ' + left + ' question(s). Finish anyway?')) return;
+      setMode('one');
+      if (typeof finish === 'function') finish();
+    };
+  }
+
+  function setMode(m) {
+    if (state.finished) m = 'one';
+    mode = m;
+    var on = (m === 'all');
+    host.style.display = on ? 'block' : 'none';
+    app.style.display = on ? 'none' : '';
+    document.body.classList.toggle('pl-noprint', on);
+    var mb = bar.querySelectorAll('button');
+    for (var i = 0; i < mb.length; i++) mb[i].classList.toggle('on', mb[i].dataset.m === m);
+    if (on) { draw(); } else { render(); }
+  }
+
+  var mbtns = bar.querySelectorAll('button');
+  for (var i = 0; i < mbtns.length; i++) {
+    mbtns[i].onclick = function () { setMode(this.dataset.m); };
+  }
+
+  // в сплошном режиме мешаем самому простому копированию
+  host.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  host.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  host.addEventListener('copy', function (e) { e.preventDefault(); });
+
+  // после завершения теста режим прокрутки прячется, показываем результаты
+  var origFinish = window.finish;
+  if (typeof origFinish === 'function') {
+    window.finish = function () {
+      if (mode === 'all') setMode('one');
+      return origFinish.apply(this, arguments);
+    };
+  }
+})();
+</script>
+
+
+<!-- ===== Shyn: sign-in gate ===== -->
+<style id="prepline-gate-css">
+  #pl-gate{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
+           background:rgba(12,14,17,.78);backdrop-filter:blur(4px);padding:20px}
+  #pl-gate.on{display:flex}
+  #pl-gate .box{max-width:420px;width:100%;background:#1D2127;border:1px solid rgba(255,255,255,.14);
+                border-radius:10px;padding:26px 28px;font-family:Inter,system-ui,sans-serif;color:#DADDE2}
+  #pl-gate h3{font-family:Sora,Inter,sans-serif;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
+  #pl-gate p{font-size:14px;line-height:1.55;color:#A6ADB8;margin:0 0 18px}
+  #pl-gate .row{display:flex;gap:10px;flex-wrap:wrap}
+  #pl-gate button{font:600 14px Inter,sans-serif;padding:11px 22px;border-radius:5px;cursor:pointer;border:0}
+  #pl-gate .go{background:#9DB8DC;color:#1A1D21}
+  #pl-gate .back{background:transparent;border:1px solid rgba(255,255,255,.18);color:#DADDE2}
+</style>
+<div id="pl-gate">
+  <div class="box">
+    <h3>Save your progress</h3>
+    <p>Sign in or create an account to start this test. Your results will be saved to your account.</p>
+    <div class="row">
+      <button class="go" id="plGateGo">Sign in or create an account</button>
+      <button class="back" id="plGateBack">Back to the list</button>
+    </div>
+  </div>
+</div>
+<script src="gate.js?v=e059aa93"></script>
+
+
+<style>
+.q-table{border-collapse:collapse;margin:10px 0;font-size:.95em}
+.q-table th,.q-table td{border:1px solid rgba(128,150,200,.45);padding:4px 10px;text-align:left}
+.q-table th{font-weight:600}
+</style>
+
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  // render math the moment it lands in the page: MutationObserver callbacks run before the next paint, so raw LaTeX is never shown
+  var opts = {delimiters: [{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}], throwOnError: false};
+  function render(el){ if(!window.renderMathInElement || !el) return; try { renderMathInElement(el, opts); } catch(e) {} }
+  function hasMath(el){ var t = el.textContent || ""; return t.indexOf("\\(") >= 0 || t.indexOf("\\[") >= 0; }
+  function start(){
+    render(document.body);
+    new MutationObserver(function(ms){
+      var done = [];
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target;
+        if (!ms[i].addedNodes.length || t.nodeType !== 1 || done.indexOf(t) >= 0) continue;
+        if (t.closest(".katex") || !hasMath(t)) continue;
+        done.push(t); render(t);
+      }
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+</script>
+<script src="test-ux.js?v=9b6eb216"></script>
+<script src="zoom.js?v=d5c1b15d" defer></script>
+<script src="mtext.js?v=7848c645" defer></script>
+</body>
+</html>
