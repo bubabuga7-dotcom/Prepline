@@ -99,6 +99,7 @@
     .tiles{grid-template-columns:1fr 1fr;gap:10px}
     .tile{min-height:0;padding:12px 13px}
   }
+  .next .next-label,.next .next-src{display:none}
 </style>
 <script src="theme.js?v=22e17baf"></script>
 <link rel="stylesheet" href="light.css?v=4043c88c">
@@ -108,40 +109,31 @@
 <main><div class="wrap">
   <div class="hub-head">
     <div>
-      <span class="kicker">Section 2 · Critical Thinking</span>
       <h1>Critical Thinking</h1>
-      <p>Arguments, assumptions, flaws and problem solving — topic mixes and official BMAT, TSA and IMAT past papers.</p>
     </div>
     <div class="next" id="next">
-      <span class="kicker next-label">Start here</span>
+      <span class="kicker next-label" hidden>Start here</span>
       <span class="next-name">—</span>
-      <span class="next-src"></span>
+      <span class="next-src" hidden></span>
       <a class="btn" href="#">Start test</a>
     </div>
   </div>
-  <div class="stats">
-    <div class="stat"><b id="st-tests">—</b><span>tests</span></div>
-    <div class="stat"><b id="st-q">—</b><span>questions</span></div>
-    <div class="stat"><b id="st-done" class="gold">—</b><span>completed by you</span></div>
-    <div class="stat"><b id="st-avg">—</b><span>average best score</span></div>
-  </div>
-  <div class="progress"><i id="done-bar"></i></div>
 
   <div class="toolbar">
     <div class="tabs" id="tabs"></div>
     <div class="tools-right">
       <input class="search" id="search" type="search" name="prepline-test-filter" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-1p-ignore placeholder="Find a test…" aria-label="Find a test">
       <label class="toggle"><input type="checkbox" id="hide-done"> Hide completed</label>
-      <label class="toggle" title="Hidden clock with 10/5/1-minute signals, no map or hints — like a real exam"><input type="checkbox" id="exam-mode"> Exam day mode <span style="opacity:.6">· hidden clock, no hints</span></label>
+      <label class="toggle" title="Hidden clock with 10/5/1-minute signals, no map or hints — like a real exam"><input type="checkbox" id="exam-mode"> Exam day mode</label>
     </div>
   </div>
   <div id="groups"></div>
-  <p class="foot-note">Spotted a typo or a wrong key? Use <b>⚑ Report an error</b> under the question. Results are saved on this device; sign in to keep them in the cloud. Sources are named on every test · <a href="copyright.html">Rights holders</a>.</p>
+  <p class="foot-note"><a href="copyright.html">Rights holders</a></p>
 </div></main>
 <script src="nav.js?v=f9fab1a1"></script>
-<script src="tests.js?v=12f57cfa"></script>
+<script src="tests.js?v=dcce2680"></script>
 <script src="vendor/supabase/supabase.js?v=2.118.0"></script>
 <script src="prepline-supabase.js?v=9d5a56b9"></script>
-<script src="hub.js?v=367042fa"></script>
+<script src="hub.js?v=5e38c536"></script>
 </body>
 </html>

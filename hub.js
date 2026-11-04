@@ -60,7 +60,7 @@
     var h = '';
     ['All'].concat(groups).forEach(function (g) {
       var n = g === 'All' ? all.length : all.filter(function (t) { return t.group === g; }).length;
-      h += '<button class="tab' + (state.group === g ? ' on' : '') + '" data-g="' + esc(g) + '">' + esc(g) + ' <span class="mono">' + n + '</span></button>';
+      h += '<button class="tab' + (state.group === g ? ' on' : '') + '" data-g="' + esc(g) + '">' + esc(g) + '</button>';
     });
     tabs.innerHTML = h;
   }
@@ -94,7 +94,7 @@
       });
       if (!list.length) return;
       shown += list.length;
-      h += '<section class="group"><div class="group-head"><h2>' + esc(g) + '</h2><span class="mono">' + list.length + ' tests</span></div>' +
+      h += '<section class="group"><div class="group-head"><h2>' + esc(g) + '</h2></div>' +
            '<div class="tiles">' + list.map(tile).join('') + '</div></section>';
     });
     grid.innerHTML = h || '<p class="empty">No tests match. Clear the search or show completed tests.</p>';
@@ -105,11 +105,12 @@
     var done = all.filter(function (t) { return results[t.id]; });
     var qs = all.reduce(function (s, t) { return s + t.q; }, 0);
     var avg = done.length ? Math.round(done.reduce(function (s, t) { var r = results[t.id]; return s + 100 * r.best / r.total; }, 0) / done.length) + '%' : '—';
-    document.getElementById('st-tests').textContent = all.length;
-    document.getElementById('st-q').textContent = qs.toLocaleString('en-US');
-    document.getElementById('st-done').textContent = done.length + ' / ' + all.length;
-    document.getElementById('st-avg').textContent = avg;
-    var bar = document.getElementById('done-bar');
+    var $=function(i){return document.getElementById(i)||{style:{}};};
+    $('st-tests').textContent = all.length;
+    $('st-q').textContent = qs.toLocaleString('en-US');
+    $('st-done').textContent = done.length + ' / ' + all.length;
+    $('st-avg').textContent = avg;
+    var bar = $('done-bar');
     if (bar) bar.style.width = (100 * done.length / Math.max(all.length, 1)) + '%';
     // free plan: tests left this week
     var fp = document.getElementById('free-plan');
