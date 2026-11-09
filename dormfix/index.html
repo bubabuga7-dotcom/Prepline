@@ -4,220 +4,175 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DormFix</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono&display=swap">
 <style>
-:root{
-  --bg:#f3f5f4; --card:#ffffff; --ink:#1d2a26; --muted:#5d6b66; --line:#d6dedb;
-  --accent:#0f766e; --danger:#b42318; --ok:#067647;
-  --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
-}
+:root{--bg:#f3f5f4;--card:#fff;--ink:#1d2a26;--muted:#5d6b66;--line:#d6dedb;--accent:#0f766e;--red:#b42318;--green:#067647}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
-header{background:var(--accent);color:#fff;padding:18px 16px}
-header div,main{max-width:960px;margin:0 auto}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif}
+header{background:var(--accent);color:#fff;padding:16px}
 header h1{margin:0;font-size:24px}
-header p{margin:2px 0 0;opacity:.9}
-nav{display:flex;gap:8px;flex-wrap:wrap;max-width:960px;margin:16px auto 0;padding:0 16px}
-nav button{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:6px;font:600 14px var(--sans);color:var(--ink);cursor:pointer}
-nav button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-main{padding:16px}
+header p{margin:0;opacity:.9}
+nav{display:flex;gap:8px;flex-wrap:wrap;padding:16px 16px 0}
+nav button{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:6px;font-weight:600;cursor:pointer}
+nav button.on{background:var(--ink);color:#fff}
+main{padding:16px;max-width:900px}
 section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px}
-h2{margin:0 0 4px;font-size:19px}
-.hint{margin:0 0 14px;color:var(--muted)}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:14px}
+h2{margin:0 0 12px;font-size:19px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:12px}
 label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
-select,input,textarea{font:14px var(--sans);padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:150px}
-textarea{width:100%;min-height:70px}
-.btn{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:600 14px var(--sans);cursor:pointer}
+select,input{font:inherit;padding:8px;border:1px solid var(--line);border-radius:6px;min-width:160px}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-weight:600;cursor:pointer}
 .btn.small{padding:5px 10px;font-size:13px}
-.btn.red{background:var(--danger)}
-.btn.grey{background:var(--muted)}
+.btn.red{background:var(--red)}
 .wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:640px}
-th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-td.id{font-family:var(--mono)}
-.msg{margin-top:12px;padding:10px;border-radius:6px;display:none}
-.msg.ok{display:block;background:#e7f6ec;color:var(--ok)}
-.msg.err{display:block;background:#fdecea;color:var(--danger)}
-.sql{font-family:var(--mono);font-size:12px;background:#f0f3f2;padding:8px;border-radius:6px;margin-top:10px;white-space:pre-wrap;color:var(--muted)}
-.bar{display:flex;align-items:center;gap:10px;margin:8px 0}
-.bar span:first-child{width:90px}
-.bar .fill{height:22px;background:var(--accent);border-radius:4px;color:#fff;font-weight:600;padding:0 8px;display:flex;align-items:center;min-width:28px}
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+table{border-collapse:collapse;width:100%;min-width:600px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;color:var(--muted)}
+.msg{margin-top:12px;padding:10px;border-radius:6px}
+.msg.ok{background:#e7f6ec;color:var(--green)}
+.msg.err{background:#fdecea;color:var(--red)}
+.sql{font-family:Consolas,monospace;font-size:13px;background:#eef2f1;padding:8px;border-radius:6px;margin-top:12px}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
-<header><div><h1>DormFix</h1><p>Report and track dormitory repairs · Supabase database</p></div></header>
+<header><h1>DormFix</h1><p>Dormitory repair reports</p></header>
 
 <nav>
-  <button data-tab="search" class="on">Find reports</button>
+  <button data-tab="find" class="on">Find reports</button>
+  <button data-tab="new">New report</button>
   <button data-tab="stats">Statistics</button>
-  <button data-tab="add">New report</button>
 </nav>
 
 <main>
-  <!-- 1. SELECT with WHERE + 4. UPDATE + 5. DELETE -->
-  <section id="search">
+  <section id="find">
     <h2>Find reports</h2>
-    <p class="hint">Choose a dormitory and a status, then press Search.</p>
     <div class="row">
       <label>Dormitory <select id="fDorm"></select></label>
-      <label>Status <select id="fStatus">
-        <option value="">Any</option><option>Submitted</option><option>Assigned</option>
-        <option>In progress</option><option>Resolved</option><option>Closed</option></select></label>
-      <button class="btn" id="btnSearch">Search</button>
+      <button class="btn" id="btnFind">Find</button>
     </div>
     <div class="wrap"><table>
-      <thead><tr><th>ID</th><th>Category</th><th>Location</th><th>Status</th><th>Change status</th><th></th></tr></thead>
+      <thead><tr><th>ID</th><th>Category</th><th>Location</th><th>Status</th><th>New status</th><th></th></tr></thead>
       <tbody id="rows"></tbody>
     </table></div>
-    <div class="msg" id="msgSearch"></div>
-    <div class="sql" id="sqlSearch"></div>
+    <div class="msg" id="msgFind" hidden></div>
+    <div class="sql" id="sqlFind"></div>
   </section>
 
-  <!-- 2. Aggregation COUNT + GROUP BY -->
-  <section id="stats" hidden>
-    <h2>Open reports by category</h2>
-    <p class="hint">Counts reports that are not Resolved or Closed.</p>
-    <button class="btn" id="btnStats">Show statistics</button>
-    <div id="bars" style="margin-top:14px"></div>
-    <div class="sql">SELECT c.name, COUNT(r.report_id) AS open_reports
-FROM category c LEFT JOIN report r ON r.category_id = c.category_id
-  AND r.status NOT IN ('Resolved','Closed')
-GROUP BY c.name;</div>
-  </section>
-
-  <!-- 3. INSERT -->
-  <section id="add" hidden>
+  <section id="new" hidden>
     <h2>New report</h2>
-    <p class="hint">Describe the problem and press Send report.</p>
-    <div class="form">
+    <div class="row">
       <label>Student <select id="nStudent"><option>U001</option><option>U002</option><option>U003</option><option>U004</option><option>U005</option></select></label>
       <label>Dormitory <select id="nDorm"></select></label>
       <label>Category <select id="nCat"></select></label>
-      <label>Location <input id="nLoc" placeholder="Floor 3, room 312"></label>
     </div>
-    <label style="margin-top:12px">Description <textarea id="nDesc" placeholder="The ceiling light does not turn on"></textarea></label>
-    <div style="margin-top:12px"><button class="btn" id="btnAdd">Send report</button></div>
-    <div class="msg" id="msgAdd"></div>
+    <div class="row">
+      <label>Location <input id="nLoc" placeholder="Floor 3, room 312"></label>
+      <label>Problem <input id="nDesc" placeholder="Light does not turn on" style="min-width:260px"></label>
+    </div>
+    <button class="btn" id="btnSend">Send report</button>
+    <div class="msg" id="msgNew" hidden></div>
+    <div class="sql" id="sqlNew" hidden></div>
+  </section>
+
+  <section id="stats" hidden>
+    <h2>Reports by category</h2>
+    <button class="btn" id="btnStats">Show statistics</button>
+    <div class="wrap" style="margin-top:12px"><table style="min-width:0">
+      <thead><tr><th>Category</th><th>Total reports</th></tr></thead>
+      <tbody id="statRows"></tbody>
+    </table></div>
+    <div class="sql">SELECT category_id, COUNT(*) AS total_reports FROM report GROUP BY category_id;</div>
   </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-const db = supabase.createClient(
-  "https://ghtdjqblyqwvwvkdzffg.supabase.co",
-  "sb_publishable_7uDUdBAkWu9C-6ZHXwa9XA_QymGZTzf"
-);
+// connection to the DormFix database in Supabase
+const db = supabase.createClient("https://ghtdjqblyqwvwvkdzffg.supabase.co", "sb_publishable_7uDUdBAkWu9C-6ZHXwa9XA_QymGZTzf");
 const $ = id => document.getElementById(id);
-const STATUSES = ["Submitted","Assigned","In progress","Resolved","Closed"];
-let cats = {};
+const STATUSES = ["Submitted", "Assigned", "In progress", "Resolved", "Closed"];
+let catName = {};
 
-function show(el, text, ok){ el.textContent = text; el.className = "msg " + (ok ? "ok" : "err"); }
+function message(el, text, ok) { el.hidden = false; el.textContent = text; el.className = "msg " + (ok ? "ok" : "err"); }
 
-// tabs
 document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
   document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x === b));
-  document.querySelectorAll("main section").forEach(s => s.hidden = s.id !== b.dataset.tab);
+  document.querySelectorAll("section").forEach(s => s.hidden = s.id !== b.dataset.tab);
 });
 
-// load dormitories and categories for the dropdowns
-async function loadLists(){
-  const { data: dorms } = await db.from("dormitory").select("dormitory_id, name").order("dormitory_id");
-  const { data: c } = await db.from("category").select("category_id, name").order("category_id");
-  (dorms || []).forEach(d => {
-    $("fDorm").add(new Option(d.name, d.dormitory_id));
-    $("nDorm").add(new Option(d.name, d.dormitory_id));
-  });
-  (c || []).forEach(x => { cats[x.category_id] = x.name; $("nCat").add(new Option(x.name, x.category_id)); });
+async function loadLists() {
+  const dorms = (await db.from("dormitory").select("*")).data || [];
+  const cats = (await db.from("category").select("*")).data || [];
+  dorms.forEach(d => { $("fDorm").add(new Option(d.name, d.dormitory_id)); $("nDorm").add(new Option(d.name, d.dormitory_id)); });
+  cats.forEach(c => { catName[c.category_id] = c.name; $("nCat").add(new Option(c.name, c.category_id)); });
 }
 
-// 1. SELECT ... WHERE
-async function search(){
-  const dorm = $("fDorm").value, status = $("fStatus").value;
-  let q = db.from("report").select("report_id, category_id, location_detail, status")
-            .eq("dormitory_id", dorm).order("report_id");
-  if (status) q = q.eq("status", status);
-  const { data, error } = await q;
-  $("sqlSearch").textContent = "SELECT report_id, category_id, location_detail, status FROM report\nWHERE dormitory_id = '" + dorm + "'" + (status ? " AND status = '" + status + "'" : "") + ";";
-  if (error) return show($("msgSearch"), "Could not load reports: " + error.message, false);
-  $("msgSearch").className = "msg";
+// 1. SELECT with WHERE
+async function findReports() {
+  const dorm = $("fDorm").value;
+  const { data, error } = await db.from("report").select("*").eq("dormitory_id", dorm).order("report_id");
+  $("sqlFind").textContent = "SELECT * FROM report WHERE dormitory_id = '" + dorm + "';";
+  if (error) return message($("msgFind"), "Error: " + error.message, false);
   $("rows").innerHTML = "";
-  if (!data.length) { $("rows").innerHTML = '<tr><td colspan="6">No reports found.</td></tr>'; return; }
   data.forEach(r => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="id">${r.report_id}</td><td>${cats[r.category_id] || r.category_id}</td>
-      <td>${r.location_detail}</td><td>${r.status}</td>
-      <td><select>${STATUSES.map(s => `<option ${s===r.status?"selected":""}>${s}</option>`).join("")}</select>
-          <button class="btn small">Save</button></td>
-      <td><button class="btn small red">Delete</button></td>`;
-    const [sel] = tr.getElementsByTagName("select");
-    const [save, del] = tr.getElementsByTagName("button");
-    save.onclick = () => updateStatus(r.report_id, sel.value);
-    del.onclick = () => askDelete(r.report_id, del);
+    tr.innerHTML = `<td>${r.report_id}</td><td>${catName[r.category_id]}</td><td>${r.location_detail}</td><td>${r.status}</td>
+      <td><select>${STATUSES.map(s => `<option ${s === r.status ? "selected" : ""}>${s}</option>`).join("")}</select>
+      <button class="btn small">Update</button></td><td><button class="btn small red">Delete</button></td>`;
+    const buttons = tr.querySelectorAll("button");
+    buttons[0].onclick = () => updateStatus(r.report_id, tr.querySelector("select").value);
+    buttons[1].onclick = () => deleteReport(r.report_id, buttons[1]);
     $("rows").appendChild(tr);
   });
 }
 
-// 4. UPDATE
-async function updateStatus(id, status){
-  const { error } = await db.from("report").update({ status, updated_at: new Date().toISOString() }).eq("report_id", id);
-  if (error) return show($("msgSearch"), "Could not update " + id + ": " + error.message, false);
-  await search();
-  show($("msgSearch"), "Status of " + id + " changed to " + status + ".", true);
+// 2. UPDATE
+async function updateStatus(id, status) {
+  const { error } = await db.from("report").update({ status: status, updated_at: new Date().toISOString() }).eq("report_id", id);
+  if (error) return message($("msgFind"), "Error: " + error.message, false);
+  await findReports();
+  $("sqlFind").textContent = "UPDATE report SET status = '" + status + "' WHERE report_id = '" + id + "';";
+  message($("msgFind"), "Report " + id + " updated: status is now " + status + ".", true);
 }
 
-// 5. DELETE (with confirmation inside the page)
-function askDelete(id, btn){
-  if (btn.dataset.sure) return deleteReport(id);
-  btn.dataset.sure = "1"; btn.textContent = "Sure?";
-  setTimeout(() => { delete btn.dataset.sure; btn.textContent = "Delete"; }, 3000);
-}
-async function deleteReport(id){
+// 3. DELETE (second click confirms)
+async function deleteReport(id, btn) {
+  if (btn.textContent !== "Sure?") { btn.textContent = "Sure?"; return; }
   const { error } = await db.from("report").delete().eq("report_id", id);
-  if (error) {
-    const linked = error.code === "23503";
-    return show($("msgSearch"), linked
-      ? id + " cannot be deleted: it already has a worker assignment or status history. Only new reports can be deleted."
-      : "Could not delete " + id + ": " + error.message, false);
-  }
-  await search();
-  show($("msgSearch"), "Report " + id + " deleted.", true);
+  if (error) return message($("msgFind"), "Report " + id + " cannot be deleted because other records are linked to it.", false);
+  await findReports();
+  $("sqlFind").textContent = "DELETE FROM report WHERE report_id = '" + id + "';";
+  message($("msgFind"), "Report " + id + " deleted.", true);
 }
 
-// 2. COUNT + GROUP BY (view report_stats)
-async function stats(){
-  const { data, error } = await db.from("report_stats").select("category, open_reports").order("open_reports", { ascending: false });
-  if (error) { $("bars").textContent = "Could not load statistics: " + error.message; return; }
-  const max = Math.max(1, ...data.map(d => d.open_reports));
-  $("bars").innerHTML = data.map(d =>
-    `<div class="bar"><span>${d.category}</span><span class="fill" style="width:${d.open_reports / max * 70}%">${d.open_reports}</span></div>`).join("");
-}
-
-// 3. INSERT
-async function addReport(){
+// 4. INSERT
+async function sendReport() {
   const loc = $("nLoc").value.trim(), desc = $("nDesc").value.trim();
-  if (!loc || !desc) return show($("msgAdd"), "Fill in Location and Description.", false);
-  const { data: last } = await db.from("report").select("report_id").order("report_id", { ascending: false }).limit(1);
-  const next = "DF-" + (parseInt((last[0]?.report_id || "DF-1000").slice(3)) + 1);
+  if (!loc || !desc) return message($("msgNew"), "Please fill in Location and Problem.", false);
+  const last = (await db.from("report").select("report_id").order("report_id", { ascending: false }).limit(1)).data[0];
+  const id = "DF-" + (Number(last.report_id.slice(3)) + 1);
   const now = new Date().toISOString();
   const { error } = await db.from("report").insert({
-    report_id: next, student_id: $("nStudent").value, dormitory_id: $("nDorm").value,
-    category_id: $("nCat").value, location_detail: loc, description: desc,
-    status: "Submitted", created_at: now, updated_at: now
-  });
-  if (error) return show($("msgAdd"), "Could not send the report: " + error.message, false);
+    report_id: id, student_id: $("nStudent").value, dormitory_id: $("nDorm").value, category_id: $("nCat").value,
+    location_detail: loc, description: desc, status: "Submitted", created_at: now, updated_at: now });
+  if (error) return message($("msgNew"), "Error: " + error.message, false);
   $("nLoc").value = ""; $("nDesc").value = "";
-  show($("msgAdd"), "Report " + next + " sent. Status: Submitted.", true);
+  message($("msgNew"), "Report " + id + " sent. Status: Submitted.", true);
+  $("sqlNew").hidden = false;
+  $("sqlNew").textContent = "INSERT INTO report (report_id, student_id, dormitory_id, category_id, location_detail, description, status) VALUES ('" + id + "', ...);";
 }
 
-$("btnSearch").onclick = search;
-$("btnStats").onclick = stats;
-$("btnAdd").onclick = addReport;
-loadLists().then(search);
+// 5. COUNT + GROUP BY
+async function showStats() {
+  const { data, error } = await db.from("report_stats").select("*").order("category_id");
+  if (error) return;
+  $("statRows").innerHTML = data.map(s => `<tr><td>${catName[s.category_id]}</td><td>${s.total_reports}</td></tr>`).join("");
+}
+
+$("btnFind").onclick = findReports;
+$("btnSend").onclick = sendReport;
+$("btnStats").onclick = showStats;
+loadLists().then(findReports);
 </script>
 </body>
 </html>
